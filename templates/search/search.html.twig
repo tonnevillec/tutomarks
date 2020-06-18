@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'search.title'|trans|capitalize }}{% endblock %}
+
+{% form_theme form _self %}
+{% block _tags_row %}
+    <div class="form-group">
+        <label class="label">{{ label }}</label><br/>
+        {% if choices is iterable %}
+            {% for id, k in choices %}
+                <label for="tags_{{ k.value }}" class="btn btn-sm btn-outline-info rounded-pill">
+                    <input type="checkbox" name="tags[]" value="{{ k.data.id }}" id="tags_{{ k.value }}" {% if k.data.id in form.vars.value %}checked="checked"{% endif%} class="badgebox" data-color="info">{{ k.label }}
+                </label>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block _evaluation_row %}
+    <div class="form-group">
+        <label class="label" for="evaluation">{{ label }}</label><br/>
+        <input type="number" id="evaluation" name="evaluation" class="star-rating-new" min="0" max="5" step="1" data-size="sm" {% if form.vars.value %}value="{{ form.vars.value }}"{% endif %}>
+    </div>
+{% endblock %}
+
+{% block body %}
+<section class="my-2">
+    <div class="container">
+        <h1 class="h1">{{ 'search.title'|trans|capitalize }}</h1>
+
+        <div class="card mb-3">
+            <div class="card-body">
+             {{ form_start(form)}}
+                <div class="input-group mb-3">
+                    {{ form_widget(form.search, { 'attr' : { 'class' : 'form-control' }}) }}
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit"><i class="fas fa-search"></i> {{ 'btn.search'|trans|capitalize }}</button>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-outline-primary btn-sm show_more" data-target="#advancedSearch">{{ 'btn.show_more_filters'|trans|capitalize }}</button>
+
+                <div id="advancedSearch" class="{% if form.vars.value.category is not null or form.vars.value.creator is not null or form.vars.value.tags|length > 0 %} {% else %}is-hide{% endif%} mt-3">
+                    <div class="row">
+                        <div class="col-md-4 col">
+                            {{ form_row(form.category) }}
+                        </div>
+                        <div class="col-md-4 col">
+                            {{ form_row(form.langue) }}
+                        </div>
+                        <div class="col-md-4 col">
+                            <div class="form-group">
+                                {{ form_row(form.evaluation) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ form_row(form.tags) }}
+
+                    {{ form_row(form.creator) }}
+                </div>
+
+                {{ form_rest(form) }}
+             {{ form_end(form)}}
+            </div>
+        </div>
+
+        {% if result is defined %}
+            <h2 class="font-weight-light mb-3">{{ result.getTotalItemCount }} {{ 'search.results'|trans|capitalize }}{{ result.getTotalItemCount > 1 ? 's' : '' }}</h2>
+            <hr class="mb-3">
+
+            <div class="row">
+                {% for tuto in result %}
+                    {% include 'tutos/_light_card.html.twig' %}
+                {% endfor %}
+            </div>
+
+            <div class="navigation">
+                {{ knp_pagination_render(result) }}
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

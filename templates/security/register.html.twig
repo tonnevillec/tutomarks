@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'nav.register'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+<section class="my-2">
+    <div class="container">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <h1 class="h3 mb-3 font-weight-normal">{{ 'nav.signin'|trans|capitalize }}</h1>
+
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            {{ form_row(form.email, {
+                'attr': {
+                    'class': 'form-control',
+                    'id': 'inputEmail'
+                }})
+            }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.username, {
+                'attr': {
+                    'class': 'form-control',
+                    'id': 'inputUsername'
+                }})
+            }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.password, {
+                'attr': {
+                    'class': 'form-group',
+                    'id': 'inputPassword',
+                }})
+            }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.password_repeat, {
+                'attr': {
+                    'class': 'form-group',
+                    'id': 'inputPasswordRepeat',
+                }})
+            }}
+            <div class="help-block text-right">{{ form_errors(form.password_repeat) }}</div>
+        </div>
+
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+
+        <button class="btn btn-outline-success" type="submit">
+            {{ 'nav.register'|trans|capitalize }}
+        </button>
+
+        {{ form_end(form) }}
+    </div>
+</section>
+{% endblock %}

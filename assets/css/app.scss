@@ -1,0 +1,18 @@
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+
+// Variables
+//@import 'variables_sketchy';
+@import 'variables_lux';
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+//@import "bootswatch_sketchy";
+@import "bootswatch_lux";
+
+@import "~select2";
+@import "~bootstrap-star-rating";
+@import "~bootstrap-star-rating/themes/krajee-fa/theme.min.css";
+
+// Template
+@import "template";
+@import "badgebox";

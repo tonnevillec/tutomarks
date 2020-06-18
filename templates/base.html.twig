@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        {{ encore_entry_link_tags('style') }}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body class="pt-7">
+        {% include 'header.html.twig' %}
+
+{#        <div class="wrapper">#}
+        <main role="main" class="hero is-fullheight">
+{#            <div class="container">#}
+                {% block body %}{% endblock %}
+{#            </div>#}
+        </main>
+{#        </div>#}
+
+        {% include 'footer.html.twig' %}
+
+        {{ encore_entry_script_tags('app') }}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

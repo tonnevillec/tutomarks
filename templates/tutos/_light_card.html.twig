@@ -1,0 +1,33 @@
+<div class="col-md-4 mb-5">
+    <div class="card h-100 css-tutos">
+        <div class="card-body text-center">
+            <h3 class="card-title my-2">{{ tuto.title }}</h3>
+
+            <hr class="my-4">
+
+            <div class="card-text">
+                <span class="badge badge-light">{{ tuto.category }} - {{ tuto.langue }}</span><br/>
+                {{ 'tutos.created_by'|trans|capitalize }} {{ tuto.creator }}<br/>
+
+                {% for tag in tuto.tags %}
+                    <span class="badge badge-primary badge-pill">{{ tag }}</span>
+                {% endfor %}
+
+                <p class="text-muted my-2">
+                    {% if tuto.moy is null %}
+                        {{ 'tutos.eval.isnull'|trans|capitalize }}
+                    {% else %}
+                        <input type="number" id="tutoEvalGlobale" class="star-rating-fix" value="{{ tuto.moy }}" min=0 max=5 step=0.5 data-size="sm">
+                    {% endif %}
+                </p>
+
+                <small>{{ 'tutos.added_at'|trans|capitalize }} {{ tuto.publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ tuto.publishedBy }}</small>
+            </div>
+        </div>
+
+        <div class="text-center mb-3">
+            <a href="{{ tuto.url }}" target="_blank" class="btn btn-outline-info btn-sm">{{ 'tutos.direct_link'|trans|capitalize }} <i class="fas fa-external-link-alt"></i></a>
+            <a href="{{ path('tutos.show', {'id': tuto.id}) }}" class="btn btn-outline-success btn-sm">{{ 'tutos.details'|trans|capitalize }} <i class="fas fa-clipboard-list"></i></a>
+        </div>
+    </div>
+</div>

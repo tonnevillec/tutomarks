@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TutoMarks !{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="alert alert-{{type}} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <section class="jumbotron">
+            <h1 class="display-3">{{ 'home.title'|trans|capitalize }} TutoMarks !</h1>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ asset('build/images/undraw_video_files_fu10.svg') }}" class="img-fluid img-thumbnail">
+                </div>
+                <div class="col">
+                    <p class="lead">{{ 'home.lead'|trans|capitalize }}</p>
+                    <hr class="my-4">
+                    <p>{{ 'home.sub'|trans|capitalize }}</p>
+
+                    {% if app.user %}
+                    <p class="lead text-right">
+                        <a class="btn btn-outline-success" href="{{ path('tutos.add') }}" role="button">
+                            <i class="far fa-bookmark"></i>
+                            {{ 'tutos.add.title'|trans|capitalize }}
+                        </a>
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <h2 class="font-weight-light mb-3">{{ 'home.last-tutos'|trans|capitalize }}</h2>
+        <hr class="mb-4">
+
+        <div class="row">
+            {% for tuto in tutos %}
+                {% include 'tutos/_light_card.html.twig' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

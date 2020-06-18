@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'tutos.add.title'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+    <section class="my-2">
+        <div class="container">
+            <h1 class="h1">{{ 'tutos.add.title'|trans|capitalize }}</h1>
+            <hr class="my-4">
+
+            <div class="row mt-2">
+                <div class="col col-md-6 col-sm-12">
+                    <div class="form-group">
+                        {{ form_row(form.title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.creator) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.url) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.category) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.langue) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.tags) }} <small class="text-muted">{{ 'tutos.tags.help'|trans|capitalize }}</small>
+                        {{ form_widget(form.tags, { 'attr': {'data-role' : 'tagsinput'} }) }}
+                    </div>
+
+                    <small class="form-text text-muted">* {{ 'required_fields'|trans|capitalize }}</small>
+                </div>
+
+                <div class="col col-md-6 col-sm-12">
+                    <div class="form-group">
+                        {{ form_label(form.description) }}
+                        <br/><small class="form-text text-muted">{{ 'tutos.description.help'|trans|capitalize }}</small>
+                        {{ form_widget(form.description) }}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label" for="tutoEvalPersonal">{{ 'tutos.eval.your'|trans|capitalize }}</label><br/>
+                        <input type="number" id="tutoEvalPersonal" name="userEval" class="star-rating-new" min="0" max="5" step=".5" data-size="sm">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label" for="userComment">{{ 'tutos.published_by.comment'|trans|capitalize }}</label><br/>
+                        <textarea id="userComment" name="userComment" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a class="btn btn-outline-danger" href="{{ path('home') }}">
+                    <i class="fas fa-times"></i>
+                    {{ 'btn.cancel'|trans|capitalize }}
+                </a>
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="fas fa-check"></i>
+                    {{ 'btn.submit'|trans|capitalize }}
+                </button>
+            </div>
+        </div>
+    </section>
+{{ form_rest(form) }}
+{{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,89 @@
+<div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
+    <div class="container d-flex align-items-center">
+        <div class="mr-auto">
+            <ul>
+                <li><a href="#content">{{ 'a11y.top.content'|trans|capitalize }}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<header id="header" class="fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('home') }}">TutoMarks</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Navigation du site">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarHeader">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {% if app.request.get('_route') in ['home'] %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('home') }}">{{ 'nav.home'|trans|capitalize }} <span class="sr-only">({{ 'nav.current'|trans|capitalize }})</span></a>
+                    </li>
+                    <li class="nav-item {% if app.request.get('_route') in ['search'] %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('search') }}">{{ 'nav.search'|trans|capitalize }}</a>
+                    </li>
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('tutos.add') }}">{{ 'nav.add'|trans|capitalize }}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <ul class="navbar-nav navbar-right">
+                    {% if app.user %}
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><b>{{ app.user.username ?: app.user.email }}</b> <span class="caret"></span></a>
+
+                            <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ path('user.profil') }}"><i class="fas fa-user"></i> {{ 'nav.account'|trans|capitalize }}</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" href="{{ path('easyadmin') }}"><i class="fas fa-cogs"></i> {{ 'nav.admin'|trans|capitalize }}</a>
+                                {% endif %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-power-off"></i> {{ 'nav.logout'|trans|capitalize }}</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><b>{{ 'nav.login'|trans|capitalize }}</b> <span class="caret"></span></a>
+                            <div id="login-dp" class="dropdown-menu dropdown-menu-lg-right">
+                                <form class="form" role="form" method="post" action="{{ path('app_login') }}" accept-charset="UTF-8" id="login-nav">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="inputEmail">{{ 'user.email.title'|trans|capitalize }}</label>
+                                        <input type="email" name="email" id="inputEmail" class="form-control form-control-sm" placeholder="{{ 'user.email.placeholder'|trans|capitalize }}" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
+                                        <input type="password" name="password" id="inputPassword" class="form-control form-control-sm" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
+{#                                        <div class="help-block text-right"><a href="">{{ 'user.password.forget'|trans|capitalize }}</a></div>#}
+{#                                        TODO: Mot de passe oublié#}
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="_remember_me"> {{ 'user.keep_me_sign_in'|trans|capitalize }}
+                                        </label>
+                                    </div>
+
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary btn-block btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
+                                    </div>
+                                </form>
+
+                                <div class="bottom text-center">
+                                    {{ 'nav.new_here'|trans|capitalize }} ? <a href="{{ path('app_register') }}"><b>{{ 'nav.register'|trans|capitalize }}</b></a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

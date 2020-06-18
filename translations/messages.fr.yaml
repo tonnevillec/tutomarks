@@ -1,0 +1,150 @@
+a11y:
+    top:
+        content: "passer directement au contenu"
+
+back_to_site: 'Retour au site'
+required_field: 'champ requis'
+required_fields: 'champs requis'
+back_to_top: 'retour en haut de page'
+loading: 'chargement'
+
+home:
+    title: 'Bienvenue sur '
+    lead: "l'annuaire de tutoriaux pour apprendre à développer"
+    sub: "si vous êtes pret, alors c'est parti !"
+    last-tutos: 'les derniers tutos'
+
+nav:
+    home: 'accueil'
+    current: 'actuel'
+    login: 'connexion'
+    logout: 'déconnexion'
+    register: "s'inscrire"
+    account: 'mon compte'
+    new_here: 'nouveau'
+    signin: 'inscription'
+    search: 'recherche'
+    add: 'partager un lien'
+    admin: 'administration'
+    connection: 'connectez-vous'
+
+user:
+    email:
+        title: 'Adresse e-mail'
+        placeholder: 'adresse e-mail'
+    username:
+        placeholder: "nom d'utilisateur"
+        label: "nom d'utilisateur"
+        title: "nom d'utilisateur"
+    password:
+        title: 'Mot de passe'
+        repeat: 'Répéter le mot de passe'
+        forget: 'mot de passe oublié ?'
+    keep_me_sign_in: 'se rappeler de moi'
+    profil:
+        title: 'mon compte'
+        informations: 'mes informations'
+        email: 'mon e-mail'
+        current_email: 'mon e-mail actuel'
+        password: 'mon mot de passe'
+        validate_update: 'votre compte a été modifié'
+        error_update: 'erreur lors de la modification de votre compte'
+        new_email:
+            label: 'nouvelle adresse e-mail'
+            validation: 'valider mon adresse e-mail'
+            help: 'pour valider vos modifications, saisissez votre mot de passe et cliquez sur « Modifier mon adresse e-mail »'
+            validate_update: 'votre e-mail a été modifié'
+            fail_update: 'mot de passe invalide'
+        new_password:
+            label: 'nouveau mot de passe'
+            validation: 'modifier le mot de passe'
+            help: 'pour valider vos modifications, saisissez votre ancien mot de passe et cliquez sur « Modifier  le mot de passe »'
+            validate_update: 'votre mot de passe a été modifié'
+            fail_update: 'mot de passe invalide'
+            confirm: 'Mot de passe actuel'
+        delete:
+            title: 'supprimer mon compte'
+            help: 'pour valider la suppression de votre compte, saisissez votre mot de passe et cliquez sur « Confirmer la suppression »'
+            validate_update: 'votre compte a été supprimé'
+            fail_update: 'mot de passe invalide'
+
+btn:
+    validate: 'valider les modifications'
+    validate_change_password: 'Modifier  le mot de passe'
+    change_email: "changer d'adresse e-mail"
+    change_password: "changer de mot de passe"
+    delete_account: 'supprimer mon compte'
+    delete_confirm: 'confirmer la suppression'
+    cancel: 'annuler'
+    search: 'rechercher'
+    reset: 'réinitialiser'
+    show_more: 'voir plus'
+    show_more_filters: 'afficher plus de filtres'
+    submit: 'soumettre'
+    send: 'envoyer'
+
+delete:
+    are_you_sure: "êtes-vous sûre de vouloir supprimer votre compte ainsi que tout son contenu? Cette opération est irréversible et nous serons très triste de vous perdre :("
+
+tutos:
+    show:
+        title: 'fiche du tutoriel'
+    add:
+        title: 'ajouter un nouveau tutoriel'
+        validate: 'merci pour votre contribution!'
+    title:
+        label: 'titre'
+        placeholder: 'titre du tutoriel'
+    creator:
+        label: 'créateur du tutoriel'
+        placeholder: 'nom du site ou de la personne qui est le créateur du tutotriel'
+    url:
+        label: 'lien vers le tutoriel'
+        placeholder: 'https://www.lien_vers_le_tuto.com'
+        new_windows: 'ouvrir dans une nouvelle fenetre'
+    tags:
+        label: 'tags'
+        help: 'plusieurs choix possibles'
+    category:
+        label: 'categorie'
+    description:
+        label: 'description'
+        help: 'Quel est le contenu du tutoriel? Quels sont les points abordés?'
+    published_by:
+        comment: 'votre commentaire sur le tutoriel'
+    created_by: 'réalisé par'
+    added_at: 'ajouté le'
+    added_by: 'par'
+    direct_link: 'accèder au tuto'
+    details: 'voir la fiche'
+    edit: 'éditer la fiche'
+    eval:
+        isnull: 'pas encore évalué'
+        count: 'évaluations'
+        global: 'note moyenne'
+        your: 'votre note'
+    comments:
+        title: 'commentaires'
+    langue:
+        label: 'Langue du tutoriel'
+
+comments:
+    posted_by: 'commentaire posté par'
+    posted_at: 'le'
+
+
+search:
+    field:
+        placeholder: 'votre recherche'
+    title: 'rechercher un tutoriel'
+    category:
+        label: 'categorie'
+    tags:
+        label: 'tags'
+    creator:
+        label: 'réalisé par'
+    langue:
+        label: 'langue du tutoriel'
+    evaluation:
+        label: 'note minimale'
+    results: 'résultat'

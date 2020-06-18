@@ -1,0 +1,45 @@
+easy_admin:
+    site_name: 'TutoMarks'
+    user:
+        name_property_path: 'username'
+    entities:
+        User:
+            class: App\Entity\User
+            list:
+                fields: ['username', 'email', 'roles', 'is_actif', 'tutos', 'created_at', 'last_connection']
+            form:
+                fields:
+                    - username
+                    - email
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+                    - is_actif
+        Tags:
+            class: App\Entity\Tags
+            list:
+                fields: ['id', 'title', 'logo']
+            form:
+                fields: ['title', 'logo']
+        Categories:
+            class: App\Entity\Categories
+            list:
+                fields: ['id', 'title', 'logo', 'tutos']
+            form:
+                fields: ['title', 'logo']
+        Comments:
+            class: App\Entity\Comments
+            list:
+                fields: ['id', 'user', 'tutos', 'commented_at', 'is_validate']
+            form:
+                fields: ['user', 'tutos', 'commented_at', 'comment', 'is_validate']
+        Langues:
+            class: App\Entity\Langues
+            list:
+                fields: ['id', 'name', 'shortname', 'logo']
+            form:
+                fields: ['name', 'shortname', 'logo']
+        Tutos:
+            class: App\Entity\Tutos
+            list:
+                fields: ['id', 'title', 'published_by', 'published_at', 'creator', 'url', 'category', 'langue']
+            form:
+                fields: ['title', 'published_by', 'published_at', 'creator', 'url', 'category', 'tags', 'description', 'langue']

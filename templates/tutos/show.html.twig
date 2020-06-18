@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'tutos.show.title'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+    <section class="my-2">
+        <div class="container">
+            <h1 class="h1">
+                <span class="h1-text">{{ tuto.title }}</span>
+                {% if is_granted('EDIT', tuto) %}
+                    <span class="float-right">
+                        <a href="#" class="btn btn-light btn-sm">{{ 'tutos.edit'|trans|capitalize }} <i class="fas fa-edit"></i></a>
+                    </span>
+                {% endif %}
+            </h1>
+            <hr class="my-4">
+
+            <div class="row mt-2 mb-3">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="label">{{ 'tutos.creator.label'|trans|capitalize }} :</label>
+                                <span class="">{{ tuto.creator }}</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">{{ 'tutos.url.label'|trans|capitalize }} :</label>
+                                <span class=""><a href="{{ tuto.url }}" target="_blank" class="btn btn-outline-info">{{ 'tutos.url.new_windows'|trans|capitalize }} <i class="fas fa-external-link-alt"></i></a></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">{{ 'tutos.category.label'|trans|capitalize }} :</label>
+                                <span class="">{{ tuto.category }}</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label">{{ 'tutos.langue.label'|trans|capitalize }} :</label>
+                                <span class="">{{ tuto.langue }}</span>
+                            </div>
+
+                            {% if tuto.tags|length > 0 %}
+                                <div class="form-group">
+                                    <label class="label">{{ 'tutos.tags.label'|trans|capitalize }} :</label><br/>
+                                    {% for tag in tuto.tags %}
+                                        <span class="badge badge-primary badge-pill">{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <div class="my-4">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <label for="tutoEvalPersonal">{{ 'tutos.eval.your'|trans|capitalize }}</label><br/>
+                                        {% if app.user %}
+                                            {% set userNote = evalTuto.getForUser(tuto, app.user) %}
+                                            <input type="number" id="tutoEvalPersonal" class="star-rating" value="{{ userNote is null ? '' : userNote }}" min="0" max="5" step=".5" data-size="sm" data-user="{{ app.user.id }}" data-tutos="{{ tuto.id }}" data-url="{{ path('api.eval.tutos') }}">
+                                        {% else %}
+                                            <a href="{{ path('app_login') }}" class="btn btn-sm btn-outline-info">{{ 'nav.connection'|trans|capitalize }}</a>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col text-center">
+                                        {% set note = evalTuto.getTutosMoy(tuto) %}
+                                        <label for="tutoEvalGlobale">{{ 'tutos.eval.global'|trans|capitalize }}</label><br/>
+                                        <input type="number" id="tutoEvalGlobale" class="star-rating-fix" value="{{ note }}" min=0 max=5 step=0.5 data-size="sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="h3 card-title">{{ 'tutos.description.label'|trans|capitalize }} :</h3>
+                            <hr class="my-2">
+
+                            <p class="card-text">
+                                {{ tuto.description|nl2br }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="h2">{{ 'tutos.comments.title'|trans|capitalize }}</h2>
+            <hr class="my-4">
+
+            <div class="row">
+                <div class="col mb-3">
+                    <div class="form-group">
+                        <textarea id="userComment" name="userComment" class="form-control" placeholder="{{ 'tutos.published_by.comment'|trans|capitalize }}"></textarea>
+                    </div>
+
+                    <button class="btn btn-outline-success" type="submit">{{ 'btn.send'|trans|capitalize }}</button>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for comment in comments %}
+                 <div class="col">
+                     <div class="card">
+                         <div class="card-body">
+                            <p class="card-title">{{ 'comments.posted_by'|trans|capitalize }} {{ comment.user }} {{ 'comments.posted_at'|trans }} {{ comment.commentedAt|date('d/m/Y à H:i') }}</p>
+                             <hr class="my-2">
+                            <p class="card-text">{{ comment.comment|nl2br }}</p>
+                         </div>
+                     </div>
+                 </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

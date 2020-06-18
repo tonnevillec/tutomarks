@@ -1,0 +1,458 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    <section class="my-2">
+        <div class="container">
+            <h1 class="h1">{{ 'user.profil.title'|trans|capitalize }}</h1>
+
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a href="#a_informations" class="list-group-item list-group-item-action">{{ 'user.profil.informations'|trans|capitalize }}</a>
+                        <a href="#a_changemail" class="list-group-item list-group-item-action">{{ 'user.profil.email'|trans|capitalize }}</a>
+                        <a href="#a_changepassword" class="list-group-item list-group-item-action">{{ 'user.profil.password'|trans|capitalize }}</a>
+                        <a href="#a_delete" class="list-group-item list-group-item-action">{{ 'user.profil.delete.title'|trans|capitalize }}</a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                {{ message|capitalize }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <section>
+                        <div class="card" id="a_informations">
+                            <div class="card-body">
+                                <h2 class="h2">{{ 'user.profil.informations'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+
+                                {{ form_start(form) }}
+                                <div class="form-group">
+                                    {{ form_row(form.username, {
+                                        'attr': {
+                                            'class': 'form-control',
+                                            'id': 'inputUsername'
+                                        }})
+                                    }}
+                                </div>
+
+                                <button type="submit" class="btn btn-outline-success">
+                                    {{ 'btn.validate'|trans|capitalize }}
+                                </button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+
+                        <div class="card mt-3" id="a_changemail">
+                            <div class="card-body">
+                                <h2 class="card-title h2">{{ 'user.profil.email'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+
+                                <div class="alert alert-danger is-hide" id="js-notification-email">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <span class="js-notification-email-message js-message"></span>
+                                </div>
+
+                                <div class="form-group" id="js-current-email">
+                                    <label for="js-current-email-value" class="label">{{ 'user.profil.current_email'|trans|capitalize }}</label>
+                                    <input type="email" class="form-control" id="js-current-email-value" value="{{ app.user.email }}" disabled>
+                                </div>
+
+                                <div id="js-change-mail" class="is-hide">
+                                    {{ form_start(form_email) }}
+                                    <div class="form-group">
+                                        {{ form_row(form_email.email, {
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'id': 'js-new-mail'
+                                            }})
+                                        }}
+                                        {% if form_errors(form_email.email) %}
+                                            <div class="invalid-feedback">{{ form_errors(form_email.email) }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form_row(form_email.email_repeat, {
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'id': 'js-new-mail-confirm'
+                                            }})
+                                        }}
+                                        {% if form_errors(form_email.email_repeat) %}
+                                            <div class="invalid-feedback">{{ form_errors(form_email.email_repeat) }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form_row(form_email.password_confirm, {
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'id': 'js-mdp-validation'
+                                            }})
+                                        }}
+                                        {% if form_errors(form_email.password_confirm) %}
+                                            <div class="invalid-feedback">{{ form_errors(form_email.password_confirm) }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <small class="form-text text-muted">* {{ 'required_fields'|trans|capitalize }}</small>
+                                    {{ form_end(form_email) }}
+                                </div>
+
+                                <div>
+                                    <div class="spinner-border js-btn-change-mail-waiting is-hide" role="status">
+                                        <span class="sr-only">{{ 'loading'|trans|capitalize }}...</span>
+                                    </div>
+
+                                    <button type="button" class="btn btn-outline-primary js-btn-show-change-mail" id="js-show-change-mail">
+                                        <i class="fas fa-lock"></i>
+                                        <span>{{ 'btn.change_email'|trans|capitalize }}</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-success js-btn-change-mail-validation is-hide" id="js-validate-change-mail">
+                                        <i class="fas fa-check"></i>
+                                        <span>{{ 'btn.validate'|trans|capitalize }}</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-danger js-btn-change-mail-validation is-hide" id="js-cancel-change-mail">
+                                        <i class="fas fa-times"></i>
+                                        <span>{{ 'btn.cancel'|trans|capitalize }}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3" id="a_changepassword">
+                            <div class="card-body">
+                                <h2 class="h2">{{ 'user.profil.password'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+
+                                <div class="alert alert-danger is-hide" id="js-notification-password">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <span class="js-notification-password-message js-message"></span>
+                                </div>
+
+                                <div id="js-change-password" class="is-hide">
+                                    {{ form_start(form_password) }}
+                                    <div class="form-group">
+                                        {{ form_row(form_password.password, {
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'id': 'js-new-password'
+                                            }})
+                                        }}
+                                        {% if form_errors(form_password.password) %}
+                                            <div class="invalid-feedback">{{ form_errors(form_password.password) }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form_row(form_password.password_repeat, {
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'id': 'js-new-password-confirm'
+                                            }})
+                                        }}
+                                        {% if form_errors(form_password.password_repeat) %}
+                                            <div class="invalid-feedback">{{ form_errors(form_password.password_repeat) }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form_row(form_password.password_confirm, {
+                                            'attr': {
+                                                'class': 'form-control',
+                                                'id': 'js-mdp-validation'
+                                            }})
+                                        }}
+                                        {% if form_errors(form_password.password_confirm) %}
+                                            <div class="invalid-feedback">{{ form_errors(form_password.password_confirm) }}</div>
+                                        {% endif %}
+                                        <small class="form-text text-muted">{{ 'user.profil.new_password.help'|trans|capitalize }}</small>
+                                    </div>
+                                    <small class="form-text text-muted">* {{ 'required_fields'|trans|capitalize }}</small>
+                                    {{ form_end(form_password) }}
+                                </div>
+
+                                <div>
+                                    <div class="spinner-border js-btn-change-password-waiting is-hide" role="status">
+                                        <span class="sr-only">{{ 'loading'|trans|capitalize }}...</span>
+                                    </div>
+
+                                    <button type="button" class="btn btn-outline-primary js-btn-show-change-password" id="js-show-change-password">
+                                        <i class="fas fa-lock"></i>
+                                        <span>{{ 'btn.change_password'|trans|capitalize }}</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-success js-btn-change-password-validation is-hide" id="js-validate-change-password">
+                                        <i class="fas fa-check"></i>
+                                        <span>{{ 'btn.validate_change_password'|trans|capitalize }}</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-danger js-btn-change-password-validation is-hide" id="js-cancel-change-password">
+                                        <i class="fas fa-times"></i>
+                                        <span>{{ 'btn.cancel'|trans|capitalize }}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3" id="a_delete">
+                            <div class="card-body">
+                                <h2 class="h2">{{ 'user.profil.delete.title'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+
+                                <div class="alert alert-danger is-hide" id="js-notification-delete">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <span class="js-notification-delete-message js-message"></span>
+                                </div>
+
+                                <div id="js-delete" class="is-hide">
+                                    <p class="alert alert-danger">{{ 'delete.are_you_sure'|trans|capitalize }}</p>
+
+                                    <div class="form-group">
+                                        <label class="label">{{ 'user.profil.password'|trans|capitalize }}</label>
+                                        <input type="password" id="userdelete_password_confirm" name="userdelete[password_confirm]" required="required" class="form-control">
+
+                                        <small class="form-text text-muted">{{ 'user.profil.delete.help'|trans|capitalize }}</small>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="spinner-border js-btn-delete-waiting is-hide" role="status">
+                                        <span class="sr-only">{{ 'loading'|trans|capitalize }}...</span>
+                                    </div>
+
+                                    <button type="button" class="btn btn-outline-primary js-btn-show-delete" id="js-show-delete">
+                                        <i class="fas fa-skull-crossbones"></i>
+                                        <span>{{ 'btn.delete_account'|trans|capitalize }}</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-danger js-btn-delete-validation is-hide" id="js-validate-delete">
+                                        <i class="fas fa-skull-crossbones"></i>
+                                        <span>{{ 'btn.delete_confirm'|trans|capitalize }}</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-outline-success js-btn-delete-validation is-hide" id="js-cancel-delete">
+                                        <i class="fas fa-times"></i>
+                                        <span>{{ 'btn.cancel'|trans|capitalize }}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+
+        // Change mail
+        // ------------------
+        $(document).on('click', '#js-show-change-mail', function(){
+            $('#js-change-mail').show();
+            $('.js-btn-change-mail-validation').show();
+            $('#js-current-email').hide();
+            $('.js-btn-show-change-mail').hide();
+        });
+
+        $(document).on('click', '#js-cancel-change-mail', function(){
+            $('#js-change-mail').hide();
+            $('.js-btn-show-change-mail').show();
+            $('.js-btn-change-mail-validation').hide();
+            $('#js-current-email').show();
+        });
+
+        $(document).on('click', '#js-validate-change-mail', function(){
+            let form = $('form[name="usermail"]');
+
+            let errors = 0;
+            form.find('input[required]').each(function(){
+                if($(this).val().length === 0){
+                    errors++;
+                    $(this).addClass('is-invalid');
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            if(errors !== 0){
+                $('#js-notification-email')
+                    .show()
+                    .addClass('is-invalid')
+                    .removeClass('is-valid')
+                    .find('.js-notification-email-message').html('Champs requis');
+            } else {
+                $('.js-btn-change-mail-waiting').show();
+
+                $.post(form.attr("action"), form.serialize(), function (datas) {
+                    if (datas.length !== 0) {
+                        $('#js-notification-email')
+                            .show()
+                            .addClass('is-valid')
+                            .removeClass('is-invalid')
+                            .find('.js-notification-email-message')
+                            .html(datas.message);
+
+                        $('#js-change-mail').hide();
+                        $('.js-btn-change-mail-validation').hide();
+                        $('.js-btn-cancel-mail-validation').hide();
+                        $('.js-btn-show-change-mail').show();
+                        $('#js-current-email-value').val(datas.newValue);
+                        $('#js-current-email').show();
+                    }
+                }).fail(function (jqXHR, textStatus, error) {
+                    let ret = JSON.parse(jqXHR.responseText);
+
+                    $('#js-notification-email')
+                        .show()
+                        .addClass('is-invalid')
+                        .removeClass('is-valid')
+                        .find('.js-notification-email-message')
+                        .html(ret.message);
+                }).always(function () {
+                    $('.js-btn-change-mail-waiting').hide();
+                });
+            }
+        });
+
+        // Change password
+        // -------------------
+        $(document).on('click', '#js-show-change-password', function(){
+            console.log('youpi');
+
+            $('#js-change-password').show();
+            $('.js-btn-change-password-validation').show();
+            $('#js-current-password').hide();
+            $('.js-btn-show-change-password').hide();
+        });
+
+        $(document).on('click', '#js-cancel-change-password', function(){
+            $('#js-change-password').hide();
+            $('.js-btn-show-change-password').show();
+            $('.js-btn-change-password-validation').hide();
+            $('#js-current-password').show();
+        });
+
+        $(document).on('click', '#js-validate-change-password', function(){
+            let form = $('form[name="userpassword"]');
+            let errors = 0;
+
+            form.find('input[required]').each(function(){
+                if($(this).val().length === 0){
+                    errors++;
+                    $(this).addClass('is-invalid');
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            if(errors !== 0){
+                $('#js-notification-password')
+                    .show()
+                    .addClass('is-invalid')
+                    .removeClass('is-valid')
+                    .find('.js-notification-password-message').html('Champs obligatoire');
+            } else {
+                $('.js-btn-change-password-waiting').show();
+
+                $.post(form.attr("action"), form.serialize(), function (datas) {
+                    if (datas.length !== 0) {
+                        $('#js-notification-password')
+                            .show()
+                            .addClass('is-valid')
+                            .removeClass('is-invalid')
+                            .find('.js-notification-password-message').html(datas.message);
+
+                        $('#js-change-password').hide();
+                        $('.js-btn-change-password-validation').hide();
+                        $('.js-btn-cancel-password-validation').hide();
+                        $('.js-btn-show-change-password').show();
+                        $('#js-current-password-value').val(datas.newValue);
+                        $('#js-current-password').show();
+                    }
+                }).fail(function (jqXHR, textStatus, error) {
+                    let ret = JSON.parse(jqXHR.responseText);
+
+                    $('#js-notification-password')
+                        .show()
+                        .addClass('is-invalid')
+                        .removeClass('is-valid')
+                        .find('.js-notification-password-message').html(ret.message);
+                }).always(function () {
+                    $('.js-btn-change-password-waiting').hide();
+                });
+            }
+        });
+
+        // Delete account
+        // -----------------
+        $(document).on('click', '#js-show-delete', function(){
+            $('#js-delete').show();
+            $('.js-btn-delete-validation').show();
+            $('.js-btn-show-delete').hide();
+        });
+
+        $(document).on('click', '#js-cancel-delete', function(){
+            $('#js-delete').hide();
+            $('.js-btn-show-delete').show();
+            $('.js-btn-delete-validation').hide();
+        });
+
+        $(document).on('click', '#js-validate-delete', function(){
+            if($('#userdelete_password_confirm').val().length === 0){
+                $('#userdelete_password_confirm').addClass('is-invalid');
+                $('#js-notification-delete')
+                    .show()
+                    .addClass('is-invalid')
+                    .removeClass('is-valid')
+                    .find('.js-notification-delete-message').html('Champs obligatoire');
+            } else {
+                $('.js-btn-delete-waiting').show();
+
+                let data = {};
+                data['mdp'] = $('#userdelete_password_confirm').val();
+
+                $.ajax({
+                    url: '{{ path('user.delete.account') }}',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: data,
+                    async: true,
+                }).done(function(){
+                    $(location).attr('href', '{{ path('app_logout') }}');
+                }).fail(function(jqXHR, textStatus, error){
+                    let ret = JSON.parse(jqXHR.responseText);
+
+                    $('#js-notification-delete')
+                        .show()
+                        .addClass('is-invalid')
+                        .removeClass('is-valid')
+                        .find('.js-notification-delete-message').html(ret.message);
+                }).always(function () {
+                    $('.js-btn-delete-waiting').hide();
+                });
+            }
+        });
+    </script>
+{% endblock %}
