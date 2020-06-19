@@ -5,7 +5,7 @@ Informations sur le rôle du site:
 --
 Site destiné aux futurs développeurs (et aux anciens ;) ) qui regroupe des liens vers des tutoriaux.
 
-Il s'agit bien uniquement de liens proposés par la communauté et absolument pas une tentative de voler le travail des autres.
+Il s'agit bien **uniquement de liens proposés par la communauté** et absolument pas une tentative de voler le travail des autres.
 
 
 # Roadmap:
