@@ -18,7 +18,10 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [] Dashboard: ajouter "les mieux notés"
 - [] Système de statistiques: "les plus consultés"
 - [] Système de partage sur les réseaux sociaux de ses publications ou de tutos préférés
-
+- [] Logo pour les Tags, les Catégories
+- [] Avatar utilisateurs
+- [] Connexion Oauth
+- [] Système de Badge de "contributeur"
 
 
 # Coté technique:
