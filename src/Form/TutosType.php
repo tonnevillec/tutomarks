@@ -78,9 +78,12 @@ class TutosType extends AbstractType
                 'label' => ucfirst($this->translator->trans('tutos.tags.label')) . ' *',
                 'choice_value'  => 'id',
                 'multiple'      => true,
-                'attr' => [
-                    'class'     => 'select2'
-                ]
+//                'attr' => [
+//                    'class'     => 'select2'
+//                ]
+                'required'      => false,
+                'choice_label'  => 'title',
+                'expanded'      => true
             ])
             ->add('category', EntityType::class, [
                 'class'         => Categories::class,

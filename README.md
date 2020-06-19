@@ -11,7 +11,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 # Roadmap:
 
 - [] Envois de mail lors de l'inscription
-- [] Affichage connection réussi -> alertes en général
+- [x] Affichage connection réussie
 - [] Système de chargement des commentaires "à la volée" et non pas au chargement de la page
 - [] Pagination des résultats de recherche sans rechargement de la page
 - [] Ajouter une section "Mes contributions"
@@ -22,7 +22,8 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [] Avatar utilisateurs
 - [] Connexion Oauth
 - [] Système de Badge de "contributeur"
-
+- [] Signaler un lien mort
+- [] Garder la derniere recherche en session
 
 # Coté technique:
 

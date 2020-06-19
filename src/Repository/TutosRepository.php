@@ -75,7 +75,7 @@ class TutosRepository extends ServiceEntityRepository
             ;
         }
 
-        if($search->getTags()) {
+        if($search->getTags() && count($search->getTags()) !== 0) {
             $tags = [];
             foreach ($search->getTags() as $tag){
                 $tags[] = $tag->getId();
@@ -88,7 +88,7 @@ class TutosRepository extends ServiceEntityRepository
         }
 
         $query = $query->orderBy('t.published_at', 'desc');
-        
+
         return $query->getQuery();
     }
 

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Tutomarks!{% endblock %}</title>
 
         {{ encore_entry_link_tags('style') }}
         {% block stylesheets %}{% endblock %}
@@ -10,13 +10,22 @@
     <body class="pt-7">
         {% include 'header.html.twig' %}
 
-{#        <div class="wrapper">#}
         <main role="main" class="hero is-fullheight">
-{#            <div class="container">#}
+            <div class="container">
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{type}} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
                 {% block body %}{% endblock %}
-{#            </div>#}
+            </div>
         </main>
-{#        </div>#}
 
         {% include 'footer.html.twig' %}
 

@@ -9,7 +9,7 @@
                 <span class="h1-text">{{ tuto.title }}</span>
                 {% if is_granted('EDIT', tuto) %}
                     <span class="float-right">
-                        <a href="#" class="btn btn-light btn-sm">{{ 'tutos.edit'|trans|capitalize }} <i class="fas fa-edit"></i></a>
+                        <a href="{{ path('tutos.edit', { 'id' : tuto.id}) }}" class="btn btn-light btn-sm">{{ 'tutos.edit.title'|trans|capitalize }} <i class="fas fa-edit"></i></a>
                     </span>
                 {% endif %}
             </h1>

@@ -79,7 +79,7 @@ class TutosController extends AbstractController
                 $this->em->flush();
             }
 
-            $this->addFlash('success', $this->translator->trans('tutos.add.validate'));
+            $this->addFlash('success', ucfirst($this->translator->trans('tutos.add.validate')));
             return $this->redirectToRoute('home');
         }
 
@@ -107,6 +107,38 @@ class TutosController extends AbstractController
             'comments'  => $comments
         ]);
     }
+
+    /**
+     * @Route("/{id}/edit", name="tutos.edit")
+     * @param Request $request
+     * @param Tutos $tuto
+     * @return RedirectResponse|Response
+     */
+    public function edit(Request $request, Tutos $tuto)
+    {
+        if(!$tuto) {
+            $this->addFlash('danger', ucfirst($this->translator->trans('error.unauthorized')));
+            return $this->redirectToRoute('home');
+        }
+
+        $form = $this->createForm(TutosType::class, $tuto);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($tuto);
+            $this->em->flush();
+
+            $this->addFlash('success', ucfirst($this->translator->trans('tutos.edit.validate')));
+
+            return $this->redirectToRoute('tutos.show', [ 'id' => $tuto->getId()]);
+        }
+
+        return $this->render('tutos/edit.html.twig', [
+            'tuto'      => $tuto,
+            'form'      => $form->createView(),
+        ]);
+    }
+
 
     /**
      * @param Request $request

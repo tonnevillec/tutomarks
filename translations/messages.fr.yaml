@@ -7,6 +7,9 @@ required_field: 'champ requis'
 required_fields: 'champs requis'
 back_to_top: 'retour en haut de page'
 loading: 'chargement'
+login:
+    success: 'connexion réussie'
+    failed: 'identification impossible'
 
 home:
     title: 'Bienvenue sur '
@@ -117,7 +120,9 @@ tutos:
     added_by: 'par'
     direct_link: 'accèder au tuto'
     details: 'voir la fiche'
-    edit: 'éditer la fiche'
+    edit:
+        title: 'éditer la fiche'
+        validate: 'fiche mise à jour'
     eval:
         isnull: 'pas encore évalué'
         count: 'évaluations'
