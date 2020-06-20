@@ -59,8 +59,7 @@
                                     <div class="form-group">
                                         <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
                                         <input type="password" name="password" id="inputPassword" class="form-control form-control-sm" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
-{#                                        <div class="help-block text-right"><a href="">{{ 'user.password.forget'|trans|capitalize }}</a></div>#}
-{#                                        TODO: Mot de passe oublié#}
+                                        <div class="help-block text-right"><a href="{{ path('app_password') }}">{{ 'user.password.forget'|trans|capitalize }}</a></div>
                                     </div>
 
                                     <div class="checkbox">

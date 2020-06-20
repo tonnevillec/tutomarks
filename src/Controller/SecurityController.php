@@ -4,15 +4,47 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
+    /**
+     * SecurityController constructor.
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @param UserPasswordEncoderInterface $encoder
+     */
+    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator, UserPasswordEncoderInterface $encoder)
+    {
+        $this->em = $em;
+        $this->translator = $translator;
+        $this->encoder = $encoder;
+    }
+
     /**
      * @Route("/login", name="app_login")
      * @param AuthenticationUtils $authenticationUtils
@@ -20,13 +52,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
@@ -35,23 +61,20 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      * @param Request $request
-     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function register(Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $hash = $this->encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $this->em->persist($user);
+            $this->em->flush();
 
             return $this->redirectToRoute('app_login');
         }
@@ -60,6 +83,49 @@ class SecurityController extends AbstractController
             'error' => [],
             'form'  => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/password_forget", name="app_password")
+     * @return Response
+     */
+    public function passwordForget(): Response
+    {
+        return $this->render('security/password_forget.html.twig');
+    }
+
+    /**
+     * @Route("/passwprd_reload", name="app_reloadpwd", methods={"POST"})
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function passwordReload(Request $request): Response
+    {
+        if(!$request->request->has('pwd_email')){
+            $this->addFlash('danger', ucfirst($this->translator->trans('password.forget.email.required')));
+            return $this->render('security/password_forget.html.twig');
+        }
+
+        $email = $request->request->get('pwd_email');
+        $user = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
+
+        if(!$user){
+            $this->addFlash('danger', ucfirst($this->translator->trans('password.forget.user.unknown')));
+            return $this->render('security/password_forget.html.twig');
+        }
+
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $tmpPassword = substr(str_shuffle($permitted_chars), 0, 10);
+
+        $hash = $this->encoder->encodePassword($user, $tmpPassword);
+        $user->setPassword($hash);
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $this->addFlash('success', ucfirst($this->translator->trans('password.forget.validate')));
+
+        return $this->redirectToRoute('app_login');
     }
 
     /**

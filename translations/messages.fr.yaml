@@ -71,6 +71,17 @@ user:
             validate_update: 'votre compte a été supprimé'
             fail_update: 'mot de passe invalide'
 
+password:
+    forget:
+        email:
+            label: 'votre adresse e-mail'
+            placeholder: 'adresse mail de votre compte'
+            required: 'veuillez saisir votre adresse mail'
+        user:
+            unknown: 'adresse e-mail inconnue'
+        btn_reload: 'ré-initialiser mon mot de passe'
+        validate: 'mot de passe ré-initialisé. Un mail a été envoyé avec votre mot de passe temporaire.'
+
 btn:
     validate: 'valider les modifications'
     validate_change_password: 'Modifier  le mot de passe'

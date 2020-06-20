@@ -27,6 +27,14 @@
         </div>
     </section>
 
+    {% if not app.user %}
+    <section class="card card-outline-info mb-4 text-center">
+        <div class="card-body align-content-center">
+            Envie de contribuer ? <a href="{{ path('app_register') }}" class="btn btn-outline-info">Inscrivez-vous</a> <a href="{{ path('app_login') }}" class="btn btn-outline-success">Connectez-vous</a>
+        </div>
+    </section>
+    {% endif %}
+
     <h2 class="font-weight-light mb-3">{{ 'home.last-tutos'|trans|capitalize }}</h2>
     <hr class="mb-4">
 
