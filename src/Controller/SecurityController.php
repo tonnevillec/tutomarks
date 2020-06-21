@@ -90,7 +90,7 @@ class SecurityController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('support@tutomarks.fr')
                 ->to($user->getEmail())
-                ->subject('Bienvenue sur Tutomarks.fr')
+                ->subject(ucfirst($this->translator->trans('mail.new_login.subject')) . ' Tutomarks.fr')
                 ->htmlTemplate('email/new_login.html.twig')
             ;
             $this->mailer->send($email);
@@ -114,9 +114,10 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/passwprd_reload", name="app_reloadpwd", methods={"POST"})
+     * @Route("/password_reload", name="app_reloadpwd", methods={"POST"})
      * @param Request $request
      * @return RedirectResponse|Response
+     * @throws TransportExceptionInterface
      */
     public function passwordReload(Request $request): Response
     {
@@ -141,6 +142,18 @@ class SecurityController extends AbstractController
 
         $this->em->persist($user);
         $this->em->flush();
+
+        $email = (new TemplatedEmail())
+            ->from('support@tutomarks.fr')
+            ->to($user->getEmail())
+            ->subject(ucfirst($this->translator->trans('mail.passwd.reset.subject')))
+            ->htmlTemplate('email/new_login.html.twig')
+            ->context([
+                'user'          => $user,
+                'new_password'  => $tmpPassword
+            ])
+        ;
+        $this->mailer->send($email);
 
         $this->addFlash('success', ucfirst($this->translator->trans('password.forget.validate')));
 

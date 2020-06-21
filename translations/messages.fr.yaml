@@ -148,7 +148,6 @@ comments:
     posted_by: 'commentaire posté par'
     posted_at: 'le'
 
-
 search:
     field:
         placeholder: 'votre recherche'
@@ -164,3 +163,20 @@ search:
     evaluation:
         label: 'note minimale'
     results: 'résultat'
+
+mail:
+    hello: 'bonjour'
+    connect_on: 'connectez-vous sur'
+    end: 'a bientôt sur'
+    passwd:
+        reset:
+            subject: 'mot de passe ré-initialisé'
+            title: 'demande de ré-initialisation de mot de passe'
+            l1: 'vous avez demandé la ré-initialisation de votre mot de passe sur Tutomarks.'
+            new_is: 'votre nouveau mot de passe est'
+            l2: 'et changez le dans la gestion de votre compte.'
+            l3: "En cas de problème, n'hésitez pas à contacter le support à l'adresse"
+    new_login:
+        subject: 'bienvenue sur'
+        l1: "maintenant que votre compte a été créé, vous pouvez participer à l'évolution de l'annuaire."
+        l2: "vous pouvez créer de nouvelles fiches et commenter les fiches existantes."

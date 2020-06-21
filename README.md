@@ -10,7 +10,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 
 # Roadmap:
 
-- [] Envois de mail lors de l'inscription + mot de passe oublié
+- [x] Envois de mail lors de l'inscription + mot de passe oublié
 - [x] Affichage connection réussie
 - [x] Mot de passe oublié
 - [] Système de chargement des commentaires "à la volée" et non pas au chargement de la page
