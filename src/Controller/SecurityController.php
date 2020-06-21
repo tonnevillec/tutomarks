@@ -89,7 +89,7 @@ class SecurityController extends AbstractController
 
             $email = (new TemplatedEmail())
                 ->from('support@tutomarks.fr')
-                ->to('tonnevillec@gmail.com')
+                ->to($user->getEmail())
                 ->subject('Bienvenue sur Tutomarks.fr')
                 ->htmlTemplate('email/new_login.html.twig')
             ;
