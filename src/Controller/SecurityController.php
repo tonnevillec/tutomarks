@@ -147,7 +147,7 @@ class SecurityController extends AbstractController
             ->from('support@tutomarks.fr')
             ->to($user->getEmail())
             ->subject(ucfirst($this->translator->trans('mail.passwd.reset.subject')))
-            ->htmlTemplate('email/new_login.html.twig')
+            ->htmlTemplate('email/reset_password.html.twig')
             ->context([
                 'user'          => $user,
                 'new_password'  => $tmpPassword
