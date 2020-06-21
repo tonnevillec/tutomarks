@@ -25,6 +25,12 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [] Système de Badge de "contributeur"
 - [] Signaler un lien mort
 - [] Garder la derniere recherche en session
+- [] Ajouter "contributeur" sur la fiche (show) des tutos
+- [] SEO du site => mots clés en desc, accroche plus complète, ...
+- [] Pages d'erreur personnalisées
+- [] Lien vers la roadmap de développement
+- [] Définition des catégories
+- [] Page Contact
 
 # Coté technique:
 
