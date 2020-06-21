@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -33,16 +36,23 @@ class SecurityController extends AbstractController
     private $encoder;
 
     /**
+     * @var MailerInterface
+     */
+    private $mailer;
+
+    /**
      * SecurityController constructor.
      * @param EntityManagerInterface $em
      * @param TranslatorInterface $translator
      * @param UserPasswordEncoderInterface $encoder
+     * @param MailerInterface $mailer
      */
-    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator, UserPasswordEncoderInterface $encoder)
+    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator, UserPasswordEncoderInterface $encoder, MailerInterface $mailer)
     {
         $this->em = $em;
         $this->translator = $translator;
         $this->encoder = $encoder;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -62,6 +72,7 @@ class SecurityController extends AbstractController
      * @Route("/register", name="app_register")
      * @param Request $request
      * @return Response
+     * @throws TransportExceptionInterface
      */
     public function register(Request $request): Response
     {
@@ -75,6 +86,14 @@ class SecurityController extends AbstractController
 
             $this->em->persist($user);
             $this->em->flush();
+
+            $email = (new TemplatedEmail())
+                ->from('support@tutomarks.fr')
+                ->to('tonnevillec@gmail.com')
+                ->subject('Bienvenue sur Tutomarks.fr')
+                ->htmlTemplate('email/new_login.html.twig')
+            ;
+            $this->mailer->send($email);
 
             return $this->redirectToRoute('app_login');
         }
