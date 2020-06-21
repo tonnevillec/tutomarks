@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TutoMarks : {{ 'about.title'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+    <h1 class="h1">{{ 'about.title'|trans|capitalize }}</h1>
+
+    <h2 class="h2 mt-5">{{ 'about.why.title'|trans|capitalize }}</h2>
+    <p>
+        {{ 'about.why.text'|trans|raw }}
+    </p>
+
+    <h2 class="h2 mt-5">{{ 'about.who.title'|trans|capitalize }}</h2>
+    <p>
+        {{ 'about.who.text'|trans|raw }}
+        {{ 'about.who.i_am'|trans|capitalize }} <a href="https://tonnevillec.github.io/" target="_blank">Cyril</a> ;)
+    </p>
+
+    <h2 class="h2 mt-5">{{ 'about.what.title'|trans|capitalize }}</h2>
+    <p>
+        {{ 'about.what.text'|trans|raw }}
+    </p>
+    <div class="list-group">
+        <a class="list-group-item" href="https://symfony.com/" target="_blank">Symfony 5.1</a>
+        <a class="list-group-item" href="https://getbootstrap.com" target="_blank">Bootstrap</a>
+        <a class="list-group-item" href="https://bootswatch.com/lux/" target="_blank">Template Bootswatch Lux</a>
+        <a class="list-group-item" href="https://github.com/tonnevillec/tutomarks" target="_blank">Github</a>
+        <a class="list-group-item" href="https://my.obambu.com/aff.php?aff=124" target="_blank">Obambu pour l'hébergement</a>
+    </div>
+
+{% endblock %}

@@ -13,6 +13,8 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Envois de mail lors de l'inscription + mot de passe oublié
 - [x] Affichage connection réussie
 - [x] Mot de passe oublié
+- [x] Ajouter "contributeur" sur la fiche (show) des tutos
+- [x] ~~Page~~ Formulaire Contact
 - [] Système de chargement des commentaires "à la volée" et non pas au chargement de la page
 - [] Pagination des résultats de recherche sans rechargement de la page
 - [] Ajouter une section "Mes contributions"
@@ -25,12 +27,11 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [] Système de Badge de "contributeur"
 - [] Signaler un lien mort
 - [] Garder la derniere recherche en session
-- [] Ajouter "contributeur" sur la fiche (show) des tutos
 - [] SEO du site => mots clés en desc, accroche plus complète, ...
 - [] Pages d'erreur personnalisées
 - [] Lien vers la roadmap de développement
 - [] Définition des catégories
-- [] Page Contact
+- [] Traduction du site en anglais
 
 # Coté technique:
 

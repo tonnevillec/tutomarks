@@ -1,0 +1,7 @@
+<h1>{{ 'mail.contact.subject'|trans|capitalize }}</h1>
+<p>
+    {{ 'mail.contact.from'|trans|capitalize }} : {{ mail_from }}<br/>
+    {{ 'mail.contact.subject'|trans|capitalize }} : {{ mail_subject }}<br/>
+    {{ 'mail.contact.message'|trans|capitalize }} :<br/>
+    {{ mail_message|raw }}
+</p>

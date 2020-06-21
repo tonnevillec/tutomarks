@@ -95,6 +95,12 @@ body {
   }
 }
 
+#footer {
+  a.nav-link:hover {
+    color: $gray-500 !important;
+  }
+}
+
 #login-dp{
   min-width: 250px;
   padding: 14px 14px 0;

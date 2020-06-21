@@ -1,5 +1,26 @@
-<footer class="py-5 bg-dark">
+<footer id="footer" class="py-5 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">TutoMarks &copy| Juin 2020</p>
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="h3 text-white">{{ 'footer.about'|trans|capitalize }}</h3>
+                <nav class="nav flex-column">
+                    <a href="{{ path('about') }}" class="nav-link nav-item text-white">{{ 'about.title'|trans|capitalize }}</a>
+                    <a href="{{ path('confidentiality') }}" class="nav-link nav-item text-white">{{ 'confidentiality.title'|trans|capitalize }}</a>
+                </nav>
+
+                <div class="nav mt-4">
+                    <a class="nav-link nav-item text-white" href="https://twitter.com/tutomarks" target="_blank" title="Compte Twitter de Tutomark"><i class="fab fa-twitter fa-2x"></i></a>
+                    <a class="nav-link nav-item text-white" href="https://github.com/tonnevillec/tutomarks" target="_blank" title="Source Github de Tutomark"><i class="fab fa-github fa-2x"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4 offset-md-4">
+                <h3 class="h3 text-white">{{ 'footer.contact.title'|trans|capitalize }}</h3>
+
+                {% include 'home/_contact.html.twig' %}
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <p class="m-0 text-center text-white">&copyTutoMarks | Juin 2020</p>
     </div>
 </footer>

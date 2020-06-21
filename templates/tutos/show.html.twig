@@ -48,6 +48,10 @@
                                 </div>
                             {% endif %}
 
+                            <div class="form-group">
+                                <p class="text-info">{{ 'tutos.published_by.thanks_to'|trans|capitalize }} {{ tuto.publishedBy}} {{ 'tutos.published_by.thanks_for'|trans }} {{ 'tutos.published_at.on'|trans }} {{ tuto.publishedAt|date('d/m/Y') }}</p>
+                            </div>
+
                             <div class="my-4">
                                 <div class="row">
                                     <div class="col text-center">

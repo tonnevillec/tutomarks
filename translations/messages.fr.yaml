@@ -126,6 +126,10 @@ tutos:
         help: 'Quel est le contenu du tutoriel? Quels sont les points abordés?'
     published_by:
         comment: 'votre commentaire sur le tutoriel'
+        thanks_to: 'merci à'
+        thanks_for: 'pour sa contribution'
+    published_at:
+        on: 'le'
     created_by: 'réalisé par'
     added_at: 'ajouté le'
     added_by: 'par'
@@ -147,6 +151,24 @@ tutos:
 comments:
     posted_by: 'commentaire posté par'
     posted_at: 'le'
+
+about:
+    title: 'a propos'
+    why:
+        title: 'la naissance de Tutomarks'
+        text: "Initialement pensé comme une application 'bac à sable', Tutomarks ne pouvait pas rester en local sur ma machine.<br/>
+        Je voulais un projet me permettant de mettre à jour mes connaissances Symfony et de découvrir de nouvelles techniques. Pour ce faire j'ai consulté de nombreux tutoriaux vidéo et je me suis dis qu'il fallait partager ses liens pour en faire profiter les nouveaux développeurs et aussi les vieux de la vieille ;).<br/><br/>
+        Autre point important dans la conception de Tutomarks, rendre hommage à ceux qui font les tutoriaux car c'est un boulot qui prend du temps mais qui est basé sur le partage. Alors avec Tutomarks je voulais que chacun puis-je partager les tutos qui nous aides à apprendre et à découvrir de nouveaux languages et de nouvelles techniques."
+    who:
+        title: 'qui es-tu Tutomarks ?'
+        text: "Développeur PHP depuis plusieurs années, j'ai eu plusieurs vie et j'ai très souvent eu recours à des tutoriaux, texte ou vidéo, pour évoluer professionnellement. Aujourd'hui je me lances avec Tutomarks pour aider, à ma façon, les futurs talents en développement.<br/><br/>"
+        i_am: "Moi, c'est"
+    what:
+        title: 'comment ça marche ?'
+        text: "Voici ce qu'il y a sous le capot de Tutomarks :"
+
+confidentiality:
+    title: 'politique de confidentialité'
 
 search:
     field:
@@ -180,3 +202,29 @@ mail:
         subject: 'bienvenue sur'
         l1: "maintenant que votre compte a été créé, vous pouvez participer à l'évolution de l'annuaire."
         l2: "vous pouvez créer de nouvelles fiches et commenter les fiches existantes."
+    contact:
+        subject: 'message depuis le site'
+        from: 'expéditeur'
+        message: 'message'
+
+contact:
+    email:
+        label: 'votre adresse mail'
+        placeholder: 'indiquez votre adresse mail'
+    subject:
+        label: 'sujet'
+        placeholder: 'de quoi voulez-vous parler ?'
+    message:
+        label: 'votre message'
+        minlength: '10 caractères minimum'
+    error:
+        email_required: 'adresse mail requise'
+        subject_required: 'sujet requis'
+        message_required: 'message requis avec 10 caractères minimums'
+    send_ok: 'mail envoyé'
+
+footer:
+    contact:
+        title: 'me contacter'
+    about: 'a propos'
+
