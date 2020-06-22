@@ -3,6 +3,7 @@ a11y:
         content: "passer directement au contenu"
 
 back_to_site: 'Retour au site'
+back_to_home: "retour à l'accueil"
 required_field: 'champ requis'
 required_fields: 'champs requis'
 back_to_top: 'retour en haut de page'
@@ -228,3 +229,5 @@ footer:
         title: 'me contacter'
     about: 'a propos'
 
+error:
+    send_mail: 'envoyer un e-mail à'
