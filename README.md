@@ -15,6 +15,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Mot de passe oublié
 - [x] Ajouter "contributeur" sur la fiche (show) des tutos
 - [x] ~~Page~~ Formulaire Contact
+- [x] Logo pour le site :p
 - [] Système de chargement des commentaires "à la volée" et non pas au chargement de la page
 - [] Pagination des résultats de recherche sans rechargement de la page
 - [] Ajouter une section "Mes contributions"

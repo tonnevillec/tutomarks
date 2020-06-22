@@ -11,7 +11,10 @@
 <header id="header" class="fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ path('home') }}">TutoMarks</a>
+            <a class="navbar-brand" href="{{ path('home') }}">
+                <img src="{{ asset('build/images/tutomarks_logo_sans_nom.png') }}" alt="TutoMarks" class="d-inline-block" loading="lazy">
+                Tutomarks
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Navigation du site">
                 <span class="navbar-toggler-icon"></span>
             </button>
