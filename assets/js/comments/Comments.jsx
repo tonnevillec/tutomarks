@@ -25,7 +25,6 @@ function Comments ({tuto, user}) {
 
         {user && <CommentForm tuto={tuto} onComment={addComment} />}
 
-        {/*{{ 'user.want_to_comment'|trans|capitalize }} ? <a href="{{ path('app_register') }}" class="btn btn-outline-info">{{ 'user.register'|trans|capitalize }}</a> <a href="{{ path('app_login') }}" class="btn btn-outline-success">{{ 'user.login'|trans|capitalize }}</a>*/}
         {!user && <Links/>}
 
         {comments.map(comment => <Comment key={comment.id} comment={comment}/>)}
@@ -91,10 +90,12 @@ function Title ({count}) {
 }
 
 function Links () {
-    return <div className="mb-4">
-        Pour laisser un commentaire, veuillez-vous identifer => <a href="/login" className="">Connectez-vous</a>.<br/>
-        Si vous n'avez pas encore de compte => <a href="/register" className="">Inscrivez-nous</a>
-    </div>
+    return <section className="card card-outline-info mb-4 text-center">
+        <div className="card-body align-content-center">
+            Envie de nous faire un retour sur ce tutoriel ? <a href="/register" className="btn btn-sm btn-outline-info">Inscrivez-vous</a>
+            <a href="/login" className="btn btn-sm btn-outline-success ml-2">Connectez-vous</a>
+        </div>
+    </section>
 }
 
 class CommentsElement extends  HTMLElement {
