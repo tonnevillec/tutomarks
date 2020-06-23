@@ -33,6 +33,10 @@ nav:
     connection: 'connectez-vous'
 
 user:
+    login: 'connectez-vous'
+    register: "Inscrivez-vous"
+    want_to_join: 'envie de contribuer'
+    want_to_comment: 'envie de commenter'
     email:
         title: 'Adresse e-mail'
         placeholder: 'adresse e-mail'

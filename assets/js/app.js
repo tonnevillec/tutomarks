@@ -8,6 +8,8 @@ require('@fortawesome/fontawesome-free/js/all');
 require('select2');
 require('bootstrap-star-rating');
 
+import './comments/Comments.jsx'
+
 $(document).ready(function () {
     $(document).on('click', '.notification .delete', function(){
         $(this).parent().find('.js-message').html();

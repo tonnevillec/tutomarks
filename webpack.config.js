@@ -26,6 +26,8 @@ Encore
         to: 'images/[path][name].[ext]'
     })
 
+    .enableReactPreset()
+
     .autoProvidejQuery({
         $:"jquery",
         jQuery:"jquery",
