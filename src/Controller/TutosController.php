@@ -100,11 +100,8 @@ class TutosController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        $comments = $this->em->getRepository(Comments::class)->findValid($tuto);
-
         return $this->render('tutos/show.html.twig', [
             'tuto'      => $tuto,
-            'comments'  => $comments
         ]);
     }
 

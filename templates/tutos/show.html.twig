@@ -89,32 +89,44 @@
                 </div>
             </div>
 
-            <h2 class="h2">{{ 'tutos.comments.title'|trans|capitalize }}</h2>
-            <hr class="my-4">
 
-            <div class="row">
-                <div class="col mb-3">
-                    <div class="form-group">
-                        <textarea id="userComment" name="userComment" class="form-control" placeholder="{{ 'tutos.published_by.comment'|trans|capitalize }}"></textarea>
-                    </div>
+            <tuto-comments data-tuto="{{ tuto.id }}" data-user="{{ app.user ? app.user.id : 0 }}" data-title="{{ 'tutos.comments.single'|trans|capitalize }}"></tuto-comments>
 
-                    <button class="btn btn-outline-success" type="submit">{{ 'btn.send'|trans|capitalize }}</button>
-                </div>
-            </div>
 
-            <div class="row">
-                {% for comment in comments %}
-                 <div class="col">
-                     <div class="card">
-                         <div class="card-body">
-                            <p class="card-title">{{ 'comments.posted_by'|trans|capitalize }} {{ comment.user }} {{ 'comments.posted_at'|trans }} {{ comment.commentedAt|date('d/m/Y à H:i') }}</p>
-                             <hr class="my-2">
-                            <p class="card-text">{{ comment.comment|nl2br }}</p>
-                         </div>
-                     </div>
-                 </div>
-                {% endfor %}
-            </div>
+{#            <h2 class="h2">{{ 'tutos.comments.title'|trans|capitalize }}</h2>#}
+{#            <hr class="my-4">#}
+
+{#            <div class="row">#}
+{#                <div class="col mb-3">#}
+{#                    {% if app.user %}#}
+{#                        <form name="f_comment" id="js-commentForm" method="post" action="/api/comments">#}
+{#                            <div class="form-group">#}
+{#                                <textarea id="js-commentText" name="comment_text" class="form-control" placeholder="{{ 'tutos.published_by.comment'|trans|capitalize }}"></textarea>#}
+{#                            </div>#}
+
+{#                            <input id="js-commentTuto" type="hidden" name="comment_tuto" value="{{ tuto }}">#}
+
+{#                            <button id="js-commentSubmit" class="btn btn-outline-success" type="submit">{{ 'btn.send'|trans|capitalize }}</button>#}
+{#                        </form>#}
+{#                    {% else %}#}
+{#                        {{ 'user.want_to_comment'|trans|capitalize }} ? <a href="{{ path('app_register') }}" class="btn btn-outline-info">{{ 'user.register'|trans|capitalize }}</a> <a href="{{ path('app_login') }}" class="btn btn-outline-success">{{ 'user.login'|trans|capitalize }}</a>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+
+{#            {% for comment in comments %}#}
+{#            <div class="row mb-4">#}
+{#                 <div class="col">#}
+{#                     <div class="card">#}
+{#                         <div class="card-body">#}
+{#                            <p class="card-title">{{ 'comments.posted_by'|trans|capitalize }} {{ comment.user }} {{ 'comments.posted_at'|trans }} {{ comment.commentedAt|date('d/m/Y à H:i') }}</p>#}
+{#                             <hr class="my-2">#}
+{#                            <p class="card-text">{{ comment.comment|nl2br }}</p>#}
+{#                         </div>#}
+{#                     </div>#}
+{#                 </div>#}
+{#            </div>#}
+{#            {% endfor %}#}
         </div>
     </section>
 {% endblock %}
