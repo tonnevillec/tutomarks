@@ -75,6 +75,21 @@ class TutosRepository extends ServiceEntityRepository
             ;
         }
 
+        if($search->getPrice()) {
+            $query  = $query
+                ->andWhere('t.price = :price')
+                ->setParameter(':price', $search->getPrice())
+            ;
+        }
+
+        if($search->getMinlevel()) {
+            $query  = $query
+                ->leftJoin('t.level', 'level')
+                ->andWhere('level.rank >= :level')
+                ->setParameter(':level', $search->getMinlevel())
+            ;
+        }
+
         if($search->getTags() && count($search->getTags()) !== 0) {
             $tags = [];
             foreach ($search->getTags() as $tag){

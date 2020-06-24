@@ -12,6 +12,9 @@ login:
     success: 'connexion réussie'
     failed: 'identification impossible'
 
+unknown:
+    field: 'non renseigné'
+
 home:
     title: 'Bienvenue sur '
     lead: "l'annuaire de tutoriaux pour apprendre à développer"
@@ -152,6 +155,10 @@ tutos:
         title: 'commentaires'
     langue:
         label: 'Langue du tutoriel'
+    level:
+        label: 'niveau requis'
+    price:
+        label: 'prix'
 
 comments:
     posted_by: 'commentaire posté par'
@@ -189,6 +196,10 @@ search:
         label: 'langue du tutoriel'
     evaluation:
         label: 'note minimale'
+    price:
+        label: 'prix'
+    minlevel:
+        label: 'niveau minimum requis'
     results: 'résultat'
 
 mail:

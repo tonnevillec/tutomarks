@@ -4,11 +4,15 @@ namespace App\Form;
 
 use App\Entity\Categories;
 use App\Entity\Langues;
+use App\Entity\Levels;
+use App\Entity\Prices;
 use App\Entity\Tags;
 use App\Entity\Tutos;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -78,9 +82,6 @@ class TutosType extends AbstractType
                 'label' => ucfirst($this->translator->trans('tutos.tags.label')) . ' *',
                 'choice_value'  => 'id',
                 'multiple'      => true,
-//                'attr' => [
-//                    'class'     => 'select2'
-//                ]
                 'required'      => false,
                 'choice_label'  => 'title',
                 'expanded'      => true
@@ -98,6 +99,24 @@ class TutosType extends AbstractType
                 'choice_value'  => 'name',
                 'multiple'      => false,
                 'required'      => true
+            ])
+            ->add('price', EntityType::class, [
+                'class'         => Prices::class,
+                'label'         => ucfirst($this->translator->trans('tutos.price.label')),
+                'choice_value'  => 'name',
+                'multiple'      => false,
+                'required'      => false
+            ])
+            ->add('level', EntityType::class, [
+                'class'         => Levels::class,
+                'label'         => ucfirst($this->translator->trans('tutos.level.label')),
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('l')
+                        ->orderBy('l.rank', 'ASC');
+                },
+                'choice_label'  => 'name',
+                'multiple'      => false,
+                'required'      => false
             ])
         ;
     }

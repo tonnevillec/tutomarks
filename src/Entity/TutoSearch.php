@@ -35,6 +35,17 @@ class TutoSearch
      */
     private $langue;
 
+    /**
+     * @var Prices|null
+     */
+    private $price;
+
+    /**
+     * @var Levels|null
+     */
+    private $minlevel;
+
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -145,6 +156,42 @@ class TutoSearch
     public function setLangue(?Langues $langue): TutoSearch
     {
         $this->langue = $langue;
+        return $this;
+    }
+
+    /**
+     * @return Prices|null
+     */
+    public function getPrice(): ?Prices
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param Prices|null $price
+     * @return TutoSearch
+     */
+    public function setPrice(?Prices $price): TutoSearch
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    /**
+     * @return Levels|null
+     */
+    public function getMinlevel(): ?Levels
+    {
+        return $this->minlevel;
+    }
+
+    /**
+     * @param Levels|null $minlevel
+     * @return TutoSearch
+     */
+    public function setMinlevel(?Levels $minlevel): TutoSearch
+    {
+        $this->minlevel = $minlevel;
         return $this;
     }
 

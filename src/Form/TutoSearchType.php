@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\Categories;
 use App\Entity\Langues;
+use App\Entity\Levels;
+use App\Entity\Prices;
 use App\Entity\Tags;
 use App\Entity\TutoSearch;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -65,6 +68,25 @@ class TutoSearchType extends AbstractType
                 'required'      => false,
                 'class'         => Langues::class,
                 'choice_value'  => 'id',
+                'choice_label'  => 'name',
+                'multiple'      => false,
+            ])
+            ->add('price', EntityType::class, [
+                'label'         => ucfirst($this->translator->trans('search.price.label')),
+                'required'      => false,
+                'class'         => Prices::class,
+                'choice_value'  => 'id',
+                'choice_label'  => 'name',
+                'multiple'      => false,
+            ])
+            ->add('minlevel', EntityType::class, [
+                'label'         => ucfirst($this->translator->trans('search.minlevel.label')),
+                'required'      => false,
+                'class'         => Levels::class,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('l')
+                        ->orderBy('l.rank', 'ASC');
+                },
                 'choice_label'  => 'name',
                 'multiple'      => false,
             ])

@@ -25,6 +25,18 @@ easy_admin:
                 fields: ['id', 'title', 'logo', 'tutos']
             form:
                 fields: ['title', 'logo']
+        Prices:
+            class: App\Entity\Prices
+            list:
+                fields: ['id', 'name']
+            form:
+                fields: ['name']
+        Levels:
+            class: App\Entity\Levels
+            list:
+                fields: ['id', 'name', 'rank']
+            form:
+                fields: ['name', 'rank']
         Comments:
             class: App\Entity\Comments
             list:

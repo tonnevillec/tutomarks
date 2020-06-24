@@ -30,11 +30,9 @@
                     {{ form_row(form.url) }}
                     {{ form_row(form.category) }}
                     {{ form_row(form.langue) }}
-{#                    <div class="form-group">#}
-{#                        {{ form_label(form.tags) }} <small class="text-muted">{{ 'tutos.tags.help'|trans|capitalize }}</small>#}
-{#                        {{ form_widget(form.tags, { 'attr': {'data-role' : 'tagsinput'} }) }}#}
-                        {{ form_row(form.tags) }}
-{#                    </div>#}
+                    {{ form_row(form.price) }}
+                    {{ form_row(form.level) }}
+                    {{ form_row(form.tags) }}
 
                     <small class="form-text text-muted">* {{ 'required_fields'|trans|capitalize }}</small>
                 </div>

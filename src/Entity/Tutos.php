@@ -96,6 +96,21 @@ class Tutos
      */
     private $moy;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $duration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Prices::class)
+     */
+    private $price;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Levels::class)
+     */
+    private $level;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -317,5 +332,41 @@ class Tutos
     public function __toString():string
     {
         return $this->title;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?int $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getPrice(): ?Prices
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?Prices $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getLevel(): ?Levels
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?Levels $level): self
+    {
+        $this->level = $level;
+
+        return $this;
     }
 }

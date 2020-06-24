@@ -38,7 +38,14 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-outline-primary btn-sm show_more" data-target="#advancedSearch">{{ 'btn.show_more_filters'|trans|capitalize }}</button>
+                <div class="row">
+                    <div class="col-md-6 col">
+                        <button type="button" class="btn btn-outline-primary btn-sm show_more" data-target="#advancedSearch">{{ 'btn.show_more_filters'|trans|capitalize }}</button>
+                    </div>
+                    <div class="col-md-6 col text-right">
+                        <a class="btn btn-outline-info btn-sm" href="{{ path('search') }}">{{ 'btn.reset'|trans|capitalize }}</a>
+                    </div>
+                </div>
 
                 <div id="advancedSearch" class="{% if form.vars.value.category is not null or form.vars.value.creator is not null or form.vars.value.tags|length > 0 %} {% else %}is-hide{% endif%} mt-3">
                     <div class="row">
@@ -52,6 +59,15 @@
                             <div class="form-group">
                                 {{ form_row(form.evaluation) }}
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col">
+                            {{ form_row(form.price) }}
+                        </div>
+                        <div class="col-md-6 col">
+                            {{ form_row(form.minlevel) }}
                         </div>
                     </div>
 
