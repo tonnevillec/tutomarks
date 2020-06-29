@@ -39,7 +39,7 @@
 
         <div class="text-center mb-3">
             <a href="{{ tuto.url }}" target="_blank" class="btn btn-outline-info btn-sm my-1">{{ 'tutos.direct_link'|trans|capitalize }} <i class="fas fa-external-link-alt"></i></a>
-            <a href="{{ path('tutos.show', {'id': tuto.id}) }}" class="btn btn-outline-success btn-sm my-1">{{ 'tutos.details'|trans|capitalize }} <i class="fas fa-clipboard-list"></i></a>
+            <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}" class="btn btn-outline-success btn-sm my-1">{{ 'tutos.details'|trans|capitalize }} <i class="fas fa-clipboard-list"></i></a>
         </div>
     </div>
 </div>

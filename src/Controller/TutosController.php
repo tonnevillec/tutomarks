@@ -89,12 +89,14 @@ class TutosController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/show", name="tutos.show")
-     * @param Tutos $tuto
+     * @Route("/{slug}-{id}", name="tutos.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @param $slug
+     * @param $id
      * @return RedirectResponse|Response
      */
-    public function show(Tutos $tuto)
+    public function show($slug, $id)
     {
+        $tuto = $this->em->getRepository(Tutos::class)->find($id);
         if(!$tuto) {
             $this->addFlash('danger', $this->translator->trans('error.unauthorized'));
             return $this->redirectToRoute('home');

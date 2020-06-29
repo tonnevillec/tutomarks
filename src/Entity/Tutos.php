@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TutosRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -171,6 +172,11 @@ class Tutos
         $this->creator = $creator;
 
         return $this;
+    }
+
+    public function getSlug()
+    {
+        return (new Slugify())->slugify($this->getTitle());
     }
 
     public function getUrl(): ?string
