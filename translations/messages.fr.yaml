@@ -4,6 +4,7 @@ a11y:
 
 back_to_site: 'Retour au site'
 back_to_home: "retour à l'accueil"
+back: 'retour'
 required_field: 'champ requis'
 required_fields: 'champs requis'
 back_to_top: 'retour en haut de page'
@@ -35,6 +36,8 @@ nav:
     add: 'partager un lien'
     admin: 'administration'
     connection: 'connectez-vous'
+    tutos:
+        user: 'mes contributions'
 
 user:
     login: 'connectez-vous'

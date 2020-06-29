@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\Comments;
 use App\Entity\Evaluations;
 use App\Entity\Tutos;
+use App\Entity\TutoSearch;
 use App\Entity\User;
+use App\Form\TutoSearchType;
 use App\Form\TutosType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -90,11 +93,12 @@ class TutosController extends AbstractController
 
     /**
      * @Route("/{slug}-{id}", name="tutos.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @param Request $request
      * @param $slug
      * @param $id
      * @return RedirectResponse|Response
      */
-    public function show($slug, $id)
+    public function show(Request $request, $slug, $id)
     {
         $tuto = $this->em->getRepository(Tutos::class)->find($id);
         if(!$tuto) {
@@ -104,6 +108,7 @@ class TutosController extends AbstractController
 
         return $this->render('tutos/show.html.twig', [
             'tuto'      => $tuto,
+            'from'      => $request->server->get('HTTP_REFERER')
         ]);
     }
 
@@ -135,6 +140,35 @@ class TutosController extends AbstractController
         return $this->render('tutos/edit.html.twig', [
             'tuto'      => $tuto,
             'form'      => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/user", name="tutos.user")
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @return Response
+     */
+    public function index(Request $request, PaginatorInterface $paginator): Response
+    {
+        if(!$this->getUser()) {
+            $this->addFlash('danger', ucfirst($this->translator->trans('error.unauthorized')));
+            return $this->redirectToRoute('home');
+        }
+
+        $search = new TutoSearch();
+        $form = $this->createForm(TutoSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $result = $paginator->paginate(
+            $this->em->getRepository(Tutos::class)->findForMe($this->getUser(), $search),
+            $request->query->getInt('page', 1),
+            12
+        );
+
+        return $this->render('tutos/user.html.twig', [
+            'form'      => $form->createView(),
+            'result'    => $result
         ]);
     }
 

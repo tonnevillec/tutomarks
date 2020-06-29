@@ -35,13 +35,33 @@ class TutosRepository extends ServiceEntityRepository
 
     public function findLatestForMe(User $user, int $nb = 6)
     {
+        return $this->forMe($user)
+            ->setMaxResults($nb)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findForMe(User $user, TutoSearch $search)
+    {
+        $query = $this->findVisible();
+
+        $query = $query->andWhere('t.published_by = :user')
+            ->setParameter('user', $user);
+
+        $query = $this->search($query, $search);
+
+        $query = $query->orderBy('t.published_at', 'desc');
+
+        return $query->getQuery();
+    }
+
+    public function forMe(User $user)
+    {
         return $this->createQueryBuilder('t')
             ->andWhere('t.published_by = :user')
             ->setParameter('user', $user)
             ->orderBy('t.published_at', 'desc')
-            ->setMaxResults($nb)
-            ->getQuery()
-            ->getResult()
             ;
     }
 
@@ -53,6 +73,15 @@ class TutosRepository extends ServiceEntityRepository
     {
         $query = $this->findVisible();
 
+        $query = $this->search($query, $search);
+
+        $query = $query->orderBy('t.published_at', 'desc');
+
+        return $query->getQuery();
+    }
+
+    public function search($query, $search)
+    {
         if($search->getSearch()) {
             $query = $query
                 ->andWhere('t.title like :search OR t.description like :search')
@@ -115,9 +144,7 @@ class TutosRepository extends ServiceEntityRepository
             ;
         }
 
-        $query = $query->orderBy('t.published_at', 'desc');
-
-        return $query->getQuery();
+        return $query;
     }
 
     /**

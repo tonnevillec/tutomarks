@@ -110,6 +110,12 @@
                 </div>
             </div>
 
+            <div class="row mb-4">
+                <div class="col text-center">
+                    <a href="{{ from is not null ? from : path('home') }}" class="btn btn-outline-info btn-sm">{{ 'back'|trans|capitalize }}</a>
+                </div>
+            </div>
+            
             <tuto-comments data-tuto="{{ tuto.id }}" data-user="{{ app.user ? app.user.id : 0 }}" data-title="{{ 'tutos.comments.single'|trans|capitalize }}"></tuto-comments>
         </div>
     </section>

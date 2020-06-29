@@ -41,6 +41,11 @@
 
                             <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="{{ path('user.profil') }}"><i class="fas fa-user"></i> {{ 'nav.account'|trans|capitalize }}</a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="{{ path('tutos.user') }}"><i class="far fa-list-alt"></i> {{ 'nav.tutos.user'|trans|capitalize }}</a>
+
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="{{ path('easyadmin') }}"><i class="fas fa-cogs"></i> {{ 'nav.admin'|trans|capitalize }}</a>

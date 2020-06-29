@@ -1,0 +1,67 @@
+<div class="card mb-3">
+    <div class="card-body">
+        {{ form_start(form)}}
+        <div class="input-group mb-3">
+            {{ form_widget(form.search, { 'attr' : { 'class' : 'form-control' }}) }}
+            <div class="input-group-append">
+                <button class="btn btn-success" type="submit"><i class="fas fa-search"></i> {{ 'btn.search'|trans|capitalize }}</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col">
+                <button type="button" class="btn btn-outline-primary btn-sm show_more" data-target="#advancedSearch">{{ 'btn.show_more_filters'|trans|capitalize }}</button>
+            </div>
+            <div class="col-md-6 col text-right">
+                <a class="btn btn-outline-info btn-sm" href="{{ path('search') }}">{{ 'btn.reset'|trans|capitalize }}</a>
+            </div>
+        </div>
+
+        <div id="advancedSearch" class="{% if form.vars.value.category is not null or form.vars.value.creator is not null or form.vars.value.tags|length > 0 %} {% else %}is-hide{% endif%} mt-3">
+            <div class="row">
+                <div class="col-md-4 col">
+                    {{ form_row(form.category) }}
+                </div>
+                <div class="col-md-4 col">
+                    {{ form_row(form.langue) }}
+                </div>
+                <div class="col-md-4 col">
+                    <div class="form-group">
+                        {{ form_row(form.evaluation) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col">
+                    {{ form_row(form.price) }}
+                </div>
+                <div class="col-md-6 col">
+                    {{ form_row(form.minlevel) }}
+                </div>
+            </div>
+
+            {{ form_row(form.tags) }}
+
+            {{ form_row(form.creator) }}
+        </div>
+
+        {{ form_rest(form) }}
+        {{ form_end(form)}}
+    </div>
+</div>
+
+{% if result is defined %}
+    <h2 class="font-weight-light mb-3">{{ result.getTotalItemCount }} {{ 'search.results'|trans|capitalize }}{{ result.getTotalItemCount > 1 ? 's' : '' }}</h2>
+    <hr class="mb-3">
+
+    <div class="row">
+        {% for tuto in result %}
+            {% include 'tutos/_light_card.html.twig' %}
+        {% endfor %}
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(result) }}
+    </div>
+{% endif %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'search.title'|trans|capitalize }}{% endblock %}
+{% block title %}{{ 'nav.tutos.user'|trans|capitalize }}{% endblock %}
 
 {% form_theme form _self %}
 {% block _tags_row %}
@@ -26,7 +26,7 @@
 {% block body %}
 <section class="mt-2 mb-5">
     <div class="container">
-        <h1 class="h1">{{ 'search.title'|trans|capitalize }}</h1>
+        <h1 class="h1">{{ 'nav.tutos.user'|trans|capitalize }}</h1>
 
         {% include 'search/_from_search.html.twig' %}
     </div>

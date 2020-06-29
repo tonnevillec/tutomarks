@@ -20,8 +20,9 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Système de chargement des commentaires "à la volée" et non pas au chargement de la page
 - [x] Système de partage sur les réseaux sociaux de ses publications ou de tutos préférés
 - [x] Contrôle des doublons (fiches tutos => lien)
+- [x] Ajouter une section "Mes contributions"
+- [x] Garder la derniere recherche si retour
 - [] Pagination des résultats de recherche sans rechargement de la page
-- [] Ajouter une section "Mes contributions"
 - [] Dashboard: ajouter "les mieux notés"
 - [] Système de statistiques: "les plus consultés"
 - [] Logo pour les Tags, les Catégories
@@ -29,7 +30,6 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [] Connexion Oauth
 - [] Système de Badge de "contributeur"
 - [] Signaler un lien mort
-- [] Garder la derniere recherche en session
 - [] Retour sur la page/fiche en cour si demande de connexion depuis un bouton (ex: page tuto/show => connexion pour laisser un commentaire ou noter le tuto)
 - [] SEO du site => mots clés en desc, accroche plus complète, ...
 - [] Définition des catégories
