@@ -48,7 +48,7 @@
         <a href="{{ path('search') }}" class="btn btn-sm btn-outline-primary">{{ 'nav.search'|trans|capitalize }}</a>
     </div>
 
-    {% if app.user and mytutos is not null %}
+    {% if app.user and mytutos is not null and mytutos|length > 0 %}
     <h2 class="font-weight-light mb-3">{{ 'home.my-last-tutos'|trans|capitalize }}</h2>
     <hr class="mb-3">
 
