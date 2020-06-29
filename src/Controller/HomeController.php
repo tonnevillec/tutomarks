@@ -48,10 +48,17 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $tutos = $this->em->getRepository(Tutos::class)->findLatest(6);
+        $repo = $this->em->getRepository(Tutos::class);
+        $tutos = $repo->findLatest(6);
+
+        $myTutos = null;
+        if ($this->getUser()) {
+            $myTutos = $repo->findLatestForMe($this->getUser());
+        }
 
         return $this->render('home/index.html.twig', [
-            'tutos' => $tutos,
+            'tutos'     => $tutos,
+            'mytutos'   => $myTutos,
         ]);
     }
 

@@ -19,6 +19,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Pages d'erreur personnalisées
 - [x] Système de chargement des commentaires "à la volée" et non pas au chargement de la page
 - [x] Système de partage sur les réseaux sociaux de ses publications ou de tutos préférés
+- [] Contrôle des doublons (fiches tutos => lien)
 - [] Pagination des résultats de recherche sans rechargement de la page
 - [] Ajouter une section "Mes contributions"
 - [] Dashboard: ajouter "les mieux notés"

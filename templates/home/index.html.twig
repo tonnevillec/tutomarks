@@ -36,11 +36,27 @@
     {% endif %}
 
     <h2 class="font-weight-light mb-3">{{ 'home.last-tutos'|trans|capitalize }}</h2>
-    <hr class="mb-4">
+    <hr class="mb-3">
 
     <div class="row">
         {% for tuto in tutos %}
             {% include 'tutos/_light_card.html.twig' %}
         {% endfor %}
     </div>
+
+    <div class="text-center mt-0 mb-5">
+        <a href="{{ path('search') }}" class="btn btn-sm btn-outline-primary">{{ 'nav.search'|trans|capitalize }}</a>
+    </div>
+
+    {% if app.user and mytutos is not null %}
+    <h2 class="font-weight-light mb-3">{{ 'home.my-last-tutos'|trans|capitalize }}</h2>
+    <hr class="mb-3">
+
+    <div class="row">
+        {% for tuto in mytutos %}
+            {% include 'tutos/_light_card.html.twig' %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
 {% endblock %}

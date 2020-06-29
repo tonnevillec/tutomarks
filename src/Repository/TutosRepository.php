@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Tutos;
 use App\Entity\TutoSearch;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -30,6 +31,18 @@ class TutosRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findLatestForMe(User $user, int $nb = 6)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.published_by = :user')
+            ->setParameter('user', $user)
+            ->orderBy('t.published_at', 'desc')
+            ->setMaxResults($nb)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     /**

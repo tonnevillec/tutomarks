@@ -20,6 +20,7 @@ home:
     lead: "l'annuaire de tutoriaux pour apprendre à développer"
     sub: "si vous êtes pret, alors c'est parti !"
     last-tutos: 'les derniers tutos'
+    my-last-tutos: 'mes dernieres contributions'
 
 nav:
     home: 'accueil'
