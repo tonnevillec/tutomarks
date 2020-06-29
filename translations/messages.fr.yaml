@@ -104,6 +104,9 @@ btn:
     show_more_filters: 'afficher plus de filtres'
     submit: 'soumettre'
     send: 'envoyer'
+    twitter:
+        share: 'partager'
+        share_title: 'partager le lien (nouvelle fenêtre)'
 
 delete:
     are_you_sure: "êtes-vous sûre de vouloir supprimer votre compte ainsi que tout son contenu? Cette opération est irréversible et nous serons très triste de vous perdre :("

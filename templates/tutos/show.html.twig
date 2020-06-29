@@ -7,13 +7,24 @@
         <div class="container">
             <h1 class="h1">
                 <span class="h1-text">{{ tuto.title }}</span>
-                {% if is_granted('EDIT', tuto) %}
-                    <span class="float-right">
-                        <a href="{{ path('tutos.edit', { 'id' : tuto.id}) }}" class="btn btn-light btn-sm">{{ 'tutos.edit.title'|trans|capitalize }} <i class="fas fa-edit"></i></a>
-                    </span>
-                {% endif %}
+
+                <span class="float-right small">
+                   <a class="text-info align-text-bottom"
+                      href="https://twitter.com/intent/tweet?via=tutomarks&text={{ tuto.title|url_encode }}&original_referer={{ url('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}&url={{ url('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}"
+                      target="_blank"
+                      data-lang="fr"
+                      title="{{ 'btn.twitter.share_title'|trans|capitalize }}"
+                   >
+                       <i class="fab fa-twitter"></i></a>
+                    {% if is_granted('EDIT', tuto) %}
+                        <a class="align-text-bottom"
+                           href="{{ path('tutos.edit', { 'id' : tuto.id}) }}"
+                           title="{{ 'tutos.edit.title'|trans|capitalize }}">
+                            <i class="fas fa-edit"></i></a>
+                    {% endif %}
+                </span>
             </h1>
-            <hr class="my-4">
+            <hr class="my-3">
 
             <div class="row mt-2 mb-3">
                 <div class="col">
@@ -80,6 +91,17 @@
                                         <input type="number" id="tutoEvalGlobale" class="star-rating-fix" value="{{ note }}" min=0 max=5 step=0.5 data-size="sm">
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="mt-4 text-center">
+                                <a class="btn btn-info btn-sm"
+                                   href="https://twitter.com/intent/tweet?via=tutomarks&text={{ tuto.title|url_encode }}&original_referer={{ url('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}&url={{ url('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}"
+                                   target="_blank"
+                                   data-lang="fr"
+                                   title="{{ 'btn.twitter.share_title'|trans|capitalize }}"
+                                >
+                                    <i class="fab fa-twitter"></i> {{ 'btn.twitter.share'|trans|capitalize }}
+                                </a>
                             </div>
                         </div>
                     </div>

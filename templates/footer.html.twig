@@ -12,8 +12,17 @@
                     <a class="nav-link nav-item text-white" href="https://twitter.com/tutomarks" target="_blank" title="Compte Twitter de Tutomark"><i class="fab fa-twitter fa-2x"></i></a>
                     <a class="nav-link nav-item text-white" href="https://github.com/tonnevillec/tutomarks" target="_blank" title="Source Github de Tutomark"><i class="fab fa-github fa-2x"></i></a>
                 </div>
+
+                <div class="nav mt-4">
+                    <a href="https://twitter.com/tutomarks" class="twitter-follow-button" data-lang="fr" data-show-count="true">Suivre @Tutomarks</a>
+                </div>
             </div>
-            <div class="col-md-4 offset-md-4">
+
+            <div class="col-md-4">
+                <a class="twitter-timeline" href="https://twitter.com/tutomarks" data-lang="fr" data-height="500px">Tweets by Tutomarks</a>
+            </div>
+
+            <div class="col-md-4"> <!-- offset-md-4"> -->
                 <h3 class="h3 text-white">{{ 'footer.contact.title'|trans|capitalize }}</h3>
 
                 {% include 'home/_contact.html.twig' %}
