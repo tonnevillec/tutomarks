@@ -250,6 +250,7 @@ footer:
     contact:
         title: 'me contacter'
     about: 'a propos'
+    last_tweets: 'nos derniers tweets'
 
 error:
     send_mail: 'envoyer un e-mail à'

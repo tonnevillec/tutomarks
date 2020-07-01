@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Entity\Tutos;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;

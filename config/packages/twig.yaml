@@ -3,3 +3,6 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
     globals:
         evalTuto: "@app.service.evaluations"
+        twitter_api_key: '%env(TWITTER_API_KEY)%'
+        twitter_api_secret: '%env(TWITTER_API_SECRET)%'
+        twitter_bearer_token: '%env(TWITTER_BEARER_TOKEN)%'

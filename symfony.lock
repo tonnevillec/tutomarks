@@ -1,4 +1,7 @@
 {
+    "abraham/twitteroauth": {
+        "version": "1.1.0"
+    },
     "api-platform/api-pack": {
         "version": "v1.2.2"
     },
@@ -140,6 +143,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.5.0"
+    },
+    "nojimage/twitter-text-php": {
+        "version": "v3.1.0"
     },
     "ocramius/package-versions": {
         "version": "1.5.1"

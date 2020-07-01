@@ -99,6 +99,14 @@ body {
   a.nav-link:hover {
     color: $gray-500 !important;
   }
+
+  blockquote {
+    font-size: 0.75rem;
+
+    a {
+      color: $gray-400;
+    }
+  }
 }
 
 #login-dp{

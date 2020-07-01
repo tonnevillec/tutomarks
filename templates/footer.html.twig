@@ -1,7 +1,7 @@
 <footer id="footer" class="py-5 bg-dark">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6">
                 <h3 class="h3 text-white">{{ 'footer.about'|trans|capitalize }}</h3>
                 <nav class="nav flex-column">
                     <a href="{{ path('about') }}" class="nav-link nav-item text-white">{{ 'about.title'|trans|capitalize }}</a>
@@ -18,11 +18,16 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <a class="twitter-timeline" href="https://twitter.com/tutomarks" data-lang="fr" data-height="500px">Tweets by Tutomarks</a>
+            <div class="col-md-4 col-sm-6">
+                <h3 class="h3 text-white">{{ 'footer.last_tweets'|trans|capitalize }}</h3>
+                {% for tweet in tweets(twitter_api_key, twitter_api_secret, twitter_bearer_token)  %}
+                <blockquote class="blockquote text-justify">
+                    <p class="mb-0 text-white"><i class="fas fa-quote-left"></i> {{ autolink(tweet.text) }}</p>
+                </blockquote>
+                {% endfor %}
             </div>
 
-            <div class="col-md-4"> <!-- offset-md-4"> -->
+            <div class="col-md-4 col-sm-6"> <!-- offset-md-4"> -->
                 <h3 class="h3 text-white">{{ 'footer.contact.title'|trans|capitalize }}</h3>
 
                 {% include 'home/_contact.html.twig' %}
