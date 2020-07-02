@@ -22,6 +22,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Contrôle des doublons (fiches tutos => lien)
 - [x] Ajouter une section "Mes contributions"
 - [x] Garder la derniere recherche si retour
+- [x] SEO du site => mots clés en desc, accroche plus complète, ...
 - [] Pagination des résultats de recherche sans rechargement de la page
 - [] Dashboard: ajouter "les mieux notés"
 - [] Système de statistiques: "les plus consultés"
@@ -31,7 +32,6 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [] Système de Badge de "contributeur"
 - [] Signaler un lien mort
 - [] Retour sur la page/fiche en cour si demande de connexion depuis un bouton (ex: page tuto/show => connexion pour laisser un commentaire ou noter le tuto)
-- [] SEO du site => mots clés en desc, accroche plus complète, ...
 - [] Définition des catégories
 - [] Traduction du site en anglais
 
