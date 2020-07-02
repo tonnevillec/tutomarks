@@ -109,6 +109,10 @@ class SecurityAuthenticator extends AbstractFormLoginAuthenticator implements Pa
     {
         $request->getSession()->getFlashBag()->add('success', ucfirst($this->translator->trans('login.success')));
 
+        if($request->get('_target_path')){
+            return new RedirectResponse($request->get('_target_path'));
+        }
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
