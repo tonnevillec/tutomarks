@@ -84,8 +84,9 @@ class TutosRepository extends ServiceEntityRepository
     {
         if($search->getSearch()) {
             $query = $query
-                ->andWhere('t.title like :search OR t.description like :search')
-                ->setParameter(':search', '%'.$search->getSearch().'%')
+                // ->andWhere('t.title like :search OR t.description like :search')
+                ->andWhere('MATCH_AGAINST(t.title, t.description) AGAINST (:search boolean)>0')
+                ->setParameter(':search', $search->getSearch())
             ;
         }
 

@@ -13,6 +13,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=TutosRepository::class)
+ * @ORM\Table(
+ *     name="tutos",
+ *     indexes={
+ *          @ORM\Index(columns={"title", "description"}, flags={"fulltext"})
+ *     }
+ * )
  * @UniqueEntity(
  *     fields={"url"},
  *     message="L'url saisie existe déjà"
