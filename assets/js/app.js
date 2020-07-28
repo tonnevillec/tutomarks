@@ -11,6 +11,8 @@ require('bootstrap-star-rating');
 import './comments/Comments.jsx'
 
 $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+
     $(document).on('click', '.notification .delete', function(){
         $(this).parent().find('.js-message').html();
         $(this).parent().hide();

@@ -31,7 +31,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [] Avatar utilisateurs
 - [] Connexion Oauth
 - [] Système de Badge de "contributeur"
-- [] Signaler un lien mort
+- [x] Signaler un lien mort
 - [] Définition des catégories
 - [] Traduction du site en anglais
 

@@ -11,11 +11,14 @@ use App\Form\TutoSearchType;
 use App\Form\TutosType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -113,6 +116,63 @@ class TutosController extends AbstractController
     }
 
     /**
+     * @Route("/user", name="tutos.user")
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @return Response
+     */
+    public function index(Request $request, PaginatorInterface $paginator): Response
+    {
+        if(!$this->getUser()) {
+            $this->addFlash('danger', ucfirst($this->translator->trans('error.unauthorized')));
+            return $this->redirectToRoute('home');
+        }
+
+        $search = new TutoSearch();
+        $form = $this->createForm(TutoSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $result = $paginator->paginate(
+            $this->em->getRepository(Tutos::class)->findForMe($this->getUser(), $search),
+            $request->query->getInt('page', 1),
+            12
+        );
+
+        return $this->render('tutos/user.html.twig', [
+            'form'      => $form->createView(),
+            'result'    => $result
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/deadlink", name="tutos.deadlink")
+     * @param Tutos $tutos
+     * @return RedirectResponse
+     * @throws TransportExceptionInterface
+     */
+    public function deadLink(Request $request, Tutos $tutos, MailerInterface $mailer)
+    {
+        $email = (new TemplatedEmail())
+            ->from($this->getUser()->getEmail())
+            ->to('support@tutomarks.fr')
+            ->subject(ucfirst($this->translator->trans('deadlink.mail.subject')))
+            ->htmlTemplate('email/deadlink.html.twig')
+            ->context([
+                'mail_from' => $this->getUser()->getEmail(),
+                'tuto' => $tutos,
+            ])
+        ;
+        $mailer->send($email);
+
+        $this->addFlash('success', ucfirst($this->translator->trans('deadlink.thanks.flash')));
+
+        return $this->redirectToRoute('tutos.show', [
+            'id'    => $tutos->getId(),
+            'slug'  => $tutos->getSlug()
+        ]);
+    }
+
+    /**
      * @Route("/{id}/edit", name="tutos.edit")
      * @param Request $request
      * @param Tutos $tuto
@@ -142,36 +202,6 @@ class TutosController extends AbstractController
             'form'      => $form->createView(),
         ]);
     }
-
-    /**
-     * @Route("/user", name="tutos.user")
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @return Response
-     */
-    public function index(Request $request, PaginatorInterface $paginator): Response
-    {
-        if(!$this->getUser()) {
-            $this->addFlash('danger', ucfirst($this->translator->trans('error.unauthorized')));
-            return $this->redirectToRoute('home');
-        }
-
-        $search = new TutoSearch();
-        $form = $this->createForm(TutoSearchType::class, $search);
-        $form->handleRequest($request);
-
-        $result = $paginator->paginate(
-            $this->em->getRepository(Tutos::class)->findForMe($this->getUser(), $search),
-            $request->query->getInt('page', 1),
-            12
-        );
-
-        return $this->render('tutos/user.html.twig', [
-            'form'      => $form->createView(),
-            'result'    => $result
-        ]);
-    }
-
 
     /**
      * @param Request $request
@@ -229,4 +259,5 @@ class TutosController extends AbstractController
 
         return $this->json(['message' => 'Evaluation bien prise en compte', 'code' => 200], 200);
     }
+
 }

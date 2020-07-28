@@ -22,8 +22,34 @@
                            title="{{ 'tutos.edit.title'|trans|capitalize }}">
                             <i class="fas fa-edit"></i></a>
                     {% endif %}
+                    {% if app.user %}
+                        <a href="#" data-toggle="modal" data-target="#js-deadlink" class="align-text-bottom text-danger">
+                            <i class="fas fa-unlink" data-toggle="tooltip" title="{{ 'btn.deadlink'|trans|capitalize }}"></i>
+                        </a>
+                    {% endif %}
                 </span>
             </h1>
+
+            <div class="modal fade" id="js-deadlink" tabindex="-1" role="dialog" aria-labelledby="js-deadlink-label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="js-deadlink-label">{{ 'deadlink.thanks.title'|trans|capitalize }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ 'deadlink.thanks.dialog'|trans|capitalize }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'btn.cancel'|trans|capitalize }}</button>
+                            <a href="{{ path('tutos.deadlink', {'id': tuto.id}) }}" class="btn btn-success">{{ 'btn.confirm'|trans|capitalize }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <hr class="my-3">
 
             <div class="row mt-2 mb-3">
