@@ -13,21 +13,21 @@
                     <a class="nav-link nav-item text-white" href="https://github.com/tonnevillec/tutomarks" target="_blank" title="Source Github de Tutomark"><i class="fab fa-github fa-2x"></i></a>
                 </div>
 
-                <div class="nav mt-4">
-                    <a href="https://twitter.com/tutomarks" class="twitter-follow-button" data-lang="fr" data-show-count="true">Suivre @Tutomarks</a>
-                </div>
+{#                <div class="nav mt-4">#}
+{#                    <a href="https://twitter.com/tutomarks" class="twitter-follow-button" data-lang="fr" data-show-count="true">Suivre @Tutomarks</a>#}
+{#                </div>#}
             </div>
 
-            <div class="col-md-4 col-sm-6">
-                <h3 class="h3 text-white">{{ 'footer.last_tweets'|trans|capitalize }}</h3>
-                {% for tweet in tweets(twitter_api_key, twitter_api_secret, twitter_bearer_token)  %}
-                <blockquote class="blockquote text-justify">
-                    <p class="mb-0 text-white"><i class="fas fa-quote-left"></i> {{ autolink(tweet.text) }}</p>
-                </blockquote>
-                {% endfor %}
-            </div>
+{#            <div class="col-md-4 col-sm-6">#}
+{#                <h3 class="h3 text-white">{{ 'footer.last_tweets'|trans|capitalize }}</h3>#}
+{#                {% for tweet in tweets(twitter_api_key, twitter_api_secret, twitter_bearer_token)  %}#}
+{#                <blockquote class="blockquote text-justify">#}
+{#                    <p class="mb-0 text-white"><i class="fas fa-quote-left"></i> {{ autolink(tweet.text) }}</p>#}
+{#                </blockquote>#}
+{#                {% endfor %}#}
+{#            </div>#}
 
-            <div class="col-md-4 col-sm-6"> <!-- offset-md-4"> -->
+            <div class="col-md-4 col-sm-6 offset-md-4"> <!-- offset-md-4"> -->
                 <h3 class="h3 text-white">{{ 'footer.contact.title'|trans|capitalize }}</h3>
 
                 {% include 'home/_contact.html.twig' %}
