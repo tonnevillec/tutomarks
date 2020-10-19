@@ -11,54 +11,69 @@
 
         <h1 class="h3 mb-3 font-weight-normal">{{ 'nav.signin'|trans|capitalize }}</h1>
 
-        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-7">
+                {{ form_start(form) }}
 
-        <div class="form-group">
-            {{ form_row(form.email, {
-                'attr': {
-                    'class': 'form-control',
-                    'id': 'inputEmail'
-                }})
-            }}
+                <div class="form-group">
+                    {{ form_row(form.email, {
+                        'attr': {
+                            'class': 'form-control',
+                            'id': 'inputEmail'
+                        }})
+                    }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.username, {
+                        'attr': {
+                            'class': 'form-control',
+                            'id': 'inputUsername'
+                        }})
+                    }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.password, {
+                        'attr': {
+                            'class': 'form-group',
+                            'id': 'inputPassword',
+                        }})
+                    }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.password_repeat, {
+                        'attr': {
+                            'class': 'form-group',
+                            'id': 'inputPasswordRepeat',
+                        }})
+                    }}
+                    <div class="help-block text-right">{{ form_errors(form.password_repeat) }}</div>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+                <button class="btn btn-outline-success" type="submit">
+                    {{ 'nav.register'|trans|capitalize }}
+                </button>
+
+                {{ form_end(form) }}
+            </div>
+
+            <div class="col-5">
+                <h3 class="h3">{{ 'btn.social.connect'|trans|capitalize }}</h3>
+                <small>{{ 'btn.social.register_help'|trans|capitalize }}</small>
+                <a class="btn btn-outline-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
+                    <i class="fab fa-google"></i> Compte Google
+                </a>
+                <a class="btn btn-outline-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
+                    <i class="fab fa-github"></i> Compte Github
+                </a>
+            </div>
         </div>
-
-        <div class="form-group">
-            {{ form_row(form.username, {
-                'attr': {
-                    'class': 'form-control',
-                    'id': 'inputUsername'
-                }})
-            }}
-        </div>
-
-        <div class="form-group">
-            {{ form_row(form.password, {
-                'attr': {
-                    'class': 'form-group',
-                    'id': 'inputPassword',
-                }})
-            }}
-        </div>
-
-        <div class="form-group">
-            {{ form_row(form.password_repeat, {
-                'attr': {
-                    'class': 'form-group',
-                    'id': 'inputPasswordRepeat',
-                }})
-            }}
-            <div class="help-block text-right">{{ form_errors(form.password_repeat) }}</div>
-        </div>
-
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-
-        <button class="btn btn-outline-success" type="submit">
-            {{ 'nav.register'|trans|capitalize }}
-        </button>
-
-        {{ form_end(form) }}
     </div>
 </section>
 {% endblock %}

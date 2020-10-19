@@ -6,39 +6,54 @@
 <section class="my-2">
     <div class="container">
         <h2>{{ 'nav.login'|trans|capitalize }}</h2>
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+        <div class="row">
+            <div class="col-7">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
+                    {% if app.user %}
+                        <div class="mb-3">
+                            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    {% endif %}
 
-            <div class="form-group">
-                <label class="sr-only" for="inputEmail">{{ 'user.email.title'|trans|capitalize }}</label>
-                <input type="email" name="email" value="{{ last_username }}" id="inputEmail" class="form-control" placeholder="{{ 'user.email.placeholder'|trans|capitalize }}" required autofocus>
+                    <div class="form-group">
+                        <label class="sr-only" for="inputEmail">{{ 'user.email.title'|trans|capitalize }}</label>
+                        <input type="email" name="email" value="{{ last_username }}" id="inputEmail" class="form-control" placeholder="{{ 'user.email.placeholder'|trans|capitalize }}" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
+                        <div class="help-block text-right"><a href="{{ path('app_password') }}">{{ 'user.password.forget'|trans|capitalize }}</a></div>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> {{ 'user.keep_me_sign_in'|trans|capitalize }}
+                        </label>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}"/>
+
+                    <button type="submit" class="btn btn-outline-primary btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
+                </form>
             </div>
 
-            <div class="form-group">
-                <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
-                <div class="help-block text-right"><a href="{{ path('app_password') }}">{{ 'user.password.forget'|trans|capitalize }}</a></div>
+            <div class="col-5">
+                <h3 class="h3">{{ 'btn.social.connect'|trans|capitalize }}</h3>
+                <small>{{ 'btn.social.connect_help'|trans|capitalize }}</small>
+                <a class="btn btn-outline-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
+                    <i class="fab fa-google"></i> Compte Google
+                </a>
+                <a class="btn btn-outline-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
+                    <i class="fab fa-github"></i> Compte Github
+                </a>
             </div>
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="_remember_me"> {{ 'user.keep_me_sign_in'|trans|capitalize }}
-                </label>
-            </div>
-
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}"/>
-
-            <button type="submit" class="btn btn-outline-primary">{{ 'nav.login'|trans|capitalize }}</button>
-        </form>
+        </div>
     </div>
 </section>
 {% endblock %}

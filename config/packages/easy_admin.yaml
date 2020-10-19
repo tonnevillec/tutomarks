@@ -55,3 +55,9 @@ easy_admin:
                 fields: ['id', 'title', 'published_by', 'published_at', 'creator', 'url', 'category', 'langue']
             form:
                 fields: ['title', 'published_by', 'published_at', 'creator', 'url', 'category', 'tags', 'description', 'langue']
+        Badges:
+            class: App\Entity\Badges
+            list:
+                fields: ['id', 'name', 'action_name', 'action_count', 'image']
+            form:
+                fields: ['name', 'action_name', 'action_count', 'image']

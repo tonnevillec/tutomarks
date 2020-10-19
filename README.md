@@ -26,14 +26,20 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Retour sur la page/fiche en cour si demande de connexion depuis un bouton (ex: page tuto/show => connexion pour laisser un commentaire ou noter le tuto)
 - [] Pagination des résultats de recherche sans rechargement de la page
 - [] Dashboard: ajouter "les mieux notés"
+- [] Dashboard: ajouter bouton "Plus de résultats" à la place de "RECHERCHE"
 - [] Système de statistiques: "les plus consultés"
 - [] Logo pour les Tags, les Catégories
 - [] Avatar utilisateurs
-- [] Connexion Oauth
+- Connexions Oauth
+- [x] Google
+- [x] Github
 - [] Système de Badge de "contributeur"
 - [x] Signaler un lien mort
 - [] Définition des catégories
 - [] Traduction du site en anglais
+- [] Système de badges pour les utilisateurs (1iere contribution, ...)
+- [] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
+- [] Pouvoir marquer un tuto comme "Favoris"
 
 # Coté technique:
 

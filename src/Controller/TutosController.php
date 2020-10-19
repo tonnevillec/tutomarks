@@ -9,6 +9,8 @@ use App\Entity\TutoSearch;
 use App\Entity\User;
 use App\Form\TutoSearchType;
 use App\Form\TutosType;
+use App\Managers\BadgesManager;
+use Doctrine\DBAL\ConnectionException;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -49,9 +51,11 @@ class TutosController extends AbstractController
     /**
      * @Route("/add", name="tutos.add")
      * @param Request $request
+     * @param BadgesManager $badgesManager
      * @return RedirectResponse|Response
+     * @throws ConnectionException
      */
-    public function add(Request $request)
+    public function add(Request $request, BadgesManager $badgesManager)
     {
         $tutos = new Tutos();
         $form = $this->createForm(TutosType::class, $tutos);
@@ -65,7 +69,13 @@ class TutosController extends AbstractController
             }
 
             $this->em->persist($tutos);
+            $this->em->beginTransaction();
             $this->em->flush();
+
+            $tutos_count = $this->em->getRepository(Tutos::class)->countForUser($this->getUser()->getId());
+            $badgesManager->checkAndUnlock($this->getUser(), 'publish', $tutos_count);
+
+            $this->em->getConnection()->commit();
 
             if($request->request->has('userEval') && $request->request->get('userEval') !== null  && $request->request->get('userEval') !== ''){
                 $eval = new Evaluations();

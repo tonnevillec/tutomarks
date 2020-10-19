@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+oauth_check:
+    path: /oauth/check/{service}
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController

@@ -11,6 +11,9 @@
                 <div class="col-md-3">
                     <div class="list-group">
                         <a href="#a_informations" class="list-group-item list-group-item-action">{{ 'user.profil.informations'|trans|capitalize }}</a>
+                        {% if app.user.googleId is not null or app.user.githubId is not null %}
+                        <a href="#a_social" class="list-group-item list-group-item-action">{{ 'user.profil.social'|trans|capitalize }}</a>
+                        {% endif %}
                         <a href="#a_changemail" class="list-group-item list-group-item-action">{{ 'user.profil.email'|trans|capitalize }}</a>
                         <a href="#a_changepassword" class="list-group-item list-group-item-action">{{ 'user.profil.password'|trans|capitalize }}</a>
                         <a href="#a_delete" class="list-group-item list-group-item-action">{{ 'user.profil.delete.title'|trans|capitalize }}</a>
@@ -51,6 +54,22 @@
                                 {{ form_end(form) }}
                             </div>
                         </div>
+
+                        {% if app.user.googleId is not null or app.user.githubId is not null %}
+                        <div class="card mt-3" id="a_social">
+                            <div class="card-body">
+                                <h2 class="card-title h2">{{ 'user.profil.social'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+                                {% if app.user.googleId is not null %}
+                                    <button class="btn btn-outline-danger btn-sm" disabled><i class="fab fa-google"></i> Compte google lié</button>
+                                {% endif %}
+                                {% if app.user.githubId is not null %}
+                                    <button class="btn btn-outline-primary btn-sm" disabled><i class="fab fa-github"></i> Compte github lié</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
 
                         <div class="card mt-3" id="a_changemail">
                             <div class="card-body">

@@ -6,6 +6,8 @@ use App\Entity\Tutos;
 use App\Entity\TutoSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -156,4 +158,20 @@ class TutosRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t');
     }
 
+    /**
+     * @param int $user_id
+     * @return int
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countForUser(int $user_id): int
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->where('t.published_by = :user')
+            ->setParameter('user', $user_id)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
 }

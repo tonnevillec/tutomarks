@@ -33,6 +33,7 @@ nav:
     new_here: 'nouveau'
     signin: 'inscription'
     search: 'recherche'
+    search_more: 'rechercher parmis tous les tutos'
     add: 'partager un lien'
     admin: 'administration'
     connection: 'connectez-vous'
@@ -56,9 +57,12 @@ user:
         repeat: 'Répéter le mot de passe'
         forget: 'mot de passe oublié ?'
     keep_me_sign_in: 'se rappeler de moi'
+    social:
+        unvailable_service: 'service de connexion non pris en charge'
     profil:
         title: 'mon compte'
         informations: 'mes informations'
+        social: 'mes réseaux sociaux'
         email: 'mon e-mail'
         current_email: 'mon e-mail actuel'
         password: 'mon mot de passe'
@@ -127,6 +131,10 @@ btn:
     twitter:
         share: 'partager'
         share_title: 'partager le lien (nouvelle fenêtre)'
+    social:
+        connect: 'réseaux sociaux'
+        connect_help: "Se connecter directement avec son réseau préféré"
+        register_help: "S'inscrire directement avec son réseau préféré"
 
 delete:
     are_you_sure: "êtes-vous sûre de vouloir supprimer votre compte ainsi que tout son contenu? Cette opération est irréversible et nous serons très triste de vous perdre :("

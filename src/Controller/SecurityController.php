@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use KnpU\OAuth2ClientBundle\Client\Provider\GithubClient;
+use KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -166,5 +169,34 @@ class SecurityController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    /**
+     * @param ClientRegistry $clientRegistry
+     * @param string $service
+     * @return Response
+     * @Route("/connect/{service}", name="social_connect")
+     */
+    public function connect(ClientRegistry $clientRegistry, $service): Response
+    {
+        switch($service) {
+            case 'github':
+                /** @var GithubClient $client */
+                $client = $clientRegistry->getClient('github');
+                return $client->redirect([
+                    'user:email',
+                    'read:user'
+                ]);
+                break;
+
+            case 'google':
+                /** @var GoogleClient $client */
+                $client = $clientRegistry->getClient('google');
+                return $client->redirect([]);
+                break;
+        }
+
+        $this->addFlash('danger', $this->translator->trans('user.social.unvailable_service'));
+        return $this->redirectToRoute('app_login');
     }
 }

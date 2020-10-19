@@ -33,3 +33,8 @@ services:
         class: App\Service\EvaluationsService
         arguments:
             - '@doctrine.orm.entity_manager'
+
+    badges.manager:
+        class: App\Managers\BadgesManager
+        arguments:
+            - '@doctrine.orm.entity_manager'

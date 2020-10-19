@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Comments;
 use App\Entity\Tutos;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,10 +20,6 @@ class CommentsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comments::class);
     }
-
-    // /**
-    //  * @return Comments[] Returns an array of Comments objects
-    //  */
 
     /**
      * @param Tutos $tutos
@@ -40,16 +37,14 @@ class CommentsRepository extends ServiceEntityRepository
         ;
     }
 
-
-    /*
-    public function findOneBySomeField($value): ?Comments
+    public function countForUser(int $user_id): int
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('COUNT(c.id)')
+            ->where('c.user = :user')
+            ->setParameter('user', $user_id)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getSingleScalarResult()
         ;
     }
-    */
 }

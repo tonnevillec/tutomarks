@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use League\OAuth2\Client\Provider\GithubResourceOwner;
+use League\OAuth2\Client\Provider\GoogleUser;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,32 +39,81 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOrCreateFromGithubOauth(GithubResourceOwner $owner, UserPasswordEncoderInterface $passwordEncoder): User
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
+        /** @var User|null $user */
+        $user = $this->createQueryBuilder('u')
+            ->where('u.githubId = :githubId')
+            ->orWhere('u.email = :email')
+            ->setParameters([
+                'githubId'  => $owner->getId(),
+                'email'     => $owner->getEmail()
+            ])
             ->getQuery()
             ->getOneOrNullResult()
         ;
+
+        if($user){
+            if($user->getGithubId() === null) {
+                $user->setGithubId($owner->getId());
+                $this->_em->flush();
+            }
+            return $user;
+        }
+
+        $user = (new User())
+            ->setGithubId($owner->getId())
+            ->setEmail($owner->getEmail())
+            ->setUsername($owner->getNickname())
+            ->setPassword($passwordEncoder
+                ->encodePassword(
+                    new User(),
+                    substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 0, 10)
+                )
+            )
+        ;
+        $this->_em->persist($user);
+        $this->_em->flush();
+
+        return $user;
     }
-    */
+
+    public function findOrCreateFromGoogleOauth(GoogleUser $googleUser, UserPasswordEncoderInterface $passwordEncoder): User
+    {
+        /** @var User|null $user */
+        $user = $this->createQueryBuilder('u')
+            ->where('u.googleId = :googleId')
+            ->orWhere('u.email = :email')
+            ->setParameters([
+                'googleId'  => $googleUser->getId(),
+                'email'     => $googleUser->getEmail()
+            ])
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if($user){
+            if($user->getGoogleId() === null) {
+                $user->setGoogleId($googleUser->getId());
+                $this->_em->flush();
+            }
+            return $user;
+        }
+
+        $user = (new User())
+            ->setGoogleId($googleUser->getId())
+            ->setEmail($googleUser->getEmail())
+            ->setUsername($googleUser->getName())
+            ->setPassword($passwordEncoder
+                ->encodePassword(
+                    new User(),
+                    substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 0, 10)
+                )
+            )
+        ;
+        $this->_em->persist($user);
+        $this->_em->flush();
+
+        return $user;
+    }
 }

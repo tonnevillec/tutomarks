@@ -81,6 +81,15 @@
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-outline-primary btn-block btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <a class="btn btn-outline-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
+                                            <i class="fab fa-google"></i> Compte Google
+                                        </a>
+                                        <a class="btn btn-outline-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
+                                            <i class="fab fa-github"></i> Compte Github
+                                        </a>
                                     </div>
                                 </form>
 
