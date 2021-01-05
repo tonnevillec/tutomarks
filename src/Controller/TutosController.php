@@ -204,7 +204,10 @@ class TutosController extends AbstractController
 
             $this->addFlash('success', ucfirst($this->translator->trans('tutos.edit.validate')));
 
-            return $this->redirectToRoute('tutos.show', [ 'id' => $tuto->getId()]);
+            return $this->redirectToRoute('tutos.show', [
+                'id'    => $tuto->getId(),
+                'slug'  => $tuto->getSlug()
+            ]);
         }
 
         return $this->render('tutos/edit.html.twig', [
