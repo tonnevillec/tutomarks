@@ -3,9 +3,9 @@
         <div class="card-body text-center">
             <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">
             {% if tuto.url|youtube_thumbnail is not same as ('') %}
-                <img src="{{ tuto.url|youtube_thumbnail }}" class="card-img-top" alt="...">
+                <img src="{{ tuto.url|youtube_thumbnail }}" class="card-img-top" alt="Miniature tutoriel stocké sur youtube - {{ tuto.title }}">
             {% else %}
-                <img src="{{ asset('build/images/no-preview-640x480.png') }}" class="card-img-top" alt="...">
+                <img src="{{ asset('build/images/no-preview-640x480.png') }}" class="card-img-top" alt="Miniature tutoriel non stocké sur youtube - {{ tuto.title }}">
             {% endif %}
             </a>
 
