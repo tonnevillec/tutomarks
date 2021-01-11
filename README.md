@@ -48,3 +48,18 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - MySQL
 - Bootstrap 4 + thème Bootswatch LUX =>  https://bootswatch.com/lux/
 - Un peu de React aussi
+
+
+# Lancer l'application en dev local
+
+Le dépot contient une image Docker très simple contenant uniquement un Mysql. Après avoir récupéré le dépot en local, il suffit de se positionner dans le répertoire ./docker et de lancer:
+`docker-compose up -d`
+  
+Note MySql: Les informations de connexion sont disponible dans le fichier docker/.env
+
+
+Pour le server web, j'utilise le server interne de Symfony. (https://symfony.com/doc/5.1/setup/symfony_server.html#enabling-php-fpm).
+
+Note PHP: j'utilise une version 7.3 de PHP, il faut donc le préciser dans un fichier .php-version en racine du projet
+  
+Pour démarrer le server Web, dans un terminal, il faut lancer depuis la racine du projet, la commande: `symfony serve`
