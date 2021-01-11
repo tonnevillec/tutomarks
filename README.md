@@ -30,9 +30,9 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [ ] Système de statistiques: "les plus consultés"
 - [ ] Logo pour les Tags, les Catégories
 - [ ] Avatar utilisateurs
-- Connexions Oauth
-- [x] Google
-- [x] Github
+- [x] Connexions Oauth
+    - [x] Google
+    - [x] Github
 - [ ] Système de Badge de "contributeur"
 - [x] Signaler un lien mort
 - [ ] Définition des catégories
@@ -40,6 +40,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [ ] Système de badges pour les utilisateurs (1iere contribution, ...)
 - [ ] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
 - [ ] Pouvoir marquer un tuto comme "Favoris"
+- [x] Miniatures pour les liens youtube
 
 # Coté technique:
 

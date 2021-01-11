@@ -22,6 +22,9 @@
     "cocur/slugify": {
         "version": "v4.0.0"
     },
+    "copadia/php-video-url-parser": {
+        "version": "v1.0.3"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

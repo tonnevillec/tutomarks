@@ -1,6 +1,12 @@
 <div class="col-md-4 col-sm-12 mb-3">
     <div class="card h-100 css-tutos">
         <div class="card-body text-center">
+            {% if tuto.url|youtube_thumbnail is not same as ('') %}
+                <img src="{{ tuto.url|youtube_thumbnail }}" class="card-img-top" alt="...">
+            {% else %}
+                <img src="{{ asset('build/images/no-preview-640x480.png') }}" class="card-img-top" alt="...">
+            {% endif %}
+
             <h3 class="card-title my-2">{{ tuto.title }}</h3>
 
             <hr class="my-3">

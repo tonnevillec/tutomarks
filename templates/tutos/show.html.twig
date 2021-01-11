@@ -52,6 +52,12 @@
 
             <hr class="my-3">
 
+            {% if tuto.url|youtube_thumbnail is not same as ('') %}
+                <div class="row mt-2 mb-3">
+                    {{ tuto.url|youtube_player|raw }}
+                </div>
+            {% endif %}
+
             <div class="row mt-2 mb-3">
                 <div class="col">
                     <div class="card mb-3">
