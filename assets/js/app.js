@@ -100,7 +100,7 @@ $(document).ready(function () {
             data: datas,
             async: true,
         }).done(function(result){
-            console.log(result)
+            // console.log(result)
         }).fail(function(jqXHR, textStatus, error){
             let err = JSON.parse(jqXHR.responseText);
             alert(err.title);
