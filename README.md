@@ -21,15 +21,15 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Système de partage sur les réseaux sociaux de ses publications ou de tutos préférés
 - [x] Contrôle des doublons (fiches tutos => lien)
 - [x] Ajouter une section "Mes contributions"
-- [x] Garder la derniere recherche si retour
+- [x] Garder la dernière recherche si retour
 - [x] SEO du site => mots clés en desc, accroche plus complète, ...
-- [x] Retour sur la page/fiche en cour si demande de connexion depuis un bouton (ex: page tuto/show => connexion pour laisser un commentaire ou noter le tuto)
+- [x] Retour sur la page/fiche en cours si demande de connexion depuis un bouton (ex: page tuto/show => connexion pour laisser un commentaire ou noter le tuto)
 - [ ] Pagination des résultats de recherche sans rechargement de la page
 - [ ] Dashboard: ajouter "les mieux notés"
 - [ ] ~~Dashboard: ajouter bouton "Plus de résultats" à la place de "RECHERCHE"~~
-- [ ] Système de statistiques: "les plus consultés"
+- [ ] Système de statistiques : "les plus consultés"
 - [ ] Logo pour les Tags, les Catégories
-- [ ] Avatar utilisateurs
+- [ ] Avatars utilisateurs
 - [ ] Pouvoir marquer un tuto comme "Favoris"
 - [ ] Option "Marquer comme vu" pour les utilisateurs
 - [x] Connexions Oauth
@@ -39,11 +39,12 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [ ] Définition des catégories
 - [ ] Traduction du site en anglais
 - [ ] Système de Badge de "contributeur"
-- [ ] Système de badges pour les utilisateurs (1iere contribution, ...)
+- [ ] Système de badges pour les utilisateurs (1 ière contribution, ...)
 - [ ] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
 - [x] Miniatures pour les liens youtube
+- [ ] "Notes personnelles" sur les vidéos
 
-# Coté technique:
+# Coté technique :
 
 - Symfony 5.1
 - MySQL
