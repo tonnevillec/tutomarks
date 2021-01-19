@@ -1,53 +1,113 @@
-<div class="col-md-4 col-sm-12 mb-3">
-    <div class="card h-100 css-tutos">
-        <div class="card-body text-center">
-            <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">
-            {% if tuto.url|youtube_thumbnail is not same as ('') %}
-                <img src="{{ tuto.url|youtube_thumbnail }}" class="card-img-top" alt="Miniature tutoriel stocké sur youtube - {{ tuto.title }}">
-            {% else %}
-                <img src="{{ asset('build/images/no-preview-640x480.png') }}" class="card-img-top" alt="Miniature tutoriel non stocké sur youtube - {{ tuto.title }}">
-            {% endif %}
-            </a>
-
-            <h3 class="card-title my-2">{{ tuto.title }}</h3>
-
-            <hr class="my-3">
-
-            <div class="card-text">
-                <span class="badge badge-light">{{ tuto.category }} - {{ tuto.langue }}</span><br/>
-                {{ 'tutos.created_by'|trans|capitalize }} {{ tuto.creator }}<br/>
-
-                {% for tag in tuto.tags %}
-                    <span class="badge badge-primary badge-pill">{{ tag }}</span>
-                {% endfor %}
-
-                <p class="my-2">
-                    {% if tuto.moy is null %}
-                        {{ 'tutos.eval.isnull'|trans|capitalize }}
-                    {% else %}
-                        <input type="number" id="tutoEvalGlobale" class="star-rating-fix" value="{{ tuto.moy }}" min=0 max=5 step=0.5 data-size="sm">
-                    {% endif %}
-                </p>
-
-                {% if tuto.price or tuto.level %}
-                <p class="my-2">
-                    {% if tuto.price %}
-                    <span class="text-muted">{{ tuto.price }}</span>
-                    {% endif %}
-                    {% if tuto.level %}
-                        {% if tuto.price %} | {% endif %}
-                        <span class="text-muted">{{ tuto.level }}</span>
-                    {% endif %}
-                </p>
-                {% endif %}
-
-                <small>{{ 'tutos.added_at'|trans|capitalize }} {{ tuto.publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ tuto.publishedBy }}</small>
+<div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+    <div class="cardbox h-100 shadow-lg bg-white">
+        <div class="cardbox-heading">
+            <div class="media m-0">
+                <div class="media-body">
+                    <div class="float-right">
+                        <a href="{{ tuto.url }}" target="_blank" class="btn btn-flat btn-flat-icon" title="{{ 'tutos.direct_link'|trans|capitalize }}"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                    <h4 class="m-0 h4">{{ tuto.title }}</h4>
+                    <p class="m-0"><i class="fas fa-at"></i> {{ tuto.creator }}</p>
+                    <span class="float-right text-right"><small>{{ 'tutos.added_at'|trans|capitalize }} {{ tuto.publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ tuto.publishedBy }}</small></span>
+                </div>
             </div>
         </div>
 
-        <div class="text-center mb-3">
-            <a href="{{ tuto.url }}" target="_blank" class="btn btn-outline-info btn-sm my-1">{{ 'tutos.direct_link'|trans|capitalize }} <i class="fas fa-external-link-alt"></i></a>
-            <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}" class="btn btn-outline-success btn-sm my-1">{{ 'tutos.details'|trans|capitalize }} <i class="fas fa-clipboard-list"></i></a>
+        <div class="cardbox-item">
+            <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">
+            {% if tuto.url|youtube_thumbnail is not same as ('') %}
+                <img src="{{ tuto.url|youtube_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ tuto.title }}">
+            {% else %}
+                <img src="{{ asset('build/images/no-preview-640x480.png') }}" class="img-fluid" alt="Miniature tutoriel non stocké sur youtube - {{ tuto.title }}">
+            {% endif %}
+            </a>
+        </div>
+
+        <div class="cardbox-base p-2">
+            <span class="float-right">
+                <i class="fas fa-comments"></i>
+                <em class="mr-3">{{ tuto.comments|length }}</em>
+{#                <i class="fas fa-thumbtack"></i>#}
+{#                <em class="mr-1">03</em>#}
+            </span>
+            <div>
+            {% if tuto.moy is null %}
+                {{ 'tutos.eval.isnull'|trans|capitalize }}
+            {% else %}
+                <input type="number" id="tutoEvalGlobale" class="star-rating-fix" value="{{ tuto.moy }}" min=0 max=5 step=0.5 data-size="sm">
+            {% endif %}
+            </div>
+        </div>
+
+        <div class="cardbox-comments p-2">
+            <span class="badge badge-info badge-pill">{{ tuto.category }}</span>
+            <span class="badge badge-info badge-pill">{{ tuto.langue }}</span>
+
+            {% if tuto.price %}
+            <span class="badge badge-info badge-pill">{{ tuto.price }}</span>
+            {% endif %}
+            {% if tuto.level %}
+                <span class="badge badge-info badge-pill">{{ tuto.level }}</span>
+            {% endif %}
+
+            {% for tag in tuto.tags %}
+                <span class="badge badge-primary badge-pill">{{ tag }}</span>
+            {% endfor %}
         </div>
     </div>
 </div>
+
+
+{#<div class="col-md-4 col-sm-12 mb-3">#}
+{#    <div class="card h-100 css-tutos">#}
+{#        <div class="card-body text-center">#}
+{#            <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">#}
+{#            {% if tuto.url|youtube_thumbnail is not same as ('') %}#}
+{#                <img src="{{ tuto.url|youtube_thumbnail }}" class="card-img-top" alt="Miniature tutoriel stocké sur youtube - {{ tuto.title }}">#}
+{#            {% else %}#}
+{#                <img src="{{ asset('build/images/no-preview-640x480.png') }}" class="card-img-top" alt="Miniature tutoriel non stocké sur youtube - {{ tuto.title }}">#}
+{#            {% endif %}#}
+{#            </a>#}
+
+{#            <h3 class="card-title my-2">{{ tuto.title }}</h3>#}
+
+{#            <hr class="my-3">#}
+
+{#            <div class="card-text">#}
+{#                <span class="badge badge-light">{{ tuto.category }} - {{ tuto.langue }}</span><br/>#}
+{#                {{ 'tutos.created_by'|trans|capitalize }} {{ tuto.creator }}<br/>#}
+
+{#                {% for tag in tuto.tags %}#}
+{#                    <span class="badge badge-primary badge-pill">{{ tag }}</span>#}
+{#                {% endfor %}#}
+
+{#                <p class="my-2">#}
+{#                    {% if tuto.moy is null %}#}
+{#                        {{ 'tutos.eval.isnull'|trans|capitalize }}#}
+{#                    {% else %}#}
+{#                        <input type="number" id="tutoEvalGlobale" class="star-rating-fix" value="{{ tuto.moy }}" min=0 max=5 step=0.5 data-size="sm">#}
+{#                    {% endif %}#}
+{#                </p>#}
+
+{#                {% if tuto.price or tuto.level %}#}
+{#                <p class="my-2">#}
+{#                    {% if tuto.price %}#}
+{#                    <span class="text-muted">{{ tuto.price }}</span>#}
+{#                    {% endif %}#}
+{#                    {% if tuto.level %}#}
+{#                        {% if tuto.price %} | {% endif %}#}
+{#                        <span class="text-muted">{{ tuto.level }}</span>#}
+{#                    {% endif %}#}
+{#                </p>#}
+{#                {% endif %}#}
+
+{#                <small>{{ 'tutos.added_at'|trans|capitalize }} {{ tuto.publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ tuto.publishedBy }}</small>#}
+{#            </div>#}
+{#        </div>#}
+
+{#        <div class="text-center mb-3">#}
+{#            <a href="{{ tuto.url }}" target="_blank" class="btn btn-outline-info btn-sm my-1">{{ 'tutos.direct_link'|trans|capitalize }} <i class="fas fa-external-link-alt"></i></a>#}
+{#            <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}" class="btn btn-outline-success btn-sm my-1">{{ 'tutos.details'|trans|capitalize }} <i class="fas fa-clipboard-list"></i></a>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
