@@ -10,6 +10,22 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 
 # Roadmap:
 
+## Todo :
+- [ ] Pagination des résultats de recherche sans rechargement de la page
+- [ ] Dashboard: ajouter "les mieux notés"
+- [ ] Système de statistiques : "les plus consultés"
+- [ ] Logo pour les Tags, les Catégories
+- [ ] Avatars utilisateurs
+- [ ] Pouvoir marquer un tuto comme "Favoris" (= épingler)
+- [ ] Option "Marquer comme vu" pour les utilisateurs
+- [ ] Définition des catégories
+- [ ] Traduction du site en anglais
+- [ ] Système de Badge de "contributeur"
+- [ ] Système de badges pour les utilisateurs (1 ière contribution, ...)
+- [ ] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
+- [ ] "Notes personnelles" (= post-it) sur les vidéos
+
+## Terminé :
 - [x] Envois de mail lors de l'inscription + mot de passe oublié
 - [x] Affichage connection réussie
 - [x] Mot de passe oublié
@@ -24,25 +40,11 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Garder la dernière recherche si retour
 - [x] SEO du site => mots clés en desc, accroche plus complète, ...
 - [x] Retour sur la page/fiche en cours si demande de connexion depuis un bouton (ex: page tuto/show => connexion pour laisser un commentaire ou noter le tuto)
-- [ ] Pagination des résultats de recherche sans rechargement de la page
-- [ ] Dashboard: ajouter "les mieux notés"
-- [ ] ~~Dashboard: ajouter bouton "Plus de résultats" à la place de "RECHERCHE"~~
-- [ ] Système de statistiques : "les plus consultés"
-- [ ] Logo pour les Tags, les Catégories
-- [ ] Avatars utilisateurs
-- [ ] Pouvoir marquer un tuto comme "Favoris"
-- [ ] Option "Marquer comme vu" pour les utilisateurs
 - [x] Connexions Oauth
     - [x] Google
     - [x] Github
 - [x] Signaler un lien mort
-- [ ] Définition des catégories
-- [ ] Traduction du site en anglais
-- [ ] Système de Badge de "contributeur"
-- [ ] Système de badges pour les utilisateurs (1 ière contribution, ...)
-- [ ] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
 - [x] Miniatures pour les liens youtube
-- [ ] "Notes personnelles" sur les vidéos
 
 # Coté technique :
 
