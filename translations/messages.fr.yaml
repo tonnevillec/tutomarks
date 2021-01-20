@@ -172,7 +172,7 @@ tutos:
     created_by: 'réalisé par'
     added_at: 'ajouté le'
     added_by: 'par'
-    direct_link: 'accèder au tuto'
+    direct_link: 'accèder au tuto dans une nouvelle fenetre'
     details: 'voir la fiche'
     edit:
         title: 'éditer la fiche'

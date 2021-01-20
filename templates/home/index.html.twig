@@ -12,14 +12,16 @@
                 <h1 class="display-5">{{ 'home.title'|trans|capitalize }} TutoMarks !</h1>
                 <p class="lead">{{ 'home.lead'|trans|capitalize }}</p>
 
-                <p class="mt-5">
+                <p class="mt-3">
                     {% if app.user %}
                     <a class="btn btn-sm btn-outline-success" href="{{ path('tutos.add') }}" role="button">
                         <i class="far fa-bookmark"></i>
                         {{ 'tutos.add.title'|trans|capitalize }}
                     </a>
                     {% else %}
-                        {{ 'user.want_to_join'|trans|capitalize }} ? <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info">{{ 'user.register'|trans|capitalize }}</a> <a href="{{ path('app_login') }}" class="btn btn-sm btn-outline-success">{{ 'user.login'|trans|capitalize }}</a>
+                        {{ 'user.want_to_join'|trans|capitalize }} ?
+                        <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info m-1">{{ 'user.register'|trans|capitalize }}</a>
+                        <a href="{{ path('app_login') }}" class="btn btn-sm btn-outline-success m-1">{{ 'user.login'|trans|capitalize }}</a>
                     {% endif %}
                 </p>
             </div>
