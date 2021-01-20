@@ -6,7 +6,9 @@
                     <div class="float-right">
                         <a href="{{ tuto.url }}" target="_blank" class="btn btn-flat btn-flat-icon" title="{{ 'tutos.direct_link'|trans|capitalize }}"><i class="fas fa-external-link-alt"></i></a>
                     </div>
-                    <h4 class="m-0 h4">{{ tuto.title }}</h4>
+                    <h4 class="m-0 h4">
+                        <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">{{ tuto.title }}</a>
+                    </h4>
                     <p class="m-0"><i class="fas fa-at"></i> {{ tuto.creator }}</p>
                     <span class="float-right text-right"><small>{{ 'tutos.added_at'|trans|capitalize }} {{ tuto.publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ tuto.publishedBy }}</small></span>
                 </div>
