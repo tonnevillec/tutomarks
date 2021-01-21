@@ -1,26 +1,19 @@
 # Tutomarks
 
+## Informations sur le rôle du site:
 
-Informations sur le rôle du site:
---
 Site destiné aux futurs développeurs (et aux anciens ;) ) qui regroupe des liens vers des tutoriaux.
 
 Il s'agit bien **uniquement de liens proposés par la communauté** et absolument pas une tentative de voler le travail des autres.
 
+## Roadmap:
 
-# Roadmap:
-
-## Todo :
+### Todo :
 - [ ] Pagination des résultats de recherche sans rechargement de la page
 - [ ] Dashboard: ajouter "les mieux notés"
 - [ ] Système de statistiques : "les plus consultés"
 - [ ] Logo pour les Tags, les Catégories
 - [ ] Avatars utilisateurs
-- [x] Pouvoir marquer un tuto comme "Favoris" (= épingler)
-    - [x] Faire entity + affichage sur tutos
-    - [x] Recherche par épingle
-- [x] Option "Marquer comme vu" pour les utilisateurs
-    - [x] Recherche par "Marquer comme vu"
 - [ ] Définition des catégories
 - [ ] Traduction du site en anglais
 - [ ] Système de Badge de "contributeur"
@@ -28,7 +21,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [ ] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
 - [ ] "Notes personnelles" (= post-it) sur les vidéos
 
-## Terminé :
+### Terminé :
 - [x] Envois de mail lors de l'inscription + mot de passe oublié
 - [x] Affichage connection réussie
 - [x] Mot de passe oublié
@@ -48,16 +41,20 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
     - [x] Github
 - [x] Signaler un lien mort
 - [x] Miniatures pour les liens youtube
+- [x] Pouvoir marquer un tuto comme "Favoris" (= épingler)
+  - [x] Faire entity + affichage sur tutos
+  - [x] Recherche par épingle
+- [x] Option "Marquer comme vu" pour les utilisateurs
+  - [x] Recherche par "Marquer comme vu"
 
-# Coté technique :
+## Coté technique :
 
 - Symfony 5.1
 - MySQL
 - Bootstrap 4 + thème Bootswatch LUX =>  https://bootswatch.com/lux/
 - Un peu de React aussi
 
-
-# Lancer l'application en dev local
+## Lancer l'application en dev local
 
 Le dépot contient une image Docker très simple contenant uniquement un Mysql. 
 
