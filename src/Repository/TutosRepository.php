@@ -5,12 +5,14 @@ namespace App\Repository;
 use App\Entity\Tutos;
 use App\Entity\TutoSearch;
 use App\Entity\User;
+use App\Entity\UserTutosInformations;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @method Tutos|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,9 +22,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TutosRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $security;
+
+    public function __construct(ManagerRegistry $registry, Security $security)
     {
         parent::__construct($registry, Tutos::class);
+        $this->security = $security;
     }
 
     public function findLatest(int $nb)
@@ -58,7 +63,7 @@ class TutosRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
-    public function forMe(User $user)
+    public function forMe(User $user): QueryBuilder
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.published_by = :user')
@@ -144,6 +149,40 @@ class TutosRepository extends ServiceEntityRepository
                 ->leftJoin('t.tags', 'tags')
                 ->andWhere('tags.id IN (:tags)')
                 ->setParameter(':tags', $tags)
+            ;
+        }
+
+        if(!is_null($search->getPined())) {
+            $infos = $this->_em
+                ->getRepository(UserTutosInformations::class)
+                ->findBy([
+                    'user'  => $this->security->getUser()->getId(),
+                    'pined' => $search->getPined()
+                ]);
+            $pined = [];
+            foreach($infos as $userTuto) {
+                $pined[] = $userTuto->getTutos()->getId();
+            }
+            $query = $query
+                ->andWhere('t.id IN (:pined)')
+                ->setParameter(':pined', $pined)
+            ;
+        }
+
+        if(!is_null($search->getShown())) {
+            $infos = $this->_em
+                ->getRepository(UserTutosInformations::class)
+                ->findBy([
+                    'user'  => $this->security->getUser()->getId(),
+                    'shown' => $search->getShown()
+                ]);
+            $shown = [];
+            foreach($infos as $userTuto) {
+                $shown[] = $userTuto->getTutos()->getId();
+            }
+            $query = $query
+                ->andWhere('t.id IN (:shown)')
+                ->setParameter(':shown', $shown)
             ;
         }
 

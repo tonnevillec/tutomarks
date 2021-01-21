@@ -128,6 +128,13 @@ btn:
     submit: 'soumettre'
     send: 'envoyer'
     deadlink: 'signaler un lien mort'
+    shown: 'marquer comme vu'
+    unshown: 'marquer comme non vu'
+    pined: 'épingler'
+    unpined: 'désépingler'
+    userpin: 'vous avez épinglé ce tutoriel'
+    usershow: 'vous avez vu ce tutoriel'
+    usernotshow: "vous n'avez pas vu ce tutoriel"
     twitter:
         share: 'partager'
         share_title: 'partager le lien (nouvelle fenêtre)'
@@ -232,6 +239,16 @@ search:
         label: 'prix'
     minlevel:
         label: 'niveau minimum requis'
+    pined:
+        label: 'Épinglés'
+        all: 'indifférent'
+        oui: 'oui'
+        non: 'non'
+    shown:
+        label: 'marqués comme vu'
+        all: 'indifférent'
+        oui: 'oui'
+        non: 'non'
     results: 'résultat'
 
 mail:

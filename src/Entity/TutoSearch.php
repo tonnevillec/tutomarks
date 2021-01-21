@@ -45,6 +45,15 @@ class TutoSearch
      */
     private $minlevel;
 
+    /**
+     * @var boolean|null
+     */
+    private $pined;
+
+    /**
+     * @var boolean|null
+     */
+    private $shown;
 
     public function __construct()
     {
@@ -195,4 +204,39 @@ class TutoSearch
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
+    public function getPined(): ?bool
+    {
+        return $this->pined;
+    }
+
+    /**
+     * @param bool|null $pined
+     * @return TutoSearch
+     */
+    public function setPined(?bool $pined): TutoSearch
+    {
+        $this->pined = $pined;
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getShown(): ?bool
+    {
+        return $this->shown;
+    }
+
+    /**
+     * @param bool|null $shown
+     * @return TutoSearch
+     */
+    public function setShown(?bool $shown): TutoSearch
+    {
+        $this->shown = $shown;
+        return $this;
+    }
 }

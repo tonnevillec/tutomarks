@@ -110,6 +110,11 @@ class User implements UserInterface
      */
     private $googleId;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserTutosInformations::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $tutosInformations;
+
 
     public function __construct()
     {
@@ -120,6 +125,7 @@ class User implements UserInterface
         $this->tutos = new ArrayCollection();
         $this->evaluations = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->tutosInformations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -409,6 +415,36 @@ class User implements UserInterface
     public function setGoogleId(?string $googleId): self
     {
         $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserTutosInformations[]
+     */
+    public function getTutosInformations(): Collection
+    {
+        return $this->tutosInformations;
+    }
+
+    public function addTutosInformation(UserTutosInformations $tutosInformation): self
+    {
+        if (!$this->tutosInformations->contains($tutosInformation)) {
+            $this->tutosInformations[] = $tutosInformation;
+            $tutosInformation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTutosInformation(UserTutosInformations $tutosInformation): self
+    {
+        if ($this->tutosInformations->removeElement($tutosInformation)) {
+            // set the owning side to null (unless already changed)
+            if ($tutosInformation->getUser() === $this) {
+                $tutosInformation->setUser(null);
+            }
+        }
 
         return $this;
     }

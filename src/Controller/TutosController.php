@@ -7,6 +7,7 @@ use App\Entity\Evaluations;
 use App\Entity\Tutos;
 use App\Entity\TutoSearch;
 use App\Entity\User;
+use App\Entity\UserTutosInformations;
 use App\Form\TutoSearchType;
 use App\Form\TutosType;
 use App\Managers\BadgesManager;
@@ -273,4 +274,61 @@ class TutosController extends AbstractController
         return $this->json(['message' => 'Evaluation bien prise en compte', 'code' => 200], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route("/api/userTutosInformations", name="api.user.tutos.informations")
+     */
+    public function setUserTutoInformations(Request $request) :JsonResponse
+    {
+        $datas = $request->request;
+
+        if($datas->has('user')){
+            $user = $this->em->getRepository(User::class)->find($datas->get('user'));
+            if(!$user){
+                return $this->json(['message' => 'Accès non autorisé', 'code' => 403], 403);
+            }
+        }
+
+        if($datas->has('tutos')){
+            $tutos = $this->em->getRepository(Tutos::class)->find($datas->get('tutos'));
+            if(!$tutos){
+                return $this->json(['message' => 'Information manquante', 'code' => 401], 401);
+            }
+        }
+
+        if(!$datas->has('action') || !$datas->has('value')){
+            return $this->json(['message' => 'Information manquante', 'code' => 401], 401);
+        }
+
+        $infos = $this->em
+            ->getRepository(UserTutosInformations::class)
+            ->findOneBy([
+                'user' => $user,
+                'tutos' => $tutos
+            ]);
+
+        if(!$infos){
+            $infos = new UserTutosInformations();
+            $infos->setUser($user);
+            $infos->setTutos($tutos);
+        }
+
+        switch($datas->get('action')){
+            case 'shown':
+                $infos->setShown(!$datas->get('value'));
+                break;
+            case 'pined':
+                $infos->setPined(!$datas->get('value'));
+                break;
+
+            case 'postit':
+                $infos->setPostit($datas->get('value'));
+                break;
+        }
+        $this->em->persist($infos);
+        $this->em->flush();
+
+        return $this->json(['message' => 'Information bien prise en compte', 'code' => 200], 200);
+    }
 }

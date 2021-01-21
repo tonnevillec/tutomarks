@@ -11,6 +11,8 @@ use App\Entity\TutoSearch;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -89,6 +91,36 @@ class TutoSearchType extends AbstractType
                 },
                 'choice_label'  => 'name',
                 'multiple'      => false,
+            ])
+            ->add('pined', ChoiceType::class, [
+                'label'     => ucfirst($this->translator->trans('search.pined.label')),
+                'required'  => true,
+                'choices'   => [
+                    ucfirst($this->translator->trans('search.pined.all'))   => null,
+                    ucfirst($this->translator->trans('search.pined.oui'))   => true,
+                    ucfirst($this->translator->trans('search.pined.non'))   => false,
+                ],
+                'data'      => null,
+                'multiple'  => false,
+                'expanded'  => true,
+                'attr'  => [
+                    'class' => 'form-check-inline'
+                ]
+            ])
+            ->add('shown', ChoiceType::class, [
+                'label'     => ucfirst($this->translator->trans('search.shown.label')),
+                'required'  => true,
+                'choices'   => [
+                    ucfirst($this->translator->trans('search.shown.all'))   => null,
+                    ucfirst($this->translator->trans('search.shown.oui'))   => true,
+                    ucfirst($this->translator->trans('search.shown.non'))   => false,
+                ],
+                'data'      => null,
+                'multiple'  => false,
+                'expanded'  => true,
+                'attr'  => [
+                    'class' => 'form-check-inline'
+                ]
             ])
         ;
     }

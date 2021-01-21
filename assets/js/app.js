@@ -202,5 +202,72 @@ $(document).ready(function () {
             });
         }
     });
+
+    $('.js-shown').on('click', function(e){
+        e.preventDefault()
+
+        let $user = $(this).attr('data-user')
+        let $tutos = $(this).attr('data-tutos')
+        let $value = $(this).attr('data-value')
+        let $url = $(this).attr('data-url')
+
+        changeUserTutoState($user, $tutos, 'shown', $value, $url, $(this))
+    });
+
+    $('.js-pined').on('click', function(e){
+        e.preventDefault()
+
+        let $user = $(this).attr('data-user')
+        let $tutos = $(this).attr('data-tutos')
+        let $value = $(this).attr('data-value')
+        let $url = $(this).attr('data-url')
+
+        changeUserTutoState($user, $tutos, 'pined', $value, $url, $(this))
+    });
+
+    function changeUserTutoState(user, tutos, action, value, url, container){
+        let datas = {}
+        datas['user'] = user
+        datas['tutos'] = tutos
+        datas['action'] = action
+        datas['value'] = value
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            dataType: 'json',
+            data: datas,
+            async: true,
+        }).done(function(result){
+            toggleUserTutosInfosBtn(container, value)
+        }).fail(function(jqXHR, textStatus, error){
+            let err = JSON.parse(jqXHR.responseText);
+            alert(err.message);
+        }).always(function(){
+
+        });
+    }
+
+    function toggleUserTutosInfosBtn(container, value){
+        if(container.data("value") === 1){
+            container.removeClass('btn-success').addClass('btn-outline-success')
+            container.data("value", 0)
+
+            container.find(".js-action-text-shown").html('Marquer comme vu')
+            container.find(".fa-eye").removeClass('d-none')
+            container.find(".fa-eye-slash").addClass('d-none')
+
+            container.find(".js-action-text-pined").html('Épingler')
+        } else {
+            container.removeClass('btn-outline-success').addClass('btn-success')
+            container.data("value", 1)
+
+            container.find(".js-action-text-shown").html('Marquer comme non vu')
+            container.find(".fa-eye-slash").removeClass('d-none')
+            container.find(".fa-eye").addClass('d-none')
+
+            container.find(".js-action-text-pined").html('Désépingler')
+        }
+    }
 });
 

@@ -61,3 +61,9 @@ easy_admin:
                 fields: ['id', 'name', 'action_name', 'action_count', 'image']
             form:
                 fields: ['name', 'action_name', 'action_count', 'image']
+        UserTutosInformations:
+            class: App\Entity\UserTutosInformations
+            list:
+                fields: ['id', 'user', 'tutos', 'shown', 'pined']
+            form:
+                fields: ['user', 'tutos', 'shown', 'pined']

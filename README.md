@@ -16,8 +16,11 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [ ] Système de statistiques : "les plus consultés"
 - [ ] Logo pour les Tags, les Catégories
 - [ ] Avatars utilisateurs
-- [ ] Pouvoir marquer un tuto comme "Favoris" (= épingler)
-- [ ] Option "Marquer comme vu" pour les utilisateurs
+- [x] Pouvoir marquer un tuto comme "Favoris" (= épingler)
+    - [x] Faire entity + affichage sur tutos
+    - [x] Recherche par épingle
+- [x] Option "Marquer comme vu" pour les utilisateurs
+    - [x] Recherche par "Marquer comme vu"
 - [ ] Définition des catégories
 - [ ] Traduction du site en anglais
 - [ ] Système de Badge de "contributeur"

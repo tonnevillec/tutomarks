@@ -27,10 +27,15 @@
 
         <div class="cardbox-base p-2">
             <span class="float-right">
+                {% if app.user %}
+                    {{ shownForTuto(tuto, app.user) }}
+                {% endif %}
+
                 <i class="fas fa-comments"></i>
-                <em class="mr-3">{{ tuto.comments|length }}</em>
-{#                <i class="fas fa-thumbtack"></i>#}
-{#                <em class="mr-1">03</em>#}
+                <em class="mr-2">{{ tuto.comments|length }}</em>
+
+                {{ pinForTuto(tuto, app.user) }}
+                <em class="mr-1">{{ countPined(tuto) }}</em>
             </span>
             <div>
             {% if tuto.moy is null %}

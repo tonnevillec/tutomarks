@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <div id="advancedSearch" class="{% if form.vars.value.category is not null or form.vars.value.creator is not null or form.vars.value.tags|length > 0 %} {% else %}is-hide{% endif%} mt-3">
+        <div id="advancedSearch" class="{% if form.vars.value.category is not null or form.vars.value.creator is not null or form.vars.value.tags|length > 0 or form.vars.value.pined is not same as (null) or form.vars.value.shown is not same as (null) %} {% else %}is-hide{% endif%} mt-3">
             <div class="row">
                 <div class="col-md-4 col">
                     {{ form_row(form.category) }}
@@ -44,6 +44,17 @@
             {{ form_row(form.tags) }}
 
             {{ form_row(form.creator) }}
+
+            {% if app.user %}
+                <div class="row">
+                    <div class="col-md-6 col">
+                        {{ form_row(form.pined) }}
+                    </div>
+                    <div class="col-md-6 col">
+                        {{ form_row(form.shown) }}
+                    </div>
+                </div>
+            {% endif %}
         </div>
 
         {{ form_rest(form) }}
