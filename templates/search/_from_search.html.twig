@@ -45,16 +45,15 @@
 
             {{ form_row(form.creator) }}
 
-            {% if app.user %}
-                <div class="row">
-                    <div class="col-md-6 col">
-                        {{ form_row(form.pined) }}
-                    </div>
-                    <div class="col-md-6 col">
-                        {{ form_row(form.shown) }}
-                    </div>
+            <div class="row {% if not app.user %}d-none{% endif %}">
+                <div class="col-md-6 col">
+                    {{ form_row(form.pined) }}
                 </div>
-            {% endif %}
+                <div class="col-md-6 col">
+                    {{ form_row(form.shown) }}
+                </div>
+            </div>
+
         </div>
 
         {{ form_rest(form) }}
