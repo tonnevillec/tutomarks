@@ -1,11 +1,11 @@
 {% set nb = channel['nb'] %}
 {% set channel = channel[0] %}
 
-<div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+<div class="col-lg-4 col-md-12 mb-3">
     <div class="cardbox h-100 shadow-lg bg-white">
         <div id="channel_card" class="row">
             {% if channel.thumbnailsUrl %}
-                <div class="col-md-3">
+                <div class="col-md-3 d-none d-xs-block">
                     <img src="{{ channel.thumbnailsUrl }}" class="thumb_channel" alt="">
                 </div>
             {% endif%}
