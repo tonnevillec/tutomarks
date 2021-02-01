@@ -130,7 +130,6 @@ class Tutos
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Unique(message="La fiche de ce tutoriel existe déjà")
      */
     private $youtube_id;
 
