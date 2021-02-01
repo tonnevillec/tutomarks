@@ -41,7 +41,7 @@ body {
     padding: 2rem !important;
   }
 
-  .card-footer-maj {
+  .card-footer-maj {
     background-color: $white !important;
     border-top: 2px solid rgba(0, 0, 0, 0.1) !important;
   }
@@ -106,6 +106,10 @@ body {
     a {
       color: $gray-400;
     }
+  }
+
+  .img-obambu {
+    max-width: 150px;
   }
 }
 
