@@ -10,6 +10,7 @@
         "cocur/slugify": "^4.0",
         "copadia/php-video-url-parser": "^1.0",
         "easycorp/easyadmin-bundle": "^2.3",
+        "google/apiclient": "~2.0",
         "knplabs/knp-paginator-bundle": "^5.2",
         "knpuniversity/oauth2-client-bundle": "^2.5",
         "league/oauth2-github": "^2.0",
@@ -43,6 +44,7 @@
         "twig/intl-extra": "^3.0"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",

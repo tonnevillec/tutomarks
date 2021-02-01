@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Addurl;
+use App\Entity\Channels;
 use App\Entity\Comments;
 use App\Entity\Evaluations;
 use App\Entity\Tutos;
 use App\Entity\TutoSearch;
 use App\Entity\User;
 use App\Entity\UserTutosInformations;
+use App\Form\AddurlType;
 use App\Form\TutoSearchType;
 use App\Form\TutosType;
 use App\Managers\BadgesManager;
+use App\Service\CallApiService;
 use Doctrine\DBAL\ConnectionException;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -32,38 +36,185 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class TutosController extends AbstractController
 {
-
-    /**
-     * @var EntityManagerInterface
-     */
     private $em;
-
-    /**
-     * @var TranslatorInterface
-     */
     private $translator;
+    private $apiService;
 
-    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator, CallApiService $apiService)
     {
         $this->em = $em;
         $this->translator = $translator;
+        $this->apiService = $apiService;
+    }
+
+    /**
+     * @Route("/addUrl", name="tutos.addurl")
+     * @param Request $request
+     * @return Response
+     */
+    public function addUrl(Request $request): Response
+    {
+        $addurl = new Addurl();
+        $form = $this->createForm(AddurlType::class, $addurl);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $url = $request->request->get('url');
+
+            $youtubeId = $this->apiService->getYoutubeId($url);
+            if(!is_null($youtubeId)){
+                $uniq = $this->em
+                    ->getRepository(Tutos::class)
+                    ->findOneBy([
+                        'youtube_id' => $youtubeId
+                    ])
+                ;
+                if($uniq){
+                    $this->addFlash('danger', ucfirst($this->translator->trans('tutos.add.not_uniq')));
+
+                    return $this->render('tutos/addurl.html.twig', [
+                        'form' => $form->createView(),
+                    ]);
+                }
+
+                $video = $this->apiService->getVideoInformations($youtubeId);
+                $youtubechannel = $this->apiService->getChannelInformations($video->getChannelId());
+                if(!is_null($youtubechannel)){
+                    $channel = $this
+                        ->em
+                        ->getRepository(Channels::class)
+                        ->findOneBy([
+                            'youtube_custom_url' => $youtubechannel['customUrl']
+                        ]);
+
+                    if(!$channel) {
+                        $channel = (new Channels())
+                            ->setTitle($youtubechannel['title'])
+                            ->setDescription($youtubechannel['description'])
+                            ->setThumbnailsUrl($youtubechannel['thumbnails']['default']['url'])
+                            ->setYoutubeCustomUrl($youtubechannel['customUrl'])
+                            ->setYoutubeId($video['channelId'])
+                        ;
+                        $this->em->persist($channel);
+                        $this->em->flush();
+                    }
+                } else {
+                    $channel = null;
+                }
+
+                return $this->redirectToRoute('tutos.add', [
+                    'url'       => $url,
+                    'video'     => $video,
+                    'channel'   => !is_null($channel) ? $channel->getId() : null
+                ]);
+            } else {
+                $uniq = $this->em
+                    ->getRepository(Tutos::class)
+                    ->findOneBy([
+                        'url' => $url
+                    ])
+                ;
+                if($uniq){
+                    $this->addFlash('danger', ucfirst($this->translator->trans('tutos.add.not_uniq')));
+
+                    return $this->render('tutos/addurl.html.twig', [
+                        'form' => $form->createView(),
+                    ]);
+                }
+            }
+
+            return $this->redirectToRoute('tutos.add', [
+                'url'       => $url,
+            ]);
+        }
+
+        return $this->render('tutos/addurl.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
      * @Route("/add", name="tutos.add")
      * @param Request $request
      * @param BadgesManager $badgesManager
+     * @param null $url
+     * @param null $video
+     * @param null $channel
      * @return RedirectResponse|Response
      * @throws ConnectionException
      */
-    public function add(Request $request, BadgesManager $badgesManager)
+    public function add(Request $request, BadgesManager $badgesManager, $url = null, $video = null, $channel = null)
     {
         $tutos = new Tutos();
+
+        if(!is_null($request->query->get('url'))) {
+            $tutos->setUrl($request->query->get('url'));
+        }
+
+        if(!is_null($request->query->get('video')) && !is_null($request->query->get('channel'))){
+            $tutos->setTitle($request->query->get('video')['title']);
+            $tutos->setDescription($request->query->get('video')['description']);
+
+            $channel = $this->em->find(Channels::class, $request->query->get('channel'));
+            if($channel) {
+                $tutos->setCreator($channel->getTitle());
+                $tutos->setChannel($channel);
+            }
+        }
         $form = $this->createForm(TutosType::class, $tutos);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $tutos->setPublishedBy($this->getUser());
+
+            if($request->request->get('tutos')['channel'] === ''){
+                $newchannel = $request->request->get('newchannel');
+                if($newchannel['title'] === ''){
+                    $this->addFlash('danger', ucfirst($this->translator->trans('channel.add.title.error')));
+
+                    return $this->render('tutos/new.html.twig', [
+                        'form'          => $form->createView(),
+                        'new_channel'   => 'tutos_channel_title'
+                    ]);
+                }
+                $channelTitle = $newchannel['title'];
+                $channelSiteUrl = $newchannel['site_url'];
+                $channelDescription = '';
+                $channelThumbnails = '';
+                $channelYoutubeId = '';
+                $channelCustomUrl = '';
+
+                if($newchannel['youtube_id'] !== ''){
+                    $youtubechannel = $this->apiService->getChannelInformations($newchannel['youtube_id']);
+                    if(!is_null($youtubechannel)) {
+                        $channel = $this
+                            ->em
+                            ->getRepository(Channels::class)
+                            ->findOneBy([
+                                'youtube_custom_url' => $youtubechannel['customUrl']
+                            ]);
+
+                        if(!$channel) {
+                            $channelTitle = $youtubechannel['title'];
+                            $channelDescription = $youtubechannel['description'];
+                            $channelThumbnails = $youtubechannel['thumbnails']['default']['url'];
+                            $channelCustomUrl = $youtubechannel['customUrl'];
+                            $channelYoutubeId = $newchannel['youtube_id'];
+                        }
+                    }
+                }
+
+                $channel = (new Channels())
+                    ->setTitle($channelTitle)
+                    ->setDescription($channelDescription)
+                    ->setThumbnailsUrl($channelThumbnails)
+                    ->setYoutubeCustomUrl($channelCustomUrl)
+                    ->setYoutubeId($channelYoutubeId)
+                    ->setSiteUrl($channelSiteUrl)
+                ;
+                $this->em->persist($channel);
+                $this->em->flush();
+            }
 
             if($request->request->has('userEval') && $request->request->get('userEval') !== null  && $request->request->get('userEval') !== ''){
                 $tutos->setMoy($request->request->get('userEval'));
@@ -200,6 +351,58 @@ class TutosController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            if($request->request->get('tutos')['channel'] === ''){
+                $newchannel = $request->request->get('newchannel');
+                if($newchannel['title'] === ''){
+                    $this->addFlash('danger', ucfirst($this->translator->trans('channel.add.title.error')));
+
+                    return $this->render('tutos/edit.html.twig', [
+                        'tuto'          => $tuto,
+                        'form'          => $form->createView(),
+                        'new_channel'   => 'tutos_channel_title'
+                    ]);
+                }
+                $channelTitle = $newchannel['title'];
+                $channelSiteUrl = $newchannel['site_url'];
+                $channelDescription = '';
+                $channelThumbnails = '';
+                $channelYoutubeId = '';
+                $channelCustomUrl = '';
+
+                if($newchannel['youtube_id'] !== ''){
+                    $youtubechannel = $this->apiService->getChannelInformations($newchannel['youtube_id']);
+                    if(!is_null($youtubechannel)) {
+                        $channel = $this
+                            ->em
+                            ->getRepository(Channels::class)
+                            ->findOneBy([
+                                'youtube_custom_url' => $youtubechannel['customUrl']
+                            ]);
+
+                        if(!$channel) {
+                            $channelTitle = $youtubechannel['title'];
+                            $channelDescription = $youtubechannel['description'];
+                            $channelThumbnails = $youtubechannel['thumbnails']['default']['url'];
+                            $channelCustomUrl = $youtubechannel['customUrl'];
+                            $channelYoutubeId = $newchannel['youtube_id'];
+                        }
+                    }
+                }
+
+                $channel = (new Channels())
+                    ->setTitle($channelTitle)
+                    ->setDescription($channelDescription)
+                    ->setThumbnailsUrl($channelThumbnails)
+                    ->setYoutubeCustomUrl($channelCustomUrl)
+                    ->setYoutubeId($channelYoutubeId)
+                    ->setSiteUrl($channelSiteUrl)
+                ;
+                $this->em->persist($channel);
+                $this->em->flush();
+
+                $tuto->setChannel($channel);
+            }
+
             $this->em->persist($tuto);
             $this->em->flush();
 

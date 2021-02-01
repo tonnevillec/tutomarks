@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Categories;
+use App\Entity\Channels;
 use App\Entity\Langues;
 use App\Entity\Levels;
 use App\Entity\Prices;
@@ -13,6 +14,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,9 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TutosType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
+
     protected $translator;
 
     public function __construct(TranslatorInterface $translator)
@@ -43,16 +44,32 @@ class TutosType extends AbstractType
                 ],
                 'required'  => true
             ])
-            ->add('creator', null, [
+            ->add('creator', HiddenType::class, [
                 'label_attr'    => [
                     'class' => 'label'
                 ],
-                'label' => ucfirst($this->translator->trans('tutos.creator.label')) . ' *',
+                'label' => ucfirst($this->translator->trans('tutos.creator.label')),
                 'attr'  => [
                     'placeholder'   => ucfirst($this->translator->trans('tutos.creator.placeholder'))
                 ],
+                'required'  => false
+            ])
+            ->add('channel', EntityType::class, [
+//            ->add('channel', ChannelsType::class, [
+                'class'         => Channels::class,
+                'label_attr'    => [
+                    'class' => 'd-none'
+                ],
+                'label' => '',
                 'required'  => true
             ])
+//            ->add('channel', null, [
+//                'label_attr'    => [
+//                    'class' => 'label'
+//                ],
+//                'label' => ucfirst($this->translator->trans('tutos.channel.label')),
+//                'required'  => false
+//            ])
             ->add('url', null, [
                 'label_attr'    => [
                     'class' => 'label'
@@ -79,7 +96,7 @@ class TutosType extends AbstractType
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.title', 'ASC');
                 },
-                'label' => ucfirst($this->translator->trans('tutos.tags.label')) . ' *',
+                'label' => ucfirst($this->translator->trans('tutos.tags.label')) ,
                 'choice_value'  => 'id',
                 'multiple'      => true,
                 'required'      => false,

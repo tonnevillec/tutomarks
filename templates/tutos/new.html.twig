@@ -15,8 +15,40 @@
     </div>
 {% endblock %}
 
+{% block _tutos_channel_row %}
+    <div class="form-group">
+        <label class="label" for="tutos_channel">{{ label }}</label>
+        {% if choices is iterable %}
+            <select id="tutos_channel" class="form-control" name="tutos[channel]">
+            {% for id, k in choices %}
+                <option value="{{ k.data.id }}" {% if k.data.id in form.vars.value %}selected="selected"{% endif%}>{{ k.label }}</option>
+            {% endfor %}
+                <option value="" {% if new_channel is defined %}selected="selected"{% endif %}>(+) {{ 'tutos.channel.new'|trans|capitalize }}</option>
+            </select>
+        {% endif %}
+    </div>
+
+    <fieldset class="form-group d-none" id="tutos_channel_new">
+        <legend class="d-none col-form-label">{{ 'tutos.channel.new'|trans|capitalize }}</legend>
+        <div>
+            <div class="form-group">
+                <label class="label" for="tutos_channel_title">{{ 'channel.title.label'|trans|capitalize }} *</label>
+                <input type="text" id="tutos_channel_title" name="newchannel[title]" maxlength="255" placeholder="{{ 'channel.title.placeholder'|trans|capitalize }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="label" for="tutos_channel_site_url">{{ 'channel.site_url.label'|trans|capitalize }}</label>
+                <input type="text" id="tutos_channel_site_url" name="newchannel[site_url]" placeholder="{{ 'channel.site_url.placeholder'|trans|capitalize }}" inputmode="url" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="label" for="tutos_channel_youtube_id">{{ 'channel.youtube_id.label'|trans|capitalize }}</label>
+                <input type="text" id="tutos_channel_youtube_id" name="newchannel[youtube_id]" maxlength="255" placeholder="{{ 'channel.youtube_id.placeholder'|trans }}" class="form-control">
+            </div>
+        </div>
+    </fieldset>
+{% endblock %}
+
 {% block body %}
-{{ form_start(form) }}
+{{ form_start(form, {'action' : path('tutos.add')}) }}
     <section class="mt-2 mb-5">
         <div class="container">
             <h1 class="h1">{{ 'tutos.add.title'|trans|capitalize }}</h1>
@@ -25,7 +57,14 @@
             <div class="row mt-2">
                 <div class="col col-md-6 col-sm-12">
                     {{ form_row(form.title) }}
-                    {{ form_row(form.creator) }}
+
+                    <div class="card border-primary mb-3">
+                        <div class="card-header">{{ 'tutos.creator.label'|trans|capitalize }}</div>
+                        <div class="card-body pt-1 pb-0">
+                            {{ form_row(form.channel) }}
+                        </div>
+                    </div>
+
                     {{ form_row(form.url) }}
                     {{ form_row(form.category) }}
                     {{ form_row(form.langue) }}
@@ -69,4 +108,27 @@
     </section>
 {{ form_rest(form) }}
 {{ form_end(form) }}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $(document).ready(function () {
+            {% if new_channel is defined %}
+                $('#tutos_channel_new').removeClass('d-none')
+                $('#tutos_channel option[value=""]').prop('selected', true)
+                $('#tutos_channel_title').addClass('is-invalid')
+            {% endif %}
+        })
+
+        $(document).on('change', '#tutos_channel', function(){
+            console.log($(this).val())
+            if($(this).val() === '') {
+                $('#tutos_channel_new').removeClass('d-none')
+            } else {
+                $('#tutos_channel_new').addClass('d-none')
+            }
+        })
+    </script>
 {% endblock %}

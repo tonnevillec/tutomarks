@@ -49,12 +49,18 @@ easy_admin:
                 fields: ['id', 'name', 'shortname', 'logo']
             form:
                 fields: ['name', 'shortname', 'logo']
+        Channels:
+            class: App\Entity\Channels
+            list:
+                fields: ['id', 'title', 'site_url', 'youtube_id', 'youtube_custom_url', 'thumbnails_url', 'twitter', 'github']
+            form:
+                fields: ['title', 'site_url', 'youtube_id', 'youtube_custom_url', 'thumbnails_url', 'twitter', 'github']
         Tutos:
             class: App\Entity\Tutos
             list:
-                fields: ['id', 'title', 'published_by', 'published_at', 'creator', 'url', 'category', 'langue']
+                fields: ['id', 'title', 'published_by', 'published_at', 'creator', 'channel', 'url', 'category', 'langue', 'youtube_id']
             form:
-                fields: ['title', 'published_by', 'published_at', 'creator', 'url', 'category', 'tags', 'description', 'langue']
+                fields: ['title', 'published_by', 'published_at', 'creator', 'channel', 'url', 'category', 'tags', 'description', 'langue', 'youtube_id']
         Badges:
             class: App\Entity\Badges
             list:

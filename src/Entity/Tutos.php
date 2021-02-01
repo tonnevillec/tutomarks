@@ -62,7 +62,7 @@ class Tutos
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $creator;
 
@@ -122,6 +122,17 @@ class Tutos
      * @ORM\ManyToOne(targetEntity=Levels::class)
      */
     private $level;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Channels::class, inversedBy="tutos")
+     */
+    private $channel;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Unique(message="La fiche de ce tutoriel existe déjà")
+     */
+    private $youtube_id;
 
     public function __construct()
     {
@@ -383,6 +394,30 @@ class Tutos
     public function setLevel(?Levels $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    public function getChannel(): ?Channels
+    {
+        return $this->channel;
+    }
+
+    public function setChannel(?Channels $channel): self
+    {
+        $this->channel = $channel;
+
+        return $this;
+    }
+
+    public function getYoutubeId(): ?string
+    {
+        return $this->youtube_id;
+    }
+
+    public function setYoutubeId(?string $youtube_id): self
+    {
+        $this->youtube_id = $youtube_id;
 
         return $this;
     }

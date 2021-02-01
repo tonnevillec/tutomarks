@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
+use App\Entity\Channels;
 use App\Entity\Tutos;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -16,19 +16,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
     private $em;
-
-    /**
-     * @var TranslatorInterface
-     */
     private $translator;
-
-    /**
-     * @var MailerInterface
-     */
     private $mailer;
 
     /**
@@ -37,7 +26,7 @@ class HomeController extends AbstractController
      * @param TranslatorInterface $translator
      * @param MailerInterface $mailer
      */
-    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator,MailerInterface $mailer)
+    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator, MailerInterface $mailer)
     {
         $this->em = $em;
         $this->translator = $translator;
@@ -51,6 +40,7 @@ class HomeController extends AbstractController
     {
         $repo = $this->em->getRepository(Tutos::class);
         $tutos = $repo->findLatest(6);
+        $channels = $this->em->getRepository(Channels::class)->findAllbyTutosNumber();
 
         $myTutos = null;
         if ($this->getUser()) {
@@ -59,6 +49,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'tutos'     => $tutos,
+            'channels'  => $channels,
             'mytutos'   => $myTutos,
         ]);
     }

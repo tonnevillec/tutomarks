@@ -22,6 +22,7 @@ home:
     sub: "si vous êtes pret, alors c'est parti !"
     last-tutos: 'les derniers tutos'
     my-last-tutos: 'mes dernieres contributions'
+    channels: 'listes des chaines'
 
 nav:
     home: 'accueil'
@@ -152,6 +153,7 @@ tutos:
     add:
         title: 'ajouter un nouveau tutoriel'
         validate: 'merci pour votre contribution!'
+        not_uniq: 'la fiche du tutoriel existe déjà'
     title:
         label: 'titre'
         placeholder: 'titre du tutoriel'
@@ -161,7 +163,7 @@ tutos:
     url:
         label: 'lien vers le tutoriel'
         placeholder: 'https://www.lien_vers_le_tuto.com'
-        new_windows: 'ouvrir dans une nouvelle fenetre'
+        new_windows: 'ouvrir le tutoriel dans une nouvelle fenetre'
     tags:
         label: 'tags'
         help: 'plusieurs choix possibles'
@@ -198,7 +200,37 @@ tutos:
         label: 'niveau requis'
     price:
         label: 'prix'
-
+    addurl:
+        title: 'ajouter un nouveau tutoriel'
+        label: 'url de la vidéo'
+    channel:
+        label: 'site / chaine youtube'
+        new: 'ajouter une nouvelle chaine'
+channel:
+    show:
+        title: 'chaine de '
+    title:
+        placeholder: 'nom du site ou de la chaine'
+        label: 'nom du créateur'
+    site_url:
+        placeholder: 'url du site'
+        label: 'url du site'
+        link: 'site du créateur'
+    youtube_id:
+        placeholder: 'ID Youtube (ex: UCj_iGliGCkLcHSZ8eqVNPDQ)'
+        label: 'ID Youtube de la chaine'
+    add:
+        title.error: 'le nom de la chaine est manquant'
+    youtube:
+        label: 'chaine youtube'
+    twitter.label: 'Profil Twitter'
+    github.label: 'Projets sur Github ou Gitlab'
+    description:
+        label: 'présentation de la chaine'
+    all_tutos:
+        link: 'voir tous les tutoriaux'
+        show: 'tutoriaux de la chaine'
+    no_tutos: 'aucun tutoriel pour le moment'
 comments:
     posted_by: 'commentaire posté par'
     posted_at: 'le'
