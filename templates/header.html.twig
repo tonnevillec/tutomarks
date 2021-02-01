@@ -27,6 +27,9 @@
                     <li class="nav-item {% if app.request.get('_route') in ['search'] %}active{% endif %}">
                         <a class="nav-link" href="{{ path('search') }}">{{ 'nav.search'|trans|capitalize }}</a>
                     </li>
+                    <li class="nav-item {% if app.request.get('_route') in ['channels'] %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('channels') }}">{{ 'nav.channels'|trans|capitalize }}</a>
+                    </li>
                     {% if app.user %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('tutos.addurl') }}">{{ 'nav.add'|trans|capitalize }}</a>

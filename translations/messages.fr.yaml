@@ -40,6 +40,7 @@ nav:
     connection: 'connectez-vous'
     tutos:
         user: 'mes contributions'
+    channels: 'chaines'
 
 user:
     login: 'connectez-vous'
