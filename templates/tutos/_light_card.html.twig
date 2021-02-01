@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="cardbox-item">
+        <div class="cardbox-item text-center">
             <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">
             {% if tuto.url|youtube_thumbnail is not same as ('') %}
                 <img src="{{ tuto.url|youtube_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ tuto.title }}">
