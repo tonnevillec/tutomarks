@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Categories;
+use App\Entity\Channels;
 use App\Entity\Langues;
 use App\Entity\Levels;
 use App\Entity\Prices;
@@ -57,9 +58,13 @@ class TutoSearchType extends AbstractType
                 'multiple'      => true,
                 'expanded'      => true
             ])
-            ->add('creator', null, [
+            ->add('channel', EntityType::class, [
                 'label'         => ucfirst($this->translator->trans('search.creator.label')),
-                'required'      => false
+                'class'         => Channels::class,
+                'required'      => false,
+                'choice_value'  => 'id',
+                'choice_label'  => 'title',
+                'multiple'      => false,
             ])
             ->add('evaluation', NumberType::class, [
                 'label'         => ucfirst($this->translator->trans('search.evaluation.label')),

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'channel.show.title'|trans|capitalize }}{{ channel.title }}{% endblock %}
+
+{% block body %}
+    <section class="my-2">
+        <div class="container">
+            <h1 class="h1">
+                <span class="h1-text">{% if channel.thumbnailsUrl %}<img src="{{ channel.thumbnailsUrl }}" alt=""> {% endif%}{{ channel.title }}</span>
+            </h1>
+
+            <hr class="my-3">
+
+            <div class="row mt-2 mb-3">
+                <div class="col-mb-1">
+                    <div class="list-group mb-3 h-100">
+                        {% if channel.siteUrl %}
+                            <a href="{{ channel.siteUrl }}" target="_blank" class="list-group-item mb-2 text-secondary" data-toggle="tooltip" title="{{ 'channel.site_url.link'|trans|capitalize }}" data-placement="right"><i class="fas fa-link fa-2x"></i></a>
+                        {% endif %}
+                        {% if channel.youtubeCustomUrl %}
+                            <a href="https://www.youtube.com/c/{{ channel.youtubeCustomUrl }}" target="_blank" class="list-group-item mb-2 text-danger" data-toggle="tooltip" title="{{ 'channel.youtube.label'|trans|capitalize }}" data-placement="right"><i class="fab fa-youtube fa-2x"></i></a>
+                        {% endif %}
+                        {% if channel.twitter %}
+                            <a href="{{ channel.twitter }}" target="_blank" class="list-group-item mb-2 text-info" data-toggle="tooltip" title="{{ 'channel.twitter.label'|trans }}" data-placement="right"><i class="fab fa-twitter fa-2x"></i></a>
+                        {% endif %}
+                        {% if channel.github %}
+                            <a href="{{ channel.github }}" target="_blank" class="list-group-item mb-2" data-toggle="tooltip" title="{{ 'channel.github.label'|trans }}" data-placement="right"><i class="fab fa-github fa-2x"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="h3 card-title">{{ 'channel.description.label'|trans|capitalize }} :</h3>
+                            <hr class="my-2">
+
+                            <p class="card-text">
+                                {% if channel.description %}
+                                    {{ channel.description|nl2br }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="h2 mt-4">
+                <span class="h1-text">{{ 'channel.all_tutos.show'|trans|capitalize }}</span>
+            </h2>
+
+            <hr class="my-3">
+
+            <div class="row">
+                {% for tuto in channel.tutos %}
+                    {% include 'tutos/_light_card.html.twig' %}
+                {% endfor %}
+            </div>
+
+            <div class="row my-4">
+                <div class="col text-center">
+                    <a href="{{ from is not null ? from : path('home') }}" class="btn btn-outline-info btn-sm">{{ 'back'|trans|capitalize }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

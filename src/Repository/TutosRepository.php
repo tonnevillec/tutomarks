@@ -104,10 +104,10 @@ class TutosRepository extends ServiceEntityRepository
             ;
         }
 
-        if($search->getCreator()) {
+        if($search->getChannel()) {
             $query  = $query
-                ->andWhere('t.creator like :creator')
-                ->setParameter(':creator', '%'.$search->getCreator().'%')
+                ->andWhere('t.channel = :channel')
+                ->setParameter(':channel', $search->getChannel())
             ;
         }
 

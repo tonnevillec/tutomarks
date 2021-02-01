@@ -21,9 +21,9 @@ class TutoSearch
     private $tags;
 
     /**
-     * @var string|null
+     * @var Channels|null
      */
-    private $creator;
+    private $channel;
 
     /**
      * @var float|null
@@ -115,20 +115,20 @@ class TutoSearch
     }
 
     /**
-     * @return string|null
+     * @return Channels|null
      */
-    public function getCreator(): ?string
+    public function getChannel(): ?string
     {
-        return $this->creator;
+        return $this->channel;
     }
 
     /**
-     * @param string|null $creator
+     * @param Channels|null $channel
      * @return TutoSearch
      */
-    public function setCreator(?string $creator): TutoSearch
+    public function setChannel(?Channels $channel): TutoSearch
     {
-        $this->creator = $creator;
+        $this->channel = $channel->getId();
         return $this;
     }
 

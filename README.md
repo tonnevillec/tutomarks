@@ -18,7 +18,6 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [ ] Traduction du site en anglais
 - [ ] Système de Badge de "contributeur"
 - [ ] Système de badges pour les utilisateurs (1 ière contribution, ...)
-- [ ] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
 - [ ] "Notes personnelles" (= post-it) sur les vidéos
 
 ### Terminé :
@@ -46,6 +45,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
   - [x] Recherche par épingle
 - [x] Option "Marquer comme vu" pour les utilisateurs
   - [x] Recherche par "Marquer comme vu"
+- [x] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
 
 ## Coté technique :
 
