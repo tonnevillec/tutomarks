@@ -38,7 +38,8 @@ class YoutubeExtension extends AbstractExtension
 
         try {
             $video->getEmbedUrl();
-            return $video->getSmallThumbnail();
+            return $video->getMediumThumbnail();
+//            return $video->getSmallThumbnail();
 //            return $video->getLargestThumbnail();
         } catch (\RicardoFiorani\Exception\NotEmbeddableException $e) {
             return '';
