@@ -84,7 +84,7 @@ class TutosController extends AbstractController
                         ->em
                         ->getRepository(Channels::class)
                         ->findOneBy([
-                            'youtube_custom_url' => $youtubechannel['customUrl']
+                            'title' => $youtubechannel['title']
                         ]);
 
                     if(!$channel) {
