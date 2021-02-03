@@ -53,6 +53,11 @@ class TutoSearchType extends AbstractType
                 'label'         => ucfirst($this->translator->trans('search.tags.label')),
                 'required'      => false,
                 'class'         => Tags::class,
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.title', 'ASC')
+                    ;
+                },
                 'choice_value'  => 'id',
                 'choice_label'  => 'title',
                 'multiple'      => true,
