@@ -33,9 +33,9 @@
                     </a>
                 </li>
                 {% endif %}
-                {% if channel.youtubeCustomUrl %}
+                {% if channel.youtubeId %}
                 <li class="twPc-ArrangeSizeFit">
-                    <a href="https://www.youtube.com/c/{{ channel.youtubeCustomUrl }}" target="_blank" class="text-danger" data-toggle="tooltip" title="{{ 'channel.youtube.label'|trans|capitalize }}">
+                    <a href="https://www.youtube.com/channel/{{ channel.youtubeId }}" target="_blank" class="text-danger" data-toggle="tooltip" title="{{ 'channel.youtube.label'|trans|capitalize }}">
                         <span class="twPc-StatLabel twPc-block"><i class="fab fa-youtube"></i></span>
                     </a>
                 </li>
