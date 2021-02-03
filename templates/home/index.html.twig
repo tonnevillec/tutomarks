@@ -46,10 +46,13 @@
 
     <div class="row mb-5">
         {% for channel in channels %}
-            {% include 'channels/_light_card.html.twig' %}
+            {% set nb = channel['nb'] %}
+            {% set channel = channel[0] %}
+            <div class="col-lg-4 col-md-12 mb-3">
+                {% include 'channels/__light_card.html.twig' %}
+            </div>
         {% endfor %}
     </div>
-
 
     {% if app.user and mytutos is not null and mytutos|length > 0 %}
     <h2 class="font-weight-light mb-3">{{ 'home.my-last-tutos'|trans|capitalize }}</h2>

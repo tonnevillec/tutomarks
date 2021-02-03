@@ -62,32 +62,12 @@
 
             <div class="row mt-2 mb-3">
                 <div class="col">
-                    <div id="channel_card" class="row mb-3">
+                    <div id="channel_card" class="mb-3">
                         {% if tuto.channel %}
-                            {% if tuto.channel.thumbnailsUrl %}
-                                <div class="col-md-3">
-                                    <img src="{{ tuto.channel.thumbnailsUrl }}" class="thumb_channel" alt="">
-                                </div>
-                            {% endif%}
-                                <div class="col">
-                                    <span class="channel_name mb-2"><i class="fas fa-at"></i> {{ tuto.channel.title }}</span><br/>
+                            {% set channel = tuto.channel %}
+                            {% set nb = channel.tutos|length %}
 
-                                    <div class="list-group list-group-horizontal">
-                                        {% if tuto.channel.siteUrl %}
-                                            <a href="{{ tuto.channel.siteUrl }}" target="_blank" class="list-group-item mb-2 text-secondary" data-toggle="tooltip" title="{{ 'channel.site_url.link'|trans|capitalize }}"><i class="fas fa-link"></i></a>
-                                        {% endif %}
-                                        {% if tuto.channel.youtubeCustomUrl %}
-                                            <a href="https://www.youtube.com/c/{{ tuto.channel.youtubeCustomUrl }}" target="_blank" class="list-group-item mb-2 text-danger" data-toggle="tooltip" title="{{ 'channel.youtube.label'|trans|capitalize }}"><i class="fab fa-youtube"></i></a>
-                                        {% endif %}
-                                        {% if tuto.channel.twitter %}
-                                            <a href="{{ tuto.channel.twitter }}" target="_blank" class="list-group-item mb-2 text-info" data-toggle="tooltip" title="{{ 'channel.twitter.label'|trans }}"><i class="fab fa-twitter"></i></a>
-                                        {% endif %}
-                                        {% if tuto.channel.github %}
-                                            <a href="{{ tuto.channel.github }}" target="_blank" class="list-group-item mb-2" data-toggle="tooltip" title="{{ 'channel.github.label'|trans }}"><i class="fab fa-github"></i></a>
-                                        {% endif %}
-                                    </div>
-                                    <a href="{{ path('channels.show', {'id': tuto.channel.id, 'slug': tuto.channel.slug}) }}" class="mt-2"><i class="fas fa-layer-group"></i> {{ 'channel.all_tutos.link'|trans|capitalize }}</a>
-                                </div>
+                            {% include 'channels/__light_card.html.twig' %}
                         {% else %}
                             <div class="col">
                                 <span class="channel_name"><i class="fas fa-at"></i> {{ tuto.creator }}</span><br/>
