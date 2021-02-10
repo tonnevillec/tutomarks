@@ -49,7 +49,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 
 ## Coté technique :
 
-- Symfony 5.1
+- Symfony ~~5.1~~ 5.2
 - MySQL
 - Bootstrap 4 + thème Bootswatch LUX =>  https://bootswatch.com/lux/
 - Un peu de React aussi
