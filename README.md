@@ -71,3 +71,4 @@ Note PHP: j'utilise une version 7.3 de PHP, il faut donc le préciser dans un fi
 Pour démarrer le serveur Web, dans un terminal, il faut lancer depuis la racine du projet, la commande: `symfony serve`
 
 Par défaut, le serveur sera accessible à l'adresse: http://127.0.0.1:8000
+
