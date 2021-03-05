@@ -1,8 +1,10 @@
 {
     "type": "project",
     "license": "proprietary",
+    "name": "tonnevillec/tutomarks",
+    "description": "Le site d'annuaire de tutoriaux pour les developpeurs",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "abraham/twitteroauth": "^1.1",
