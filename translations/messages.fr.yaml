@@ -42,6 +42,7 @@ nav:
         user: 'mes contributions'
     channels: 'chaines'
     obambu: 'Le site est hébergé par Obambu'
+    buymeacoffee: 'Buy me a coffee'
 
 user:
     login: 'connectez-vous'
