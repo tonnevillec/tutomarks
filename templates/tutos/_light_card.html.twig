@@ -65,9 +65,17 @@
                 <span class="badge badge-info badge-pill">{{ tuto.level }}</span>
             {% endif %}
 
-            {% for tag in tuto.tags %}
-                <span class="badge badge-primary badge-pill">{{ tag }}</span>
-            {% endfor %}
+            {% if tuto.tags %}
+                <div class="card_icons mt-2">
+                {% for tag in tuto.tags %}
+                    {% if tag.image %}
+                        <img src="{{ vich_uploader_asset(tag, 'imageFile') }}" class="{{ tag }}" />
+                    {% else %}
+                        <span class="badge badge-primary badge-pill">{{ tag }}</span>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

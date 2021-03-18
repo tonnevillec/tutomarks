@@ -16,9 +16,14 @@ easy_admin:
         Tags:
             class: App\Entity\Tags
             list:
-                fields: ['id', 'title', 'logo']
+                fields:
+                    - { property: 'id' }
+                    - { property: 'title' }
+                    - { property: 'image', type: 'image', base_path: '%uploads_path%/tags/' }
             form:
-                fields: ['title', 'logo']
+                fields:
+                    - { property: 'title' }
+                    - { property: 'imageFile', type: 'vich_image' }
         Categories:
             class: App\Entity\Categories
             list:

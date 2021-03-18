@@ -43,7 +43,8 @@
         "symfony/web-link": "5.2.*",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.2.*",
-        "twig/intl-extra": "^3.0"
+        "twig/intl-extra": "^3.0",
+        "vich/uploader-bundle": "^1.17"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",

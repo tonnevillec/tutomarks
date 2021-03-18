@@ -191,6 +191,14 @@
 .cardbox-comments .comment-body {
   overflow: auto;
 }
+
+.cardbox-comments .card_icons img {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  object-fit: contain;
+}
+
 //.search {
 //  position: relative;
 //  right: -60px;

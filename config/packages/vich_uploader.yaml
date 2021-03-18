@@ -1,0 +1,7 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        tags_images:
+            uri_prefix: '%uploads_path%/tags'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%/tags'
