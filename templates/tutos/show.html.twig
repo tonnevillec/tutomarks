@@ -102,15 +102,6 @@
                                 <span class="">{{ tuto.level ?: 'unknown.field'|trans|capitalize }}</span>
                             </div>
 
-                            {% if tuto.tags|length > 0 %}
-                                <div class="form-group">
-                                    <label class="label">{{ 'tutos.tags.label'|trans|capitalize }} :</label><br/>
-                                    {% for tag in tuto.tags %}
-                                        <span class="badge badge-primary badge-pill">{{ tag }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-
                             {% if tuto.tags %}
                                 <div class="card_icons mt-2">
                                     {% for tag in tuto.tags %}
