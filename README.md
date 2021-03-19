@@ -12,7 +12,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [ ] Pagination des résultats de recherche sans rechargement de la page
 - [ ] Dashboard: ajouter "les mieux notés"
 - [ ] Système de statistiques : "les plus consultés"
-- [ ] Logo pour les Tags, les Catégories
+- [ ] Logo pour les Catégories
 - [ ] Avatars utilisateurs
 - [ ] Définition des catégories
 - [ ] Traduction du site en anglais
@@ -46,6 +46,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [x] Option "Marquer comme vu" pour les utilisateurs
   - [x] Recherche par "Marquer comme vu"
 - [x] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
+- [x] Logo pour les Tags
 
 ## Coté technique :
 
