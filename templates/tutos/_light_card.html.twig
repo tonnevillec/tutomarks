@@ -69,7 +69,7 @@
                 <div class="card_icons mt-2">
                 {% for tag in tuto.tags %}
                     {% if tag.image %}
-                        <img src="{{ vich_uploader_asset(tag, 'imageFile') }}" class="{{ tag }}" />
+                        <img src="{{ vich_uploader_asset(tag, 'imageFile') }}" class="{{ tag }}" alt="{{ tag }}" />
                     {% else %}
                         <span class="badge badge-primary badge-pill">{{ tag }}</span>
                     {% endif %}
