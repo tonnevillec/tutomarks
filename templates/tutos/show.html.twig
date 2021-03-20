@@ -103,7 +103,7 @@
                             </div>
 
                             {% if tuto.tags %}
-                                <div class="card_icons mt-2">
+                                <div class="card-icons-show my-2">
                                     {% for tag in tuto.tags %}
                                         {% if tag.image %}
                                             <img src="{{ vich_uploader_asset(tag, 'imageFile') }}" class="{{ tag }}" alt="{{ tag }}" />
