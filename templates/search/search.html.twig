@@ -24,9 +24,9 @@
 {% endblock %}
 
 {% block body %}
-<section class="mt-2 mb-5">
+<section class="mt-2 mb-5" id="search-section">
     <div class="container">
-        <h1 class="h1">{{ 'search.title'|trans|capitalize }}</h1>
+        <h1 class="h1 text-white">{{ 'search.title'|trans|capitalize }}</h1>
 
         {% include 'search/_from_search.html.twig' %}
     </div>

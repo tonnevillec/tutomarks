@@ -4,9 +4,9 @@
 
 {% block body %}
 
-<section class="mt-2 mb-5">
+<section class="mt-2 mb-5 p-2" id="add-url-section">
     <div class="container">
-        <h1 class="h1">{{ 'tutos.addurl.title'|trans|capitalize }}</h1>
+        <h1 class="h1 text-white">{{ 'tutos.addurl.title'|trans|capitalize }}</h1>
         <hr class="my-4">
         {{ form_start(form) }}
             {{ form_row(form.url) }}

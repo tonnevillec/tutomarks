@@ -9,7 +9,7 @@
                 <img src="{{ asset('build/images/undraw_video_files_fu10.svg') }}" class="img-fluid img-thumbnail" alt="Image décorative">
             </div>
             <div class="col text-center">
-                <h1 class="display-5">{{ 'home.title'|trans|capitalize }} TutoMarks !</h1>
+                <h1 class="display-5 text-white">{{ 'home.title'|trans|capitalize }} TutoMarks !</h1>
                 <p class="lead">{{ 'home.lead'|trans|capitalize }}</p>
 
                 <p class="mt-3">
@@ -28,7 +28,7 @@
         </div>
     </section>
 
-    <h2 class="font-weight-light mb-3">{{ 'home.last-tutos'|trans|capitalize }}</h2>
+    <h2 class="font-weight-light mb-3 text-white">{{ 'home.last-tutos'|trans|capitalize }}</h2>
     <hr class="mb-3">
 
     <div class="row">
@@ -38,10 +38,10 @@
     </div>
 
     <div class="text-center mt-0 mb-5">
-        <a href="{{ path('search') }}" class="btn btn-sm btn-outline-primary">{{ 'nav.search_more'|trans|capitalize }}</a>
+        <a href="{{ path('search') }}" class="btn btn-sm btn-outline-secondary">{{ 'nav.search_more'|trans|capitalize }}</a>
     </div>
 
-    <h2 class="font-weight-light mb-3">{{ 'home.channels'|trans|capitalize }}</h2>
+    <h2 class="font-weight-light mb-3 text-white">{{ 'home.channels'|trans|capitalize }}</h2>
     <hr class="mb-3">
 
     <div class="row mb-5">
@@ -55,7 +55,7 @@
     </div>
 
     {% if app.user and mytutos is not null and mytutos|length > 0 %}
-    <h2 class="font-weight-light mb-3">{{ 'home.my-last-tutos'|trans|capitalize }}</h2>
+    <h2 class="font-weight-light mb-3 text-white">{{ 'home.my-last-tutos'|trans|capitalize }}</h2>
     <hr class="mb-3">
 
     <div class="row mb-5">

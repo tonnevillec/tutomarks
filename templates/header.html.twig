@@ -42,19 +42,19 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><b>{{ app.user.username ?: app.user.email }}</b> <span class="caret"></span></a>
 
-                            <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ path('user.profil') }}"><i class="fas fa-user"></i> {{ 'nav.account'|trans|capitalize }}</a>
+                            <div id="user-menu" class="dropdown-menu dropdown-menu-lg-right bg-dark text-white" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item text-white" href="{{ path('user.profil') }}"><i class="fas fa-user"></i> {{ 'nav.account'|trans|capitalize }}</a>
 
                                 <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="{{ path('tutos.user') }}"><i class="far fa-list-alt"></i> {{ 'nav.tutos.user'|trans|capitalize }}</a>
+                                <a class="dropdown-item text-white" href="{{ path('tutos.user') }}"><i class="far fa-list-alt"></i> {{ 'nav.tutos.user'|trans|capitalize }}</a>
 
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="{{ path('easyadmin') }}"><i class="fas fa-cogs"></i> {{ 'nav.admin'|trans|capitalize }}</a>
                                 {% endif %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-power-off"></i> {{ 'nav.logout'|trans|capitalize }}</a>
+                                <a class="dropdown-item text-white" href="{{ path('app_logout') }}"><i class="fas fa-power-off"></i> {{ 'nav.logout'|trans|capitalize }}</a>
                             </div>
                         </li>
                     {% else %}
@@ -70,7 +70,7 @@
                                     <div class="form-group">
                                         <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
                                         <input type="password" name="password" id="inputPassword" class="form-control form-control-sm" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
-                                        <div class="help-block text-right"><a href="{{ path('app_password') }}">{{ 'user.password.forget'|trans|capitalize }}</a></div>
+                                        <div class="help-block text-right"><a href="{{ path('app_password') }}" class="text-white">{{ 'user.password.forget'|trans|capitalize }}</a></div>
                                     </div>
 
                                     <div class="checkbox">
@@ -83,21 +83,21 @@
                                     <input type="hidden" name="_target_path" value="{{ app.request.requestUri }}"/>
 
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-outline-primary btn-block btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
+                                        <button type="submit" class="btn btn-outline-success btn-block btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
 
                                         <div class="dropdown-divider"></div>
 
-                                        <a class="btn btn-outline-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
+                                        <a class="btn btn-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
                                             <i class="fab fa-google"></i> Compte Google
                                         </a>
-                                        <a class="btn btn-outline-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
+                                        <a class="btn btn-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
                                             <i class="fab fa-github"></i> Compte Github
                                         </a>
                                     </div>
                                 </form>
 
                                 <div class="bottom text-center">
-                                    {{ 'nav.new_here'|trans|capitalize }} ? <a href="{{ path('app_register') }}"><b>{{ 'nav.register'|trans|capitalize }}</b></a>
+                                    {{ 'nav.new_here'|trans|capitalize }} ? <a href="{{ path('app_register') }}" class="text-white"><b>{{ 'nav.register'|trans|capitalize }}</b></a>
                                 </div>
                             </div>
                         </li>

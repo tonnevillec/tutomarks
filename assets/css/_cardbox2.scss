@@ -2,13 +2,20 @@
 /* Cardbox Heading
 ---------------------------------- */
 .cardbox {
+  background-color: $gray-700;
+  color: $white;
+
+  a {
+    color: $white;
+  }
+
   .card-header {
     padding: 0;
 
     position: relative;
     display: block;
     //border-top: 2px solid #f4f4f4;
-    border-bottom: 2px solid #f4f4f4;
+    border-bottom: 2px solid $white;
 
     .img-fluid {
       width: 100% !important;
