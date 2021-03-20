@@ -1,5 +1,5 @@
 .cardbox {
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
   //margin-bottom: 20px;
   padding: 0px !important;
 }
@@ -70,7 +70,7 @@
   width: 48px !important;
   height: 48px !important;
   padding: 2px;
-  border: 2px solid #f4f4f4;
+  //border: 2px solid #f4f4f4;
 }
 .media-body {
   -ms-flex: 1;
@@ -89,6 +89,10 @@
   color: #aaa;
   margin-right: 10px;
 }
+.card-body .title {
+  position: relative;
+  bottom: 38px;
+}
 
 /* ------------------------------- */
 /* Cardbox Item
@@ -96,11 +100,17 @@
 .cardbox .cardbox-item {
   position: relative;
   display: block;
-  border-top: 2px solid #f4f4f4;
+  //border-top: 2px solid #f4f4f4;
   border-bottom: 2px solid #f4f4f4;
 }
-.cardbox .cardbox-item img{
+.cardbox .cardbox-item .img-fluid {
+  width: 100% !important;
+  opacity: 0.7;
 }
+.cardbox .cardbox-item .img-fluid:hover {
+  opacity: 1;
+}
+
 .img-responsive{
   display: block;
   max-width: 100%;
@@ -192,11 +202,16 @@
   overflow: auto;
 }
 
-.card_icons img {
-  width: 40px;
-  height: 40px;
-  display: inline-block;
-  object-fit: contain;
+.card_icons {
+  position: relative;
+  bottom: 32px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    object-fit: contain;
+  }
 }
 
 /* ------------------------------- */
