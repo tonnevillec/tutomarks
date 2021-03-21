@@ -39,7 +39,7 @@ const Comment = React.memo(({comment}) => {
     return <div className="row mb-4">
         <div className="col">
             <div className="card">
-                <div className="card-body">
+                <div className="card-body bg-dark text-white">
                     <p className="card-title">Commentaire posté par {comment.user.username ? comment.user.username : comment.user.email} le {date.toLocaleString(undefined, dateFormat)}</p>
                     <hr className="my-2"/>
                     <p className="card-text">{comment.comment}</p>
@@ -86,7 +86,7 @@ const CommentForm = React.memo(({tuto, onComment}) => {
 })
 
 function Title ({count}) {
-    return <h2 className="h2">{count === 0 ? 'Aucun' : count} Commentaire{count > 1 ? 's' : ''}</h2>
+    return <h2 className="h2 text-white">{count === 0 ? 'Aucun' : count} Commentaire{count > 1 ? 's' : ''}</h2>
 }
 
 function Links () {

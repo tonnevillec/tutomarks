@@ -3,9 +3,9 @@
 {% block title %}{{ 'nav.login'|trans|capitalize }}{% endblock %}
 
 {% block body %}
-<section class="my-2">
+<section class="my-2 p-2 text-white" id="login-section">
     <div class="container">
-        <h2>{{ 'nav.login'|trans|capitalize }}</h2>
+        <h2 class="text-white">{{ 'nav.login'|trans|capitalize }}</h2>
         <div class="row">
             <div class="col-7">
                 <form method="post">
@@ -14,7 +14,7 @@
                     {% endif %}
 
                     {% if app.user %}
-                        <div class="mb-3">
+                        <div class="mb-3 text-white">
                             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
                         </div>
                     {% endif %}
@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
                         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
-                        <div class="help-block text-right"><a href="{{ path('app_password') }}">{{ 'user.password.forget'|trans|capitalize }}</a></div>
+                        <div class="help-block text-right"><a href="{{ path('app_password') }}" class="text-white">{{ 'user.password.forget'|trans|capitalize }}</a></div>
                     </div>
 
                     <div class="checkbox">
@@ -39,17 +39,17 @@
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}"/>
 
-                    <button type="submit" class="btn btn-outline-primary btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
+                    <button type="submit" class="btn btn-outline-success btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
                 </form>
             </div>
 
             <div class="col-5">
-                <h3 class="h3">{{ 'btn.social.connect'|trans|capitalize }}</h3>
+                <h3 class="h3 text-white">{{ 'btn.social.connect'|trans|capitalize }}</h3>
                 <small>{{ 'btn.social.connect_help'|trans|capitalize }}</small>
-                <a class="btn btn-outline-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
+                <a class="btn btn-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
                     <i class="fab fa-google"></i> Compte Google
                 </a>
-                <a class="btn btn-outline-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
+                <a class="btn btn-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
                     <i class="fab fa-github"></i> Compte Github
                 </a>
             </div>

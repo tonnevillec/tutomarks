@@ -1,19 +1,6 @@
-//#channel_card {
-//  .channel_name {
-//    font-size: 1.5em;
-//    font-weight: 700;
-//  }
-//}
-//
-//.thumb_channel {
-//  max-height: 90px;
-//  max-width: 90px;
-//}
-
-
 .twPc-div {
-  background: $white none repeat scroll 0 0;
-  border: 1px solid $dark;
+  background: $gray-700 none repeat scroll 0 0;
+  border: 1px solid $white;
   border-radius: 10px;
   width: 100%;
 }
@@ -64,7 +51,6 @@
   color: inherit !important;
 }
 .twPc-divStats {
-  //margin-left: 11px;
   padding: 10px 0;
 }
 .twPc-Arrange {
@@ -91,17 +77,8 @@ ul.twPc-Arrange {
   text-decoration: none;
   text-align: center;
 }
-//.twPc-StatValue {
-//  display: block;
-//  font-size: 18px;
-//  font-weight: 500;
-//  transition: color 0.15s ease-in-out 0s;
-//}
+
 .twPc-StatLabel {
-  //color: #8899a6;
-  //font-size: 10px;
-  //letter-spacing: 0.02em;
   overflow: hidden;
-  //text-transform: uppercase;
   transition: color 0.15s ease-in-out 0s;
 }

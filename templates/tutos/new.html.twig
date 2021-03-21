@@ -51,7 +51,7 @@
 {{ form_start(form, {'action' : path('tutos.add')}) }}
     <section class="mt-2 mb-5">
         <div class="container">
-            <h1 class="h1">{{ 'tutos.add.title'|trans|capitalize }}</h1>
+            <h1 class="h1 text-white">{{ 'tutos.add.title'|trans|capitalize }}</h1>
             <hr class="my-4">
 
             <div class="row mt-2">
@@ -59,7 +59,7 @@
                     {{ form_row(form.title) }}
 
                     <div class="card border-primary mb-3">
-                        <div class="card-header">{{ 'tutos.creator.label'|trans|capitalize }}</div>
+                        <div class="card-header text-dark">{{ 'tutos.creator.label'|trans|capitalize }}</div>
                         <div class="card-body pt-1 pb-0">
                             {{ form_row(form.channel) }}
                         </div>
@@ -95,11 +95,11 @@
             </div>
 
             <div class="text-center">
-                <a class="btn btn-outline-danger" href="{{ path('home') }}">
+                <a class="btn btn-danger" href="{{ path('home') }}">
                     <i class="fas fa-times"></i>
                     {{ 'btn.cancel'|trans|capitalize }}
                 </a>
-                <button class="btn btn-outline-success" type="submit">
+                <button class="btn btn-success" type="submit">
                     <i class="fas fa-check"></i>
                     {{ 'btn.submit'|trans|capitalize }}
                 </button>

@@ -5,7 +5,7 @@
 {% block body %}
     <section class="my-2">
         <div class="container">
-            <h1 class="h1">
+            <h1 class="h1 text-white">
                 <span class="h1-text">{% if channel.thumbnailsUrl %}<img src="{{ channel.thumbnailsUrl }}" alt="" class="thumb_channel"> {% endif%}{{ channel.title }}</span>
             </h1>
 
@@ -15,27 +15,27 @@
                 <div class="col-mb-1">
                     <div class="list-group mb-3 h-100">
                         {% if channel.siteUrl %}
-                            <a href="{{ channel.siteUrl }}" target="_blank" class="list-group-item mb-2 text-secondary" data-toggle="tooltip" title="{{ 'channel.site_url.link'|trans|capitalize }}" data-placement="right"><i class="fas fa-link fa-2x"></i></a>
+                            <a href="{{ channel.siteUrl }}" target="_blank" class="list-group-item mb-2 text-white bg-dark" data-toggle="tooltip" title="{{ 'channel.site_url.link'|trans|capitalize }}" data-placement="right"><i class="fas fa-link fa-2x"></i></a>
                         {% endif %}
                         {% if channel.youtubeId %}
-                            <a href="https://www.youtube.com/channel/{{ channel.youtubeId }}" target="_blank" class="list-group-item mb-2 text-danger" data-toggle="tooltip" title="{{ 'channel.youtube.label'|trans|capitalize }}" data-placement="right"><i class="fab fa-youtube fa-2x"></i></a>
+                            <a href="https://www.youtube.com/channel/{{ channel.youtubeId }}" target="_blank" class="list-group-item mb-2 text-danger bg-dark" data-toggle="tooltip" title="{{ 'channel.youtube.label'|trans|capitalize }}" data-placement="right"><i class="fab fa-youtube fa-2x"></i></a>
                         {% endif %}
                         {% if channel.twitter %}
-                            <a href="{{ channel.twitter }}" target="_blank" class="list-group-item mb-2 text-info" data-toggle="tooltip" title="{{ 'channel.twitter.label'|trans }}" data-placement="right"><i class="fab fa-twitter fa-2x"></i></a>
+                            <a href="{{ channel.twitter }}" target="_blank" class="list-group-item mb-2 text-info bg-dark" data-toggle="tooltip" title="{{ 'channel.twitter.label'|trans }}" data-placement="right"><i class="fab fa-twitter fa-2x"></i></a>
                         {% endif %}
                         {% if channel.github %}
-                            <a href="{{ channel.github }}" target="_blank" class="list-group-item mb-2" data-toggle="tooltip" title="{{ 'channel.github.label'|trans }}" data-placement="right"><i class="fab fa-github fa-2x"></i></a>
+                            <a href="{{ channel.github }}" target="_blank" class="list-group-item mb-2 bg-dark" data-toggle="tooltip" title="{{ 'channel.github.label'|trans }}" data-placement="right"><i class="fab fa-github fa-2x"></i></a>
                         {% endif %}
                     </div>
                 </div>
 
                 <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="h3 card-title">{{ 'channel.description.label'|trans|capitalize }} :</h3>
+                    <div class="card h-100">
+                        <div class="card-body bg-dark">
+                            <h3 class="h3 card-title text-white">{{ 'channel.description.label'|trans|capitalize }} :</h3>
                             <hr class="my-2">
 
-                            <p class="card-text">
+                            <p class="card-text text-white">
                                 {% if channel.description %}
                                     {{ channel.description|nl2br }}
                                 {% else %}
@@ -48,7 +48,7 @@
             </div>
 
             <h2 class="h2 mt-4">
-                <span class="h1-text">{{ 'channel.all_tutos.show'|trans|capitalize }}</span>
+                <span class="h1-text text-white">{{ 'channel.all_tutos.show'|trans|capitalize }}</span>
             </h2>
 
             <hr class="my-3">

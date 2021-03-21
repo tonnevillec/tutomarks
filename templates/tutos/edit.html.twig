@@ -52,7 +52,7 @@
     {{ form_start(form) }}
     <section class="my-2">
         <div class="container">
-            <h1 class="h1">{{ 'tutos.edit.title'|trans|capitalize }}</h1>
+            <h1 class="h1 text-white">{{ 'tutos.edit.title'|trans|capitalize }}</h1>
             <hr class="my-4">
 
             <div class="row mt-2">
@@ -60,7 +60,7 @@
                     {{ form_row(form.title) }}
 
                     <div class="card border-primary mb-3">
-                        <div class="card-header">{{ 'tutos.creator.label'|trans|capitalize }}</div>
+                        <div class="card-header text-dark">{{ 'tutos.creator.label'|trans|capitalize }}</div>
                         <div class="card-body pt-1 pb-0">
                             {{ form_row(form.channel) }}
                         </div>
@@ -85,7 +85,7 @@
             </div>
 
             <div class="text-center">
-                <a class="btn btn-outline-danger" href="{{ path('tutos.show',  {'slug': tuto.slug, 'id': tuto.id}) }}">
+                <a class="btn btn-danger" href="{{ path('tutos.show',  {'slug': tuto.slug, 'id': tuto.id}) }}">
                     <i class="fas fa-times"></i>
                     {{ 'btn.cancel'|trans|capitalize }}
                 </a>

@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div class="card mb-3 bg-dark search-section">
     <div class="card-body">
         {{ form_start(form)}}
         <div class="input-group mb-3">
@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col-md-6 col">
-                <button type="button" class="btn btn-outline-primary btn-sm show_more" data-target="#advancedSearch">{{ 'btn.show_more_filters'|trans|capitalize }}</button>
+                <button type="button" class="btn btn-primary btn-sm show_more" data-target="#advancedSearch">{{ 'btn.show_more_filters'|trans|capitalize }}</button>
             </div>
             <div class="col-md-6 col text-right">
                 <a class="btn btn-outline-info btn-sm" href="{{ path('search') }}">{{ 'btn.reset'|trans|capitalize }}</a>
@@ -62,7 +62,7 @@
 </div>
 
 {% if result is defined %}
-    <h2 class="font-weight-light mb-3">{{ result.getTotalItemCount }} {{ 'search.results'|trans|capitalize }}{{ result.getTotalItemCount > 1 ? 's' : '' }}</h2>
+    <h2 class="font-weight-light mb-3 text-white">{{ result.getTotalItemCount }} {{ 'search.results'|trans|capitalize }}{{ result.getTotalItemCount > 1 ? 's' : '' }}</h2>
     <hr class="mb-3">
 
     <div class="row">

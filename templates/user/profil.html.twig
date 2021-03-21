@@ -3,20 +3,20 @@
 {% block title %}Mon profil{% endblock %}
 
 {% block body %}
-    <section class="my-2">
+    <section class="my-2 p-2 text-white">
         <div class="container">
-            <h1 class="h1">{{ 'user.profil.title'|trans|capitalize }}</h1>
+            <h1 class="h1 text-white">{{ 'user.profil.title'|trans|capitalize }}</h1>
 
             <div class="row mt-2">
                 <div class="col-md-3">
                     <div class="list-group">
-                        <a href="#a_informations" class="list-group-item list-group-item-action">{{ 'user.profil.informations'|trans|capitalize }}</a>
+                        <a href="#a_informations" class="user-list-menu list-group-item list-group-item-action bg-dark text-white">{{ 'user.profil.informations'|trans|capitalize }}</a>
                         {% if app.user.googleId is not null or app.user.githubId is not null %}
-                        <a href="#a_social" class="list-group-item list-group-item-action">{{ 'user.profil.social'|trans|capitalize }}</a>
+                        <a href="#a_social" class="user-list-menu list-group-item list-group-item-action bg-dark text-white">{{ 'user.profil.social'|trans|capitalize }}</a>
                         {% endif %}
-                        <a href="#a_changemail" class="list-group-item list-group-item-action">{{ 'user.profil.email'|trans|capitalize }}</a>
-                        <a href="#a_changepassword" class="list-group-item list-group-item-action">{{ 'user.profil.password'|trans|capitalize }}</a>
-                        <a href="#a_delete" class="list-group-item list-group-item-action">{{ 'user.profil.delete.title'|trans|capitalize }}</a>
+                        <a href="#a_changemail" class="user-list-menu list-group-item list-group-item-action bg-dark text-white">{{ 'user.profil.email'|trans|capitalize }}</a>
+                        <a href="#a_changepassword" class="user-list-menu list-group-item list-group-item-action bg-dark text-white">{{ 'user.profil.password'|trans|capitalize }}</a>
+                        <a href="#a_delete" class="user-list-menu list-group-item list-group-item-action bg-dark text-white">{{ 'user.profil.delete.title'|trans|capitalize }}</a>
                     </div>
                 </div>
 
@@ -32,10 +32,10 @@
                         {% endfor %}
                     {% endfor %}
 
-                    <section>
-                        <div class="card" id="a_informations">
+                    <section id="user-profil">
+                        <div class="card bg-dark text-white" id="a_informations">
                             <div class="card-body">
-                                <h2 class="h2">{{ 'user.profil.informations'|trans|capitalize }}</h2>
+                                <h2 class="h2 text-white">{{ 'user.profil.informations'|trans|capitalize }}</h2>
                                 <div class="dropdown-divider"></div>
 
                                 {{ form_start(form) }}
@@ -56,24 +56,24 @@
                         </div>
 
                         {% if app.user.googleId is not null or app.user.githubId is not null %}
-                        <div class="card mt-3" id="a_social">
+                        <div class="card bg-dark text-white mt-3" id="a_social">
                             <div class="card-body">
-                                <h2 class="card-title h2">{{ 'user.profil.social'|trans|capitalize }}</h2>
+                                <h2 class="card-title h2 text-white">{{ 'user.profil.social'|trans|capitalize }}</h2>
                                 <div class="dropdown-divider"></div>
                                 {% if app.user.googleId is not null %}
-                                    <button class="btn btn-outline-danger btn-sm" disabled><i class="fab fa-google"></i> Compte google lié</button>
+                                    <button class="btn btn-danger btn-sm" disabled><i class="fab fa-google"></i> Compte google lié</button>
                                 {% endif %}
                                 {% if app.user.githubId is not null %}
-                                    <button class="btn btn-outline-primary btn-sm" disabled><i class="fab fa-github"></i> Compte github lié</button>
+                                    <button class="btn btn-primary btn-sm" disabled><i class="fab fa-github"></i> Compte github lié</button>
                                 {% endif %}
                             </div>
                         </div>
                         {% endif %}
 
 
-                        <div class="card mt-3" id="a_changemail">
+                        <div class="card bg-dark text-white mt-3" id="a_changemail">
                             <div class="card-body">
-                                <h2 class="card-title h2">{{ 'user.profil.email'|trans|capitalize }}</h2>
+                                <h2 class="card-title h2 text-white">{{ 'user.profil.email'|trans|capitalize }}</h2>
                                 <div class="dropdown-divider"></div>
 
                                 <div class="alert alert-danger is-hide" id="js-notification-email">
@@ -135,7 +135,7 @@
                                         <span class="sr-only">{{ 'loading'|trans|capitalize }}...</span>
                                     </div>
 
-                                    <button type="button" class="btn btn-outline-primary js-btn-show-change-mail" id="js-show-change-mail">
+                                    <button type="button" class="btn btn-primary js-btn-show-change-mail" id="js-show-change-mail">
                                         <i class="fas fa-lock"></i>
                                         <span>{{ 'btn.change_email'|trans|capitalize }}</span>
                                     </button>
@@ -145,7 +145,7 @@
                                         <span>{{ 'btn.validate'|trans|capitalize }}</span>
                                     </button>
 
-                                    <button type="button" class="btn btn-outline-danger js-btn-change-mail-validation is-hide" id="js-cancel-change-mail">
+                                    <button type="button" class="btn btn-danger js-btn-change-mail-validation is-hide" id="js-cancel-change-mail">
                                         <i class="fas fa-times"></i>
                                         <span>{{ 'btn.cancel'|trans|capitalize }}</span>
                                     </button>
@@ -153,9 +153,9 @@
                             </div>
                         </div>
 
-                        <div class="card mt-3" id="a_changepassword">
+                        <div class="card mt-3 bg-dark text-white" id="a_changepassword">
                             <div class="card-body">
-                                <h2 class="h2">{{ 'user.profil.password'|trans|capitalize }}</h2>
+                                <h2 class="h2 text-white">{{ 'user.profil.password'|trans|capitalize }}</h2>
                                 <div class="dropdown-divider"></div>
 
                                 <div class="alert alert-danger is-hide" id="js-notification-password">
@@ -212,7 +212,7 @@
                                         <span class="sr-only">{{ 'loading'|trans|capitalize }}...</span>
                                     </div>
 
-                                    <button type="button" class="btn btn-outline-primary js-btn-show-change-password" id="js-show-change-password">
+                                    <button type="button" class="btn btn-primary js-btn-show-change-password" id="js-show-change-password">
                                         <i class="fas fa-lock"></i>
                                         <span>{{ 'btn.change_password'|trans|capitalize }}</span>
                                     </button>
@@ -222,7 +222,7 @@
                                         <span>{{ 'btn.validate_change_password'|trans|capitalize }}</span>
                                     </button>
 
-                                    <button type="button" class="btn btn-outline-danger js-btn-change-password-validation is-hide" id="js-cancel-change-password">
+                                    <button type="button" class="btn btn-danger js-btn-change-password-validation is-hide" id="js-cancel-change-password">
                                         <i class="fas fa-times"></i>
                                         <span>{{ 'btn.cancel'|trans|capitalize }}</span>
                                     </button>
@@ -230,9 +230,9 @@
                             </div>
                         </div>
 
-                        <div class="card mt-3" id="a_delete">
+                        <div class="card mt-3 bg-dark text-white" id="a_delete">
                             <div class="card-body">
-                                <h2 class="h2">{{ 'user.profil.delete.title'|trans|capitalize }}</h2>
+                                <h2 class="h2 text-white">{{ 'user.profil.delete.title'|trans|capitalize }}</h2>
                                 <div class="dropdown-divider"></div>
 
                                 <div class="alert alert-danger is-hide" id="js-notification-delete">
@@ -258,12 +258,12 @@
                                         <span class="sr-only">{{ 'loading'|trans|capitalize }}...</span>
                                     </div>
 
-                                    <button type="button" class="btn btn-outline-primary js-btn-show-delete" id="js-show-delete">
+                                    <button type="button" class="btn btn-primary js-btn-show-delete" id="js-show-delete">
                                         <i class="fas fa-skull-crossbones"></i>
                                         <span>{{ 'btn.delete_account'|trans|capitalize }}</span>
                                     </button>
 
-                                    <button type="button" class="btn btn-outline-danger js-btn-delete-validation is-hide" id="js-validate-delete">
+                                    <button type="button" class="btn btn-danger js-btn-delete-validation is-hide" id="js-validate-delete">
                                         <i class="fas fa-skull-crossbones"></i>
                                         <span>{{ 'btn.delete_confirm'|trans|capitalize }}</span>
                                     </button>
