@@ -41,11 +41,11 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body text-dark">
                             {{ 'deadlink.thanks.dialog'|trans|capitalize }}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'btn.cancel'|trans|capitalize }}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{{ 'btn.cancel'|trans|capitalize }}</button>
                             <a href="{{ path('tutos.deadlink', {'id': tuto.id}) }}" class="btn btn-success">{{ 'btn.confirm'|trans|capitalize }}</a>
                         </div>
                     </div>
