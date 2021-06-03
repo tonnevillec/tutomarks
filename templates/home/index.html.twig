@@ -184,7 +184,7 @@
 
                 {% if app.user %}
                 <div class="float-right">
-                    <a href="#" class="btn btn-xs btn-outline-info rounded btn-showlabelonhover">
+                    <a href="{{ path('tutos.add', { 'category' : 'articles' }) }}" class="btn btn-xs btn-outline-info rounded btn-showlabelonhover">
                         <i class="fas fa-plus-circle"></i>
                         <span>{{ 'categories.articles.new'|trans|capitalize }}</span>
                     </a>
@@ -208,7 +208,7 @@
 
                 {% if app.user %}
                 <div class="float-right">
-                    <a href="#" class="btn btn-xs btn-outline-info rounded btn-showlabelonhover">
+                    <a href="{{ path('tutos.add', { 'category' : 'podcasts' }) }}" class="btn btn-xs btn-outline-info rounded btn-showlabelonhover">
                         <i class="fas fa-plus-circle"></i>
                         <span>{{ 'categories.podcasts.new'|trans|capitalize }}</span>
                     </a>
