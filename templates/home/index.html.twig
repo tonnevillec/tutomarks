@@ -5,9 +5,6 @@
 {% block body %}
     <section class="jumbotron bg-dark">
         <div class="row">
-{#            <div class="col-md-4 d-none d-xs-block">#}
-{#                <img src="{{ asset('build/images/undraw_video_files_fu10.svg') }}" class="img-fluid img-thumbnail" alt="Image décorative">#}
-{#            </div>#}
             <div class="col text-center">
                 <h1 class="display-5 text-white">{{ 'home.title'|trans|capitalize }} TutoMarks !</h1>
                 <p class="lead">{{ 'home.lead'|trans|capitalize }}</p>
@@ -27,10 +24,6 @@
                         </div>
                     </div>
 
-{#                    <a class="btn btn-sm btn-outline-success" href="{{ path('tutos.addurl') }}" role="button">#}
-{#                        <i class="far fa-bookmark"></i>#}
-{#                        {{ 'tutos.add.title'|trans|capitalize }}#}
-{#                    </a>#}
                     {% else %}
                         {{ 'user.want_to_join'|trans|capitalize }} ?
                         <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info m-1">{{ 'user.register'|trans|capitalize }}</a>
@@ -41,7 +34,18 @@
         </div>
     </section>
 
-    <h2 class="font-weight-light mb-3 text-white"><i class="{{ categoryIcon('videos') }}"></i> {{ 'home.last-videos'|trans|capitalize }}</h2>
+    <h2 class="font-weight-light mb-3 text-white">
+        <i class="{{ categoryIcon('videos') }}"></i> {{ 'home.last-videos'|trans|capitalize }}
+
+        {% if app.user %}
+            <div class="float-right">
+                <a href="{{ path('tutos.addurl') }}" class="btn btn-xs btn-outline-info rounded btn-showlabelonhover">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>{{ 'categories.videos.new'|trans|capitalize }}</span>
+                </a>
+            </div>
+        {% endif %}
+    </h2>
     <hr class="mb-3">
 
     <div class="row mb-2" id="latest-videos">
@@ -238,33 +242,6 @@
             {% endfor %}
         </div>
     </div>
-
-
-{#    <h2 class="font-weight-light mb-3 text-white">{{ 'home.last-tutos'|trans|capitalize }}</h2>#}
-{#    <hr class="mb-3">#}
-
-{#    <div class="row">#}
-{#        {% for tuto in articles %}#}
-{#            {% include 'tutos/_light_card.html.twig' %}#}
-{#        {% endfor %}#}
-{#    </div>#}
-
-{#    <div class="text-center mt-0 mb-5">#}
-{#        <a href="{{ path('search') }}" class="btn btn-sm btn-outline-secondary">{{ 'nav.search_more'|trans|capitalize }}</a>#}
-{#    </div>#}
-
-{#    <h2 class="font-weight-light mb-3 text-white">{{ 'home.channels'|trans|capitalize }}</h2>#}
-{#    <hr class="mb-3">#}
-
-{#    <div class="row mb-5">#}
-{#        {% for channel in channels %}#}
-{#            {% set nb = channel['nb'] %}#}
-{#            {% set channel = channel[0] %}#}
-{#            <div class="col-lg-4 col-md-12 mb-3">#}
-{#                {% include 'channels/__light_card.html.twig' %}#}
-{#            </div>#}
-{#        {% endfor %}#}
-{#    </div>#}
 
     {% if app.user and mytutos is not null and mytutos|length > 0 %}
     <h2 class="font-weight-light mb-3 text-white">{{ 'home.my-last-tutos'|trans|capitalize }}</h2>

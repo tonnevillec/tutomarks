@@ -253,6 +253,8 @@ comments:
 categories:
     articles:
         new: 'nouvel article'
+    videos:
+        new: 'nouvel vidéo'
     podcasts:
         new: 'nouveau podcast'
 

@@ -25,6 +25,7 @@ class ChannelsRepository extends ServiceEntityRepository
             ->select('c')
             ->addSelect('COUNT(t) nb')
             ->leftJoin('c.tutos', 't')
+            ->andWhere('t.available = 1')
             ->groupBy('c.id')
         ;
 

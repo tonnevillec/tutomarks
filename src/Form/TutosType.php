@@ -55,21 +55,17 @@ class TutosType extends AbstractType
                 'required'  => false
             ])
             ->add('channel', EntityType::class, [
-//            ->add('channel', ChannelsType::class, [
                 'class'         => Channels::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.title', 'ASC');
+                },
                 'label_attr'    => [
                     'class' => 'd-none'
                 ],
                 'label' => '',
                 'required'  => true
             ])
-//            ->add('channel', null, [
-//                'label_attr'    => [
-//                    'class' => 'label'
-//                ],
-//                'label' => ucfirst($this->translator->trans('tutos.channel.label')),
-//                'required'  => false
-//            ])
             ->add('url', null, [
                 'label_attr'    => [
                     'class' => 'label'

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Channels;
+use App\Entity\Tutos;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,9 +59,14 @@ class ChannelsController extends AbstractController
             $this->addFlash('danger', $this->translator->trans('error.unauthorized'));
             return $this->redirectToRoute('home');
         }
+        $tutos = $this->em->getRepository(Tutos::class)->findBy([
+            'channel'   => $channel,
+            'available' => true
+        ]);
 
         return $this->render('channels/show.html.twig', [
             'channel'   => $channel,
+            'tutos'     => $tutos,
             'from'      => $request->server->get('HTTP_REFERER')
         ]);
     }

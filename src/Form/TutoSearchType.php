@@ -45,6 +45,10 @@ class TutoSearchType extends AbstractType
                 'label'         => ucfirst($this->translator->trans('search.category.label')),
                 'required'      => false,
                 'class'         => Categories::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.title', 'ASC');
+                },
                 'choice_value'  => 'id',
                 'choice_label'  => 'title',
                 'multiple'      => false,
@@ -66,6 +70,10 @@ class TutoSearchType extends AbstractType
             ->add('channel', EntityType::class, [
                 'label'         => ucfirst($this->translator->trans('search.creator.label')),
                 'class'         => Channels::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.title', 'ASC');
+                },
                 'required'      => false,
                 'choice_value'  => 'id',
                 'choice_label'  => 'title',
