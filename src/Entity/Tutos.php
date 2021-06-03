@@ -133,6 +133,11 @@ class Tutos
      */
     private $youtube_id;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $available;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -140,6 +145,8 @@ class Tutos
         $this->comments = new ArrayCollection();
 
         $this->published_at = new \DateTime();
+
+        $this->available = true;
     }
 
     public function getId(): ?int
@@ -418,6 +425,24 @@ class Tutos
     {
         $this->youtube_id = $youtube_id;
 
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAvailable(): bool
+    {
+        return $this->available;
+    }
+
+    /**
+     * @param bool $available
+     * @return Tutos
+     */
+    public function setAvailable(bool $available): Tutos
+    {
+        $this->available = $available;
         return $this;
     }
 }

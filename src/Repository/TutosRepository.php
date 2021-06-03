@@ -33,6 +33,7 @@ class TutosRepository extends ServiceEntityRepository
     public function findLatest(int $nb)
     {
         return $this->createQueryBuilder('t')
+            ->andWhere('t.available = 1')
             ->orderBy('t.published_at', 'desc')
             ->setMaxResults($nb)
             ->getQuery()
@@ -46,6 +47,7 @@ class TutosRepository extends ServiceEntityRepository
             ->join('t.category', 'c')
             ->andWhere('c.homekey = :value')
             ->setParameter('value', $category)
+            ->andWhere('t.available = 1')
             ->orderBy('t.published_at', 'desc')
             ->setMaxResults($nb)
             ->getQuery()
@@ -81,6 +83,7 @@ class TutosRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->andWhere('t.published_by = :user')
             ->setParameter('user', $user)
+            ->andWhere('t.available = 1')
             ->orderBy('t.published_at', 'desc')
             ;
     }
@@ -207,7 +210,8 @@ class TutosRepository extends ServiceEntityRepository
      */
     public function findVisible(): QueryBuilder
     {
-        return $this->createQueryBuilder('t');
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.available = 1');
     }
 
     /**
@@ -222,6 +226,7 @@ class TutosRepository extends ServiceEntityRepository
             ->select('COUNT(t.id)')
             ->where('t.published_by = :user')
             ->setParameter('user', $user_id)
+            ->andWhere('t.available = 1')
             ->getQuery()
             ->getSingleScalarResult()
             ;

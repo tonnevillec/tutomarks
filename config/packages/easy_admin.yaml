@@ -76,9 +76,9 @@ easy_admin:
         Tutos:
             class: App\Entity\Tutos
             list:
-                fields: ['id', 'title', 'published_by', 'published_at', 'creator', 'channel', 'url', 'category', 'langue', 'youtube_id']
+                fields: ['id', 'title', 'published_by', 'published_at', 'creator', 'channel', 'url', 'category', 'langue', 'youtube_id', 'available']
             form:
-                fields: ['title', 'published_by', 'published_at', 'creator', 'channel', 'url', 'category', 'tags', 'description', 'langue', 'youtube_id']
+                fields: ['title', 'published_by', 'published_at', 'creator', 'channel', 'url', 'category', 'tags', 'description', 'langue', 'youtube_id', 'available']
         Badges:
             class: App\Entity\Badges
             list:
