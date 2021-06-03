@@ -2,11 +2,14 @@
 /* Cardbox Heading
 ---------------------------------- */
 .cardbox {
-  background-color: $gray-700;
-  color: $white;
+  background-color: $dark;
 
   a {
     color: $white;
+  }
+
+  a:hover {
+    color: $gray-500 !important;
   }
 
   .card-header {
@@ -14,7 +17,7 @@
 
     position: relative;
     display: block;
-    //border-top: 2px solid #f4f4f4;
+
     border-bottom: 2px solid $white;
 
     .img-fluid {

@@ -1,0 +1,75 @@
+<ul class="list-group list-group-template">
+    {% if obj|length > 0 %}
+        {% for objet in obj %}
+
+            <li class="list-group-item mb-3">
+                <div class="row">
+                    <div class="col-4">
+                        <a href="{{ path('tutos.show', {'slug': objet.slug, 'id': objet.id}) }}">
+                            {% if objet.url|youtube_thumbnail is not same as ('') %}
+                                <img src="{{ objet.url|youtube_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ objet.title }}">
+                            {% elseif objet.category.image %}
+                                <img src="{{ asset('uploads/images/categories/' ~ objet.category.image) }}" class="img-fluid" alt="Miniature catégorie - {{ objet.category.title }}">
+                            {% else %}
+                                <img src="{{ asset('build/images/no-preview-2.png') }}" class="img-fluid" alt="Miniature catégorie - {{ objet.category.title }}">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="col">
+                        {% if objet.tags %}
+                            <div class="css-tags mb-2">
+                                {% for tag in objet.tags %}
+                                    {% if tag.image %}
+                                        <img
+                                                src="{{ vich_uploader_asset(tag, 'imageFile') }}"
+                                                class="img-tags-sm"
+                                                alt="{{ tag }}"
+                                                title="{{ tag }}"
+                                                data-toggle="tooltip"
+                                                data-placement="top" />
+                                    {% else %}
+                                        <span class="badge badge-primary badge-pill">{{ tag }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <p>
+                            <span class="badge badge-info badge-pill">{{ objet.category }}</span>
+                            <span class="badge badge-info badge-pill">{{ objet.langue }}</span>
+
+                            {% if objet.price %}
+                                <span class="badge badge-info badge-pill">{{ objet.price }}</span>
+                            {% endif %}
+                            {% if objet.level %}
+                                <span class="badge badge-info badge-pill">{{ objet.level }}</span>
+                            {% endif %}
+                        </p>
+
+                        <h4 class="h4 mt-1">
+                            <a href="{{ path('tutos.show', {'slug': objet.slug, 'id': objet.id}) }}" class="text-white">{{ objet.title }}</a>
+                        </h4>
+                        <p>
+                            {% if objet.channel %}
+                                <a href="{{ path('channels.show', {'id': objet.channel.id, 'slug': objet.channel.slug}) }}"
+                                   class="text-white"
+                                   title="{{ 'channel.all_tutos.show'|trans|capitalize }}"
+                                   data-toggle="tooltip">
+                                    <i class="fas fa-at"></i> {{ objet.channel.title }}
+                                </a>
+                            {% else %}
+                                <i class="fas fa-at"></i> {{ objet.creator }}
+                            {% endif %}
+                            <br/>
+                            <small>{{ 'tutos.added_at'|trans|capitalize }} {{ objet.publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ objet.publishedBy }}</small>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    {% else %}
+        <li class="list-group-item mb-3">
+            {{ 'no-data-found'|trans|capitalize }}
+        </li>
+    {% endif %}
+</ul>

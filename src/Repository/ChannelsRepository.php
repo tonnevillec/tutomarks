@@ -19,14 +19,22 @@ class ChannelsRepository extends ServiceEntityRepository
         parent::__construct($registry, Channels::class);
     }
 
-    public function findAllChannels()
+    public function findAllChannels(string $orderby = 'nom', string $direction = 'asc')
     {
-        return $this->createQueryBuilder('c')
+        $qb = $this->createQueryBuilder('c')
             ->select('c')
             ->addSelect('COUNT(t) nb')
             ->leftJoin('c.tutos', 't')
             ->groupBy('c.id')
-            ->orderBy('nb', 'DESC')
+        ;
+
+        if($orderby === 'nom') {
+            $qb->orderBy('c.title', strtoupper($direction));
+        } else {
+            $qb->orderBy('nb', strtoupper($direction));
+        }
+
+        return $qb
             ->getQuery()
             ->getResult()
             ;

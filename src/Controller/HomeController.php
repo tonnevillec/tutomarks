@@ -39,8 +39,11 @@ class HomeController extends AbstractController
     public function index()
     {
         $repo = $this->em->getRepository(Tutos::class);
-        $tutos = $repo->findLatest(6);
+        $tutos = $repo->findLatestCategory('videos');
+        $articles = $repo->findLatestCategory('articles', 3);
+        $podcast = $repo->findLatestCategory('podcast', 3);
         $channels = $this->em->getRepository(Channels::class)->findAllbyTutosNumber();
+        $top_channels = $this->em->getRepository(Channels::class)->findAllbyTutosNumber(3);
 
         $myTutos = null;
         if ($this->getUser()) {
@@ -48,9 +51,12 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/index.html.twig', [
-            'tutos'     => $tutos,
-            'channels'  => $channels,
-            'mytutos'   => $myTutos,
+            'tutos'         => $tutos,
+            'articles'      => $articles,
+            'podcast'       => $podcast,
+            'channels'      => $channels,
+            'top_channels'  => $top_channels,
+            'mytutos'       => $myTutos,
         ]);
     }
 

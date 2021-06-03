@@ -2,6 +2,7 @@
 namespace App\Twig;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use App\Entity\Categories;
 use App\Entity\Tutos;
 use App\Entity\User;
 use App\Entity\UserTutosInformations;
@@ -31,6 +32,7 @@ class FunctionsExtension extends AbstractExtension
             new TwigFunction('countPined', [$this, 'getCountPined'], ['is_safe' => ['html']]),
             new TwigFunction('pinForTuto', [$this, 'getPinForTuto'], ['is_safe' => ['html']]),
             new TwigFunction('shownForTuto', [$this, 'getShownForTuto'], ['is_safe' => ['html']]),
+            new TwigFunction('categoryIcon', [$this, 'getCategoryIcon'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -141,5 +143,23 @@ class FunctionsExtension extends AbstractExtension
         }
 
         return $infos->getShown() ? $show : $notshow;
+    }
+
+    /**
+     * @param String $homekey
+     * @return string
+     */
+    public function getCategoryIcon(String $homekey): string
+    {
+        $category = $this->em
+            ->getRepository(Categories::class)
+            ->findOneBy([
+                'homekey'   => $homekey
+            ]);
+
+        if(!$category) {
+            return 'fas fa-box';
+        }
+        return !is_null($category->getLogo()) && $category->getLogo() !== '' ? $category->getLogo() : 'fas fa-box';
     }
 }

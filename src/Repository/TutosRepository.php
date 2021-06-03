@@ -40,6 +40,19 @@ class TutosRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findLatestCategory(string $category = 'video', int $nb = 4)
+    {
+        return $this->createQueryBuilder('t')
+            ->join('t.category', 'c')
+            ->andWhere('c.homekey = :value')
+            ->setParameter('value', $category)
+            ->orderBy('t.published_at', 'desc')
+            ->setMaxResults($nb)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findLatestForMe(User $user, int $nb = 6)
     {
         return $this->forMe($user)

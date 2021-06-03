@@ -27,9 +27,22 @@ easy_admin:
         Categories:
             class: App\Entity\Categories
             list:
-                fields: ['id', 'title', 'logo', 'tutos']
+                fields:
+                    - { property: 'id' }
+                    - { property: 'title'}
+                    - { property: 'logo'}
+                    - { property: 'tutos'}
+                    - { property: 'homekey'}
+                    - { property: 'withVideos'}
+                    - { property: 'image', type: 'image', base_path: '%uploads_path%/categories/' }
             form:
-                fields: ['title', 'logo']
+                fields:
+                    - { property: 'title' }
+                    - { property: 'logo' }
+                    - { property: 'tutos' }
+                    - { property: 'homekey' }
+                    - { property: 'withVideos' }
+                    - { property: 'imageFile', type: 'vich_image' }
         Prices:
             class: App\Entity\Prices
             list:

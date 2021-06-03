@@ -2,14 +2,14 @@
 <html>
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171506404-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+{#        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171506404-1"></script>#}
+{#        <script>#}
+{#            window.dataLayer = window.dataLayer || [];#}
+{#            function gtag(){dataLayer.push(arguments);}#}
+{#            gtag('js', new Date());#}
 
-            gtag('config', 'UA-171506404-1');
-        </script>
+{#            gtag('config', 'UA-171506404-1');#}
+{#        </script>#}
 
         <meta charset="UTF-8">
         <title>{% block title %}Tutomarks! Annuaire de tutoriaux pour les développeurs{% endblock %}</title>
@@ -22,22 +22,24 @@
     <body class="pt-7">
         {% include 'header.html.twig' %}
 
-        <main role="main" class="hero is-fullheight">
-            <div class="container">
-                {% for type, messages in app.session.flashbag.all() %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{type}} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+        <div id="wrapper">
+            <main role="main" class="hero is-fullheight">
+                <div class="container-fluid">
+                    {% for type, messages in app.session.flashbag.all() %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{type}} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
 
-                {% block body %}{% endblock %}
-            </div>
-        </main>
+                    {% block body %}{% endblock %}
+                </div>
+            </main>
+        </div>
 
         {% include 'footer.html.twig' %}
 

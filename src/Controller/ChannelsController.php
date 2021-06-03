@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Channels;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,14 +25,24 @@ class ChannelsController extends AbstractController
 
     /**
      * @Route("/channels", name="channels")
+     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @return Response
      */
-    public function index(): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        $orderby = $request->query->has('orderby') ? $request->query->get('orderby') : 'tutos';
+        $direction = $request->query->has('direction') ? $request->query->get('direction') : 'desc';
+        $channels = $paginator->paginate(
+            $this->em->getRepository(Channels::class)->findAllChannels($orderby, $direction),
+            $request->query->getInt('page', 1),
+            12
+        );
+
         return $this->render('channels/index.html.twig', [
-            'channels' => $this->em->getRepository(Channels::class)->findAllChannels(),
+            'channels' => $channels,
         ]);
     }
-
 
     /**
      * @Route("/{slug}-{id}", name="channels.show", requirements={"slug": "[a-z0-9\-]*"})

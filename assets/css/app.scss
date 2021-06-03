@@ -2,12 +2,14 @@
 
 // Variables
 //@import 'variables_sketchy';
-@import 'variables_lux';
+//@import 'variables_lux';
+@import 'variables_superhero';
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 //@import "bootswatch_sketchy";
-@import "bootswatch_lux";
+//@import "bootswatch_lux";
+@import "bootswatch_superhero";
 
 @import "~select2";
 @import "~bootstrap-star-rating";
