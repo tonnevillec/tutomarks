@@ -41,7 +41,7 @@ class HomeController extends AbstractController
         $repo = $this->em->getRepository(Tutos::class);
         $tutos = $repo->findLatestCategory('videos');
         $articles = $repo->findLatestCategory('articles', 3);
-        $podcast = $repo->findLatestCategory('podcast', 3);
+        $podcast = $repo->findLatestCategory('podcasts', 3);
         $channels = $this->em->getRepository(Channels::class)->findAllbyTutosNumber();
         $top_channels = $this->em->getRepository(Channels::class)->findAllbyTutosNumber(3);
 

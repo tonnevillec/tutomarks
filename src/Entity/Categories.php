@@ -39,7 +39,7 @@ class Categories
     private $tutos;
 
     /**
-     * @ORM\Column(type="string", length="50", nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $homekey;
 
