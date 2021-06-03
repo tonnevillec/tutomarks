@@ -12,9 +12,7 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
 - [ ] Pagination des résultats de recherche sans rechargement de la page
 - [ ] Dashboard: ajouter "les mieux notés"
 - [ ] Système de statistiques : "les plus consultés"
-- [ ] Logo pour les Catégories
 - [ ] Avatars utilisateurs
-- [ ] Définition des catégories
 - [ ] Traduction du site en anglais
 - [ ] Système de Badge de "contributeur"
 - [ ] Système de badges pour les utilisateurs (1 ière contribution, ...)
@@ -47,12 +45,15 @@ Il s'agit bien **uniquement de liens proposés par la communauté** et absolumen
   - [x] Recherche par "Marquer comme vu"
 - [x] Système de "Fiche auteur" pour faciliter la recherche par "Créateur du tuto"
 - [x] Logo pour les Tags
+- [x] Logo pour les Catégories
+- [x] ~~Définition des catégories~~
+- [x] Redéfinition des catégories
 
 ## Coté technique :
 
 - Symfony ~~5.1~~ 5.2
 - MySQL
-- Bootstrap 4 + thème Bootswatch LUX =>  https://bootswatch.com/lux/
+- Bootstrap 4 + thème Bootswatch SuperHero =>  https://bootswatch.com/superhero/
 - Un peu de React aussi
 
 ## Lancer l'application en dev local
