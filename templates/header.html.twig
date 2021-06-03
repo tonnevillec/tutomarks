@@ -1,16 +1,16 @@
-<div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-    <div class="container d-flex align-items-center">
-        <div class="mr-auto">
-            <ul>
-                <li><a href="#content">{{ 'a11y.top.content'|trans|capitalize }}</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+{#<div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">#}
+{#    <div class="container-fluid d-flex align-items-center">#}
+{#        <div class="mr-auto">#}
+{#            <ul>#}
+{#                <li><a href="#content">{{ 'a11y.top.content'|trans|capitalize }}</a></li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 
-<header id="header" class="fixed-top">
+<header id="header" class="fixed-top bg-dark">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{{ path('home') }}">
                 <img src="{{ asset('build/images/tutomarks_logo_sans_nom.png') }}" alt="TutoMarks" class="d-inline-block" loading="lazy">
                 Tutomarks
@@ -31,8 +31,14 @@
                         <a class="nav-link" href="{{ path('channels') }}">{{ 'nav.channels'|trans|capitalize }}</a>
                     </li>
                     {% if app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('tutos.addurl') }}">{{ 'nav.add'|trans|capitalize }}</a>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ 'nav.add.title'|trans|capitalize }} <span class="caret"></span></a>
+
+                        <div id="addlink-menu" class="dropdown-menu dropdown-menu-lg-right bg-dark text-white" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item text-white" href="{{ path('tutos.addurl') }}"><i class="{{ categoryIcon('videos') }}"></i> {{ 'nav.add.video'|trans|capitalize }}</a>
+                            <a class="dropdown-item text-white" href="{{ path('tutos.add', { 'category' : 'articles' }) }}"><i class="{{ categoryIcon('articles') }}"></i> {{ 'nav.add.article'|trans|capitalize }}</a>
+                            <a class="dropdown-item text-white" href="{{ path('tutos.add', { 'category' : 'podcasts' }) }}"><i class="{{ categoryIcon('podcasts') }}"></i> {{ 'nav.add.podcast'|trans|capitalize }}</a>
+                        </div>
                     </li>
                     {% endif %}
                 </ul>

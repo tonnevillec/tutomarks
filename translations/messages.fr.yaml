@@ -9,6 +9,8 @@ required_field: 'champ requis'
 required_fields: 'champs requis'
 back_to_top: 'retour en haut de page'
 loading: 'chargement'
+no-data-found: 'aucune information trouvée'
+
 login:
     success: 'connexion réussie'
     failed: 'identification impossible'
@@ -21,8 +23,12 @@ home:
     lead: "l'annuaire de tutoriaux pour apprendre à développer"
     sub: "si vous êtes pret, alors c'est parti !"
     last-tutos: 'les derniers tutos'
-    my-last-tutos: 'mes dernieres contributions'
+    last-videos: 'les dernières vidéos'
+    last-articles: 'les derniers articles'
+    last-podcasts: 'les derniers podcast'
+    my-last-tutos: 'mes dernières contributions'
     channels: 'listes des chaines'
+    'top-channels': 'Le top chaînes'
 
 nav:
     home: 'accueil'
@@ -35,7 +41,13 @@ nav:
     signin: 'inscription'
     search: 'recherche'
     search_more: 'rechercher parmis tous les tutos'
-    add: 'partager un lien'
+    search_more_articles: 'rechercher parmis tous les articles'
+    search_more_podcasts: 'rechercher parmis tous les podcasts'
+    add:
+        title: 'partager un lien'
+        video: 'vidéo'
+        podcast: 'podcast'
+        article: 'article'
     admin: 'administration'
     connection: 'connectez-vous'
     tutos:
@@ -238,6 +250,12 @@ comments:
     posted_by: 'commentaire posté par'
     posted_at: 'le'
 
+categories:
+    articles:
+        new: 'nouvel article'
+    podcasts:
+        new: 'nouveau podcast'
+
 about:
     title: 'a propos'
     why:
@@ -285,7 +303,15 @@ search:
         oui: 'oui'
         non: 'non'
     results: 'résultat'
-
+    channels:
+        orderby:
+            menu: 'trier par'
+            name:
+                asc: 'nom croissant'
+                desc: 'nom décroissant'
+            tutos:
+                asc: 'tutoriaux croissant'
+                desc: 'tutoriaux décroissant'
 mail:
     hello: 'bonjour'
     connect_on: 'connectez-vous sur'

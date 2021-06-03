@@ -1,11 +1,16 @@
 body {
-  background-color: $gray-800;
+  //background-color: $gray-800;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152' height='152' viewBox='0 0 152 152'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='temple' fill='%23000000' fill-opacity='0.01'%3E%3Cpath d='M152 150v2H0v-2h28v-8H8v-20H0v-2h8V80h42v20h20v42H30v8h90v-8H80v-42h20V80h42v40h8V30h-8v40h-42V50H80V8h40V0h2v8h20v20h8V0h2v150zm-2 0v-28h-8v20h-20v8h28zM82 30v18h18V30H82zm20 18h20v20h18V30h-20V10H82v18h20v20zm0 2v18h18V50h-18zm20-22h18V10h-18v18zm-54 92v-18H50v18h18zm-20-18H28V82H10v38h20v20h38v-18H48v-20zm0-2V82H30v18h18zm-20 22H10v18h18v-18zm54 0v18h38v-20h20V82h-18v20h-20v20H82zm18-20H82v18h18v-18zm2-2h18V82h-18v18zm20 40v-18h18v18h-18zM30 0h-2v8H8v20H0v2h8v40h42V50h20V8H30V0zm20 48h18V30H50v18zm18-20H48v20H28v20H10V30h20V10h38v18zM30 50h18v18H30V50zm-2-40H10v18h18V10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  color: $white;
+  //color: $white;
+}
+
+#wrapper {
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .pt-7 {
-  padding-top: 7rem !important;
+  padding-top: 5rem !important;
 }
 
 .mh-250p {
@@ -29,6 +34,15 @@ body {
   font-size: 5rem !important;
 }
 
+hr {
+  background-color: $white;
+}
+
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .hero {
   align-items: stretch;
   display: flex;
@@ -37,14 +51,15 @@ body {
 
   .jumbotron {
     padding: 2rem !important;
-    background-color: $gray-800;
-    color: $white;
+    //background-color: $gray-800;
+    //background-image: url("../../public/build/images/banner1.jpg");
+    //color: $white;
     border: 1px solid $white;
     border-radius: 10px;
   }
 
   .card-footer-maj {
-    background-color: $gray-800 !important;
+    //background-color: $gray-800 !important;
     border-top: 2px solid rgba(0, 0, 0, 0.1) !important;
   }
 
@@ -63,37 +78,47 @@ body {
   line-height: unset;
 }
 
-#topbar {
-  height: 17px;
-  font-size: 10px;
-  transition: all 0.5s;
-  overflow: hidden;
-  background-color: $gray-800;
-  color: $white;
+//#topbar {
+//  height: 17px;
+//  font-size: 10px;
+//  transition: all 0.5s;
+//  overflow: hidden;
+//  background-color: $gray-800;
+//  color: $white;
+//
+//  ul {
+//    padding: 0;
+//    margin: 0;
+//    list-style: none;
+//  }
+//
+//  li {
+//    display: inline-block;
+//    padding: 0;
+//
+//    a {
+//      color: $white;
+//    }
+//  }
+//}
 
-  ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
+form[name=tuto] {
+  .card-header {
 
-  li {
-    display: inline-block;
-    padding: 0;
-
-    a {
-      color: $white;
-    }
   }
 }
 
 #header {
   transition: all 0.5s;
   z-index: 997;
-  padding: 0 5px;
-  top: 17px;
+  padding: 0 50px;
+  //top: 17px;
 
   border-bottom: 1px solid $white;
+
+  nav.navbar {
+    padding: 0.5rem 0;
+  }
 
   li.nav-item {
     border-top: 2px solid transparent;
@@ -106,17 +131,20 @@ body {
 
 #footer {
   border-top: 1px solid $white;
+  padding-left: 0px;
+  padding-right: 0px;
 
   a.nav-link:hover {
+    //color: $gray-500 !important;
     color: $gray-500 !important;
   }
 
   blockquote {
     font-size: 0.75rem;
 
-    a {
-      color: $gray-400;
-    }
+    //a {
+    //  color: $gray-400;
+    //}
   }
 
   .img-obambu {
@@ -128,14 +156,15 @@ body {
   min-width: 250px;
   padding: 14px 14px 0;
   overflow: hidden;
-  background-color: $gray-800;
-  color: $white;
+  //background-color: $gray-800;
+  background-color: $dark;
+  //color: $white;
 
   .help-block{
     font-size:12px
   }
   .bottom{
-    background-color: $gray-700;
+    //background-color: $gray-700;
     border-top:1px solid $dark;
     clear:both;
     padding:14px;
@@ -151,11 +180,11 @@ body {
   border-radius: 10px
 }
 
-#user-menu {
-  a:hover {
-    background-color: $gray-700;
-  }
-}
+//#user-menu {
+//  a:hover {
+//    background-color: $gray-700;
+//  }
+//}
 
 .user-list-menu {
   border-color: $white;
@@ -170,6 +199,10 @@ body {
 .search-section {
   border-color: $white !important;
   border-radius: 10px;
+
+  .form-control {
+    height: auto;
+  }
 }
 
 #add-url-section {
@@ -180,10 +213,119 @@ body {
 @media(max-width:768px){
   #login-dp{
     background-color: inherit;
-    color: #fff;
+    //color: #fff;
   }
   #login-dp .bottom{
     background-color: inherit;
     border-top:0 none;
   }
+}
+
+//From here
+
+.single-slider {
+  .trending-top .trend-top-img img {
+    width: 100%;
+  }
+
+  .css-tags {
+    margin-top: -25px;
+  }
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.whats-right-single {
+  display: flex;
+}
+
+.whats-right-single .whats-right-cap {
+  padding-left: 15px;
+}
+
+.whats-right-img img {
+  max-width: 300px;
+}
+
+#latest-videos .h4 a,
+#latest-videos .h2 a
+{
+  color: $white;
+}
+
+.h2 {
+  font-size: 1.2em;
+}
+.h4 {
+  font-size: 1.1em;
+}
+
+.css-tags {
+
+  .img-tags{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    object-fit: contain;
+  }
+
+  .img-tags-sm{
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    object-fit: contain;
+  }
+}
+
+.list-group-template {
+
+  border: none;
+
+  .list-group-item {
+    padding: 0 5px 0 0;
+    background-color: transparent;
+    color: $white;
+
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    a {
+      text-decoration: none;
+      border-bottom: 1px dotted $white;
+    }
+    a:hover {
+      border-bottom: 1px solid $white;
+    }
+  }
+
+  .list-group-item:hover {
+    //background-color: $gray-700;
+    background-color: $dark;
+  }
+
+}
+
+.btn-xs {
+  padding: 0.2rem .5rem;
+  font-size: 0.5em;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.btn-showlabelonhover span {
+  max-width: 0;
+  -webkit-transition: max-width 1s;
+  transition: max-width 1s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.btn-showlabelonhover:hover span {
+  max-width: 7rem;
 }

@@ -20,6 +20,7 @@ public/adminer.php
 /node_modules/
 /public/build/
 /public/uploads/tags/
+/public/uploads/images/tags/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###

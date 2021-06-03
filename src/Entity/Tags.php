@@ -24,7 +24,7 @@ class Tags
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -36,7 +36,7 @@ class Tags
      * @Vich\UploadableField(mapping="tags_images", fileNameProperty="image")
      * @var File|null
      */
-    private $imageFile;
+    private ?File $imageFile;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)

@@ -20,6 +20,7 @@ class YoutubeExtension extends AbstractExtension
     {
         return [
             new TwigFilter('youtube_thumbnail', [$this, 'youtubeThumbnail']),
+            new TwigFilter('youtube_largest_thumbnail', [$this, 'youtubeLargestThumbnail']),
             new TwigFilter('youtube_player', [$this, 'youtubePlayer']),
         ];
     }
@@ -41,6 +42,28 @@ class YoutubeExtension extends AbstractExtension
             return $video->getMediumThumbnail();
 //            return $video->getSmallThumbnail();
 //            return $video->getLargestThumbnail();
+        } catch (\RicardoFiorani\Exception\NotEmbeddableException $e) {
+            return '';
+        }
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function youtubeLargestThumbnail($value): string
+    {
+        try {
+            $video = $this->vsm->parse($value);
+        } catch (\RicardoFiorani\Exception\ServiceNotAvailableException $e) {
+            return '';
+        }
+
+        try {
+            $video->getEmbedUrl();
+//            return $video->getMediumThumbnail();
+//            return $video->getSmallThumbnail();
+            return $video->getLargestThumbnail();
         } catch (\RicardoFiorani\Exception\NotEmbeddableException $e) {
             return '';
         }

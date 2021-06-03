@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Addurl;
+use App\Entity\Categories;
 use App\Entity\Channels;
 use App\Entity\Comments;
 use App\Entity\Evaluations;
@@ -105,7 +106,8 @@ class TutosController extends AbstractController
                 return $this->redirectToRoute('tutos.add', [
                     'url'       => $url,
                     'video'     => $video,
-                    'channel'   => !is_null($channel) ? $channel->getId() : null
+                    'channel'   => !is_null($channel) ? $channel->getId() : null,
+                    'category'  => 'videos'
                 ]);
             } else {
                 $uniq = $this->em
@@ -137,13 +139,14 @@ class TutosController extends AbstractController
      * @Route("/add", name="tutos.add")
      * @param Request $request
      * @param BadgesManager $badgesManager
+     * @param null $category
      * @param null $url
      * @param null $video
      * @param null $channel
      * @return RedirectResponse|Response
      * @throws ConnectionException
      */
-    public function add(Request $request, BadgesManager $badgesManager, $url = null, $video = null, $channel = null)
+    public function add(Request $request, BadgesManager $badgesManager, $category = null, $url = null, $video = null, $channel = null)
     {
         $tutos = new Tutos();
 
@@ -161,6 +164,14 @@ class TutosController extends AbstractController
                 $tutos->setChannel($channel);
             }
         }
+
+        if(!is_null($request->query->get('category'))) {
+            $categories  = $this->em->getRepository(Categories::class)->findOneBy(['homekey' => $request->query->get('category')]);
+            if($categories) {
+               $tutos->setCategory($categories);
+            }
+        }
+
         $form = $this->createForm(TutosType::class, $tutos);
         $form->handleRequest($request);
 
