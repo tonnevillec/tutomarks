@@ -92,13 +92,17 @@ class TutosRepository extends ServiceEntityRepository
      * @param TutoSearch $search
      * @return Query
      */
-    public function findAllVisible(TutoSearch $search) :Query
+    public function findAllVisible(TutoSearch $search, string $orderby = 't.title', string $direction = 'desc') :Query
     {
         $query = $this->findVisible();
 
         $query = $this->search($query, $search);
 
-        $query = $query->orderBy('t.published_at', 'desc');
+        if($orderby === 't.title') {
+            $query->orderBy('t.title', strtoupper($direction));
+        } else {
+            $query->orderBy('t.published_at', strtoupper($direction));
+        }
 
         return $query->getQuery();
     }

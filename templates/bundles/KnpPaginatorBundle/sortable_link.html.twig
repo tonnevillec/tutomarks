@@ -1,0 +1,1 @@
+<a{% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>{% if options['data-icon'] is defined %}<i class="{{ options['data-icon'] }}"></i> {% endif %}{{ title }}</a>

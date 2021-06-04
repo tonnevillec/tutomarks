@@ -37,13 +37,16 @@ class SearchController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        $orderby = $request->query->has('sort') ? $request->query->get('sort') : 't.published_at';
+        $direction = $request->query->has('direction') ? $request->query->get('direction') : 'desc';
+
         $search = new TutoSearch();
         $form = $this->createForm(TutoSearchType::class, $search);
         $form->handleRequest($request);
 
         if($form->isSubmitted()) {
             $result = $paginator->paginate(
-                $this->em->getRepository(Tutos::class)->findAllVisible($search),
+                $this->em->getRepository(Tutos::class)->findAllVisible($search, $orderby, $direction),
                 $request->query->getInt('page', 1),
                 12
             );

@@ -62,7 +62,21 @@
 </div>
 
 {% if result is defined %}
-    <h2 class="font-weight-light mb-3 text-white">{{ result.getTotalItemCount }} {{ 'search.results'|trans|capitalize }}{{ result.getTotalItemCount > 1 ? 's' : '' }}</h2>
+    <h2 class="font-weight-light mb-3 text-white">
+        {{ result.getTotalItemCount }} {{ 'search.results'|trans|capitalize }}{{ result.getTotalItemCount > 1 ? 's' : '' }}
+
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ 'search.orderby.menu'|trans|capitalize }}
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                {{ knp_pagination_sortable(result, 'search.orderby.title.asc'|trans|capitalize, 't.title', { 'class' : 'dropdown-item', 'type' : 'button', 'data-icon' : 'fas fa-sort-alpha-up'}, {'direction' : 'asc'}) }}
+                {{ knp_pagination_sortable(result, 'search.orderby.title.desc'|trans|capitalize, 't.title', { 'class' : 'dropdown-item', 'type' : 'button', 'data-icon' : 'fas fa-sort-alpha-down'}, {'direction' : 'desc'}) }}
+                {{ knp_pagination_sortable(result, 'search.orderby.date.asc'|trans|capitalize, 't.published_at', { 'class' : 'dropdown-item', 'type' : 'button', 'data-icon' : 'fas fa-sort-numeric-up'}, {'direction' : 'asc'}) }}
+                {{ knp_pagination_sortable(result, 'search.orderby.date.desc'|trans|capitalize, 't.published_at', { 'class' : 'dropdown-item', 'type' : 'button', 'data-icon' : 'fas fa-sort-numeric-down'}, {'direction' : 'desc'}) }}
+            </div>
+        </div>
+    </h2>
     <hr class="mb-3">
 
     <div class="row">

@@ -305,6 +305,14 @@ search:
         oui: 'oui'
         non: 'non'
     results: 'résultat'
+    orderby:
+        menu: 'trier par'
+        title:
+            asc: 'nom croissant'
+            desc: 'nom décroissant'
+        date:
+            asc: 'date de publication croissante'
+            desc: 'date de publication décroissante'
     channels:
         orderby:
             menu: 'trier par'
