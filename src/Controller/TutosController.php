@@ -225,6 +225,8 @@ class TutosController extends AbstractController
                 ;
                 $this->em->persist($channel);
                 $this->em->flush();
+
+                $tutos->setChannel($channel);
             }
 
             if($request->request->has('userEval') && $request->request->get('userEval') !== null  && $request->request->get('userEval') !== ''){
