@@ -54,7 +54,7 @@
 
             <hr class="my-3">
 
-            {% if tuto.url|youtube_thumbnail is not same as ('') %}
+            {% if tuto|tutos_thumbnail is not same as ('') %}
                 <div class="row mt-2 mb-3">
                     {{ tuto.url|youtube_player|raw }}
                 </div>

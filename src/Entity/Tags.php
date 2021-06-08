@@ -44,6 +44,11 @@ class Tags
      */
     private $updatedAt;
 
+    public function __construct()
+    {
+        $this->imageFile = null;
+        $this->image = '';
+    }
 
     public function getId(): ?int
     {

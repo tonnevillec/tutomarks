@@ -54,12 +54,12 @@
                 <div class="trending-top mb-30">
                     <div class="trend-top-img mb-1">
                         <a href="{{ path('tutos.show', {'slug': tutos[0].slug, 'id': tutos[0].id}) }}">
-                            {% if tutos[0].url|youtube_thumbnail is not same as ('') %}
-                                <img src="{{ tutos[0].url|youtube_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ tutos[0].title }}">
+                            {% if tutos[0]|tutos_thumbnail is not same as ('') %}
+                                <img src="{{ tutos[0]|tutos_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ tutos[0].title }}">
                             {% elseif tutos[0].category.image %}
-                                <img src="{{ asset('uploads/images/categories/' ~ tutos[0].category.image) }}" class="img-fluid" alt="Miniature catégorie - {{ objet.category.title }}">
+                                <img src="{{ asset('uploads/images/categories/' ~ tutos[0].category.image) }}" class="img-fluid" alt="Miniature catégorie - {{ tutos[0].category.title }}">
                             {% else %}
-                                <img src="{{ asset('build/images/no-preview-2.png') }}" class="img-fluid" alt="Miniature catégorie - {{ objet.category.title }}">
+                                <img src="{{ asset('build/images/no-preview-2.png') }}" class="img-fluid" alt="Miniature catégorie - {{ tutos[0].category.title }}">
                             {% endif %}
                         </a>
                     </div>
@@ -118,8 +118,8 @@
                     <div class="whats-right-single mb-20">
                         <div class="whats-right-img">
                             <a href="{{ path('tutos.show', {'slug': tutos[i].slug, 'id': tutos[i].id}) }}">
-                            {% if tutos[i].url|youtube_thumbnail is not same as ('') %}
-                                <img src="{{ tutos[i].url|youtube_thumbnail }}" alt="Miniature tutoriel stocké sur youtube - {{ tutos[i].title }}">
+                            {% if tutos[i]|tutos_thumbnail is not same as ('') %}
+                                <img src="{{ tutos[i]|tutos_thumbnail }}" alt="Miniature tutoriel stocké sur youtube - {{ tutos[i].title }}">
                             {% else %}
                                 <img src="{{ asset('build/images/no-preview-2.png') }}" alt="Miniature tutoriel non stocké sur youtube - {{ tutos[i].title }}">
                             {% endif %}
