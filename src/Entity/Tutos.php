@@ -4,12 +4,16 @@ namespace App\Entity;
 
 use App\Repository\TutosRepository;
 use Cocur\Slugify\Slugify;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=TutosRepository::class)
@@ -33,6 +37,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  *          }
  *      }
  * )
+ * @Vich\Uploadable()
  */
 class Tutos
 {
@@ -138,15 +143,47 @@ class Tutos
      */
     private $available;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $thumbnails_small;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $thumbnails_large;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="tutos_default_images", fileNameProperty="image")
+     * @var File|null
+     */
+    private ?File $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var DateTime|null
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->evaluations = new ArrayCollection();
         $this->comments = new ArrayCollection();
 
-        $this->published_at = new \DateTime();
+        $this->published_at = new DateTime();
 
         $this->available = true;
+
+        $this->image = '';
+        $this->imageFile = null;
+        $this->updatedAt = new DateTime();
     }
 
     public function getId(): ?int
@@ -444,5 +481,91 @@ class Tutos
     {
         $this->available = $available;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThumbnailsSmall()
+    {
+        return $this->thumbnails_small;
+    }
+
+    /**
+     * @param mixed $thumbnails_small
+     */
+    public function setThumbnailsSmall($thumbnails_small): void
+    {
+        $this->thumbnails_small = $thumbnails_small;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThumbnailsLarge()
+    {
+        return $this->thumbnails_large;
+    }
+
+    /**
+     * @param mixed $thumbnails_large
+     */
+    public function setThumbnailsLarge($thumbnails_large): void
+    {
+        $this->thumbnails_large = $thumbnails_large;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string|null $image
+     */
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new DateTime('now');
+        }
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime|null $updatedAt
+     */
+    public function setUpdatedAt(?DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

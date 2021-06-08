@@ -76,9 +76,38 @@ easy_admin:
         Tutos:
             class: App\Entity\Tutos
             list:
-                fields: ['id', 'title', 'published_by', 'published_at', 'creator', 'channel', 'url', 'category', 'langue', 'youtube_id', 'available']
+                fields:
+                    - { property: 'id' }
+                    - { property: 'title' }
+                    - { property: 'published_by' }
+                    - { property: 'published_at' }
+                    - { property: 'creator' }
+                    - { property: 'channel' }
+                    - { property: 'url' }
+                    - { property: 'category' }
+                    - { property: 'langue' }
+                    - { property: 'youtube_id' }
+                    - { property: 'thumbnails_small' }
+                    - { property: 'thumbnails_large' }
+                    - { property: 'available' }
+                    - { property: 'image', type: 'image', base_path: '%uploads_path%/tutos/' }
             form:
-                fields: ['title', 'published_by', 'published_at', 'creator', 'channel', 'url', 'category', 'tags', 'description', 'langue', 'youtube_id', 'available']
+                fields:
+                    - { property: 'title' }
+                    - { property: 'published_by' }
+                    - { property: 'published_at' }
+                    - { property: 'creator' }
+                    - { property: 'channel' }
+                    - { property: 'url' }
+                    - { property: 'category' }
+                    - { property: 'langue' }
+                    - { property: 'youtube_id' }
+                    - { property: 'thumbnails_small' }
+                    - { property: 'thumbnails_large' }
+                    - { property: 'available' }
+                    - { property: 'tags' }
+                    - { property: 'description' }
+                    - { property: 'imageFile', type: 'vich_image' }
         Badges:
             class: App\Entity\Badges
             list:

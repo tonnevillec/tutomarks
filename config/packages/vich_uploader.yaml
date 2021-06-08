@@ -5,6 +5,12 @@ vich_uploader:
         tags_images:
             uri_prefix: '%uploads_path%/tags'
             upload_destination: '%kernel.project_dir%/public/%uploads_path%/tags'
+            inject_on_load: false
         categories_images:
             uri_prefix: '%uploads_path%/categories'
             upload_destination: '%kernel.project_dir%/public/%uploads_path%/categories'
+            inject_on_load: false
+        tutos_default_images:
+            uri_prefix: '%uploads_path%/tutos'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%/tutos'
+            inject_on_load: false

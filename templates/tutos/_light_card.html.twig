@@ -3,8 +3,12 @@
     <div class="card cardbox h-100">
         <div class="card-header text-center">
             <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">
-                {% if tuto.url|youtube_thumbnail is not same as ('') %}
-                    <img src="{{ tuto.url|youtube_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ tuto.title }}">
+                {% if tuto.image is defined and tuto.image is not null and tuto.image is not same as ('') %}
+                    <img src="{{ vich_uploader_asset(tuto, 'imageFile') }}" class="img-fluid" alt="Miniature catégorie - {{ tuto.title }}">
+                {% elseif (tuto.thumbnailsSmall is defined and tuto.thumbnailsSmall is not null) %}
+                    <img src="{{ tuto.thumbnailsSmall }}" class="img-fluid" alt="Miniature catégorie - {{ tuto.title }}">
+                {% elseif tuto|tutos_thumbnail is not same as ('') %}
+                    <img src="{{ tuto|tutos_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ tuto.title }}">
                 {% else %}
                     <img src="{{ asset('uploads/images/categories/' ~ tuto.category.image) }}" class="img-fluid" alt="Miniature tutoriel non stocké sur youtube - {{ tuto.title }}">
                 {% endif %}
@@ -70,99 +74,4 @@
             {% endif %}
         </div>
     </div>
-
-
-{#    <div class="cardbox h-100 shadow-lg bg-white">#}
-{#        <div class="cardbox-item text-center">#}
-{#            <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">#}
-{#                {% if tuto.url|youtube_thumbnail is not same as ('') %}#}
-{#                    <img src="{{ tuto.url|youtube_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ tuto.title }}">#}
-{#                {% else %}#}
-{#                    <img src="{{ asset('build/images/no-preview-640x480.png') }}" class="img-fluid" alt="Miniature tutoriel non stocké sur youtube - {{ tuto.title }}">#}
-{#                {% endif %}#}
-{#            </a>#}
-{#        </div>#}
-
-{#        <div class="cardbox-heading">#}
-{#            <div class="media m-0">#}
-{#                <div class="media-body">#}
-{#                    <div class="float-right">#}
-{#                        <a href="{{ tuto.url }}" target="_blank" class="btn btn-flat btn-flat-icon" title="{{ 'tutos.direct_link'|trans|capitalize }}"><i class="fas fa-external-link-alt"></i></a>#}
-{#                    </div>#}
-
-{#                    {% if tuto.tags %}#}
-{#                        <div class="card_icons mb-2">#}
-{#                            {% for tag in tuto.tags %}#}
-{#                                {% if tag.image %}#}
-{#                                    <img src="{{ vich_uploader_asset(tag, 'imageFile') }}" class="{{ tag }}" alt="{{ tag }}" />#}
-{#                                {% else %}#}
-{#                                    <span class="badge badge-primary badge-pill">{{ tag }}</span>#}
-{#                                {% endif %}#}
-{#                            {% endfor %}#}
-{#                        </div>#}
-{#                    {% endif %}#}
-
-{#                    <div class="title">#}
-{#                        <a href="{{ path('tutos.show', {'slug': tuto.slug, 'id': tuto.id}) }}">{{ tuto.title }}</a>#}
-
-{#                        <p class="m-0">#}
-{#                            {% if tuto.channel %}#}
-{#                                <a href="{{ path('channels.show', {'id': tuto.channel.id, 'slug': tuto.channel.slug}) }}" class="" title="{{ 'channel.all_tutos.show'|trans|capitalize }}" data-toggle="tooltip">#}
-{#                                    <i class="fas fa-at"></i> {{ tuto.channel.title }}#}
-{#                                </a>#}
-{#                            {% else %}#}
-{#                                <i class="fas fa-at"></i> {{ tuto.creator }}#}
-{#                            {% endif %}#}
-{#                        </p>#}
-{#                        <span class="float-right text-right"><small>{{ 'tutos.added_at'|trans|capitalize }} {{ tuto.publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ tuto.publishedBy }}</small></span>#}
-{#                    </div>#}
-
-{#                    <span class="float-right">#}
-{#                        {% if app.user %}#}
-{#                            {{ shownForTuto(tuto, app.user) }}#}
-{#                        {% endif %}#}
-{#                        <i class="fas fa-comments"></i>#}
-{#                        <em class="mr-2">{{ tuto.comments|length }}</em>#}
-{#        #}
-{#                        {{ pinForTuto(tuto, app.user) }}#}
-{#                        <em class="mr-1">{{ countPined(tuto) }}</em>#}
-{#                    </span>#}
-{#                </div>#}
-{#            </div>#}
-
-{#            <div class="cardbox-base p-2">#}
-{#            <span class="float-right">#}
-{#                {% if app.user %}#}
-{#                    {{ shownForTuto(tuto, app.user) }}#}
-{#                {% endif %}#}
-
-{#                <i class="fas fa-comments"></i>#}
-{#                <em class="mr-2">{{ tuto.comments|length }}</em>#}
-
-{#                {{ pinForTuto(tuto, app.user) }}#}
-{#                <em class="mr-1">{{ countPined(tuto) }}</em>#}
-{#            </span>#}
-{#                <div>#}
-{#                    {% if tuto.moy is null %}#}
-{#                        {{ 'tutos.eval.isnull'|trans|capitalize }}#}
-{#                    {% else %}#}
-{#                        <input type="number" id="tutoEvalGlobale" class="star-rating-fix" value="{{ tuto.moy }}" min=0 max=5 step=0.5 data-size="sm">#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#            </div>#}
-
-{#        </div>#}
-
-{#        <div class="card-footer mt-auto"> <!-- cardbox-comments p-2 -->#}
-{#            <span class="badge badge-info badge-pill">{{ tuto.category }}</span>#}
-{#            <span class="badge badge-info badge-pill">{{ tuto.langue }}</span>#}
-
-{#            {% if tuto.price %}#}
-{#            <span class="badge badge-info badge-pill">{{ tuto.price }}</span>#}
-{#            {% endif %}#}
-{#            {% if tuto.level %}#}
-{#                <span class="badge badge-info badge-pill">{{ tuto.level }}</span>#}
-{#            {% endif %}#}
-{#        </div>#}
-{#    </div>#}
 </div>

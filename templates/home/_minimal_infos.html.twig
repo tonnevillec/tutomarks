@@ -6,8 +6,10 @@
                 <div class="row">
                     <div class="col-4">
                         <a href="{{ path('tutos.show', {'slug': objet.slug, 'id': objet.id}) }}">
-                            {% if objet.url|youtube_thumbnail is not same as ('') %}
-                                <img src="{{ objet.url|youtube_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ objet.title }}">
+                            {% if objet.image is defined and objet.image is not null and objet.image is not same as ('') %}
+                                <img src="{{ vich_uploader_asset(objet, 'imageFile') }}" class="img-fluid" alt="Miniature catégorie - {{ objet.category.title }}">
+                            {% elseif objet|tutos_thumbnail is not same as ('') %}
+                                <img src="{{ objet|tutos_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ objet.title }}">
                             {% elseif objet.category.image %}
                                 <img src="{{ asset('uploads/images/categories/' ~ objet.category.image) }}" class="img-fluid" alt="Miniature catégorie - {{ objet.category.title }}">
                             {% else %}

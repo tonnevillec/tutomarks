@@ -229,6 +229,20 @@ class TutosController extends AbstractController
                 $tutos->setChannel($channel);
             }
 
+            $youtubeId = $this->apiService->getYoutubeId($tutos->getUrl());
+            if(!is_null($youtubeId)){
+                $video = $this->apiService->getVideoInformations($youtubeId);
+
+                if($video) {
+                    if($video->getThumbnails()->getMedium()) {
+                        $tutos->setThumbnailsSmall($video->getThumbnails()->getMedium()->getUrl());
+                    }
+                    if($video->getThumbnails()->getHigh()) {
+                        $tutos->setThumbnailsLarge($video->getThumbnails()->getHigh()->getUrl());
+                    }
+                }
+            }
+
             if($request->request->has('userEval') && $request->request->get('userEval') !== null  && $request->request->get('userEval') !== ''){
                 $tutos->setMoy($request->request->get('userEval'));
             }
@@ -282,6 +296,38 @@ class TutosController extends AbstractController
         if(!$tuto) {
             $this->addFlash('danger', $this->translator->trans('error.unauthorized'));
             return $this->redirectToRoute('home');
+        }
+
+        $update = false;
+        $youtubeId = $tuto->getYoutubeId();
+        if(is_null($youtubeId)) {
+            $youtubeId = $this->apiService->getYoutubeId($tuto->getUrl());
+            if(!is_null($youtubeId)){
+                $tuto->setYoutubeId($youtubeId);
+                $update = true;
+            }
+        }
+
+        if(!is_null($youtubeId)) {
+            $video = $this->apiService->getVideoInformations($youtubeId);
+
+            if($video) {
+                if($video->getThumbnails()->getMedium()) {
+                    $tuto->setThumbnailsSmall($video->getThumbnails()->getMedium()->getUrl());
+                    $update = true;
+                }
+                if($video->getThumbnails()->getHigh()) {
+                    $tuto->setThumbnailsLarge($video->getThumbnails()->getHigh()->getUrl());
+                    $update = true;
+                }
+            }
+        }
+
+        if($update) {
+            $tuto->setImageFile(null);
+            $tuto->setImage('');
+            $this->em->persist($tuto);
+            $this->em->flush();
         }
 
         return $this->render('tutos/show.html.twig', [
