@@ -293,20 +293,29 @@ form[name=tuto] {
     border-right: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-    a {
+    a:not(.btn) {
       text-decoration: none;
-      border-bottom: 1px dotted $white;
+      border-bottom: 1px dotted $gray-200;
     }
-    a:hover {
+    a:not(.btn):hover {
       border-bottom: 1px solid $white;
     }
   }
 
   .list-group-item:hover {
-    //background-color: $gray-700;
     background-color: $dark;
   }
 
+}
+
+#latest-videos {
+  a:not(.btn) {
+    text-decoration: none;
+    border-bottom: 1px dotted $gray-200;
+  }
+  a:not(.btn):hover {
+    border-bottom: 1px solid $white;
+  }
 }
 
 .btn-xs {

@@ -179,6 +179,8 @@ tutos:
         label: 'lien vers le tutoriel'
         placeholder: 'https://www.lien_vers_le_tuto.com'
         new_windows: 'ouvrir le tutoriel dans une nouvelle fenetre'
+    resource:
+        new_windows: 'ouvrir dans une nouvelle fenetre'
     tags:
         label: 'tags'
         help: 'plusieurs choix possibles'
