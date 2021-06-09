@@ -324,8 +324,6 @@ class TutosController extends AbstractController
         }
 
         if($update) {
-            $tuto->setImageFile(null);
-            $tuto->setImage('');
             $this->em->persist($tuto);
             $this->em->flush();
         }
