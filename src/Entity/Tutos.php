@@ -151,7 +151,7 @@ class Tutos
     private $thumbnails_large;
 
     /**
-     * @ORM\OneToOne(targetEntity=Attachments::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Attachments::class, inversedBy="tutos")
      */
     private $attachment;
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AttachmentsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -37,9 +39,15 @@ class Attachments
      */
     private $updated_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Tutos::class, mappedBy="attachment")
+     */
+    private $tutos;
+
     public function __construct()
     {
         $this->updated_at = new \Datetime();
+        $this->tutos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -101,5 +109,33 @@ class Attachments
     public function __toString(): string
     {
         return $this->image;
+    }
+
+    /**
+     * @return Collection|Tutos[]
+     */
+    public function getTutos(): Collection
+    {
+        return $this->tutos;
+    }
+
+    public function addTuto(Tutos $tuto): self
+    {
+        if (!$this->tutos->contains($tuto)) {
+            $this->tutos[] = $tuto;
+            $tuto->setAttachment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTuto(Tutos $tuto): self
+    {
+        // set the owning side to null (unless already changed)
+        if ($this->tutos->removeElement($tuto) && $tuto->getAttachment() === $this) {
+            $tuto->setAttachment(null);
+        }
+
+        return $this;
     }
 }
