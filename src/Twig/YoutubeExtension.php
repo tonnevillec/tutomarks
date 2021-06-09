@@ -37,16 +37,14 @@ class YoutubeExtension extends AbstractExtension
      * @param Tutos $tutos
      * @return string
      */
-    public final function tutosThumbnailSmall(Tutos $tutos): string
+    public function tutosThumbnailSmall(Tutos $tutos): string
     {
-        if($tutos->getYoutubeId()) {
-            if($tutos->getThumbnailsSmall()) {
-                return $tutos->getThumbnailsSmall();
-            }
+        if($tutos->getYoutubeId() && $tutos->getThumbnailsSmall()) {
+            return $tutos->getThumbnailsSmall();
         }
 
-        if($tutos->getImage()) {
-            return $this->helper->asset($tutos, 'imageFile');
+        if($tutos->getAttachment()) {
+            return $this->helper->asset($tutos->getAttachment(), 'imageFile');
         }
 
         return $this->getThumbnails($tutos, 'small');
@@ -56,16 +54,14 @@ class YoutubeExtension extends AbstractExtension
      * @param Tutos $tutos
      * @return string
      */
-    public final function tutosThumbnail(Tutos $tutos): string
+    public function tutosThumbnail(Tutos $tutos): string
     {
-        if($tutos->getYoutubeId()) {
-            if($tutos->getThumbnailsSmall()) {
-                return $tutos->getThumbnailsSmall();
-            }
+        if($tutos->getYoutubeId() && $tutos->getThumbnailsSmall()) {
+            return $tutos->getThumbnailsSmall();
         }
 
-        if(!is_null($tutos->getImage())) {
-            return is_null($this->helper->asset($tutos, 'imageFile')) ? '' : $this->helper->asset($tutos, 'imageFile');
+        if($tutos->getAttachment()) {
+            return $this->helper->asset($tutos->getAttachment(), 'imageFile');
         }
 
         return $this->getThumbnails($tutos, 'medium');
@@ -75,14 +71,14 @@ class YoutubeExtension extends AbstractExtension
      * @param Tutos $tutos
      * @return string
      */
-    public final function tutosThumbnailLarge(Tutos $tutos): string
+    public function tutosThumbnailLarge(Tutos $tutos): string
     {
         if($tutos->getYoutubeId() && $tutos->getThumbnailsLarge()) {
             return $tutos->getThumbnailsLarge();
         }
 
-        if($tutos->getImage()) {
-            return $this->helper->asset($tutos, 'imageFile');
+        if($tutos->getAttachment()) {
+            return $this->helper->asset($tutos->getAttachment(), 'imageFile');
         }
 
         return $this->getThumbnails($tutos, 'large');
@@ -130,7 +126,7 @@ class YoutubeExtension extends AbstractExtension
      * @param string $value
      * @return string
      */
-    public final function youtubePlayer(string $value): string
+    public function youtubePlayer(string $value): string
     {
         try {
             $video = $this->vsm->parse($value);

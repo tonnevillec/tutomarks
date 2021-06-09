@@ -14,3 +14,10 @@ vich_uploader:
             uri_prefix: '%uploads_path%/tutos'
             upload_destination: '%kernel.project_dir%/public/%uploads_path%/tutos'
             inject_on_load: false
+        attachments:
+            uri_prefix: '%uploads_path%/attachments'
+            upload_destination: '%kernel.project_dir%/public/%uploads_path%/attachments'
+            namer: vich_uploader.namer_origname # permet d'avoir un nom d'image unique
+            inject_on_load: true # injecte l'image au chargement du formulaire
+            delete_on_update: true
+            delete_on_remove: true

@@ -90,7 +90,8 @@ easy_admin:
                     - { property: 'thumbnails_small' }
                     - { property: 'thumbnails_large' }
                     - { property: 'available' }
-                    - { property: 'image', type: 'image', base_path: '%uploads_path%/tutos/' }
+#                    - { property: 'image', type: 'image', base_path: '%uploads_path%/tutos/' }
+                    - { property: 'attachment' }
             form:
                 fields:
                     - { property: 'title' }
@@ -107,6 +108,16 @@ easy_admin:
                     - { property: 'available' }
                     - { property: 'tags' }
                     - { property: 'description' }
+#                    - { property: 'imageFile', type: 'vich_image' }
+                    - { property: 'attachment' }
+        Attachments:
+            class: App\Entity\Attachments
+            list:
+                fields:
+                    - { property: 'id' }
+                    - { property: 'image', type: 'image', base_path: '%uploads_path%/attachments/' }
+            form:
+                fields:
                     - { property: 'imageFile', type: 'vich_image' }
         Badges:
             class: App\Entity\Badges
