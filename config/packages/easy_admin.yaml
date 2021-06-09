@@ -116,6 +116,7 @@ easy_admin:
                 fields:
                     - { property: 'id' }
                     - { property: 'image', type: 'image', base_path: '%uploads_path%/attachments/' }
+                    - { property: 'tutos' }
             form:
                 fields:
                     - { property: 'imageFile', type: 'vich_image' }
