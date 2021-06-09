@@ -109,20 +109,20 @@ class TutosController extends AbstractController
                     'channel'   => !is_null($channel) ? $channel->getId() : null,
                     'category'  => 'videos'
                 ]);
-            } else {
-                $uniq = $this->em
-                    ->getRepository(Tutos::class)
-                    ->findOneBy([
-                        'url' => $url
-                    ])
-                ;
-                if($uniq){
-                    $this->addFlash('danger', ucfirst($this->translator->trans('tutos.add.not_uniq')));
+            }
 
-                    return $this->render('tutos/addurl.html.twig', [
-                        'form' => $form->createView(),
-                    ]);
-                }
+            $uniq = $this->em
+                ->getRepository(Tutos::class)
+                ->findOneBy([
+                    'url' => $url
+                ])
+            ;
+            if($uniq){
+                $this->addFlash('danger', ucfirst($this->translator->trans('tutos.add.not_uniq')));
+
+                return $this->render('tutos/addurl.html.twig', [
+                    'form' => $form->createView(),
+                ]);
             }
 
             return $this->redirectToRoute('tutos.add', [
