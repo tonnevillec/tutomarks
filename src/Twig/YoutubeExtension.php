@@ -65,7 +65,7 @@ class YoutubeExtension extends AbstractExtension
         }
 
         if(!is_null($tutos->getImage())) {
-            return $this->helper->asset($tutos, 'imageFile');
+            return is_null($this->helper->asset($tutos, 'imageFile')) ? '' : $this->helper->asset($tutos, 'imageFile');
         }
 
         return $this->getThumbnails($tutos, 'medium');
@@ -77,10 +77,8 @@ class YoutubeExtension extends AbstractExtension
      */
     public final function tutosThumbnailLarge(Tutos $tutos): string
     {
-        if($tutos->getYoutubeId()) {
-            if($tutos->getThumbnailsLarge()) {
-                return $tutos->getThumbnailsLarge();
-            }
+        if($tutos->getYoutubeId() && $tutos->getThumbnailsLarge()) {
+            return $tutos->getThumbnailsLarge();
         }
 
         if($tutos->getImage()) {
