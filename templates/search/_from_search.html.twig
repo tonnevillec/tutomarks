@@ -2,7 +2,11 @@
     <div class="card-body">
         {{ form_start(form)}}
         <div class="input-group mb-3">
-            {{ form_widget(form.search) }}
+            {% if app.request.query.has('element') and app.request.query.get('element') == 'word' %}
+                {{ form_widget(form.search, { 'attr' : { 'value' : app.request.query.get('value') }}) }}
+            {% else %}
+                {{ form_widget(form.search) }}
+            {% endif %}
             <div class="input-group-append">
                 <button class="btn btn-success" type="submit"><i class="fas fa-search"></i> {{ 'btn.search'|trans|capitalize }}</button>
             </div>

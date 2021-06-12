@@ -185,7 +185,8 @@ tutos:
         label: 'tags'
         help: 'plusieurs choix possibles'
     category:
-        label: 'categorie'
+        label: 'catégorie'
+        plural: 'catégories'
     description:
         label: 'description'
         help: 'Quel est le contenu du tutoriel? Quels sont les points abordés?'
@@ -282,6 +283,7 @@ search:
     field:
         placeholder: 'votre recherche'
     title: 'rechercher un tutoriel'
+    word: 'recherche'
     category:
         label: 'categorie'
     tags:
