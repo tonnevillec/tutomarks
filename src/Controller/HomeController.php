@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Categories;
 use App\Entity\Channels;
+use App\Entity\Tags;
 use App\Entity\Tutos;
+use App\Repository\TutosRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,6 +47,8 @@ class HomeController extends AbstractController
         $podcast = $repo->findLatestCategory('podcasts', 3);
         $channels = $this->em->getRepository(Channels::class)->findAllbyTutosNumber();
         $top_channels = $this->em->getRepository(Channels::class)->findAllbyTutosNumber(3);
+        $categories = $this->em->getRepository(Categories::class)->findAllByTitle();
+        $tags = $this->em->getRepository(Tags::class)->findAllByTitle();
 
         $myTutos = null;
         if ($this->getUser()) {
@@ -53,6 +58,8 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'tutos'         => $tutos,
             'articles'      => $articles,
+            'categories'    => $categories,
+            'tags'          => $tags,
             'podcast'       => $podcast,
             'channels'      => $channels,
             'top_channels'  => $top_channels,
@@ -86,21 +93,21 @@ class HomeController extends AbstractController
     {
         $datas = $request->request;
 
-        if(!$datas->has('email') || $datas->get('email') === '') {
+        if (!$datas->has('email') || $datas->get('email') === '') {
             return $this->json([
                 'message'   => ucfirst($this->translator->trans('contact.error.email_required')),
                 'code'      => 403
             ], 403);
         }
 
-        if(!$datas->has('subject') || $datas->get('subject') === '') {
+        if (!$datas->has('subject') || $datas->get('subject') === '') {
             return $this->json([
                 'message'   => ucfirst($this->translator->trans('contact.error.subject_required')),
                 'code'      => 403
             ], 403);
         }
 
-        if(!$datas->has('message') || $datas->get('message') === '') {
+        if (!$datas->has('message') || $datas->get('message') === '') {
             return $this->json([
                 'message'   => ucfirst($this->translator->trans('contact.error.message_required')),
                 'code'      => 403

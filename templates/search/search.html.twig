@@ -9,7 +9,18 @@
         {% if choices is iterable %}
             {% for id, k in choices %}
                 <label for="tags_{{ k.value }}" class="btn btn-sm btn-outline-info rounded-pill">
-                    <input type="checkbox" name="tags[]" value="{{ k.data.id }}" id="tags_{{ k.value }}" {% if k.data.id in form.vars.value %}checked="checked"{% endif%} class="badgebox" data-color="info">{{ k.label }}
+                    <input
+                        type="checkbox"
+                        name="tags[]"
+                        value="{{ k.data.id }}"
+                        id="tags_{{ k.value }}"
+                        {% if k.data.id in form.vars.value
+                            or (app.request.query.has('element') and app.request.query.get('element') == 'tag' and app.request.query.get('value') == k.data.id)
+                        %}
+                            checked="checked"
+                        {% endif%}
+                        class="badgebox"
+                        data-color="info">{{ k.label }}
                 </label>
             {% endfor %}
         {% endif %}
