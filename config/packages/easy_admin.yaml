@@ -72,7 +72,7 @@ easy_admin:
             list:
                 fields: ['id', 'title', 'site_url', 'youtube_id', 'youtube_custom_url', 'thumbnails_url', 'twitter', 'github']
             form:
-                fields: ['title', 'site_url', 'youtube_id', 'youtube_custom_url', 'thumbnails_url', 'twitter', 'github']
+                fields: ['title', 'description', 'site_url', 'youtube_id', 'youtube_custom_url', 'thumbnails_url', 'twitter', 'github']
         Tutos:
             class: App\Entity\Tutos
             list:
