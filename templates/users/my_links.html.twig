@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+<section class="my-2 p-2">
+    <div class="container">
+        <h1 class="h1">{{ 'nav.tutos.user'|trans|capitalize }}</h1>
+
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="#a_ytlinks" class="user-list-menu list-group-item list-group-item-action">{{ 'user.my_links.youtube'|trans|capitalize }}</a>
+                    <a href="#a_simplelinks" class="user-list-menu list-group-item list-group-item-action">{{ 'user.my_links.simple'|trans|capitalize }}</a>
+                </div>
+            </div>
+
+            <div class="col">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                            {{ message|capitalize }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <section id="a_ytlinks" class="mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title h2"><i class="bi bi-youtube me-1 text-primary"></i> {{ 'user.my_links.youtube'|trans|capitalize }}</h2>
+                            <div class="dropdown-divider"></div>
+
+                            <div class="list-group">
+                                {% if ytlinks|length > 0 %}
+                                    {% for yt in ytlinks %}
+                                        <div class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <a href="{{ path('ytlinks.edit', { 'id' : yt.id }) }}" class="fw-bold" title="{{ 'links.edit'|trans|capitalize }}"><i class="bi bi-pencil-square me-1"></i>{{ yt.title }}</a>
+                                                <br><i class="bi bi-mortarboard-fill me-1"></i><a href="{{ path('authors.show', {'slug' : yt.author.slug, 'id' : yt.author.id}) }}" class="text-decoration-none">{{ yt.author }}</a>
+                                                <br>{{ 'links.published_at'|trans|capitalize }} {{ yt.publishedAt|date('d/m/Y') }}
+                                                <br>
+                                                {% for tag in yt.tags %}
+{#                                                    <span class="badge badge-pill bg-primary me-1">{{ tag }}</span>#}
+                                                    <img alt="{{ tag }}"
+                                                         data-toggle="tooltip"
+                                                         data-placement="top"
+                                                         src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=flat&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                                                {% endfor %}
+                                            </div>
+
+                                            <form method="post" action="{{ path('users.publish_links') }}">
+                                                <input type="hidden" value="{{ yt.id }}" name="link">
+                                                {% if yt.isPublish %}
+                                                    <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-toggle-on me-1"></i> {{ 'links.is_publish._true'|trans|capitalize }}</button>
+                                                {% else %}
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-toggle-off me-1"></i> {{ 'links.is_publish._false'|trans|capitalize }}</button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-1 me-auto">
+                                            {{ 'links.no_data'|trans|capitalize }}
+                                        </div>
+                                        <a href="{{ path('ytlinks.add') }}" class="btn btn-outline-primary"><i class="bi bi-plus-square me-1"></i> {{ 'ytlinks.add.title'|trans|capitalize }}</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="a_simplelinks" class="mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title h2"><i class="bi bi-newspaper me-1 text-primary"></i> {{ 'user.my_links.simple'|trans|capitalize }}</h2>
+                            <div class="dropdown-divider"></div>
+
+                            <div class="list-group">
+                                {% if slinks|length > 0 %}
+                                    {% for link in slinks %}
+                                        <div class="list-group-item d-flex justify-content-between align-items-start">
+                                            <div class="m-1">
+                                                <span class="fw-bold" title="{{ 'links.edit'|trans|capitalize }}"><i class="bi bi-pencil-square me-1"></i>{{ link.title }}</span>
+                                                <br><i class="bi bi-mortarboard-fill me-1"></i>{{ link.author }}
+                                                <br>{{ 'links.published_at'|trans|capitalize }} {{ link.publishedAt|date('d/m/Y') }}
+                                                <br>
+                                                <span class="badge badge-pill bg-primary me-1">{{ link.category }}</span>
+                                                {% for tag in link.tags %}
+                                                    <img alt="{{ tag }}"
+                                                         data-toggle="tooltip"
+                                                         data-placement="top"
+                                                         title="{{ tag }}"
+                                                         src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=flat&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                                                {% endfor %}
+                                            </div>
+
+                                            <form method="post" action="{{ path('users.publish_links') }}">
+                                                <input type="hidden" value="{{ link.id }}" name="link">
+                                                {% if link.isPublish %}
+                                                    <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-toggle-on me-1"></i> {{ 'links.is_publish._true'|trans|capitalize }}</button>
+                                                {% else %}
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-toggle-off me-1"></i> {{ 'links.is_publish._false'|trans|capitalize }}</button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-1 me-auto">
+                                            {{ 'links.no_data'|trans|capitalize }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

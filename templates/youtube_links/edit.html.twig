@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Nouveau partage{% endblock %}
+
+{% form_theme form _self %}
+{% block _tags_row %}
+    <div class="form-group">
+        <label class="label">{{ label }}</label><br/>
+        {% if choices is iterable %}
+            {% for id, k in choices %}
+                <label for="tags_{{ k.value }}" class="btn btn-sm {% if k.data.id in form.vars.value %}btn-primary{% else %}btn-outline-primary{% endif%} m-1">
+                    <input type="checkbox" name="tags[]" value="{{ k.data.id }}" id="tags_{{ k.value }}" {% if k.data.id in form.vars.value %}checked="checked"{% endif%} class="badgebox d-none" data-color="primary">{{ k.label }}
+                </label>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block _is_publish_row %}
+    <div class="form-check form-switch mb-3 mt-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="is_publish" name="is_publish" value="{{ form.vars.value }}" {% if form.vars.checked %}checked="checked"{% endif %}>
+        <label class="form-check-label" for="is_publish">{{ form.vars.label }}</label>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <section class="my-4">
+        <div class="container">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                        {{ message|capitalize }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            <h1 class="h1 mb-3 fw-bold">
+                <i class="bi bi-youtube me-1 text-primary"></i> {{ 'ytlinks.edit.title'|trans|capitalize }}
+            </h1>
+
+            <h2 class="h4 fw-bold text-uppercase text-decoration-underline mb-3">{{ ytLink.title }}</h2>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-2">Lien : </div>
+                        <div class="col-sm-8 col-md-10"><a href="{{ ytLink.url }}" target="_blank" title="Ouvri dans un nouvel onglet">{{ ytLink.url }} <i class="ms-2 bi bi-box-arrow-up-right"></i></a></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 col-md-2">Publié par : </div>
+                        <div class="col-sm-8 col-md-10">{{ ytLink.publishedBy }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-2">Publié le : </div>
+                        <div class="col-sm-8 col-md-10">{{ ytLink.publishedAt|date('d/m/Y') }}</div>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <div class="row mb-3">
+                        <div class="col-sm-4 col-md-2">
+                            {% if ytLink.author.ytLogo %}
+                                <img alt="{{ ytLink.author.title }}" src="{{ ytLink.author.ytLogo }}" class="twPc-avatarImg img-fluid">
+                            {% else %}
+                                <img alt="{{ ytLink.author.title }}" src="{{ asset('build/images/no-preview.png') }}" class="twPc-avatarImg img-fluid">
+                            {% endif %}
+                        </div>
+
+                        <div class="col-sm-8 col-md-10">
+                            <h2 class="h4 fw-bold">Créateur</h2>
+                            <span class="">
+                                <a href="#"
+                                   title="Voir la page du créateur"
+                {#                        href="{{ path('channels.show', {'id': channel.id, 'slug': channel.slug}) }}" #}
+                                   class="text-decoration-none fs-2">
+                                    {{ ytLink.author.title }}
+                                </a>
+                             </span>
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <h2 class="h4 fw-bold">Edition :</h2>
+
+                    <div class="row mb-3">
+                        {{ form_start(form) }}
+                        {{ form_row(form.is_publish) }}
+
+                        <div class="my-3">
+                            {{ form_row(form.tags) }}
+                        </div>
+
+                        <div class="my-3">
+                            {{ form_row(form.language) }}
+                        </div>
+
+                        <div class="text-center">
+                            <a href="{{ path('links.show', {'slug' : ytLink.slug, 'id' : ytLink.id}) }}" class="btn btn-outline-danger me-3">
+                                <i class="bi bi-x-square me-1"></i> {{ 'btn.cancel'|trans|capitalize }}
+                            </a>
+
+                            <button type="submit" class="btn btn-outline-success">
+                                <i class="bi bi-check me-1"></i> {{ 'btn.valid'|trans|capitalize }}
+                            </button>
+                        </div>
+
+                        {{ form_rest(form) }}
+                        {{ form_end(form, {render_rest: false}) }}
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6">
+                    <h2 class="h4 fw-bold">Description</h2>
+
+                    <div class="showDescription">
+                        {{ ytLink.description|raw|nl2br }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

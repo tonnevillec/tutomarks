@@ -1,273 +1,69 @@
-let $ = require('jquery');
-global.$ = global.jQuery = $;
-window.jQuery = $;
-window.$ = $;
-
 require('bootstrap');
-require('@fortawesome/fontawesome-free/js/all');
-require('select2');
-require('bootstrap-star-rating');
+require('@popperjs/core');
 
-import './comments/Comments.jsx'
+(function () {
 
-$(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+    let badges = document.querySelectorAll('.badgebox');
+    if(badges) {
+        for(let badge of badges){
+            badge.addEventListener("click", function(){
+                let $parent = this.parentElement;
+                let $color = this.getAttribute('data-color');
+                let $destIcon = this.getAttribute('data-icon');
+                let $icon = document.getElementById($destIcon);
 
-    $(document).on('click', '.notification .delete', function(){
-        $(this).parent().find('.js-message').html();
-        $(this).parent().hide();
-    });
+                if($parent.classList.contains('btn-outline-'+$color)) {
+                    // uncheck -> check
+                    $parent.classList.remove('btn-outline-'+$color);
+                    $parent.classList.add('btn-'+$color);
 
-    $('.badgebox').on('click', function(){
-        let $parent = $(this).parent();
-        let $color = $(this).attr('data-color');
+                    if($icon){
+                        $icon.classList.remove('bi-square');
+                        $icon.classList.add('bi-check2-square');
+                    }
+                } else {
+                    // check -> uncheck
+                    $parent.classList.add('btn-outline-'+$color);
+                    $parent.classList.remove('btn-'+$color);
 
-        if($parent.hasClass('btn-outline-'+$color)) {
-            $parent.removeClass('btn-outline-'+$color).addClass('btn-'+$color);
-        } else {
-            $parent.removeClass('btn-'+$color).addClass('btn-outline-'+$color);
-        }
-    });
-
-    $('.badgebox').each(function(){
-        let $parent = $(this).parent();
-        let $color = $(this).attr('data-color');
-
-        if($(this).is(':checked')){
-            $parent.removeClass('btn-outline-'+$color).addClass('btn-'+$color);
-        }
-    })
-
-    $('.show_more').on('click', function(){
-        let $target = $(this).data('target');
-        $($target).toggle();
-    });
-
-    $(".select2").select2();
-    $(".star-rating-new").rating({
-        theme: 'krajee-fa',
-        filledStar: '<i class="fas fa-star"></i>',
-        emptyStar: '<i class="far fa-star"></i>',
-        showCaption: false,
-        starCaptions: {
-            0.5: '0.5 / 5',
-            1: '1 / 5',
-            1.5: '1.5 / 5',
-            2: '2 / 5',
-            2.5: '2.5 / 5',
-            3: '3 / 5',
-            3.5: '3.5 / 5',
-            4: '4 / 5',
-            4.5: '4.5 / 5',
-            5: '5 / 5',
-        },
-        clearButton: '<i class="fas fa-minus-circle"></i>'
-    });
-
-    $(".star-rating").rating({
-        theme: 'krajee-fa',
-        filledStar: '<i class="fas fa-star"></i>',
-        emptyStar: '<i class="far fa-star"></i>',
-        showCaption: false,
-        starCaptions: {
-            0.5: '0.5 / 5',
-            1: '1 / 5',
-            1.5: '1.5 / 5',
-            2: '2 / 5',
-            2.5: '2.5 / 5',
-            3: '3 / 5',
-            3.5: '3.5 / 5',
-            4: '4 / 5',
-            4.5: '4.5 / 5',
-            5: '5 / 5',
-        }
-    });
-
-    $('.star-rating').on('rating:change', function(event, value){
-        let $eval = value
-        let $user = $(this).attr('data-user')
-        let $tutos = $(this).attr('data-tutos')
-        let $url = $(this).attr('data-url')
-        let datas = {}
-        datas['eval'] = $eval
-        datas['user'] = $user
-        datas['tutos'] = $tutos
-
-        $.ajax({
-            url: $url,
-            method: 'POST',
-            dataType: 'json',
-            data: datas,
-            async: true,
-        }).done(function(result){
-            // console.log(result)
-        }).fail(function(jqXHR, textStatus, error){
-            let err = JSON.parse(jqXHR.responseText);
-            alert(err.title);
-        }).always(function(){
-
-        });
-    });
-
-    $(".star-rating-fix").rating({
-        theme: 'krajee-fa',
-        filledStar: '<i class="fas fa-star"></i>',
-        emptyStar: '<i class="far fa-star"></i>',
-        readonly: 'true',
-        showCaption: false,
-        starCaptions: {
-            0.5: '0.5 / 5',
-            1: '1 / 5',
-            1.5: '1.5 / 5',
-            2: '2 / 5',
-            2.5: '2.5 / 5',
-            3: '3 / 5',
-            3.5: '3.5 / 5',
-            4: '4 / 5',
-            4.5: '4.5 / 5',
-            5: '5 / 5',
-        }
-    });
-
-    $("#js-form-contact").on('click', function(e){
-        e.preventDefault();
-
-        let $email = $('#contact_email').val();
-        let $subject = $('#contact_subject').val();
-        let $message = $('#contact_message').val();
-        let $url = $('#contact_form').attr('action');
-        let errors = false;
-        let $data = {}
-
-        if($email.length === 0) {
-            $('#contact_email').addClass('is-invalid');
-            errors = true;
-        }
-
-        if($subject.length === 0) {
-            $('#contact_subject').addClass('is-invalid');
-            errors = true;
-        }
-
-        if($message.length < 10) {
-            $('#contact_message').addClass('is-invalid');
-            errors = true;
-        }
-
-        if(errors){
-            $('#js-contact-alert-text').html('Champs requis manquant');
-            $('#js-contact-alert')
-                .addClass('alert-danger')
-                .removeClass('alert-success')
-                .removeClass('is-hide')
-                .show()
-            ;
-        } else {
-            $('#contact_email').removeClass('is-invalid');
-            $('#contact_subject').removeClass('is-invalid');
-            $('#contact_message').removeClass('is-invalid');
-
-            $data['email'] = $email;
-            $data['subject'] = $subject;
-            $data['message'] = $message;
-
-            $.ajax({
-                url: $url,
-                method: 'POST',
-                data: $data,
-                async: true,
-                dataType: 'json'
-            }).done(function (datas) {
-                $('#js-contact-alert-text').html(datas.message);
-                $('#js-contact-alert')
-                    .addClass('alert-success')
-                    .removeClass('alert-danger')
-                    .removeClass('is-hide')
-                    .show()
-                ;
-
-                $('#contact_subject').val('');
-                $('#contact_message').val('');
-
-            }).fail(function (jqXHR, textStatus, error) {
-                let err = JSON.parse(jqXHR.responseText);
-
-                $('#js-contact-alert-text').html(err.message);
-                $('#js-contact-alert')
-                    .addClass('alert-danger')
-                    .removeClass('alert-success')
-                    .removeClass('is-hide')
-                    .show()
-                ;
+                    if($icon){
+                        $icon.classList.add('bi-square');
+                        $icon.classList.remove('bi-check2-square');
+                    }
+                }
             });
         }
-    });
-
-    $('.js-shown').on('click', function(e){
-        e.preventDefault()
-
-        let $user = $(this).attr('data-user')
-        let $tutos = $(this).attr('data-tutos')
-        let $value = $(this).attr('data-value')
-        let $url = $(this).attr('data-url')
-
-        changeUserTutoState($user, $tutos, 'shown', $value, $url, $(this))
-    });
-
-    $('.js-pined').on('click', function(e){
-        e.preventDefault()
-
-        let $user = $(this).attr('data-user')
-        let $tutos = $(this).attr('data-tutos')
-        let $value = $(this).attr('data-value')
-        let $url = $(this).attr('data-url')
-
-        changeUserTutoState($user, $tutos, 'pined', $value, $url, $(this))
-    });
-
-    function changeUserTutoState(user, tutos, action, value, url, container){
-        let datas = {}
-        datas['user'] = user
-        datas['tutos'] = tutos
-        datas['action'] = action
-        datas['value'] = value
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            dataType: 'json',
-            data: datas,
-            async: true,
-        }).done(function(result){
-            toggleUserTutosInfosBtn(container, value)
-        }).fail(function(jqXHR, textStatus, error){
-            let err = JSON.parse(jqXHR.responseText);
-            alert(err.message);
-        }).always(function(){
-
-        });
     }
 
-    function toggleUserTutosInfosBtn(container, value){
-        if(container.data("value") === 1){
-            container.removeClass('btn-success').addClass('btn-outline-success')
-            container.data("value", 0)
+    let newAuthor = document.getElementById('simple_links_author');
+    if(newAuthor) {
+        newAuthor.addEventListener('change', function () {
+            let dest = document.getElementById('simple_links_author_new')
+            if (this.value === '') {
+                dest.classList.remove('d-none');
+            } else {
+                dest.classList.add('d-none');
+            }
+        })
+    }
 
-            container.find(".js-action-text-shown").html('Marquer comme vu')
-            container.find(".fa-eye").removeClass('d-none')
-            container.find(".fa-eye-slash").addClass('d-none')
+    let toggle = document.querySelectorAll('.toggle');
+    if(toggle) {
+        for(let a of toggle){
+            a.addEventListener('click', function(){
+                let $dest = this.getAttribute('data-target');
+                let $div = document.getElementById($dest);
+                let $plus = this.getAttribute('data-plus');
+                let $moins = this.getAttribute('data-moins');
 
-            container.find(".js-action-text-pined").html('Épingler')
-        } else {
-            container.removeClass('btn-outline-success').addClass('btn-success')
-            container.data("value", 1)
-
-            container.find(".js-action-text-shown").html('Marquer comme non vu')
-            container.find(".fa-eye-slash").removeClass('d-none')
-            container.find(".fa-eye").addClass('d-none')
-
-            container.find(".js-action-text-pined").html('Désépingler')
+                if($div.classList.contains('d-none')) {
+                    $div.classList.remove('d-none');
+                    this.innerHTML = $moins;
+                } else {
+                    $div.classList.add('d-none');
+                    this.innerHTML = $plus;
+                }
+            })
         }
     }
-});
-
+})();

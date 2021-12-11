@@ -1,0 +1,22 @@
+footer {
+  a.nav-link {
+    color: $black;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  a.footer-aff-link {
+    border: 1px solid $light-gray;
+    color: $black !important;
+    text-decoration: none;
+
+    &:hover {
+      border: 1px solid $gray-200;
+      color: $primary !important;
+      background-color: $light-gray;
+      text-decoration: none;
+    }
+  }
+}

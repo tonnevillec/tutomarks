@@ -1,51 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-{#        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171506404-1"></script>#}
-{#        <script>#}
-{#            window.dataLayer = window.dataLayer || [];#}
-{#            function gtag(){dataLayer.push(arguments);}#}
-{#            gtag('js', new Date());#}
-
-{#            gtag('config', 'UA-171506404-1');#}
-{#        </script>#}
-
         <meta charset="UTF-8">
-        <title>{% block title %}Tutomarks! Annuaire de tutoriaux pour les développeurs{% endblock %}</title>
-
+        <title>{% block title %}Tutomarks v3!{% endblock %}</title>
         <meta name="description" content="L'annuaire de tutoriaux Tutomarks a été développé pour les futurs développeurs afin de recencer les contenus qui leurs permettront d'apprendre avec les meilleurs formateurs et les meilleurse formations">
+        <link rel="icon" type="image/png" sizes="16x16"  href="{{ asset('build/images/logo.ico') }}">
 
-        <link rel="icon" type="image/png" sizes="16x16"  href="{{ asset('build/images/favicon.png') }}">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('styles') }}
+        {% endblock %}
 
-        {{ encore_entry_link_tags('style') }}
-        {% block stylesheets %}{% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </head>
-    <body class="pt-7">
-        {% include 'header.html.twig' %}
+    <body>
+        {% include('header.html.twig') %}
 
-        <div id="wrapper">
-            <main role="main" class="hero is-fullheight">
-                <div class="container-fluid">
-                    {% for type, messages in app.session.flashbag.all() %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{type}} alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
+        <div id="page" class="d-flex mt-5 pt-3">
+            {% include('aside.html.twig') %}
 
-                    {% block body %}{% endblock %}
-                </div>
+            <main class="content w-100 mb-10">
+                {% block body %}{% endblock %}
             </main>
+            <div class="side-menu-backdrop" onclick="document.getElementById('side-menu').classList.toggle('open')"></div>
         </div>
 
-        {% include 'footer.html.twig' %}
-
-        {{ encore_entry_script_tags('app') }}
-        {% block javascripts %}{% endblock %}
+        {% include('footer.html.twig') %}
     </body>
 </html>

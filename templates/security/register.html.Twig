@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'nav.register'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 mb-5">
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-6 offset-3 text-center">
+                <h2 class="h2 mb-4"><i class="bi bi-person-plus text-danger me-2"></i> <strong>{{ 'nav.signin'|trans|capitalize }}</strong></h2>
+            </div>
+        </div>
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-6 offset-3">
+                {{ form_rest(form) }}
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-6 offset-3">
+                <button type="submit" class="btn btn-success"><i class="bi bi-check me-2"></i> {{ 'nav.register'|trans|capitalize }}</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

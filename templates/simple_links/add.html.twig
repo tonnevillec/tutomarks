@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Nouveau partage{% endblock %}
+{% form_theme form _self %}
+{% block _simple_links_tags_row %}
+    <div class="form-group">
+        <label class="label">{{ label }}</label><br/>
+        {% if choices is iterable %}
+            {% for id, k in choices %}
+                <label for="simple_links_tags_{{ k.value }}" class="btn btn-sm {% if k.data.id in form.vars.value %}btn-primary{% else %}btn-outline-primary{% endif%} m-1">
+                    <input type="checkbox" name="simple_links[tags][]" value="{{ k.data.id }}" id="simple_links_tags_{{ k.value }}" {% if k.data.id in form.vars.value %}checked="checked"{% endif%} class="badgebox d-none" data-color="primary">{{ k.label }}
+                </label>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block _simple_links_is_publish_row %}
+    <div class="form-check form-switch mb-3 mt-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="simple_links_is_publish" name="simple_links[is_publish]" value="{{ form.vars.value }}" {% if form.vars.checked %}checked="checked"{% endif %}>
+        <label class="form-check-label" for="simple_links_is_publish">{{ form.vars.label }}</label>
+    </div>
+{% endblock %}
+
+{% block _simple_links_author_row %}
+    <div class="form-group">
+        <label class="label" for="simple_links_author">{{ label }}</label>
+        {% if choices is iterable %}
+            <select id="simple_links_author" class="form-control" name="simple_links[author]">
+                {% for id, k in choices %}
+                    <option value="{{ k.data.id }}" {% if k.data.id == form.vars.value %}selected="selected"{% endif%}>{{ k.label }}</option>
+                {% endfor %}
+                <option value="" {% if new_author is defined %}selected="selected"{% endif %}>(+) {{ 'slinks.authors.new'|trans|capitalize }}</option>
+            </select>
+        {% endif %}
+    </div>
+
+    <fieldset class="form-group {% if new_author is not defined or (new_author is defined and new_author is not same as ('')) %}d-none{% endif %} border border-gray p-2" id="simple_links_author_new">
+        <legend class="d-none col-form-label">{{ 'slinks.authors.new'|trans|capitalize }}</legend>
+        <div>
+            <div class="form-group mb-2">
+                <label class="label" for="simple_links_author_title">{{ 'authors.title.label'|trans|capitalize }} *</label>
+                <input type="text" id="simple_links_author_title" name="newauthors[title]" maxlength="255" placeholder="{{ 'authors.title.placeholder'|trans|capitalize }}" class="form-control {% if new_author is defined %}is-invalid{% endif %}">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="simple_links_author_site_url"><i class="bi bi-globe me-1"></i> {{ 'authors.site_url.label'|trans|capitalize }}</label>
+                <input type="text" id="simple_links_author_site_url" name="newauthors[site_url]" placeholder="{{ 'authors.site_url.placeholder'|trans|capitalize }}" inputmode="url" class="form-control">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="simple_links_author_youtube"><i class="bi bi-youtube me-1"></i> {{ 'authors.youtube.label'|trans|capitalize }}</label>
+                <input type="text" id="simple_links_author_youtube" name="newauthors[youtube]" maxlength="255" placeholder="{{ 'authors.youtube.placeholder'|trans }}" class="form-control">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="simple_links_author_twitter"><i class="bi bi-twitter me-1"></i> {{ 'authors.twitter.label'|trans|capitalize }}</label>
+                <input type="text" id="simple_links_author_twitter" name="newauthors[twitter]" maxlength="255" placeholder="{{ 'authors.twitter.placeholder'|trans }}" class="form-control">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="simple_links_author_twitch"><i class="bi bi-twitch me-1"></i> {{ 'authors.twitch.label'|trans|capitalize }}</label>
+                <input type="text" id="simple_links_author_twitch" name="newauthors[twitch]" maxlength="255" placeholder="{{ 'authors.twitch.placeholder'|trans }}" class="form-control">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="simple_links_author_github"><i class="bi bi-github me-1"></i> {{ 'authors.github.label'|trans|capitalize }}</label>
+                <input type="text" id="simple_links_author_github" name="newauthors[github]" maxlength="255" placeholder="{{ 'authors.github.placeholder'|trans }}" class="form-control">
+            </div>
+        </div>
+    </fieldset>
+{% endblock %}
+
+{% block body %}
+    <section class="my-4">
+
+        <div class="container">
+            <h1 class="h1 mb-3 fw-bold">
+                <i class="bi bi-newspaper me-1 text-primary"></i> {{ 'slinks.add.title'|trans|capitalize }}
+                <small class="very-small">{{ 'slinks.add.help'|trans }}</small>
+            </h1>
+
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                        {{ message|capitalize }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_start(form) }}
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.url) }}
+                    {{ form_row(form.is_publish) }}
+
+                    <div class="my-3">
+                        {{ form_row(form.author) }}
+                    </div>
+
+                    {{ form_row(form.category, { 'attr': { 'class': 'form-select' }}) }}
+                    {{ form_row(form.language) }}
+
+                    <small class="form-text text-muted">* {{ 'required_fields'|trans|capitalize }}</small>
+                </div>
+
+                <div class="col-sm-12 col-md-6">
+                    <div class="mb-3">
+                        {{ form_row(form.imageFile) }}
+                    </div>
+
+                    {{ form_label(form.description) }}
+                    <br/><small class="form-text text-muted">{{ 'tutos.description.help'|trans|capitalize }}</small>
+                    {{ form_widget(form.description) }}
+
+                    <div class="my-3">
+                        {{ form_row(form.tags) }}
+                    </div>
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+            <div class="row">
+                <div class="col text-center">
+                    <a href="{{ path('home') }}" class="btn btn-outline-danger">
+                        <i class="bi bi-x-square me-1"></i> {{ 'btn.cancel'|trans|capitalize }}
+                    </a>
+
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="bi bi-check me-1"></i> {{ 'btn.submit'|trans|capitalize }}
+                    </button>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

@@ -3,21 +3,27 @@ vich_uploader:
 
     mappings:
         tags_images:
-            uri_prefix: '%uploads_path%/tags'
-            upload_destination: '%kernel.project_dir%/public/%uploads_path%/tags'
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public%uploads_path%'
+            namer: vich_uploader.namer_origname
+            inject_on_load: false
+        authors_images:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public%uploads_path%'
+            namer: vich_uploader.namer_origname
             inject_on_load: false
         categories_images:
-            uri_prefix: '%uploads_path%/categories'
-            upload_destination: '%kernel.project_dir%/public/%uploads_path%/categories'
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public%uploads_path%'
+            namer: vich_uploader.namer_origname
             inject_on_load: false
-        tutos_default_images:
-            uri_prefix: '%uploads_path%/tutos'
-            upload_destination: '%kernel.project_dir%/public/%uploads_path%/tutos'
+        languages_images:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public%uploads_path%'
+            namer: vich_uploader.namer_origname
             inject_on_load: false
-        attachments:
-            uri_prefix: '%uploads_path%/attachments'
-            upload_destination: '%kernel.project_dir%/public/%uploads_path%/attachments'
-            namer: vich_uploader.namer_origname # permet d'avoir un nom d'image unique
-            inject_on_load: true # injecte l'image au chargement du formulaire
-            delete_on_update: true
-            delete_on_remove: true
+        simple_links_images:
+            uri_prefix: '%uploads_path%'
+            upload_destination: '%kernel.project_dir%/public%uploads_path%'
+            namer: vich_uploader.namer_origname
+            inject_on_load: false

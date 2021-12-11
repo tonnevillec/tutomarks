@@ -1,5 +1,5 @@
 .idea
-public/adminer.php
+/public/uploads/images/
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -11,7 +11,6 @@ public/adminer.php
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
-.phpunit
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
@@ -19,19 +18,6 @@ public/adminer.php
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
-/public/uploads/tags/
-/public/uploads/images/tags/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-/tests/
-
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
-
-###> squizlabs/php_codesniffer ###
-/.phpcs-cache
-/phpcs.xml
-###< squizlabs/php_codesniffer ###

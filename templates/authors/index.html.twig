@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tutomarks - Tous les auteurs{% endblock %}
+
+{% block body %}
+<section class="mt-4 mb-3">
+    <div class="container">
+        <h1 class="h1"><i class="bi bi-git me-1 text-primary"></i>{{ 'home.channels'|trans|capitalize }}</h1>
+        <hr class="my-3">
+
+        <div class="search_filter text-end mb-3">
+            <div class="dropdown mx-2 flex-shrink-0">
+                <button type="button" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="order-authors" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-funnel-fill me-1"></i>{{ 'search.authors.orderby.menu'|trans|capitalize }}
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="order-authors">
+                    <a href="{{ path('authors.index', { 'orderby' : 'title', 'direction' : 'asc' }) }}" class="dropdown-item" type="button" data-order="title" data-direction="asc"><i class="bi bi-sort-alpha-up"></i> {{ 'search.authors.orderby.name.asc'|trans|capitalize }}</a>
+                    <a href="{{ path('authors.index', { 'orderby' : 'title', 'direction' : 'desc' }) }}" class="dropdown-item" type="button" data-order="title" data-direction="desc"><i class="bi bi-sort-alpha-down"></i> {{ 'search.authors.orderby.name.desc'|trans|capitalize }}</a>
+                    <a href="{{ path('authors.index', { 'orderby' : 'nb', 'direction' : 'asc' }) }}" class="dropdown-item" type="button" data-order="nb" data-direction="asc"><i class="bi bi-sort-numeric-up"></i> {{ 'search.authors.orderby.links.asc'|trans|capitalize }}</a>
+                    <a href="{{ path('authors.index', { 'orderby' : 'nb', 'direction' : 'desc' }) }}" class="dropdown-item" type="button" data-order="nb" data-direction="desc"><i class="bi bi-sort-numeric-down"></i> {{ 'search.authors.orderby.links.desc'|trans|capitalize }}</a>
+                </div>
+            </div>
+        </div>
+
+        {% if authors is defined %}
+            <div class="row pb-3">
+                {% for author in authors %}
+                    {{ include('home/_creator_card.html.twig', {'author': author, 'xclass': 'col-sm-12 col-md-6 col-lg-4'}) }}
+                {% endfor %}
+            </div>
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(authors) }}
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -17,8 +17,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Categories
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -34,19 +34,24 @@ class Categories
     private $logo;
 
     /**
-     * @ORM\OneToMany(targetEntity=Tutos::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Links::class, mappedBy="category")
      */
-    private $tutos;
+    private $links;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $homekey;
+    private $link_entity;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255)
      */
-    private $withVideos;
+    private $code;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_actif;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -56,9 +61,9 @@ class Categories
 
     /**
      * @Vich\UploadableField(mapping="categories_images", fileNameProperty="image")
-     * @var File|null
+     * @var ?File
      */
-    private ?File $imageFile;
+    private $imageFile;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -68,8 +73,11 @@ class Categories
 
     public function __construct()
     {
-        $this->tutos = new ArrayCollection();
-        $this->withVideos = false;
+        $this->links = new ArrayCollection();
+        $this->is_actif = false;
+        $this->updatedAt = new DateTime();
+        $this->imageFile = null;
+        $this->image = '';
     }
 
     public function getId(): ?int
@@ -94,7 +102,7 @@ class Categories
         return $this->logo;
     }
 
-    public function setLogo(string $logo): self
+    public function setLogo(?string $logo): self
     {
         $this->logo = $logo;
 
@@ -102,92 +110,82 @@ class Categories
     }
 
     /**
-     * @return mixed
+     * @return Collection|Links[]
      */
-    public function getHomekey()
+    public function getLinks(): Collection
     {
-        return $this->homekey;
+        return $this->links;
     }
 
-    /**
-     * @param mixed $homekey
-     * @return Categories
-     */
-    public function setHomekey($homekey)
+    public function addLink(Links $link): self
     {
-        $this->homekey = $homekey;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWithVideos()
-    {
-        return $this->withVideos;
-    }
-
-    /**
-     * @param mixed $withVideos
-     * @return Categories
-     */
-    public function setWithVideos($withVideos)
-    {
-        $this->withVideos = $withVideos;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function hasVideos()
-    {
-        return $this->withVideos;
-    }
-
-    /**
-     * @return Collection|Tutos[]
-     */
-    public function getTutos(): Collection
-    {
-        return $this->tutos;
-    }
-
-    public function addTuto(Tutos $tuto): self
-    {
-        if (!$this->tutos->contains($tuto)) {
-            $this->tutos[] = $tuto;
-            $tuto->setCategory($this);
+        if (!$this->links->contains($link)) {
+            $this->links[] = $link;
+            $link->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeTuto(Tutos $tuto): self
+    public function removeLink(Links $link): self
     {
-        if ($this->tutos->contains($tuto)) {
-            $this->tutos->removeElement($tuto);
+        if ($this->links->removeElement($link)) {
             // set the owning side to null (unless already changed)
-            if ($tuto->getCategory() === $this) {
-                $tuto->setCategory(null);
+            if ($link->getCategory() === $this) {
+                $link->setCategory(null);
             }
         }
 
         return $this;
     }
 
+    public function getLinkEntity(): ?string
+    {
+        return $this->link_entity;
+    }
+
+    public function setLinkEntity(string $link_entity): self
+    {
+        $this->link_entity = $link_entity;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
     /**
-     * @return string|null
+     * @return false
      */
+    public function getIsActif(): bool
+    {
+        return $this->is_actif;
+    }
+
+    /**
+     * @param false $is_actif
+     * @return Categories
+     */
+    public function setIsActif(bool $is_actif): Categories
+    {
+        $this->is_actif = $is_actif;
+        return $this;
+    }
+
     public function getImage(): ?string
     {
         return $this->image;
     }
 
-    /**
-     * @param string|null $image
-     * @return Tags
-     */
     public function setImage(?string $image): self
     {
         $this->image = $image;
@@ -196,26 +194,36 @@ class Categories
     }
 
     /**
-     * @return File|null
+     * @return DateTime|null
      */
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTime $updatedAt): Categories
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new DateTime();
+        }
+    }
+
     public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
 
-    public function setImageFile(File $image = null): self
+    #[Pure] public function __toString(): string
     {
-        $this->imageFile = $image;
-
-        if ($image) {
-            $this->updatedAt = new DateTime('now');
-        }
-
-        return $this;
+        return (string) $this->getTitle();
     }
 
-    public function __toString():string
-    {
-        return $this->title;
-    }
 }

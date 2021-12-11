@@ -19,17 +19,22 @@ class TagsRepository extends ServiceEntityRepository
         parent::__construct($registry, Tags::class);
     }
 
-    /**
-     * @return int|mixed|string
-     */
-    public function findAllByTitle()
+    // /**
+    //  * @return Tags[] Returns an array of Tags objects
+    //  */
+    /*
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('t')
-            ->orderBy('t.title', 'ASC')
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
+    */
 
     /*
     public function findOneBySomeField($value): ?Tags

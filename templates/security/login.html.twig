@@ -1,59 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'nav.login'|trans|capitalize }}{% endblock %}
+{% block title %}Log in!{% endblock %}
 
 {% block body %}
-<section class="my-2 p-2 text-white" id="login-section">
-    <div class="container">
-        <h2 class="text-white">{{ 'nav.login'|trans|capitalize }}</h2>
-        <div class="row">
-            <div class="col-7">
-                <form method="post">
-                    {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
-
-                    {% if app.user %}
-                        <div class="mb-3 text-white">
-                            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                        </div>
-                    {% endif %}
-
-                    <div class="form-group">
-                        <label class="sr-only" for="inputEmail">{{ 'user.email.title'|trans|capitalize }}</label>
-                        <input type="email" name="email" value="{{ last_username }}" id="inputEmail" class="form-control" placeholder="{{ 'user.email.placeholder'|trans|capitalize }}" required autofocus>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
-                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
-                        <div class="help-block text-right"><a href="{{ path('app_password') }}" class="text-white">{{ 'user.password.forget'|trans|capitalize }}</a></div>
-                    </div>
-
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="_remember_me"> {{ 'user.keep_me_sign_in'|trans|capitalize }}
-                        </label>
-                    </div>
-
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}"/>
-
-                    <button type="submit" class="btn btn-outline-success btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
-                </form>
-            </div>
-
-            <div class="col-5">
-                <h3 class="h3 text-white">{{ 'btn.social.connect'|trans|capitalize }}</h3>
-                <small>{{ 'btn.social.connect_help'|trans|capitalize }}</small>
-                <a class="btn btn-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
-                    <i class="fab fa-google"></i> Compte Google
-                </a>
-                <a class="btn btn-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
-                    <i class="fab fa-github"></i> Compte Github
-                </a>
+    <div class="container mt-5 mb-5">
+        {% if error %}
+        <div class="row mb-3">
+            <div class="col-6 offset-3">
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             </div>
         </div>
+        {% endif %}
+
+        {% if app.user %}
+        <div class="row mb-3">
+            <div class="col-6 offset-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="post" class="form" role="form" accept-charset="UTF-8">
+            <div class="row">
+                <div class="col-6 offset-3 text-center">
+                    <h2 class="h2 mb-4"><i class="bi bi-person text-danger me-2"></i> <strong>{{ 'nav.login'|trans|capitalize }}</strong></h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <div class="form-group mb-3">
+                        <label for="inputEmail">{{ 'user.email.title'|trans|capitalize }}</label>
+                        <input type="email"
+                               value="{{ last_username }}"
+                               name="email"
+                               id="inputEmail"
+                               class="form-control"
+                               autocomplete="email"
+                               required
+                               autofocus>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
+                        <input type="password"
+                               name="password"
+                               id="inputPassword"
+                               class="form-control"
+                               autocomplete="current-password"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden"
+                   name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            />
+
+            <div class="row text-center">
+                <div class="col-6 offset-3">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check me-2"></i> {{ 'nav.login'|trans|capitalize }}
+                    </button>
+                </div>
+            </div>
+        </form>
+
+{#        <div class="row my-4 text-center">#}
+{#            <div class="col-6 offset-3 register_or">#}
+{#                <strong>ou</strong>#}
+{#            </div>#}
+{#        </div>#}
+
+{#        <div class="row mb-4">#}
+{#            <div class="col-6 offset-3 text-center">#}
+{#                <h2 class="h2"><i class="bi bi-share-fill text-danger me-2"></i> <strong>{{ 'btn.social.connect'|trans|capitalize }}</strong></h2>#}
+{#                <small>{{ 'btn.social.connect_help'|trans|capitalize }}</small>#}
+{#            </div>#}
+{#        </div>#}
+
+{#        <div class="row">#}
+{#            <div class="col-6 offset-3 text-center">#}
+{#                <a class="btn btn-outline-danger" href="#"><i class="bi bi-google me-2"></i> Compte Google</a>#}
+{#                <a class="btn btn-outline-secondary" href="#"><i class="bi bi-github me-2"></i> Compte Github</a>#}
+{#            </div>#}
+{#        </div>#}
     </div>
-</section>
 {% endblock %}

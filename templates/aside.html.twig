@@ -1,0 +1,66 @@
+<aside id="side-menu" class="mobile">
+    <div class="side-menu-header d-flex align-items-center pl-3">
+        <button class="hamburger-btn btn mr-3" onclick="document.getElementById('side-menu').classList.toggle('open')">
+            <i class="bi bi-list"></i>
+        </button>
+    </div>
+    <div class="side-menu-body">
+        <div class="list-group">
+            <a href="{{ path('home') }}" class="list-group-item d-flex align-items-center active">
+                <i class="bi bi-house me-1"></i>
+                <span>Accueil</span>
+            </a>
+            {{ menuCategories() }}
+        </div>
+
+        <div class="list-group">
+            <a href="{{ path('search') }}" class="list-group-item d-flex align-items-center">
+                <i class="bi bi-search me-1"></i>
+                <span>Recherche</span>
+            </a>
+        </div>
+
+        <div class="list-group">
+            <div class="group-title pt-2 px-4 mx-1 text-uppercase text-muted">Créateurs</div>
+            {{ menuAuthors() }}
+            <a href="{{ path('authors.index') }}" class="list-group-item d-flex align-items-center"><i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }} {{ 'show_more_authors'|trans }}</a>
+        </div>
+
+        {% if app.user %}
+            <div class="list-group">
+                <div class="group-title pt-2 px-4 mx-1 text-uppercase text-muted">Mes informations</div>
+
+                <a href="{{ path('users.profil') }}" class="list-group-item d-flex align-items-center">
+                    <i class="bi bi-person me me-1"></i>
+                    <span class="text-truncate">{{ 'nav.account'|trans|capitalize }}</span>
+                </a>
+
+                <a href="{{ path('users.my_links') }}" class="list-group-item d-flex align-items-center">
+                    <i class="bi bi-person-lines-fill me-1"></i>
+                    <span class="text-truncate">{{ 'nav.tutos.user'|trans|capitalize }}</span>
+                </a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('admin') }}" class="list-group-item d-flex align-items-center text-danger">
+                        <i class="bi bi-gear-fill me-1"></i>
+                        <span class="text-truncate">{{ 'nav.admin'|trans|capitalize }}</span>
+                    </a>
+                {% endif %}
+
+                <a href="{{ path('app_logout') }}" class="list-group-item d-flex align-items-center">
+                    <i class="bi bi-box-arrow-right me-1"></i>
+                    <span class="text-truncate">{{ 'nav.logout'|trans|capitalize }}</span>
+                </a>
+            </div>
+        {% else %}
+            <div class="list-group">
+                <div class="group-title pt-2 px-4 mx-1 text-uppercase text-muted">Mon compte</div>
+
+                <a href="{{ path('app_login') }}" class="list-group-item d-flex align-items-center">
+                    <i class="bi bi-box-arrow-in-right me-1"></i>
+                    <span class="text-truncate">Connexion</span>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</aside>

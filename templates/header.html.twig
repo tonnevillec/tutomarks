@@ -1,115 +1,139 @@
-{#<div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">#}
-{#    <div class="container-fluid d-flex align-items-center">#}
-{#        <div class="mr-auto">#}
-{#            <ul>#}
-{#                <li><a href="#content">{{ 'a11y.top.content'|trans|capitalize }}</a></li>#}
-{#            </ul>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
+<header class="d-flex align-items-center bg-white fixed-top px-3">
+    <button class="hamburger-btn btn mr-3" onclick="document.getElementById('side-menu').classList.toggle('open')">
+        <i class="bi bi-list"></i>
+    </button>
 
-<header id="header" class="fixed-top bg-dark">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('home') }}">
-                <img src="{{ asset('build/images/tutomarks_logo_sans_nom.png') }}" alt="TutoMarks" class="d-inline-block" loading="lazy">
-                Tutomarks
+    <a href="{{ path('home') }}" class="header-logo">
+        <img src="{{ asset('build/images/Logo.png') }}" alt="TutoMarks" class="d-inline-block logo me-1" loading="lazy">
+        <span class="title align-middle d-none d-md-inline-flex"><span class="one">TUTO</span><span class="two">MARKS</span></span>
+    </a>
+
+    <div class="mx-sm-5 flex-grow-1">
+        {% if app.request.get('_route') not in ['search'] %}
+        <form name="f_search" method="get" action="{{ path('search') }}" class="search-box input-group input-group-sm mx-auto d-none d-md-flex">
+            <input type="text" class="form-control" name="value" placeholder="{{ 'search.word'|trans|capitalize }} ...">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary border search-btn" type="submit" style="width: 65px;">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+            <input type="hidden" name="element" value="word">
+        </form>
+        {% endif %}
+    </div>
+
+    <div class="d-flex">
+        <div class="d-md-none mx-2 flex-shrink-0">
+            <a class="btn" href="#" role="button" id="" title="{{ 'nav.search_more'|trans|capitalize }}">
+                <i class="bi bi-search me-1"></i>{{ 'nav.search'|trans|capitalize }}
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Navigation du site">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        </div>
+        {% if app.user %}
+            {% if notPublishedLinksCount(app.user.id) > 0 %}
+            <div class="mx-2 flex-shrink-0">
+                <a class="btn" href="#" role="button" id="navbar-warning-not-published" title="Liens non publiés">
+                    <span class="badge rounded-pill bg-danger">{{ notPublishedLinksCount(app.user.id) }}</span>
+                    <span class="visually-hidden">Liens non publiés</span>
+                </a>
+            </div>
+            {% endif %}
 
-            <div class="collapse navbar-collapse" id="navbarHeader">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {% if app.request.get('_route') in ['home'] %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('home') }}">{{ 'nav.home'|trans|capitalize }} <span class="sr-only">({{ 'nav.current'|trans|capitalize }})</span></a>
-                    </li>
-                    <li class="nav-item {% if app.request.get('_route') in ['search'] %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('search') }}">{{ 'nav.search'|trans|capitalize }}</a>
-                    </li>
-                    <li class="nav-item {% if app.request.get('_route') in ['channels'] %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('channels') }}">{{ 'nav.channels'|trans|capitalize }}</a>
-                    </li>
-                    {% if app.user %}
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ 'nav.add.title'|trans|capitalize }} <span class="caret"></span></a>
+            <div class="dropdown mx-2 flex-shrink-0">
+                <a class="btn dropdown-toggle" href="#" role="button" id="navbar-add-new" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-plus-square"></i>
+                </a>
 
-                        <div id="addlink-menu" class="dropdown-menu dropdown-menu-lg-right bg-dark text-white" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item text-white" href="{{ path('tutos.addurl') }}"><i class="{{ categoryIcon('videos') }}"></i> {{ 'nav.add.video'|trans|capitalize }}</a>
-                            <a class="dropdown-item text-white" href="{{ path('tutos.add', { 'category' : 'articles' }) }}"><i class="{{ categoryIcon('articles') }}"></i> {{ 'nav.add.article'|trans|capitalize }}</a>
-                            <a class="dropdown-item text-white" href="{{ path('tutos.add', { 'category' : 'podcasts' }) }}"><i class="{{ categoryIcon('podcasts') }}"></i> {{ 'nav.add.podcast'|trans|capitalize }}</a>
-                        </div>
-                    </li>
-                    {% endif %}
-                </ul>
-
-                <ul class="navbar-nav navbar-right">
-                    {% if app.user %}
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><b>{{ app.user.username ?: app.user.email }}</b> <span class="caret"></span></a>
-
-                            <div id="user-menu" class="dropdown-menu dropdown-menu-lg-right bg-dark text-white" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item text-white" href="{{ path('user.profil') }}"><i class="fas fa-user"></i> {{ 'nav.account'|trans|capitalize }}</a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <a class="dropdown-item text-white" href="{{ path('tutos.user') }}"><i class="far fa-list-alt"></i> {{ 'nav.tutos.user'|trans|capitalize }}</a>
-
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" href="{{ path('easyadmin') }}"><i class="fas fa-cogs"></i> {{ 'nav.admin'|trans|capitalize }}</a>
-                                {% endif %}
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-white" href="{{ path('app_logout') }}"><i class="fas fa-power-off"></i> {{ 'nav.logout'|trans|capitalize }}</a>
-                            </div>
-                        </li>
-                    {% else %}
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><b>{{ 'nav.login'|trans|capitalize }}</b> <span class="caret"></span></a>
-                            <div id="login-dp" class="dropdown-menu dropdown-menu-lg-right">
-                                <form class="form" role="form" method="post" action="{{ path('app_login') }}" accept-charset="UTF-8" id="login-nav">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="inputEmail">{{ 'user.email.title'|trans|capitalize }}</label>
-                                        <input type="email" name="email" id="inputEmail" class="form-control form-control-sm" placeholder="{{ 'user.email.placeholder'|trans|capitalize }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
-                                        <input type="password" name="password" id="inputPassword" class="form-control form-control-sm" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
-                                        <div class="help-block text-right"><a href="{{ path('app_password') }}" class="text-white">{{ 'user.password.forget'|trans|capitalize }}</a></div>
-                                    </div>
-
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="_remember_me"> {{ 'user.keep_me_sign_in'|trans|capitalize }}
-                                        </label>
-                                    </div>
-
-                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                    <input type="hidden" name="_target_path" value="{{ app.request.requestUri }}"/>
-
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-outline-success btn-block btn-sm">{{ 'nav.login'|trans|capitalize }}</button>
-
-                                        <div class="dropdown-divider"></div>
-
-                                        <a class="btn btn-danger btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'google' }) }}">
-                                            <i class="fab fa-google"></i> Compte Google
-                                        </a>
-                                        <a class="btn btn-secondary btn-block btn-sm" href="{{ path('social_connect', { 'service' : 'github' }) }}">
-                                            <i class="fab fa-github"></i> Compte Github
-                                        </a>
-                                    </div>
-                                </form>
-
-                                <div class="bottom text-center">
-                                    {{ 'nav.new_here'|trans|capitalize }} ? <a href="{{ path('app_register') }}" class="text-white"><b>{{ 'nav.register'|trans|capitalize }}</b></a>
-                                </div>
-                            </div>
-                        </li>
-                    {% endif %}
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-add-new">
+                    {{ headerMenuAddByCategories() }}
                 </ul>
             </div>
-        </div>
-    </nav>
+
+            <div class="dropdown mx-2 flex-shrink-0">
+                <a class="btn dropdown-toggle" href="#" role="button" id="navbar-user-profile" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-lines-fill"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-user-profile">
+                    <li>
+                        <span class="dropdown-item-text fw-bold">{{ app.user.username ?: app.user.userIdentifier }}</span>
+                    </li>
+
+                    <li class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ path('users.profil') }}">
+                            <i class="bi bi-person me-1"></i> {{ 'nav.account'|trans|capitalize }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ path('users.my_links') }}">
+                            <i class="bi bi-person-lines-fill me-1"></i> {{ 'nav.tutos.user'|trans|capitalize }}
+                        </a>
+                    </li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="{{ path('admin') }}">
+                                <i class="bi bi-gear-fill me-1"></i> {{ 'nav.admin'|trans|capitalize }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">
+                            <i class="bi bi-box-arrow-right me-1"></i> {{ 'nav.logout'|trans|capitalize }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        {% else %}
+            <div class="dropdown">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="navbar-connexion" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-circle me-2"></i> {{ 'nav.login'|trans|capitalize }}
+                </button>
+
+                <div id="login-dp" class="dropdown-menu dropdown-menu-lg-right">
+                    <form class="form" role="form" method="post" action="{{ path('app_login') }}" accept-charset="UTF-8" id="login-nav">
+                        <div class="form-group">
+                            <label class="sr-only" for="inputEmail">{{ 'user.email.title'|trans|capitalize }}</label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white text-primary">@</span>
+                                <input type="email" name="email" id="inputEmail" class="form-control form-control-sm" placeholder="{{ 'user.email.placeholder'|trans|capitalize }}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="inputPassword">{{ 'user.password.title'|trans|capitalize }}</label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white text-primary"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="password" id="inputPassword" class="form-control form-control-sm" placeholder="{{ 'user.password.title'|trans|capitalize }}" required>
+                            </div>
+
+                            <div class="help-block text-end">
+                                <a href="{{ path('app_password') }}">{{ 'user.password.forget'|trans|capitalize }}</a>
+                            </div>
+                        </div>
+
+{#                        <div class="checkbox">#}
+{#                            <label>#}
+{#                                <input type="checkbox" name="_remember_me"> {{ 'user.keep_me_sign_in'|trans|capitalize }}#}
+{#                            </label>#}
+{#                        </div>#}
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <input type="hidden" name="_target_path" value="{{ app.request.requestUri }}"/>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block btn-sm mt-1">{{ 'nav.login'|trans|capitalize }}</button>
+                        </div>
+                    </form>
+
+                    <div class="bottom text-center">
+                        {{ 'nav.new_here'|trans|capitalize }} ? <a href="{{ path('app_register') }}"><b>{{ 'nav.register'|trans|capitalize }}</b></a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 </header>

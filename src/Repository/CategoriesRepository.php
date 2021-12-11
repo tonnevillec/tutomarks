@@ -19,18 +19,22 @@ class CategoriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Categories::class);
     }
 
-    /**
-     * @return int|mixed|string
-     */
-    public function findAllByTitle()
+    // /**
+    //  * @return Categories[] Returns an array of Categories objects
+    //  */
+    /*
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')
-            ->orderBy('c.title', 'ASC')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
-
+    */
 
     /*
     public function findOneBySomeField($value): ?Categories

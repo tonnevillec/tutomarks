@@ -1,0 +1,330 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    <section class="my-2 p-2">
+        <div class="container">
+            <h1 class="h1">{{ 'user.profil.title'|trans|capitalize }}</h1>
+
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a href="#a_informations" class="user-list-menu list-group-item list-group-item-action">{{ 'user.profil.informations'|trans|capitalize }}</a>
+{#                        {% if app.user.googleId is not null or app.user.githubId is not null %}#}
+{#                            <a href="#a_social" class="user-list-menu list-group-item list-group-item-action">{{ 'user.profil.social'|trans|capitalize }}</a>#}
+{#                        {% endif %}#}
+                        <a href="#a_changemail" class="user-list-menu list-group-item list-group-item-action">{{ 'user.profil.email'|trans|capitalize }}</a>
+                        <a href="#a_changepassword" class="user-list-menu list-group-item list-group-item-action">{{ 'user.profil.password'|trans|capitalize }}</a>
+                        <a href="#a_delete" class="user-list-menu list-group-item list-group-item-action">{{ 'user.profil.delete.title'|trans|capitalize }}</a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                                {{ message|capitalize }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <section id="user-profil">
+                        <div class="card" id="a_informations">
+                            <div class="card-body">
+                                <h2 class="card-title h2"><i class="bi bi-person me-1"></i> {{ 'user.profil.informations'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+
+                                {{ form_start(form) }}
+                                <div class="form-group">
+                                    {{ form_row(form.username, {
+                                        'attr': {
+                                            'id': 'inputUsername'
+                                        }})
+                                    }}
+                                </div>
+
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-outline-success">
+                                        <i class="bi bi-check me-1"></i> {{ 'btn.validate_change_username'|trans|capitalize }}
+                                    </button>
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+
+{#                        {% if app.user.googleId is not null or app.user.githubId is not null %}#}
+{#                            <div class="card mt-3" id="a_social">#}
+{#                                <div class="card-body">#}
+{#                                    <h2 class="card-title h2"><i class="bi bi-share-fill me-1"></i> {{ 'user.profil.social'|trans|capitalize }}</h2>#}
+{#                                    <div class="dropdown-divider"></div>#}
+
+{#                                    {% if app.user.googleId is not null %}#}
+{#                                        <button class="btn btn-danger btn-sm" disabled>#}
+{#                                            <i class="bi bi-google me-1"></i> Compte google lié#}
+{#                                        </button>#}
+{#                                    {% endif %}#}
+{#                                    {% if app.user.githubId is not null %}#}
+{#                                        <button class="btn btn-secondary btn-sm" disabled>#}
+{#                                            <i class="bi bi-github me-1"></i> Compte github lié#}
+{#                                        </button>#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        {% endif %}#}
+
+                        <div class="card mt-3 {% if action is defined and action is same as ('email') %}border border-{{ code }}{% endif %}" id="a_changemail">
+                            <div class="card-body">
+                                <h2 class="card-title h2"><i class="bi bi-mailbox me-1"></i> {{ 'user.profil.email'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+
+                                <div class="form-group" id="js-current-email">
+                                    <label for="js-current-email-value" class="label form-label">{{ 'user.profil.current_email'|trans|capitalize }}</label>
+                                    <input type="email" class="form-control" id="js-current-email-value" value="{{ app.user.email }}" disabled>
+                                </div>
+
+                                <div class="mt-3 text-end">
+                                    <button type="button"
+                                            class="btn btn-outline-primary js-btn-show-change-mail"
+                                            id="js-show-change-mail"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#js-change-mail">
+                                        <i class="bi bi-lock"></i>
+                                        <span>{{ 'btn.change_email'|trans|capitalize }}</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal fade" id="js-change-mail" tabindex="-1" aria-labelledby="js-change-mail-label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="js-change-mail-label">{{ 'btn.change_email'|trans|capitalize }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            {{ form_start(form_email) }}
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    {{ form_row(form_email.email, {
+                                                        'attr': {
+                                                            'class': 'form-control',
+                                                            'id': 'js-new-mail'
+                                                        }})
+                                                    }}
+                                                    {% if form_errors(form_email.email) %}
+                                                        <div class="invalid-feedback">{{ form_errors(form_email.email) }}</div>
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    {{ form_row(form_email.email_repeat, {
+                                                        'attr': {
+                                                            'class': 'form-control',
+                                                            'id': 'js-new-mail-confirm'
+                                                        }})
+                                                    }}
+                                                    {% if form_errors(form_email.email_repeat) %}
+                                                        <div class="invalid-feedback">{{ form_errors(form_email.email_repeat) }}</div>
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    {{ form_row(form_email.password_confirm, {
+                                                        'attr': {
+                                                            'class': 'form-control',
+                                                            'id': 'js-mdp-validation'
+                                                        }})
+                                                    }}
+                                                    {% if form_errors(form_email.password_confirm) %}
+                                                        <div class="invalid-feedback">{{ form_errors(form_email.password_confirm) }}</div>
+                                                    {% endif %}
+                                                </div>
+
+                                                <small class="form-text text-muted">* {{ 'required_fields'|trans|capitalize }}</small>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" id="js-cancel-change-mail" data-bs-dismiss="modal">
+                                                    <i class="bi bi-x-square"></i>
+                                                    <span>{{ 'btn.cancel'|trans|capitalize }}</span>
+                                                </button>
+
+                                                <button type="submit" class="btn btn-outline-success" id="js-validate-change-mail">
+                                                    <i class="bi bi-check"></i>
+                                                    <span>{{ 'btn.validate'|trans|capitalize }}</span>
+                                                </button>
+                                            </div>
+                                            {{ form_end(form_email) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3 {% if action is defined and action is same as ('password') %}border border-{{ code }}{% endif %}" id="a_changepassword">
+                            <div class="card-body">
+                                <h2 class="h2 card-title"><i class="bi bi-lock me-1"></i> {{ 'user.profil.password'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+
+                                <div class="mt-3 text-end">
+                                    <button type="button"
+                                            class="btn btn-outline-primary js-btn-show-change-password"
+                                            id="js-show-change-password"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#js-change-password">
+                                        <i class="bi bi-lock"></i>
+                                        <span>{{ 'btn.change_password'|trans|capitalize }}</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal fade" id="js-change-password" tabindex="-1" aria-labelledby="js-change-password-label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="js-change-password-label">{{ 'btn.change_password'|trans|capitalize }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            {{ form_start(form_password) }}
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    {{ form_row(form_password.password, {
+                                                        'attr': {
+                                                            'class': 'form-control',
+                                                            'id': 'js-new-password'
+                                                        }})
+                                                    }}
+                                                    {% if form_errors(form_password.password) %}
+                                                        <div class="invalid-feedback">{{ form_errors(form_password.password) }}</div>
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    {{ form_row(form_password.password_repeat, {
+                                                        'attr': {
+                                                            'class': 'form-control',
+                                                            'id': 'js-new-password-confirm'
+                                                        }})
+                                                    }}
+                                                    {% if form_errors(form_password.password_repeat) %}
+                                                        <div class="invalid-feedback">{{ form_errors(form_password.password_repeat) }}</div>
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    {{ form_row(form_password.password_confirm, {
+                                                        'attr': {
+                                                            'class': 'form-control',
+                                                            'id': 'js-mdp-validation'
+                                                        }})
+                                                    }}
+                                                    {% if form_errors(form_password.password_confirm) %}
+                                                        <div class="invalid-feedback">{{ form_errors(form_password.password_confirm) }}</div>
+                                                    {% endif %}
+                                                </div>
+
+                                                <small class="form-text text-muted mt-2">* {{ 'required_fields'|trans|capitalize }}</small>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" id="js-cancel-change-password" data-bs-dismiss="modal">
+                                                    <i class="bi bi-x-square"></i>
+                                                    <span>{{ 'btn.cancel'|trans|capitalize }}</span>
+                                                </button>
+
+                                                <button type="submit" class="btn btn-outline-success" id="js-validate-change-password">
+                                                    <i class="bi bi-check"></i>
+                                                    <span>{{ 'btn.validate'|trans|capitalize }}</span>
+                                                </button>
+                                            </div>
+                                            {{ form_end(form_password) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3 mb-5 {% if action is defined and action is same as ('delete') %}border border-{{ code }}{% endif %}" id="a_delete">
+                            <div class="card-body">
+                                <h2 class="h2 card-title text-danger"><i class="bi bi-trash me-1"></i> {{ 'user.profil.delete.title'|trans|capitalize }}</h2>
+                                <div class="dropdown-divider"></div>
+
+                                <div class="mt-3 text-end">
+                                    <button type="button"
+                                            class="btn btn-outline-danger js-btn-show-delete"
+                                            id="js-show-delete"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#js-delete">
+                                        <i class="bi bi-lock"></i>
+                                        <span>{{ 'btn.delete_confirm'|trans|capitalize }}</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal fade" id="js-delete" tabindex="-1" aria-labelledby="js-delete-label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="js-delete-label">{{ 'btn.delete_confirm'|trans|capitalize }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <form name="user_delete_form" method="post" action="{{ path('users.delete') }}">
+
+                                                <div class="modal-body">
+                                                    <p class="alert alert-danger">{{ 'delete.are_you_sure'|trans|capitalize }}</p>
+
+                                                    {% if app.user.googleId is not null or app.user.githubId is not null %}
+                                                        <input type="hidden"
+                                                               id="userdelete_password_confirm"
+                                                               name="userdelete[linked]"
+                                                               value="yes"
+                                                        >
+                                                    {% else %}
+                                                        <input type="hidden"
+                                                               id="userdelete_password_confirm"
+                                                               name="userdelete[linked]"
+                                                               value="no"
+                                                        >
+
+                                                        <div class="form-group">
+                                                            <label class="label" for="userdelete_password_confirm">{{ 'user.profil.password'|trans|capitalize }}</label>
+                                                            <input type="password"
+                                                                   id="userdelete_password_confirm"
+                                                                   name="userdelete[password_confirm]"
+                                                                   required="required"
+                                                                   class="form-control"
+                                                            >
+
+                                                            <small class="form-text text-muted mt-2">{{ 'user.profil.delete.help'|trans|capitalize }}</small>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" id="js-cancel-delete" data-bs-dismiss="modal">
+                                                        <i class="bi bi-x-square"></i>
+                                                        <span>{{ 'btn.cancel'|trans|capitalize }}</span>
+                                                    </button>
+
+                                                    <button type="submit" class="btn btn-outline-success" id="js-validate-delete">
+                                                        <i class="bi bi-check"></i>
+                                                        <span>{{ 'btn.delete_confirm'|trans|capitalize }}</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+
+    </script>
+{% endblock %}

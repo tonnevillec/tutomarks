@@ -1,297 +1,229 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TutoMarks !{% endblock %}
+{% block title %}Tutomarks - Accueil{% endblock %}
 
 {% block body %}
-    <section class="jumbotron bg-dark">
-        <div class="row">
-            <div class="col text-center">
-                <h1 class="display-5 text-white">{{ 'home.title'|trans|capitalize }} TutoMarks !</h1>
-                <p class="lead">{{ 'home.lead'|trans|capitalize }}</p>
+    <div class="container">
 
-                <p class="mt-3">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                    {{ message|capitalize }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="video-row pb-2">
+            <div class="video-row-title my-4 ml-1">
+                <h2 class="h2">
+                    <span class="text-primary me-1"><i class="{{ categoryIcon('videos') }}"></i></span> {{ 'home.last-videos'|trans|capitalize }}
+
                     {% if app.user %}
+                        <div class="float-end">
+                            <a href="{{ path('ytlinks.add') }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                                <i class="bi bi-plus"></i>
+                                <span>{{ 'categories.videos.new'|trans|capitalize }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </h2>
+            </div>
 
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown">
-                            <i class="far fa-bookmark"></i> {{ 'tutos.add.title'|trans|capitalize }} <span class="caret"></span>
-                        </button>
+            <div class="row pb-3">
+                {% for yt in youtubelinks %}
+                    {{ include('home/_card_simplelinks.html.twig', { 'link': yt }) }}
+                {% endfor %}
+            </div>
 
-                        <div id="add-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item text-white" href="{{ path('tutos.addurl') }}"><i class="{{ categoryIcon('videos') }}"></i> {{ 'nav.add.video'|trans|capitalize }}</a>
-                            <a class="dropdown-item text-white" href="{{ path('tutos.add', { 'category' : 'articles' }) }}"><i class="{{ categoryIcon('articles') }}"></i> {{ 'nav.add.article'|trans|capitalize }}</a>
-                            <a class="dropdown-item text-white" href="{{ path('tutos.add', { 'category' : 'podcasts' }) }}"><i class="{{ categoryIcon('podcasts') }}"></i> {{ 'nav.add.podcast'|trans|capitalize }}</a>
+            {% if youtubelinks|length > 0 %}
+                <div class="row py-3">
+                    <a href="{{ path('search', {'categories[]' : youtubelinks[0].category.id}) }}" class="col a-show-more text-center small">
+                        <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_videos'|trans }}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="row pb-2">
+            <div class="col-sm-12 col-md-6 col-lg-8">
+                <div class="video-row-title my-4 ml-1">
+                    <h2 class="h2">
+                        <span class="text-primary me-1"><i class="bi bi-git"></i></span> {{ 'home.top-channels'|trans|capitalize }}
+                    </h2>
+                </div>
+
+                <div class="row pb-3">
+                    {% for author in authors %}
+                        {{ include('home/_creator_card.html.twig', {'author': author}) }}
+                    {% endfor %}
+                </div>
+
+                <div class="row py-3">
+                    <a href="{{ path('authors.index') }}" class="col a-show-more text-center small">
+                        <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }} {{ 'show_more_authors'|trans }}
+                    </a>
+                </div>
+
+                <div class="row pb-3">
+                    <div class="col-12">
+                        <div class="video-row-title my-4 ml-1">
+                            <h2 class="h2">
+                                <span class="text-primary me-1"><i class="{{ categoryIcon('ressources') }}"></i></span> {{ 'home.last-resources'|trans|capitalize }}
+
+                                {% if app.user and is_granted('ROLE_ADMIN') %}
+                                    <div class="float-end">
+                                        <a href="{{ path('slinks.add', { 'category' : 'ressources' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                                            <i class="bi bi-plus"></i>
+                                            <span>{{ 'categories.ressources.new'|trans|capitalize }}</span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </h2>
+                        </div>
+
+                        <div class="row pb-3">
+                            {% for ressource in ressources %}
+                                {{ include('home/_card_ressources.html.twig', {'link': ressource}) }}
+                            {% endfor %}
                         </div>
                     </div>
+                </div>
 
-                    {% else %}
-                        {{ 'user.want_to_join'|trans|capitalize }} ?
-                        <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info m-1">{{ 'user.register'|trans|capitalize }}</a>
-                        <a href="{{ path('app_login') }}" class="btn btn-sm btn-outline-success m-1">{{ 'user.login'|trans|capitalize }}</a>
-                    {% endif %}
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <div class="row">
-        <div class="col-lg-10 col-md-8 col-sm-12">
-            <h2 class="font-weight-light mb-3 text-white">
-                <i class="{{ categoryIcon('videos') }}"></i> {{ 'home.last-videos'|trans|capitalize }}
-
-                {% if app.user %}
-                    <div class="float-right">
-                        <a href="{{ path('tutos.addurl') }}" class="btn btn-xs btn-outline-info rounded btn-showlabelonhover">
-                            <i class="fas fa-plus-circle"></i>
-                            <span>{{ 'categories.videos.new'|trans|capitalize }}</span>
+                {% if ressources|length > 0 %}
+                    <div class="row py-3 px-5">
+                        <a href="{{ path('search', {'categories[]' : ressources[0].category.id}) }}" class="col a-show-more text-center small">
+                            <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_resources'|trans }}
                         </a>
                     </div>
                 {% endif %}
-            </h2>
-            <hr class="mb-3">
+            </div>
 
-            <div class="row mb-2" id="latest-videos">
-                <div class="col-xl-6 col-lg-12 col-md-12 mb-3">
-                    <div class="single-slider">
-                        <div class="trending-top mb-30">
-                            <div class="trend-top-img mb-1">
-                                <a href="{{ path('tutos.show', {'slug': tutos[0].slug, 'id': tutos[0].id}) }}">
-                                    {% if tutos[0]|tutos_thumbnail is not same as ('') %}
-                                        <img src="{{ tutos[0]|tutos_thumbnail }}" class="img-fluid" alt="Miniature tutoriel stocké sur youtube - {{ tutos[0].title }}">
-                                    {% elseif tutos[0].category.image %}
-                                        <img src="{{ asset('uploads/images/categories/' ~ tutos[0].category.image) }}" class="img-fluid" alt="Miniature catégorie - {{ tutos[0].category.title }}">
-                                    {% else %}
-                                        <img src="{{ asset('build/images/no-preview-2.png') }}" class="img-fluid" alt="Miniature catégorie - {{ tutos[0].category.title }}">
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <div class="trend-top-cap">
-                                {% if tutos[0].tags %}
-                                    <div class="css-tags mb-2">
-                                        {% for tag in tutos[0].tags %}
-                                            {% if tag.image %}
-                                                <img
-                                                        src="{{ vich_uploader_asset(tag, 'imageFile') }}"
-                                                        class="img-tags"
-                                                        alt="{{ tag }}"
-                                                        title="{{ tag }}"
-                                                        data-toggle="tooltip"
-                                                        data-placement="top" />
-                                            {% else %}
-                                                <span class="badge badge-primary badge-pill">{{ tag }}</span>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
+            <div class="col-sm-12 col-md-6 col-lg-4 ps-5">
+                <div class="video-row-title my-4 ml-1">
+                    <h2 class="h2">
+                        <a href="https://www.hebdoo.fr" title="Accèder au site Hebdoo.fr dans une nouvelle fenetre" target="_blank" class="text-decoration-none">
+                            <span class="text-primary me-1">H</span> {{ 'home.hebdoo'|trans|capitalize }}
+                        </a><br>
+                    </h2>
+                </div>
 
-                                <p>
-                                    <span class="badge badge-info badge-pill">{{ tutos[0].category }}</span>
-                                    <span class="badge badge-info badge-pill">{{ tutos[0].langue }}</span>
-
-                                    {% if tutos[0].price %}
-                                        <span class="badge badge-info badge-pill">{{ tutos[0].price }}</span>
-                                    {% endif %}
-                                    {% if tutos[0].level %}
-                                        <span class="badge badge-info badge-pill">{{ tutos[0].level }}</span>
-                                    {% endif %}
-                                </p>
-
-                                <h2 class="h2 mt-2"><a href="{{ path('tutos.show', {'slug': tutos[0].slug, 'id': tutos[0].id}) }}">{{ tutos[0].title }}</a></h2>
-                                <p>
-                                    {% if tutos[0].channel %}
-                                        <a href="{{ path('channels.show', {'id': tutos[0].channel.id, 'slug': tutos[0].channel.slug}) }}" class="text-white" title="{{ 'channel.all_tutos.show'|trans|capitalize }}" data-toggle="tooltip">
-                                            <i class="fas fa-at"></i> {{ tutos[0].channel.title }}
-                                        </a>
-                                    {% else %}
-                                        <i class="fas fa-at"></i> {{ tutos[0].creator }}
-                                    {% endif %}
-                                    <br/>
-                                    <small>{{ 'tutos.added_at'|trans|capitalize }} {{ tutos[0].publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ tutos[0].publishedBy }}</small>
-                                </p>
-                            </div>
+                <div class="row pb-3">
+                    <div class="col">
+                        <h3 class="h3">
+                            <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
+                               class="text-decoration-none"
+                               data-bs-toggle="tooltip"
+                               data-bs-placement="top"
+                               title="Accèder à la vidéo Hebdoo.fr sur Youtube"
+                               target="_blank">
+                                Semaine du {{ hebdoo.semaine }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
+                            </a>
+                        </h3>
+                        <div class="list-group">
+                        {% for ressoure in hebdoo.ressources %}
+                            <a href="{{ ressoure.url }}"
+                               class="list-group-item list-group-item-action"
+                               title="Ouvrir la ressource dans une nouvelle fenetre"
+                               data-bs-toggle="tooltip"
+                               data-bs-placement="top"
+                            >
+                                <strong>{{ ressoure.title }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i><br>
+                                par {{ ressoure.pseudo }}
+                            </a>
+                        {% endfor %}
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-xl-6 col-lg-12 col-md-12">
-                    <div class="row">
-                        {% for i in 1..3 %}
-                            <div class="whats-right-single mb-20">
-                                <div class="whats-right-img">
-                                    <a href="{{ path('tutos.show', {'slug': tutos[i].slug, 'id': tutos[i].id}) }}">
-                                        {% if tutos[i]|tutos_thumbnail is not same as ('') %}
-                                            <img src="{{ tutos[i]|tutos_thumbnail }}" alt="Miniature tutoriel stocké sur youtube - {{ tutos[i].title }}">
-                                        {% else %}
-                                            <img src="{{ asset('build/images/no-preview-2.png') }}" alt="Miniature tutoriel non stocké sur youtube - {{ tutos[i].title }}">
-                                        {% endif %}
+        <div class="video-row pb-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="video-row-title my-4 ml-1">
+                        <h2 class="h2">
+                            <span class="text-primary me-1"><i class="bi bi-tags-fill"></i></span> {{ 'home.top-tags'|trans|capitalize }}
+                        </h2>
+                    </div>
+
+                    <div class="row pb-3">
+                        <div class="col text-center">
+                            {% for tag in tags %}
+                                <a href="{{ path('search', {'tags[]' : tag.id}) }}"
+                                   class="tags-link"
+                                   title="{{ tag }}"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                ><img alt="{{ tag }}" src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=for-the-badge&logo={{ tag.code }}&logoColor={{ tag.color }}" /></a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-row pb-2">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="video-row-title my-4 ml-1">
+                        <h2 class="h2">
+                            <span class="text-primary me-1"><i class="{{ categoryIcon('articles') }}"></i></span> {{ 'home.last-articles'|trans|capitalize }}
+
+                            {% if app.user %}
+                                <div class="float-end pe-2">
+                                    <a href="{{ path('slinks.add', { 'category' : 'articles' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                                        <i class="bi bi-plus"></i>
+                                        <span>{{ 'categories.articles.new'|trans|capitalize }}</span>
                                     </a>
                                 </div>
-                                <div class="whats-right-cap">
-                                    {% if tutos[i].tags %}
-                                        <div class="css-tags mb-2">
-                                            {% for tag in tutos[i].tags %}
-                                                {% if tag.image %}
-                                                    <img
-                                                            src="{{ vich_uploader_asset(tag, 'imageFile') }}"
-                                                            class="img-tags-sm"
-                                                            alt="{{ tag }}"
-                                                            title="{{ tag }}"
-                                                            data-toggle="tooltip"
-                                                            data-placement="top" />
-                                                {% else %}
-                                                    <span class="badge badge-primary badge-pill">{{ tag }}</span>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-
-                                    <p>
-                                        <span class="badge badge-info badge-pill">{{ tutos[i].category }}</span>
-                                        <span class="badge badge-info badge-pill">{{ tutos[i].langue }}</span>
-
-                                        {% if tutos[i].price %}
-                                            <span class="badge badge-info badge-pill">{{ tutos[i].price }}</span>
-                                        {% endif %}
-                                        {% if tutos[i].level %}
-                                            <span class="badge badge-info badge-pill">{{ tutos[i].level }}</span>
-                                        {% endif %}
-                                    </p>
-
-                                    <h4 class="h4 mt-1"><a href="{{ path('tutos.show', {'slug': tutos[i].slug, 'id': tutos[i].id}) }}">{{ tutos[i].title }}</a></h4>
-                                    <p>
-                                        {% if tutos[i].channel %}
-                                            <a href="{{ path('channels.show', {'id': tutos[i].channel.id, 'slug': tutos[i].channel.slug}) }}" class="text-white" title="{{ 'channel.all_tutos.show'|trans|capitalize }}" data-toggle="tooltip">
-                                                <i class="fas fa-at"></i> {{ tutos[i].channel.title }}
-                                            </a>
-                                        {% else %}
-                                            <i class="fas fa-at"></i> {{ tutos[i].creator }}
-                                        {% endif %}
-                                        <br/>
-                                        <small>{{ 'tutos.added_at'|trans|capitalize }} {{ tutos[i].publishedAt|date('d/m/Y') }} {{ 'tutos.added_by'|trans }} {{ tutos[i].publishedBy }}</small>
-                                    </p>
-                                </div>
-                            </div>
-                        {% endfor %}
+                            {% endif %}
+                        </h2>
                     </div>
+
+                    {% for article in articles %}
+                        {{ include('home/_minimal_infos.html.twig', {'link': article}) }}
+                    {% endfor %}
+
+                    {% if articles|length > 0 %}
+                        <div class="row py-3 px-5">
+                            <a href="{{ path('search', {'categories[]' : articles[0].category.id}) }}" class="col a-show-more text-center small">
+                                <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_articles'|trans }}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <div class="video-row-title my-4 ml-1">
+                        <h2 class="h2">
+                            <span class="text-primary me-1"><i class="{{ categoryIcon('podcasts') }}"></i></span> {{ 'home.last-podcasts'|trans|capitalize }}
+
+                            {% if app.user %}
+                                <div class="float-end pe-2">
+                                    <a href="{{ path('slinks.add', { 'category' : 'podcasts' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                                        <i class="bi bi-plus"></i>
+                                        <span>{{ 'categories.podcasts.new'|trans|capitalize }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </h2>
+                    </div>
+
+                    {% for podcast in podcasts %}
+                        {{ include('home/_minimal_infos.html.twig', {'link': podcast}) }}
+                    {% endfor %}
+
+                    {% if podcasts|length > 0 %}
+                        <div class="row py-3 px-5">
+                            <a href="{{ path('search', {'categories[]' : podcasts[0].category.id}) }}" class="col a-show-more text-center small">
+                                <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_podcasts'|trans }}
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
-
         </div>
 
-        <div class="col-lg-2 col-md-4 col-sm-12">
-            <h2 class="font-weight-light mb-3 text-white">{{ 'search.word'|trans|capitalize }}</h2>
-            <hr class="mb-3">
-
-            <div class="mb-4">
-                <form name="f_search" method="get" class="d-flex" action="{{ path('search') }}">
-                <input type="text" class="form-control me-sm-2" name="value" placeholder="{{ 'search.word'|trans|capitalize }} ...">
-                <input type="hidden" name="element" value="word">
-                <button type="submit" class="btn btn-sm btn-secondary my-2 my-sm-0">
-                    <i class="fas fa-search"></i>
-                </button>
-                </form>
-            </div>
-
-            <h2 class="font-weight-light my-3 text-white">{{ 'tutos.category.plural'|trans|capitalize }}</h2>
-            <hr class="mb-3">
-
-            <div class="mb-4">
-                {% for category in categories %}
-                    <a href="{{ path('search', { 'element' : 'category', 'value' : category.id }) }}"
-                       class="badge badge-secondary badge-pill">{{ category.title }}</a>
-                {% endfor %}
-            </div>
-
-            <h2 class="font-weight-light my-3 text-white">{{ 'tutos.tags.label'|trans|capitalize }}</h2>
-            <hr class="mb-3">
-
-            <div class="mb-3">
-                {% for tag in tags %}
-                    <a href="{{ path('search', { 'element' : 'tag', 'value' : tag.id }) }}"
-                       class="badge badge-secondary badge-pill">{{ tag.title }}</a>
-                {% endfor %}
-            </div>
-        </div>
     </div>
-
-    <div class="row">
-        <div class="text-center mt-0 mb-5">
-            <a href="{{ path('search', {'category' : tutos[0].category.id}) }}" class="btn btn-sm btn-outline-secondary">{{ 'nav.search_more'|trans|capitalize }}</a>
-        </div>
-    </div>
-
-{#    <div class="row">#}
-        <div class="row mb-3">
-            <div class="col-xl-4 col-md-6 col-sm-12">
-                <h4 class="font-weight-light mb-3 text-white">
-                    <i class="{{ categoryIcon('articles') }}"></i> {{ 'home.last-articles'|trans|capitalize }}
-
-                    {% if app.user %}
-                        <div class="float-right">
-                            <a href="{{ path('tutos.add', { 'category' : 'articles' }) }}" class="btn btn-xs btn-outline-info rounded btn-showlabelonhover">
-                                <i class="fas fa-plus-circle"></i>
-                                <span>{{ 'categories.articles.new'|trans|capitalize }}</span>
-                            </a>
-                        </div>
-                    {% endif %}
-                </h4>
-                <hr class="mb-3">
-
-                {{ include('home/_minimal_infos.html.twig', {'obj' : articles}) }}
-
-                {% if articles|length > 0 %}
-                    <div class="text-center mt-0 mb-5">
-                        <a href="{{ path('search', {'category' : articles[0].category.id}) }}" class="btn btn-sm btn-outline-secondary">{{ 'nav.search_more_articles'|trans|capitalize }}</a>
-                    </div>
-                {% endif %}
-            </div>
-
-            <div class="col-xl-4 col-md-6 col-sm-12">
-                <h4 class="font-weight-light mb-3 text-white">
-                    <i class="{{ categoryIcon('podcasts') }}"></i> {{ 'home.last-podcasts'|trans|capitalize }}
-
-                    {% if app.user %}
-                        <div class="float-right">
-                            <a href="{{ path('tutos.add', { 'category' : 'podcasts' }) }}" class="btn btn-xs btn-outline-info rounded btn-showlabelonhover">
-                                <i class="fas fa-plus-circle"></i>
-                                <span>{{ 'categories.podcasts.new'|trans|capitalize }}</span>
-                            </a>
-                        </div>
-                    {% endif %}
-                </h4>
-                <hr class="mb-3">
-
-                {{ include('home/_minimal_infos.html.twig', {'obj' : podcast}) }}
-
-                {% if podcast|length > 0 %}
-                    <div class="text-center mt-0 mb-5 h100">
-                        <a href="{{ path('search', {'category' : podcast[0].category.id}) }}" class="btn btn-sm btn-outline-secondary">{{ 'nav.search_more_podcasts'|trans|capitalize }}</a>
-                    </div>
-                {% endif %}
-            </div>
-
-            <div class="col-xl-4 col-md-6 col-sm-12">
-                <h4 class="font-weight-light mb-3 text-white"><i class="fas fa-at"></i> {{ 'home.top-channels'|trans|capitalize }}</h4>
-                <hr class="mb-3">
-
-                {% for channel in top_channels %}
-                    {% set channel = channel[0] %}
-                    <div class="mb-3">
-                        {% include 'home/_channels.html.twig' %}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        {% if app.user and mytutos is not null and mytutos|length > 0 %}
-            <h2 class="font-weight-light mb-3 text-white">{{ 'home.my-last-tutos'|trans|capitalize }}</h2>
-            <hr class="mb-3">
-
-            <div class="row mb-5">
-                {% for tuto in mytutos %}
-                    {% include 'tutos/_light_card.html.twig' %}
-                {% endfor %}
-            </div>
-        {% endif %}
-{#    </div>#}
 {% endblock %}

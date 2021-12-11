@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tutomarks - Accueil{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                    {{ message|capitalize }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="row pb-2 my-4 ml-1">
+            <h2 class="h2">
+                <span class="text-primary me-1"><i class="bi bi-envelope-plus"></i></span> Contact
+            </h2>
+            <span class="small">{{ 'contact.subtitle'|trans|capitalize }}</span>
+        </div>
+
+        <form name="form_contact" method="post" action="{{ path('contact.send') }}" id="contact_form">
+            <div class="form-group">
+                <label class="form-label" for="contact_email">{{ 'contact.email.label'|trans|capitalize }} <span class="text-danger">*</span></label>
+                <input type="email" class="form-control form-control-sm"
+                       name="contact_email"
+                       id="contact_email"
+                       value="{{ app.user ? app.user.email : mail_subject is defined ? mail_subject : '' }}"
+                       placeholder="{{ 'contact.email.placeholder'|trans|capitalize }}"
+                       required
+                       aria-required="true"
+                       {% if app.user %}readonly{% endif %}
+                >
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label" for="contact_subject">{{ 'contact.subject.label'|trans|capitalize }} <span class="text-danger">*</span></label>
+                <input type="text" value="{{ mail_subject is defined ? mail_subject : '' }}" class="form-control form-control-sm" name="contact_subject" id="contact_subject" placeholder="{{ 'contact.subject.placeholder'|trans|capitalize }}" required aria-required="true">
+            </div>
+
+            <div class="form-group mt-3">
+                <label class="form-label" for="contact_message">{{ 'contact.message.label'|trans|capitalize }} <span class="text-danger">*</span> <span class="small">({{ 'contact.message.minlength'|trans|capitalize }})</span></label>
+                <textarea type="text" class="form-control" name="contact_message" id="contact_message" required aria-required="true" minlength="10">{{ mail_message is defined ? mail_message : '' }}</textarea>
+            </div>
+
+            <small class="text-danger">* {{ 'required_fields'|trans|capitalize }}</small>
+
+            <div class="text-end mt-3">
+                <button class="btn btn-outline-success btn-sm" type="submit" id="js-form-contact"><i class="bi bi-send me-2"></i> {{ 'btn.submit'|trans|capitalize }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

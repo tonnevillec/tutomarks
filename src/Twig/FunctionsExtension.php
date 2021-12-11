@@ -1,165 +1,157 @@
 <?php
 namespace App\Twig;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
+use App\Entity\Authors;
 use App\Entity\Categories;
-use App\Entity\Tutos;
-use App\Entity\User;
-use App\Entity\UserTutosInformations;
+use App\Entity\Links;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Twitter\Text\Autolink;
 
 class FunctionsExtension extends AbstractExtension
 {
-    private $em;
-    private $translator;
+    private EntityManagerInterface $em;
+    private UrlGeneratorInterface $router;
+    private UrlGeneratorInterface $generator;
 
-    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $router, UrlGeneratorInterface $generator)
     {
         $this->em = $em;
-        $this->translator = $translator;
+        $this->router = $router;
+        $this->generator = $generator;
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('tweets', [$this, 'getTweets'], ['is_safe' => ['html']]),
-            new TwigFunction('autolink', [$this, 'getAutolink'], ['is_safe' => ['html']]),
-            new TwigFunction('userTutoInformations', [$this, 'getUserTutoInformations'], ['is_safe' => ['html']]),
-            new TwigFunction('countPined', [$this, 'getCountPined'], ['is_safe' => ['html']]),
-            new TwigFunction('pinForTuto', [$this, 'getPinForTuto'], ['is_safe' => ['html']]),
-            new TwigFunction('shownForTuto', [$this, 'getShownForTuto'], ['is_safe' => ['html']]),
             new TwigFunction('categoryIcon', [$this, 'getCategoryIcon'], ['is_safe' => ['html']]),
+            new TwigFunction('menuAuthors', [$this, 'getMenuAuthors'], ['is_safe' => ['html']]),
+            new TwigFunction('menuCategories', [$this, 'getMenuCategories'], ['is_safe' => ['html']]),
+            new TwigFunction('footerCategories', [$this, 'getFooterCategories'], ['is_safe' => ['html']]),
+            new TwigFunction('headerMenuAddByCategories', [$this, 'getHeaderMenuAddByCategories'], ['is_safe' => ['html']]),
+            new TwigFunction('notPublishedLinksCount', [$this, 'getNotPublishedLinksCount'], ['is_safe' => ['html']]),
         ];
     }
 
     /**
-     * @param $key
-     * @param $secret
-     * @param $bearer
-     * @return array|object
-     */
-    public function getTweets($key, $secret, $bearer)
-    {
-//        return $key . ' / ' . $secret . ' / ' . $bearer;
-        $connection = new TwitterOAuth($key, $secret, null, $bearer);
-        $tweets = $connection->get("statuses/user_timeline", ['screen_name' => 'tutomarks', 'count' => 3]);
-
-        return $tweets;
-    }
-
-    /**
-     * @param $tweet
+     * @param String $code
      * @return string
      */
-    public function getAutolink($tweet)
-    {
-        return Autolink::create()->autoLink($tweet);
-    }
-
-    /**
-     * @param User $user
-     * @param Tutos $tutos
-     * @return object|null
-     */
-    public function getUserTutoInformations(User $user, Tutos $tutos): ?object
-    {
-        return $this->em
-            ->getRepository(UserTutosInformations::class)
-            ->findOneBy([
-                'user'  => $user->getId(),
-                'tutos' => $tutos->getId()
-            ])
-        ;
-    }
-
-    /**
-     * @param Tutos $tutos
-     * @return int
-     */
-    public function getCountPined(Tutos $tutos): int
-    {
-        $infos = $this->em
-            ->getRepository(UserTutosInformations::class)
-            ->findBy([
-                'tutos' => $tutos->getId()
-            ]);
-        return count($infos);
-    }
-
-    /**
-     * @param Tutos $tutos
-     * @param User|null $user
-     * @return string
-     */
-    public function getPinForTuto(Tutos $tutos, ?User $user = null): string
-    {
-        $pin = '<i class="fas fa-thumbtack"></i>';
-
-        if(is_null($user)){
-            return $pin;
-        }
-
-        $infos = $this->em
-            ->getRepository(UserTutosInformations::class)
-            ->findOneBy([
-                'tutos' => $tutos->getId(),
-                'user'  => $user->getId()
-            ]);
-
-        if(!$infos){
-            return $pin;
-        }
-
-        return $infos->getPined() ? '<span class="text-success" data-toggle="tooltip" data-placement="top" title="'.ucfirst($this->translator->trans('btn.userpin')).'">'.$pin.'</span>' : $pin;
-    }
-
-    /**
-     * @param Tutos $tutos
-     * @param User|null $user
-     * @return string
-     */
-    public function getShownForTuto(Tutos $tutos, ?User $user = null): string
-    {
-        $show = '<span class="mr-2 text-success" data-toggle="tooltip" data-placement="top" title="'.ucfirst($this->translator->trans('btn.usershow')).'"><i class="fas fa-eye"></i></span>';
-        $notshow = '<span class="mr-2" data-toggle="tooltip" data-placement="top" title="'.ucfirst($this->translator->trans('btn.usernotshow')).'"><i class="fas fa-eye-slash"></i></span>';
-
-        if(is_null($user)){
-            return $notshow;
-        }
-
-        $infos = $this->em
-            ->getRepository(UserTutosInformations::class)
-            ->findOneBy([
-                'tutos' => $tutos->getId(),
-                'user'  => $user->getId()
-            ]);
-
-        if(!$infos){
-            return $notshow;
-        }
-
-        return $infos->getShown() ? $show : $notshow;
-    }
-
-    /**
-     * @param String $homekey
-     * @return string
-     */
-    public function getCategoryIcon(String $homekey): string
+    public function getCategoryIcon(String $code): string
     {
         $category = $this->em
             ->getRepository(Categories::class)
             ->findOneBy([
-                'homekey'   => $homekey
+                'code'   => $code
             ]);
 
         if(!$category) {
-            return 'fas fa-box';
+            return 'bi bi-box';
         }
-        return !is_null($category->getLogo()) && $category->getLogo() !== '' ? $category->getLogo() : 'fas fa-box';
+        return !is_null($category->getLogo()) && $category->getLogo() !== '' ? $category->getLogo() : 'bi bi-box';
+    }
+
+    public function getMenuAuthors(): string
+    {
+        $authors = $this->em
+            ->getRepository(Authors::class)
+            ->findTop(5)
+            ;
+
+        if(!$authors) {
+          return '';
+        }
+
+        $return = '';
+        foreach($authors as $author) {
+            if($author[0]->getYtLogo()) {
+                $logo = '<img src="'.$author[0]->getYtLogo().'" alt="" class="img-h30 me-1 rounded-circle">';
+            } else {
+                $logo = '<span class="ico-author me-1 text-gray"><i class="bi bi-person"></i></span>';
+            }
+            $r = $this->generator->generate('authors.show', [
+                'slug' => $author[0]->getSlug(),
+                'id' => $author[0]->getId()
+            ]);
+            $return .= '<a href="'.$r.'" class="list-group-item d-flex align-items-center">
+                '.$logo.'
+                <span class="text-truncate">'.$author[0]->getTitle().'</span>                
+            </a>';
+        }
+        return $return;
+    }
+
+    public function getMenuCategories(): string
+    {
+        $categories = $this->em
+            ->getRepository(Categories::class)
+            ->findBy(['is_actif' => true], ['id' => 'ASC'])
+        ;
+
+        $return = '';
+        foreach ($categories as $category) {
+            $logo = !is_null($category->getLogo()) && $category->getLogo() !== '' ? $category->getLogo() : 'bi bi-box';
+            $path = $this->router->generate('search', [
+                'categories[]'  => $category->getId()
+            ]);
+            $return .= '<a href="'.$path.'" class="list-group-item d-flex align-items-center">
+                <i class="'.$logo.' me-1"></i>
+                <span>'.$category->getTitle().'</span>
+            </a>';
+        }
+        return $return;
+    }
+
+    public function getFooterCategories(): string
+    {
+        $categories = $this->em
+            ->getRepository(Categories::class)
+            ->findBy(['is_actif' => true], ['id' => 'ASC'])
+        ;
+
+        $return = '';
+        if(count($categories) > 0) {
+            $return .= '<ul  class="nav flex-column">';
+            foreach ($categories as $category) {
+                $logo = !is_null($category->getLogo()) && $category->getLogo() !== '' ? $category->getLogo() : 'bi bi-box';
+                $path = $this->router->generate('search', [
+                    'categories[]'  => $category->getId()
+                ]);
+                $return .= '<li class="nav-item mb-2"><a href="'.$path.'" class="nav-link py-0 ps-3 pe-0">
+                    <i class="'.$logo.' me-1"></i>
+                    <span>'.$category->getTitle().'</span>
+                </a></li>';
+            }
+            $return .= '</ul>';
+        }
+        return $return;
+    }
+
+    public function getHeaderMenuAddByCategories(): string
+    {
+        $categories = $this->em
+            ->getRepository(Categories::class)
+            ->findBy(['is_actif' => true])
+        ;
+
+        $return = '';
+        foreach($categories as $category) {
+            $logo = $category->getLogo() ? '<i class="'.$category->getLogo().' me-1"></i>' : '<i class="bi bi-plus-square me-1"></i>';
+
+            $return .= '<li><a class="dropdown-item" href="#">' . $logo . ' ' . $category->getTitle() . '</a></li>';
+        }
+        return $return;
+    }
+
+    public function getNotPublishedLinksCount(int $userId): int
+    {
+        return count($this->em
+            ->getRepository(Links::class)
+            ->findBy([
+                'published_by'  => $userId,
+                'is_publish'    => false
+            ])
+        );
     }
 }

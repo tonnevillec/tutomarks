@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Nouveau partage{% endblock %}
+
+{% block body %}
+<section class="my-4">
+
+    <div class="container">
+        <h1 class="h1 mb-3 fw-bold"><i class="bi bi-youtube me-1 text-primary"></i> {{ 'ytlinks.add.title'|trans|capitalize }}</h1>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                    {{ message|capitalize }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <div class="row">
+            <div class="col text-center">
+                <a href="{{ path('home') }}" class="btn btn-outline-danger">
+                    <i class="bi bi-x-square me-1"></i> {{ 'btn.cancel'|trans|capitalize }}
+                </a>
+
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="bi bi-check me-1"></i> {{ 'btn.submit'|trans|capitalize }}
+                </button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</section>
+{% endblock %}
