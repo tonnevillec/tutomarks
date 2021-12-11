@@ -1,0 +1,182 @@
+body {
+  font-family: Roboto, arial, sans-serif;
+  //height: 1500px;
+
+  background-color: $white;
+}
+
+a {
+  color: $black;
+
+  &:hover {
+    color: $primary !important;
+  }
+}
+
+.dropdown-item:hover:hover {
+  background-color: $white !important;
+}
+
+.mb-10 {
+  margin-bottom: 10rem;
+}
+.bg-gray {
+  background-color: #e3e3e3;
+}
+.flex-grow-1 {
+  flex-grow: 1;
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.very-small {
+  font-size: 0.7rem;
+}
+
+.img-tags-sm {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  object-fit: contain;
+}
+
+.img-h40 {
+  height: 40px;
+}
+.img-h30 {
+  height: 30px;
+}
+
+.ico-author {
+  //width: 30px;
+  //height: 30px;
+  display: block;
+  padding: 4px 8px;
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: $white;
+}
+.img-obambu {
+  max-width: 150px;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-gray {
+  color: $gray;
+}
+
+.a-show-more {
+  box-shadow: 0 1px 0 0 rgba(0,0,0, .2);
+  text-decoration: none;
+  opacity: .4;
+}
+.a-show-more:hover {
+  color: black;
+  box-shadow: 0 1px 0 0 $primary;
+  opacity: 1;
+}
+
+.register_or {
+  border-top: 1px solid $light-gray;
+  border-bottom: 1px solid $light-gray;
+}
+
+.btn-showlabelonhover {
+  border-radius: 10px !important;
+}
+.btn-showlabelonhover span {
+  max-width: 0;
+  -webkit-transition: max-width 1s;
+  transition: max-width 1s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.btn-showlabelonhover:hover span {
+  //max-width: 7rem;
+  max-width: 8rem;
+  color: $white;
+}
+.btn-xs {
+  padding: 0.2rem .5rem;
+  font-size: 0.5em;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.mh-250p {
+  min-height: 250px !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-info:hover,
+.btn-outline-danger:hover,
+.btn-outline-success:hover {
+  color: $white !important;
+}
+.btn-success,
+.btn-secondary {
+  color: $white !important;
+}
+.btn-success:hover {
+  color: $success !important;
+  background-color: $white !important;
+}
+.btn-outline-secondary:hover {
+  color: $white !important;
+  background-color: $secondary !important;
+}
+
+.dropdown-menu,
+.form-control,
+.input-group,
+.input-group > .input-group-text {
+  border-radius: 0 !important;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.tags-link img {
+  height: 30px !important;
+  margin: 0.15rem;
+}
+
+a.tags-link {
+  border-left: 1px solid $white !important;
+  border-right: 1px solid $white !important;
+}
+
+a.tags-link:hover {
+  border-left: 1px solid $secondary !important;
+  border-right: 1px solid $secondary !important;
+}
+
+.flag-tag {
+  max-height: 24px !important;
+}
+
+.page-link:hover{
+  background-color: $secondary !important;
+  color: $white !important;
+}
+
+.badgebox-img {
+  max-height: 20px;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: $light-gray !important;
+  opacity: 1;
+}
+
+.ressources-card {
+  border-style: solid;
+}

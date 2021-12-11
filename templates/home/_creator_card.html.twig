@@ -1,0 +1,62 @@
+<div class="{% if xclass is defined %}{{ xclass }}{% else %}col-md-12 col-lg-6{% endif %}">
+    <div class="author-card row g-0 border overflow-hidden flex-md-row mb-4 position-relative">
+        <div class="col-3 p-1 text-center">
+            {% if author[0].ytLogo %}
+                <img alt="{{ author[0].title }}" src="{{ author[0].ytLogo }}" class="img-fluid">
+            {% else %}
+                <span class="ico-author text-gray"><i class="bi bi-person bi-3x"></i></span>
+            {% endif %}
+        </div>
+
+        <div class="author-infos col-9 p-1 d-flex flex-column position-static">
+            <div class="author-title fs-5 mb-1">
+                <a href="{{ path('authors.show', { 'slug' : author[0].slug, 'id' : author[0].id }) }}">
+                    <i class="bi bi-mortarboard-fill me-1"></i>{{ author[0].title }}
+                </a>
+            </div>
+
+            <div class="btn-toolbar justify-content-start fs-3" role="toolbar" aria-label="Les liens pour suivre cet auteur">
+                {% if author[0].youtube %}
+                    <div class="btn-group me-2" role="group">
+                        <a href="{{ author[0].youtube }}" class="btn" target="_blank" title="{{ 'authors.youtube.label'|trans|capitalize }}">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                {% endif %}
+                {% if author[0].siteUrl %}
+                    <div class="btn-group me-2" role="group">
+                        <a href="{{ author[0].siteUrl }}" class="btn" target="_blank" title="{{ 'authors.site_url.link'|trans|capitalize }}">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                    </div>
+                {% endif %}
+                {% if author[0].twitter %}
+                    <div class="btn-group me-2" role="group">
+                        <a href="{{ author[0].twitter }}" class="btn" target="_blank" title="{{ 'authors.twitter.label'|trans }}">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                    </div>
+                {% endif %}
+                {% if author[0].github %}
+                    <div class="btn-group me-2" role="group">
+                        <a href="{{ author[0].github }}" class="btn" target="_blank" title="{{ 'authors.github.label'|trans }}">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </div>
+                {% endif %}
+                {% if author[0].twitch %}
+                    <div class="btn-group me-2" role="group">
+                        <a href="{{ author[0].twitch }}" class="btn" target="_blank" title="{{ 'authors.twitch.label'|trans }}">
+                            <i class="bi bi-twitch"></i>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="author-nb-links">
+                <i class="bi bi-tags-fill me-1"></i>{{ author['nb'] }} {% if author['nb'] > 1%}{{ 'authors.links.count'|trans }}{% else %}{{ 'authors.links.count_singular'|trans }}{% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>

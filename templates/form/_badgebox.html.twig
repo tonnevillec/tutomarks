@@ -1,0 +1,42 @@
+{#{% set color = 'primary' %}#}
+{#{% set name = 'tags' %}#}
+{% set _class = '' %}
+{% for k, v in attr %}
+{% if k is same as 'class' %}
+    {% set _class = v %}
+{% endif %}
+{% endfor %}
+<div class="form-group {{ _class }}">
+    <label class="label">{{ label }}</label><br/>
+    {% if choices is iterable %}
+        {% for id, k in choices %}
+            {% set chk = false %}
+            {% if k.data.id in form.vars.value
+                or (app.request.query.has('element') and app.request.query.get('element') == name and app.request.query.get('value') == k.data.id)
+            %}
+                {% set chk = true %}
+            {% endif %}
+            <label for="{{ name }}_{{ k.value }}" class="btn btn-sm {% if k.data.id in form.vars.value %}btn-{{ color }}{% else %}btn-outline-{{ color }}{% endif%} m-1">
+                <input type="checkbox"
+                       name="{{ name }}[]"
+                       value="{{ k.data.id }}"
+                       id="{{ name }}_{{ k.value }}"
+                       {% if chk %}checked="checked"{% endif%}
+                       class="badgebox d-none"
+                       data-color="{{ color }}"
+                       data-icon="badgebox-icon-{{ name }}-{{ k.value }}"
+                >
+                <i class="bi bi-{% if chk %}check2-{% endif %}square me-1" id="badgebox-icon-{{ name }}-{{ k.value }}"></i>
+                {% if withYtLogo is defined %}
+                    {% if k.data.ytLogo %}<img src="{{ k.data.ytLogo }}" class="rounded-circle badgebox-img me-1" alt="">{% endif %}{{ k.label }}
+                {% elseif withLogo is defined %}
+                    {{ k.label }}{% if k.data.logo %}<img src="{{ vich_uploader_asset(k.data, 'imageFile') }}" class="rounded-circle badgebox-img ms-1" alt="">{% endif %}
+                {% elseif withIco is defined %}
+                    {% if k.data.logo %}<i class="{{ k.data.logo }} me-1"></i>{% endif %}{{ k.label }}
+                {% else %}
+                    {{ k.label }}
+                {% endif %}
+            </label>
+        {% endfor %}
+    {% endif %}
+</div>

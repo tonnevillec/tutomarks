@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tutomarks - Fiche auteur{% endblock %}
+
+{% block body %}
+    <section class="mt-4 mb-3">
+        <div class="container">
+            <div class="author-card row g-0 border overflow-hidden flex-md-row mb-4 position-relative">
+                <div class="col-2 p-1 text-center">
+                    {% if author.ytLogo %}
+                        <img alt="{{ author.title }}" src="{{ author.ytLogo }}">
+                    {% else %}
+                        <span class="ico-author text-gray"><i class="bi bi-person bi-3x"></i></span>
+                    {% endif %}
+                </div>
+
+                <div class="author-infos col-10 p-1 d-flex flex-column position-static">
+                    <div class="author-title mb-1">
+                        <h1 class="h1">
+                            <i class="bi bi-mortarboard-fill me-1"></i>{{ author.title }}
+                        </h1>
+                    </div>
+
+                    <div class="btn-toolbar justify-content-start" role="toolbar" aria-label="Les liens pour suivre cet auteur">
+                        {% if author.youtube %}
+                            <div class="btn-group me-2" role="group">
+                                <a href="https://www.youtube.com/channel/{{ author.youtube }}" class="btn fs-2" target="_blank" title="{{ 'authors.youtube.label'|trans|capitalize }}">
+                                    <i class="bi bi-youtube"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if author.siteUrl %}
+                            <div class="btn-group me-2" role="group">
+                                <a href="{{ author.siteUrl }}" class="btn fs-2" target="_blank" title="{{ 'authors.site_url.link'|trans|capitalize }}">
+                                    <i class="bi bi-globe"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if author.twitter %}
+                            <div class="btn-group me-2" role="group">
+                                <a href="{{ author.twitter }}" class="btn fs-2" target="_blank" title="{{ 'authors.twitter.label'|trans }}">
+                                    <i class="bi bi-twitter"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if author.github %}
+                            <div class="btn-group me-2" role="group">
+                                <a href="{{ author.github }}" class="btn fs-2" target="_blank" title="{{ 'authors.github.label'|trans }}">
+                                    <i class="bi bi-github"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if author.twitch %}
+                            <div class="btn-group me-2" role="group">
+                                <a href="{{ author.twitch }}" class="btn fs-2" target="_blank" title="{{ 'authors.twitch.label'|trans }}">
+                                    <i class="bi bi-twitch"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if author.description %}
+            <div class="row my-4 g-0 overflow-hidden flex-md-row position-relative">
+                <h2 class="h2 card-title"><i class="bi bi-caret-right-square-fill me-1 text-primary"></i>{{ 'authors.description.label'|trans|capitalize }} :</h2>
+
+                <div class="border rounded p-2">
+                    <p>{{ author.description|nl2br }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if videos|length > 0 %}
+            <div class="row my-4 g-0 overflow-hidden flex-md-row position-relative">
+                <h2 class="h2 card-title"><i class="bi bi-camera-fill me-1 text-primary"></i>{{ 'authors.all_videos.label'|trans|capitalize }} :</h2>
+                <hr class="mt-1 mb-3">
+
+                <div class="row pb-3">
+                {% for video in videos %}
+                    {{ include('home/_card_simplelinks.html.twig', { 'link': video }) }}
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if links|length > 0 %}
+            <div class="row my-4 g-0 overflow-hidden flex-md-row position-relative">
+                <h2 class="h2 card-title"><i class="bi bi-card-list me-1 text-primary"></i>{{ 'authors.other_links.label'|trans|capitalize }} :</h2>
+                <hr class="mt-1 mb-3">
+
+                <div class="row pb-3">
+                    {% for link in links %}
+                        {{ include('home/_card_simplelinks.html.twig', {'link': link, 'withIco' : true}) }}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

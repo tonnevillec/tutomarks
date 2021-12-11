@@ -1,6 +1,6 @@
 a11y:
-    top:
-        content: "passer directement au contenu"
+  top:
+    content: "passer directement au contenu"
 
 back_to_site: 'Retour au site'
 back_to_home: "retour à l'accueil"
@@ -10,364 +10,422 @@ required_fields: 'champs requis'
 back_to_top: 'retour en haut de page'
 loading: 'chargement'
 no-data-found: 'aucune information trouvée'
+show_more: 'voir plus'
+show_more_articles: "d'articles"
+show_more_videos: 'de vidéos'
+show_more_podcasts: 'de podcasts'
+show_more_formations: 'de formations'
+show_more_resources: 'de ressources'
+show_more_authors: "de créateurs"
 
 login:
-    success: 'connexion réussie'
-    failed: 'identification impossible'
+  success: 'connexion réussie'
+  failed: 'identification impossible'
 
 unknown:
-    field: 'non renseigné'
+  field: 'non renseigné'
 
 home:
-    title: 'Bienvenue sur '
-    lead: "l'annuaire de tutoriaux pour apprendre à développer"
-    sub: "si vous êtes pret, alors c'est parti !"
-    last-tutos: 'les derniers tutos'
-    last-videos: 'les dernières vidéos'
-    last-articles: 'les derniers articles'
-    last-podcasts: 'les derniers podcasts'
-    my-last-tutos: 'mes dernières contributions'
-    channels: 'listes des chaines'
-    'top-channels': 'Le top chaînes'
+  title: 'Bienvenue sur '
+  lead: "l'annuaire de tutoriaux pour apprendre à développer"
+  sub: "si vous êtes pret, alors c'est parti !"
+  last-tutos: 'derniers liens'
+  last-videos: 'dernières vidéos'
+  last-articles: 'derniers articles'
+  last-podcasts: 'derniers podcasts'
+  last-formations: 'dernières formations'
+  last-resources: 'dernières ressources'
+  my-last-tutos: 'mes dernières contributions'
+  channels: 'listes des créateurs'
+  top-channels: 'top créateurs'
+  top-tags: 'tags'
+  hebdoo: 'Hebdoo.fr'
 
 nav:
-    home: 'accueil'
-    current: 'actuel'
-    login: 'connexion'
-    logout: 'déconnexion'
-    register: "s'inscrire"
-    account: 'mon compte'
-    new_here: 'nouveau'
-    signin: 'inscription'
-    search: 'recherche'
-    search_more: 'rechercher parmis tous les tutos'
-    search_more_articles: 'rechercher parmis tous les articles'
-    search_more_podcasts: 'rechercher parmis tous les podcasts'
-    add:
-        title: 'partager un lien'
-        video: 'vidéo'
-        podcast: 'podcast'
-        article: 'article'
-    admin: 'administration'
-    connection: 'connectez-vous'
-    tutos:
-        user: 'mes contributions'
-    channels: 'chaines'
-    obambu: 'Le site est hébergé par Obambu'
-    buymeacoffee: 'Buy me a coffee'
+  home: 'accueil'
+  current: 'actuel'
+  login: 'connexion'
+  logout: 'déconnexion'
+  register: "s'inscrire"
+  account: 'mon compte'
+  new_here: 'nouveau'
+  signin: 'inscription'
+  search: 'recherche'
+  search_more: 'rechercher parmis tous les liens'
+  search_more_articles: 'rechercher parmis tous les articles'
+  search_more_podcasts: 'rechercher parmis tous les podcasts'
+  add:
+    title: 'partager un lien'
+    video: 'vidéo'
+    podcast: 'podcast'
+    article: 'article'
+  admin: 'administration'
+  connection: 'connectez-vous'
+  tutos:
+    user: 'mes contributions'
+  channels: 'chaines'
+  obambu: 'Le site est hébergé par Obambu'
+  buymeacoffee: 'Buy me a coffee'
 
 user:
-    login: 'connectez-vous'
-    register: "Inscrivez-vous"
-    want_to_join: 'envie de contribuer'
-    want_to_comment: 'envie de commenter'
-    email:
-        title: 'Adresse e-mail'
-        placeholder: 'adresse e-mail'
-    username:
-        placeholder: "nom d'utilisateur"
-        label: "nom d'utilisateur"
-        title: "nom d'utilisateur"
-    password:
-        title: 'Mot de passe'
-        repeat: 'Répéter le mot de passe'
-        forget: 'mot de passe oublié ?'
-    keep_me_sign_in: 'se rappeler de moi'
-    social:
-        unvailable_service: 'service de connexion non pris en charge'
-    profil:
-        title: 'mon compte'
-        informations: 'mes informations'
-        social: 'mes réseaux sociaux'
-        email: 'mon e-mail'
-        current_email: 'mon e-mail actuel'
-        password: 'mon mot de passe'
-        validate_update: 'votre compte a été modifié'
-        error_update: 'erreur lors de la modification de votre compte'
-        new_email:
-            label: 'nouvelle adresse e-mail'
-            validation: 'valider mon adresse e-mail'
-            help: 'pour valider vos modifications, saisissez votre mot de passe et cliquez sur « Modifier mon adresse e-mail »'
-            validate_update: 'votre e-mail a été modifié'
-            fail_update: 'mot de passe invalide'
-        new_password:
-            label: 'nouveau mot de passe'
-            validation: 'modifier le mot de passe'
-            help: 'pour valider vos modifications, saisissez votre ancien mot de passe et cliquez sur « Modifier  le mot de passe »'
-            validate_update: 'votre mot de passe a été modifié'
-            fail_update: 'mot de passe invalide'
-            confirm: 'Mot de passe actuel'
-        delete:
-            title: 'supprimer mon compte'
-            help: 'pour valider la suppression de votre compte, saisissez votre mot de passe et cliquez sur « Confirmer la suppression »'
-            validate_update: 'votre compte a été supprimé'
-            fail_update: 'mot de passe invalide'
+  login: 'connectez-vous'
+  register: "Inscrivez-vous"
+  want_to_join: 'envie de contribuer'
+  want_to_comment: 'envie de commenter'
+  email:
+    title: 'Adresse e-mail'
+    placeholder: 'adresse e-mail'
+  username:
+    placeholder: "nom d'utilisateur"
+    label: "nom d'utilisateur"
+    title: "nom d'utilisateur"
+  password:
+    title: 'Mot de passe'
+    repeat: 'Répéter le mot de passe'
+    forget: 'mot de passe oublié ?'
+  keep_me_sign_in: 'se rappeler de moi'
+  social:
+    unvailable_service: 'service de connexion non pris en charge'
+  profil:
+    title: 'mon compte'
+    informations: 'mes informations'
+    social: 'mes réseaux sociaux'
+    email: 'mon e-mail'
+    current_email: 'mon e-mail actuel'
+    password: 'mon mot de passe'
+    validate_update: 'votre compte a été modifié'
+    error_update: 'erreur lors de la modification de votre compte'
+    undefined: "le compte n'existe pas"
+    new_email:
+      label: 'nouvelle adresse e-mail'
+      validation: 'valider mon adresse e-mail'
+      help: 'pour valider vos modifications, saisissez votre mot de passe et cliquez sur « Modifier mon adresse e-mail »'
+      validate_update: 'votre e-mail a été modifié'
+      fail_update: 'mot de passe invalide'
+    new_password:
+      label: 'nouveau mot de passe'
+      validation: 'modifier le mot de passe'
+      help: 'pour valider vos modifications, saisissez votre ancien mot de passe et cliquez sur « Valider les modifications »'
+      validate_update: 'votre mot de passe a été modifié'
+      fail_update: 'mot de passe invalide'
+      confirm: 'Mot de passe actuel'
+      help_rules: 'votre mot de passe doit faire au minimum 8 caractères'
+    delete:
+      title: 'supprimer mon compte'
+      help: 'pour valider la suppression de votre compte, saisissez votre mot de passe et cliquez sur « Confirmer la suppression »'
+      validate_update: 'votre compte a été supprimé'
+      fail_update: 'mot de passe invalide'
+  my_links:
+    youtube: 'mes liens Youtube'
+    simple: 'mes autres liens'
 
 password:
-    forget:
-        email:
-            label: 'votre adresse e-mail'
-            placeholder: 'adresse mail de votre compte'
-            required: 'veuillez saisir votre adresse mail'
-        user:
-            unknown: 'adresse e-mail inconnue'
-        btn_reload: 'ré-initialiser mon mot de passe'
-        validate: 'mot de passe ré-initialisé. Un mail a été envoyé avec votre mot de passe temporaire.'
-
-deadlink:
-    thanks:
-        title: 'lien mort'
-        dialog: "Confirmez-vous que le lien pour ce tutoriel n'est plus valide?"
-        flash: "Merci pour votre aide. Le lien sera controllé dès que possible."
-    mail:
-        subject: "signalement d'un lien mort"
-        from: 'utilisateur'
-        tuto:
-            id: 'ID du tutoriel'
-            title: 'titre du tutoriel'
-        message: 'un lien mort a été signalé pour le tutoriel indiqué.'
-
-btn:
-    validate: 'valider les modifications'
-    validate_change_password: 'Modifier  le mot de passe'
-    change_email: "changer d'adresse e-mail"
-    change_password: "changer de mot de passe"
-    delete_account: 'supprimer mon compte'
-    delete_confirm: 'confirmer la suppression'
-    cancel: 'annuler'
-    close: 'fermer'
-    search: 'rechercher'
-    reset: 'réinitialiser'
-    confirm: 'confirmer'
-    show_more: 'voir plus'
-    show_more_filters: 'afficher plus de filtres'
-    submit: 'soumettre'
-    send: 'envoyer'
-    deadlink: 'signaler un lien mort'
-    shown: 'marquer comme vu'
-    unshown: 'marquer comme non vu'
-    pined: 'épingler'
-    unpined: 'désépingler'
-    userpin: 'vous avez épinglé ce tutoriel'
-    usershow: 'vous avez vu ce tutoriel'
-    usernotshow: "vous n'avez pas vu ce tutoriel"
-    twitter:
-        share: 'partager'
-        share_title: 'partager le lien (nouvelle fenêtre)'
-    social:
-        connect: 'réseaux sociaux'
-        connect_help: "Se connecter directement avec son réseau préféré"
-        register_help: "S'inscrire directement avec son réseau préféré"
+  forget:
+    email:
+      label: 'votre adresse e-mail'
+      placeholder: 'adresse mail de votre compte'
+      required: 'veuillez saisir votre adresse mail'
+    user:
+      unknown: 'adresse e-mail inconnue'
+    btn_reload: 'ré-initialiser mon mot de passe'
+    validate: 'mot de passe ré-initialisé. Un mail a été envoyé avec votre mot de passe temporaire.'
 
 delete:
-    are_you_sure: "êtes-vous sûre de vouloir supprimer votre compte ainsi que tout son contenu? Cette opération est irréversible et nous serons très triste de vous perdre :("
+  are_you_sure: "êtes-vous sûre de vouloir supprimer votre compte ainsi que tout son contenu? Cette opération est irréversible et nous serons très triste de vous perdre :("
+
+btn:
+  validate: 'valider les modifications'
+  valid: 'valider'
+  validate_change_username: "valider le nom d'utilisateur"
+  validate_change_password: 'Modifier  le mot de passe'
+  change_email: "changer d'adresse e-mail"
+  change_password: "changer de mot de passe"
+  delete_account: 'supprimer mon compte'
+  delete_confirm: 'confirmer la suppression'
+  cancel: 'annuler'
+  close: 'fermer'
+  search: 'rechercher'
+  reset: 'réinitialiser'
+  confirm: 'confirmer'
+  show_more: 'voir plus'
+  show_more_filters: 'afficher plus de filtres'
+  show_less_filters: 'afficher moins de filtres'
+  submit: 'soumettre'
+  send: 'envoyer'
+  deadlink: 'signaler un lien mort'
+  shown: 'marquer comme vu'
+  unshown: 'marquer comme non vu'
+  pined: 'épingler'
+  unpined: 'désépingler'
+  userpin: 'vous avez épinglé ce tutoriel'
+  usershow: 'vous avez vu ce tutoriel'
+  usernotshow: "vous n'avez pas vu ce tutoriel"
+  twitter:
+    share: 'partager'
+    share_title: 'partager le lien (nouvelle fenêtre)'
+  social:
+    connect: 'réseaux sociaux'
+    connect_help: "Se connecter directement avec son réseau préféré"
+    register_help: "S'inscrire directement avec son réseau préféré"
 
 tutos:
-    show:
-        title: 'fiche du tutoriel'
-    add:
-        title: 'ajouter un nouveau tutoriel'
-        validate: 'merci pour votre contribution!'
-        not_uniq: 'la fiche du tutoriel existe déjà'
-    title:
-        label: 'titre'
-        placeholder: 'titre du tutoriel'
-    creator:
-        label: 'créateur du tutoriel'
-        placeholder: 'nom du site ou de la personne qui est le créateur du tutotriel'
-    url:
-        label: 'lien vers le tutoriel'
-        placeholder: 'https://www.lien_vers_le_tuto.com'
-        new_windows: 'ouvrir le tutoriel dans une nouvelle fenetre'
-    resource:
-        new_windows: 'ouvrir dans une nouvelle fenetre'
-    tags:
-        label: 'tags'
-        help: 'plusieurs choix possibles'
-    category:
-        label: 'catégorie'
-        plural: 'catégories'
-    description:
-        label: 'description'
-        help: 'Quel est le contenu du tutoriel? Quels sont les points abordés?'
-    published_by:
-        comment: 'votre commentaire sur le tutoriel'
-        thanks_to: 'merci à'
-        thanks_for: 'pour sa contribution'
-    published_at:
-        on: 'le'
-    created_by: 'réalisé par'
-    added_at: 'ajouté le'
-    added_by: 'par'
-    direct_link: 'accèder au tuto dans une nouvelle fenetre'
-    details: 'voir la fiche'
-    edit:
-        title: 'éditer la fiche'
-        validate: 'fiche mise à jour'
-    eval:
-        isnull: 'pas encore évalué'
-        count: 'évaluations'
-        global: 'note moyenne'
-        your: 'votre note'
-    comments:
-        title: 'commentaires'
-        single: 'commentaire'
-    langue:
-        label: 'Langue du tutoriel'
-    level:
-        label: 'niveau requis'
-    price:
-        label: 'prix'
-    addurl:
-        title: 'ajouter un nouveau tutoriel'
-        label: 'url de la vidéo'
-    channel:
-        label: 'site / chaine youtube'
-        new: 'ajouter une nouvelle chaine'
-channel:
-    show:
-        title: 'chaine de '
-    title:
-        placeholder: 'nom du site ou de la chaine'
-        label: 'nom du créateur'
-    site_url:
-        placeholder: 'url du site'
-        label: 'url du site'
-        link: 'site du créateur'
-    youtube_id:
-        placeholder: 'ID Youtube (ex: UCj_iGliGCkLcHSZ8eqVNPDQ)'
-        label: 'ID Youtube de la chaine'
-    add:
-        title.error: 'le nom de la chaine est manquant'
-    youtube:
-        label: 'chaine youtube'
-    twitter.label: 'Profil Twitter'
-    github.label: 'Projets sur Github ou Gitlab'
-    description:
-        label: 'présentation de la chaine'
-    all_tutos:
-        link: 'voir tous les tutoriaux'
-        show: 'tutoriaux de la chaine'
-    no_tutos: 'aucun tutoriel pour le moment'
-comments:
-    posted_by: 'commentaire posté par'
-    posted_at: 'le'
+  show:
+    title: 'fiche du tutoriel'
+  add:
+    title: 'ajouter un nouveau tutoriel'
+    validate: 'merci pour votre contribution!'
+    not_uniq: 'la fiche du tutoriel existe déjà'
+  title:
+    label: 'titre'
+    placeholder: 'titre du tutoriel'
+  creator:
+    label: 'créateur du tutoriel'
+    placeholder: 'nom du site ou de la personne qui est le créateur du tutotriel'
+  url:
+    label: 'lien vers le tutoriel'
+    placeholder: 'https://www.lien_vers_le_tuto.com'
+    new_windows: 'ouvrir le tutoriel dans une nouvelle fenetre'
+  resource:
+    new_windows: 'ouvrir dans une nouvelle fenetre'
+  tags:
+    label: 'tags'
+    help: 'plusieurs choix possibles'
+  category:
+    label: 'catégorie'
+    plural: 'catégories'
+  description:
+    label: 'description'
+    help: 'Quel est le contenu du lien? Quels sont les points abordés?'
+  published_by:
+    comment: 'votre commentaire sur le tutoriel'
+    thanks_to: 'merci à'
+    thanks_for: 'pour sa contribution'
+  published_at:
+    on: 'le'
+  created_by: 'réalisé par'
+  added_at: 'ajouté le'
+  added_by: 'par'
+  direct_link: 'accèder au tuto dans une nouvelle fenetre'
+  details: 'voir la fiche'
+  edit:
+    title: 'éditer la fiche'
+    validate: 'fiche mise à jour'
+  eval:
+    isnull: 'pas encore évalué'
+    count: 'évaluations'
+    global: 'note moyenne'
+    your: 'votre note'
+  comments:
+    title: 'commentaires'
+    single: 'commentaire'
+  langue:
+    label: 'Langue du tutoriel'
+  level:
+    label: 'niveau requis'
+  price:
+    label: 'prix'
+  addurl:
+    title: 'ajouter un nouveau tutoriel'
+    label: 'url de la vidéo'
+  channel:
+    label: 'site / chaine youtube'
+    new: 'ajouter une nouvelle chaine'
+
+ytlinks:
+  add:
+    title: 'ajouter un nouveau lien Youtube'
+  edit:
+    title: "édition du lien"
+  is_publish:
+    label: 'publier'
+  tags:
+    label: 'tags'
+    help: 'plusieurs choix possibles'
+  langue:
+    label: 'Langue du tutoriel'
+
+links:
+  target_blank: 'ouvrir le lien dans un nouvel onglet'
+  is_publish:
+    _true: 'publié'
+    _false: 'non publié'
+    label: 'publier le lien'
+  image:
+    label: 'image à la une'
+  edit: 'éditer le lien'
+  published_at: 'lien publié le'
+  no_data: 'aucun lien partagé pour le moment'
+
+slinks:
+  add:
+    title: 'ajouter un nouveau lien'
+    help: '... mais pas une vidéo Youtube ;)'
+  authors:
+    label: 'créateur/source'
+    new: 'nouveau créateur'
 
 categories:
-    articles:
-        new: 'nouvel article'
-    videos:
-        new: 'nouvel vidéo'
-    podcasts:
-        new: 'nouveau podcast'
+  videos:
+    new: 'nouvelle vidéo'
+  podcasts:
+    new: 'nouveau podcast'
+  articles:
+    new: 'nouvel article'
+  formations:
+    new: 'nouvelle formation'
+  ressources:
+    new: 'nouvelle ressource'
 
-about:
-    title: 'a propos'
-    why:
-        title: 'la naissance de Tutomarks'
-        text: "Initialement pensé comme une application 'bac à sable', Tutomarks ne pouvait pas rester en local sur ma machine.<br/>
-        Je voulais un projet me permettant de mettre à jour mes connaissances Symfony et de découvrir de nouvelles techniques. Pour ce faire j'ai consulté de nombreux tutoriaux vidéo et je me suis dis qu'il fallait partager ses liens pour en faire profiter les nouveaux développeurs et aussi les vieux de la vieille ;).<br/><br/>
-        Autre point important dans la conception de Tutomarks, rendre hommage à ceux qui font les tutoriaux car c'est un boulot qui prend du temps mais qui est basé sur le partage. Alors avec Tutomarks je voulais que chacun puis-je partager les tutos qui nous aides à apprendre et à découvrir de nouveaux languages et de nouvelles techniques."
-    who:
-        title: 'qui es-tu Tutomarks ?'
-        text: "Développeur PHP depuis plusieurs années, j'ai eu plusieurs vie et j'ai très souvent eu recours à des tutoriaux, texte ou vidéo, pour évoluer professionnellement. Aujourd'hui je me lances avec Tutomarks pour aider, à ma façon, les futurs talents en développement.<br/><br/>"
-        i_am: "Moi, c'est"
-    what:
-        title: 'comment ça marche ?'
-        text: "Voici ce qu'il y a sous le capot de Tutomarks :"
+authors:
+  show:
+    title: 'chaine de '
+  title:
+    placeholder: 'nom du site ou de la chaine'
+    label: 'nom du créateur'
+  site_url:
+    placeholder: 'https://www.le_site.com'
+    label: 'url du site'
+    link: 'site du créateur'
+  youtube:
+    placeholder: 'ID Youtube (ex: UCj_iGliGCkLcHSZ8eqVNPDQ)'
+    label: 'https://www.youtube.com/UCj_iGliGCkLcHSZ8eqVNPDQ'
+  add:
+    title.error: 'le nom de la chaine est manquant'
+  twitter:
+    label: 'Profil Twitter'
+    placeholder: 'https://www.twitter.com/profil'
+  twitch:
+    label: 'chaine Twitch'
+    placeholder: 'https://www.twitch.com/profil'
+  github:
+    label: 'Projets sur Github ou Gitlab'
+    placeholder: 'https://www.github.com/profil'
+  description:
+    label: 'présentation de la chaine'
+  all_videos:
+    link: 'voir toutes les vidéos'
+    label: 'vidéos de la chaine'
+  other_links:
+    link: 'voir tous les liens'
+    label: "liens de l'auteur"
+  no_tutos: 'aucun tutoriel pour le moment'
+  links:
+    count: 'liens partagés'
+    count_singular: 'lien partagé'
 
-confidentiality:
-    title: 'politique de confidentialité'
+deadlink:
+  thanks:
+    title: 'lien mort'
+    dialog: "Confirmez-vous que le lien pour cet tutoriel n'est plus valide?"
+    flash: "Merci pour votre aide. Le lien sera controllé dès que possible."
+  mail:
+    subject: "signalement d'un lien mort"
+    from: 'utilisateur'
+    link:
+      id: 'ID du lien'
+      title: 'titre du lien'
+    message: 'un lien mort a été signalé pour le lien indiqué.'
 
 search:
-    field:
-        placeholder: 'votre recherche'
-    title: 'rechercher un tutoriel'
-    word: 'recherche'
-    category:
-        label: 'categorie'
-    tags:
-        label: 'tags'
-    creator:
-        label: 'réalisé par'
-    langue:
-        label: 'langue du tutoriel'
-    evaluation:
-        label: 'note minimale'
-    price:
-        label: 'prix'
-    minlevel:
-        label: 'niveau minimum requis'
-    pined:
-        label: 'Épinglés'
-        all: 'indifférent'
-        oui: 'oui'
-        non: 'non'
-    shown:
-        label: 'marqués comme vu'
-        all: 'indifférent'
-        oui: 'oui'
-        non: 'non'
-    results: 'résultat'
+  field:
+    placeholder: 'votre recherche de mots clés'
+    help: '4 caractères minimum'
+  title: 'rechercher un lien'
+  word: 'recherche'
+  category:
+    label: 'categories'
+  tags:
+    label: 'tags'
+  langue:
+    label: 'langue du lien'
+  evaluation:
+    label: 'note minimale'
+  price:
+    label: 'prix'
+  minlevel:
+    label: 'niveau minimum requis'
+  pined:
+    label: 'Épinglés'
+    all: 'indifférent'
+    oui: 'oui'
+    non: 'non'
+  shown:
+    label: 'marqués comme vu'
+    all: 'indifférent'
+    oui: 'oui'
+    non: 'non'
+  results: 'résultat'
+  orderby:
+    menu: 'trier par'
+    title:
+      asc: 'nom croissant'
+      desc: 'nom décroissant'
+    date:
+      asc: 'date de publication croissante'
+      desc: 'date de publication décroissante'
+  authors:
+    label: 'créateurs'
     orderby:
-        menu: 'trier par'
-        title:
-            asc: 'nom croissant'
-            desc: 'nom décroissant'
-        date:
-            asc: 'date de publication croissante'
-            desc: 'date de publication décroissante'
-    channels:
-        orderby:
-            menu: 'trier par'
-            name:
-                asc: 'nom croissant'
-                desc: 'nom décroissant'
-            tutos:
-                asc: 'tutoriaux croissant'
-                desc: 'tutoriaux décroissant'
+      menu: 'trier par'
+      name:
+        asc: 'nom croissant'
+        desc: 'nom décroissant'
+      links:
+        asc: 'liens croissant'
+        desc: 'liens décroissant'
+
 mail:
-    hello: 'bonjour'
-    connect_on: 'connectez-vous sur'
-    end: 'a bientôt sur'
-    passwd:
-        reset:
-            subject: 'mot de passe ré-initialisé'
-            title: 'demande de ré-initialisation de mot de passe'
-            l1: 'vous avez demandé la ré-initialisation de votre mot de passe sur Tutomarks.'
-            new_is: 'votre nouveau mot de passe est'
-            l2: 'et changez le dans la gestion de votre compte.'
-            l3: "En cas de problème, n'hésitez pas à contacter le support à l'adresse"
-    new_login:
-        subject: 'bienvenue sur'
-        l1: "maintenant que votre compte a été créé, vous pouvez participer à l'évolution de l'annuaire."
-        l2: "vous pouvez créer de nouvelles fiches et commenter les fiches existantes."
-    contact:
-        subject: 'message depuis le site'
-        from: 'expéditeur'
-        message: 'message'
+  hello: 'bonjour'
+  connect_on: 'connectez-vous sur'
+  end: 'a bientôt sur'
+  passwd:
+    reset:
+      subject: 'mot de passe ré-initialisé'
+      title: 'demande de ré-initialisation de mot de passe'
+      l1: 'vous avez demandé la ré-initialisation de votre mot de passe sur Tutomarks.'
+      new_is: 'votre nouveau mot de passe est'
+      l2: 'et changez le dans la gestion de votre compte.'
+      l3: "En cas de problème, n'hésitez pas à contacter le support à l'adresse"
+  new_login:
+    subject: 'bienvenue sur'
+    l1: "maintenant que votre compte a été créé, vous pouvez participer à l'évolution de l'annuaire."
+    l2: "vous pouvez dès maintenant ajouter des tutoriaux, des articles ou des podcasts."
+  contact:
+    subject: 'message depuis le site'
+    from: 'expéditeur'
+    message: 'message'
 
 contact:
-    email:
-        label: 'votre adresse mail'
-        placeholder: 'indiquez votre adresse mail'
-    subject:
-        label: 'sujet'
-        placeholder: 'de quoi voulez-vous parler ?'
-    message:
-        label: 'votre message'
-        minlength: '10 caractères minimum'
-    error:
-        email_required: 'adresse mail requise'
-        subject_required: 'sujet requis'
-        message_required: 'message requis avec 10 caractères minimums'
-    send_ok: 'mail envoyé'
+  subtitle: "Une question? Une remarque? N'hésitez pas à me contacter"
+  email:
+    label: 'votre adresse mail'
+    placeholder: 'indiquez votre adresse mail'
+  subject:
+    label: 'sujet'
+    placeholder: 'de quoi voulez-vous parler ?'
+  message:
+    label: 'votre message'
+    minlength: '10 caractères minimum'
+  error:
+    email_required: 'adresse mail requise'
+    subject_required: 'sujet requis'
+    message_required: 'message requis avec 10 caractères minimums'
+  send_ok: 'mail envoyé'
 
-footer:
-    contact:
-        title: 'me contacter'
-    about: 'a propos'
-    last_tweets: 'nos derniers tweets'
+about:
+  title: 'a propos'
+  why:
+    title: 'la naissance de Tutomarks'
+    text: "Initialement pensé comme une application 'bac à sable', Tutomarks ne pouvait pas rester en local sur ma machine.<br/>
+        Je voulais un projet me permettant de mettre à jour mes connaissances Symfony et de découvrir de nouvelles techniques. Pour ce faire j'ai consulté de nombreux tutoriaux vidéo et je me suis dis qu'il fallait partager ses liens pour en faire profiter les nouveaux développeurs et aussi les vieux de la vieille ;).<br/><br/>
+        Autre point important dans la conception de Tutomarks, rendre hommage à ceux qui font les tutoriaux car c'est un boulot qui prend du temps mais qui est basé sur le partage. Alors avec Tutomarks je voulais que chacun puis-je partager les tutos qui nous aides à apprendre et à découvrir de nouveaux languages et de nouvelles techniques."
+  who:
+    title: 'qui es-tu Tutomarks ?'
+    text: "Développeur PHP depuis plusieurs années, j'ai eu plusieurs vie et j'ai très souvent eu recours à des tutoriaux, texte ou vidéo, pour évoluer professionnellement. Aujourd'hui je me lances avec Tutomarks pour aider, à ma façon, les futurs talents en développement.<br/><br/>"
+    i_am: "Moi, c'est"
+  what:
+    title: 'comment ça marche ?'
+    text: "Voici ce qu'il y a sous le capot de Tutomarks :"
 
-error:
-    send_mail: 'envoyer un e-mail à'
+confidentiality:
+  title: 'politique de confidentialité'

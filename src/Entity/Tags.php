@@ -4,19 +4,21 @@ namespace App\Entity;
 
 use App\Repository\TagsRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=TagsRepository::class)
- * @Vich\Uploadable()
  */
 class Tags
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -27,27 +29,26 @@ class Tags
     private ?string $title;
 
     /**
+     * @ORM\ManyToMany(targetEntity=Links::class, mappedBy="tags")
+     */
+    private $links;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string|null
      */
-    private $image;
+    private ?string $code;
 
     /**
-     * @Vich\UploadableField(mapping="tags_images", fileNameProperty="image")
-     * @var File|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
-    private ?File $imageFile;
+    private ?string $color;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @var DateTime|null
-     */
-    private $updatedAt;
-
-    public function __construct()
+    #[Pure] public function __construct()
     {
-        $this->imageFile = null;
-        $this->image = '';
+        $this->links = new ArrayCollection();
+        $this->color = "black";
     }
 
     public function getId(): ?int
@@ -67,47 +68,56 @@ class Tags
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getImage(): ?string
+    public function getLinks(): Collection
     {
-        return $this->image;
+        return $this->links;
     }
 
-    /**
-     * @param string|null $image
-     * @return Tags
-     */
-    public function setImage(?string $image): self
+    public function addLink(Links $link): self
     {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * @return File|null
-     */
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageFile(File $image = null): self
-    {
-        $this->imageFile = $image;
-
-        if ($image) {
-            $this->updatedAt = new DateTime('now');
+        if (!$this->links->contains($link)) {
+            $this->links[] = $link;
+            $link->addTag($this);
         }
 
         return $this;
     }
 
-
-    public function __toString():string
+    public function removeLink(Links $link): self
     {
-        return $this->title;
+        if ($this->links->removeElement($link)) {
+            $link->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    #[Pure] public function __toString(): string
+    {
+        return (string) $this->getTitle();
     }
 }

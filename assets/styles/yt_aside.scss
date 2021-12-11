@@ -1,0 +1,89 @@
+aside {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: $side-menu-desktop-z-index;
+  background-color: $side-menu-bg-color;
+  width: $side-menu-width;
+  overflow: hidden;
+
+  .side-menu-header {
+    height: $header-height;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .side-menu-body {
+    height: calc(100% - #{$header-height});
+    // scrollbar styling
+    &:hover {
+      overflow-y: scroll;
+    }
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      height: 56px;
+      background: hsla(0, 0%, 53.3%, .4);
+    }
+  }
+
+  .list-group {
+    padding: 12px 0;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .list-group-item {
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgb(17, 17, 17);
+    padding: 0 24px;
+    border: none;
+    background-color: inherit;
+    .yt-icon path {
+      fill: #878787;
+    }
+    &:hover {
+      background-color: #ebebeb;
+    }
+    &.active {
+      background-color: inherit;
+      color: $primary;
+      pointer-events: none;
+      font-weight: 700;
+      .yt-icon path {
+        fill: rgb(255, 0, 0);
+      }
+    }
+  }
+
+  // Hide & Show Logic
+  transform: translate3d(-$side-menu-width, 0, 0);
+  transition-duration: 0s;
+  &.open {
+    transform: translate3d(0, 0, 0);
+    &:not(.mobile) + .content {
+      margin-left: $side-menu-width;
+    }
+  }
+  // Hide & Show Logic Mobile
+  &.mobile {
+    transition-duration: 0.2s;
+    z-index: $side-menu-mobile-z-index;
+  }
+  &.mobile.open ~ .side-menu-backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.side-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: $side-menu-backdrop-z-index;
+}

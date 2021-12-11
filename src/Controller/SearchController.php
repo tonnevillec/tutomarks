@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Categories;
-use App\Entity\Tags;
-use App\Entity\Tutos;
-use App\Entity\TutoSearch;
-use App\Form\TutoSearchType;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\Links;
+use App\Entity\LinkSearch;
+use App\Form\LinkSearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,96 +12,69 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class SearchController
- * @package App\Controller
- * @Route("/search")
- */
+#[Route("/search")]
 class SearchController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
+    private EntityManagerInterface $em;
+    private PaginatorInterface $paginator;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, PaginatorInterface $paginator)
     {
         $this->em = $em;
+        $this->paginator = $paginator;
     }
 
-    /**
-     * @Route("/", name="search")
-     * @param Request $request
-     * @param PaginatorInterface $paginator
-     * @param string|null $element
-     * @param int|null $value
-     * @return Response
-     */
-    public function index(
-        Request $request,
-        PaginatorInterface $paginator,
-        string $element = null,
-        int $value = null
-    ): Response {
-
-        $orderby = $request->query->has('sort') ? $request->query->get('sort') : 't.published_at';
-        $direction = $request->query->has('direction') ? $request->query->get('direction') : 'desc';
-
-        $search = new TutoSearch();
-        $form = $this->createForm(TutoSearchType::class, $search);
+    #[Route("/", name: "search")]
+    public function index(Request $request): Response
+    {
+        $search = new LinkSearch();
+        $form = $this->createForm(LinkSearchType::class, $search);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            $result = $paginator->paginate(
-                $this->em->getRepository(Tutos::class)->findAllVisible($search, $orderby, $direction),
-                $request->query->getInt('page', 1),
-                12
+        $orderby = $request->query->has('sort') ? $request->query->get('sort') : 'l.published_at';
+        $direction = $request->query->has('direction') ? $request->query->get('direction') : 'desc';
+        $page = $request->query->getInt('page', 1) === 0 ? 1 :$request->query->getInt('page', 1);
+        $perPage = 12;
+
+        if($form->isSubmitted()) {
+            $result = $this->paginator->paginate(
+                $this->em->getRepository(Links::class)->findAllPublished($search, $orderby, $direction),
+                $page,
+                $perPage
             );
 
-            return $this->render('search/search.html.twig', [
+            return $this->render('search/index.html.twig', [
                 'form'      => $form->createView(),
                 'result'    => $result
             ]);
         }
 
         $datas = $request->query;
-        if ($datas->has('element') && $datas->has('value')) {
+        if($datas->has('element') && $datas->has('value')) {
             $go = false;
-            switch ($datas->get('element')) {
+            switch($datas->get('element')) {
                 case 'word':
                     $search->setSearch($datas->get('value'));
                     $go = true;
                     break;
-
-                case 'category':
-                    $search->setCategory($this->em->find(Categories::class, $datas->get('value')));
-                    $go = true;
-                    break;
-
-                case 'tag':
-                    $t = new ArrayCollection();
-                    $t->add($this->em->find(Tags::class, $datas->get('value')));
-                    $search->setTags($t);
-                    $go = true;
-                    break;
             }
 
-            if ($go) {
-                $result = $paginator->paginate(
-                    $this->em->getRepository(Tutos::class)->findAllVisible($search, $orderby, $direction),
-                    $request->query->getInt('page', 1),
-                    12
+            if($go) {
+                $result = $this->paginator->paginate(
+                    $this->em->getRepository(Links::class)->findAllPublished($search, $orderby, $direction),
+                    $page,
+                    $perPage
                 );
 
-                return $this->render('search/search.html.twig', [
-                    'form' => $form->createView(),
-                    'result' => $result
+                return $this->render('search/index.html.twig', [
+                    'form'      => $form->createView(),
+                    'result'    => $result
                 ]);
             }
         }
 
-        return $this->render('search/search.html.twig', [
-            'form'  => $form->createView()
+        return $this->render('search/index.html.twig', [
+            'form'      => $form->createView(),
         ]);
     }
 }

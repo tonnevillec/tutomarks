@@ -1,0 +1,43 @@
+$white:         #fff !default;
+$gray-100:      #ebebeb !default;
+$gray-200:      #4e5d6c !default;
+$gray-300:      #dee2e6 !default;
+$gray-400:      #ced4da !default;
+$gray-500:      #adb5bd !default;
+$gray-600:      #868e96 !default;
+$gray-700:      #495057 !default;
+$gray-800:      #343a40 !default;
+$gray-900:      #212529 !default;
+$black:         #000 !default;
+
+$blue:          #42BDFB !default;
+$indigo:        #8E26E8 !default;
+$purple:        #6f42c1 !default;
+$pink:          #e83e8c !default;
+$red:           #d9534f !default;
+$orange:        #f0ad4e !default;
+$yellow:        #ffc107 !default;
+$green:         #5cb85c !default;
+$teal:          #20c997 !default;
+$cyan:          #5bc0de !default;
+$gray:          #878787 !default;
+$light-gray:    #e9ecef !default;
+
+$primary:       $indigo !default;
+$secondary:     $blue !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         lighten($gray-200, 35%) !default;
+$dark:          #20374c !default;
+
+$side-menu-bg-color:          #f5f5f5;
+$side-menu-width:             240px;
+$side-menu-backdrop-z-index:  1040;
+$side-menu-mobile-z-index:    1050;
+$header-z-index:              1030;
+$side-menu-desktop-z-index:   1020;
+$header-height:               56px;
+
+//background: linear-gradient(261.28deg, $primary 21.01%, #42BDFB 97.91%) !important;

@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] {{ yt.title }}{% endblock %}
+
+{% block body %}
+<section class="my-4">
+    <div class="container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                    {{ message|capitalize }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="row mt-2 mb-3">
+            {{ yt.url|youtube_player|raw }}
+        </div>
+
+        <h1 class="h4 fw-bold text-uppercase">
+            {% if not yt.isPublish and is_granted('EDIT', yt) %}
+            <a href="{{ path('ytlinks.edit', { 'id' : yt.id}) }}" title="Cette vidéo n'est pas publiée sur Tutomarks > Cliquez pour éditer"><i class="bi bi-exclamation-triangle-fill bi-2x me-1 text-danger"></i></a>
+            {% endif %}
+            {{ yt.title }}
+        </h1>
+
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <span>{{ 'tutos.published_by.thanks_to'|trans|capitalize }} {{ yt.publishedBy}} {{ 'tutos.published_by.thanks_for'|trans }} {{ 'tutos.published_at.on'|trans }} {{ yt.publishedAt|date('d/m/Y') }}</span>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+                <div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Les liens pour suivre cet auteur">
+                    <div class="btn-group me-2" role="group">
+                        <a href="https://twitter.com/intent/tweet?via=tutomarks&text={{ yt.title|url_encode }}&original_referer={{ url('links.show', {'slug': yt.slug, 'id': yt.id}) }}&url={{ url('links.show', {'slug': yt.slug, 'id': yt.id}) }}"
+                           class="btn"
+                           data-lang="fr"
+                           target="_blank"
+                           title="{{ 'btn.twitter.share_title'|trans|capitalize }}"
+                        >
+                            <i class="bi bi-reply"></i> {{ 'btn.twitter.share'|trans|capitalize }}
+                        </a>
+                    </div>
+
+                    {% if is_granted('EDIT', yt) or app.user %}
+                    <div class="btn-btn-group me-2 dropdown">
+                        <button class="btn dropdown-toogle rounded rounded-circle" type="button" id="moreActionsMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreActionsMenu">
+                            {% if is_granted('EDIT', yt) %}
+                            <li>
+                                <a href="{{ path('ytlinks.edit', { 'id' : yt.id}) }}"
+                                   class="dropdown-item"
+                                   title="{{ 'tutos.edit.title'|trans|capitalize }}"
+                                >
+                                    <i class="bi bi-pencil-square me-2"></i> {{ 'tutos.edit.title'|trans|capitalize }}
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if app.user %}
+                            <li>
+                                <a href="#"
+                                   class="dropdown-item"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#js-deadlink"
+                                   title="{{ 'btn.deadlink'|trans|capitalize }}"
+                                >
+                                    <i class="bi bi-bug me-2"></i> {{ 'btn.deadlink'|trans|capitalize }}
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="js-deadlink" tabindex="-1" aria-labelledby="js-deadlink-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="js-deadlink-label">{{ 'deadlink.thanks.title'|trans|capitalize }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        {{ 'deadlink.thanks.dialog'|trans|capitalize }}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="js-cancel-deadlink" data-bs-dismiss="modal">
+                            <i class="bi bi-x-square"></i>
+                            <span>{{ 'btn.cancel'|trans|capitalize }}</span>
+                        </button>
+
+                        <a href="{{ path('links.deadlink', {'id': yt.id}) }}" class="btn btn-outline-success">
+                            <i class="bi bi-check"></i>
+                            <span>{{ 'btn.confirm'|trans|capitalize }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mb-3 mt-0">
+
+        <div class="row mb-3">
+            <div class="col-sm-4 col-md-1">
+                {% if yt.author.ytLogo %}
+                    <img alt="{{ yt.author.title }}" src="{{ yt.author.ytLogo }}" class="twPc-avatarImg img-fluid">
+                {% else %}
+                    <img alt="{{ yt.author.title }}" src="{{ asset('build/images/no-preview.png') }}" class="twPc-avatarImg img-fluid">
+                {% endif %}
+            </div>
+
+            <div class="col-sm-8 col-md-9">
+                <h2>
+                    <a href="{{ path('authors.show', { 'slug' : yt.author.slug, 'id' : yt.author.id }) }}"
+                       class="text-decoration-none">
+                        {{ yt.author.title }}
+                    </a>
+                </h2>
+
+                <div class="btn-toolbar justify-content-start" role="toolbar" aria-label="Les liens pour suivre cet auteur">
+                    {% if yt.author.youtube %}
+                        <div class="btn-group me-2" role="group">
+                            <a href="https://www.youtube.com/channel/{{ yt.author.youtube }}" class="btn" target="_blank" title="{{ 'authors.youtube.label'|trans|capitalize }}">
+                                <i class="bi bi-youtube bi-2x"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if yt.author.siteUrl %}
+                        <div class="btn-group me-2" role="group">
+                            <a href="{{ yt.author.siteUrl }}" class="btn" target="_blank" title="{{ 'authors.site_url.link'|trans|capitalize }}">
+                                <i class="bi bi-globe bi-2x"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if yt.author.twitter %}
+                        <div class="btn-group me-2" role="group">
+                            <a href="{{ yt.author.twitter }}" class="btn" target="_blank" title="{{ 'authors.twitter.label'|trans }}">
+                                <i class="bi bi-twitter bi-2x"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if yt.author.github %}
+                        <div class="btn-group me-2" role="group">
+                            <a href="{{ yt.author.github }}" class="btn" target="_blank" title="{{ 'authors.github.label'|trans }}">
+                                <i class="bi bi-github bi-2x"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if yt.author.twitch %}
+                        <div class="btn-group me-2" role="group">
+                            <a href="{{ yt.author.twitch }}" class="btn" target="_blank" title="{{ 'authors.twitch.label'|trans }}">
+                                <i class="bi bi-twitch bi-2x"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-2 text-end">
+                {% if yt.language is not null %}
+                    {% if yt.language.logo %}
+                        <img src="{{ vich_uploader_asset(yt.language, 'imageFile') }}" class="me-1" alt="{{ yt.language }}" /> {{ yt.language }}
+                    {% else %}
+                        <span class="badge bg-dark rounded-pill">{{ yt.language }}</span>
+                    {% endif %}
+                    <br/>
+                {% endif %}
+                {% if yt.tags %}
+                    {% for tag in yt.tags %}
+                        <img alt="{{ tag }}"
+                             data-toggle="tooltip"
+                             data-placement="top"
+                             title="{{ tag }}"
+                             src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=for-the-badge&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-9 offset-1">
+                {{ yt.description|raw|nl2br }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

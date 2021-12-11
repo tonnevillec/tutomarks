@@ -1,0 +1,81 @@
+#page {
+  box-shadow: 0 0 4px 4px #f3f3f3;
+}
+
+main.content {
+  .video-thumbnail {
+    position: relative;
+    display: inline-block;
+
+    .video-informations {
+      display: none;
+    }
+  }
+
+  .video-thumbnail:hover .video-informations {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: left;
+
+    //background-color: rgba(255, 255, 255, .6);
+    background: linear-gradient(261.28deg, $primary 21.01%, $secondary 97.91%) !important;
+  }
+
+  .link-thumbnail {
+    position: relative;
+    display: inline-block;
+
+    .link-target {
+      display: none;
+    }
+  }
+
+  .link-thumbnail:hover .link-target {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 25%;
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    color: $white;
+  }
+
+  .author-thumbnail > img {
+    width: 40px;
+  }
+}
+
+.author-card {
+  background: linear-gradient(261.28deg, $primary 21.01%, $secondary 97.91%) !important;
+  color: $white !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, .25) !important;
+}
+
+.author-title {
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+  a:hover {
+    color: $primary;
+    background-color: $white;
+  }
+}
+
+.author-infos{
+  .btn {
+    color: $white !important;
+    border-radius: 10px !important;
+  }
+  .btn:hover {
+    color: $primary !important;
+    background-color: $white;
+  }
+}

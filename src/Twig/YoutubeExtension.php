@@ -2,97 +2,76 @@
 
 namespace App\Twig;
 
-use App\Entity\Tutos;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\YoutubeLinks;
+use RicardoFiorani\Exception\ServiceNotAvailableException;
 use RicardoFiorani\Matcher\VideoServiceMatcher;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class YoutubeExtension extends AbstractExtension
 {
-    private $em;
-    private $vsm;
-    private $helper;
+    private VideoServiceMatcher $vsm;
 
-    public function __construct(EntityManagerInterface $em, UploaderHelper $helper)
+    public function __construct()
     {
-        $this->em = $em;
-        $this->helper = $helper;
         $this->vsm = new VideoServiceMatcher();
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('tutos_thumbnail_small', [$this, 'tutosThumbnailSmall']),
-            new TwigFilter('tutos_thumbnail', [$this, 'tutosThumbnail']),
-            new TwigFilter('tutos_thumbnail_large', [$this, 'tutosThumbnailLarge']),
-            new TwigFilter('youtube_largest_thumbnail', [$this, 'youtubeLargestThumbnail']),
+            new TwigFilter('yt_img_small', [$this, 'ytImgSmall']),
+            new TwigFilter('yt_img_medium', [$this, 'ytImgMedium']),
+            new TwigFilter('yt_img_large', [$this, 'ytImgLarge']),
             new TwigFilter('youtube_player', [$this, 'youtubePlayer']),
         ];
     }
 
     /**
-     * @param Tutos $tutos
+     * @param YoutubeLinks $yt
      * @return string
      */
-    public function tutosThumbnailSmall(Tutos $tutos): string
+    public function ytImgSmall(YoutubeLinks $yt): string
     {
-        if($tutos->getYoutubeId() && $tutos->getThumbnailsSmall()) {
-            return $tutos->getThumbnailsSmall();
+        if ($yt->getYoutubeId() && $yt->getImgSmall()){
+            return $yt->getImgSmall();
         }
-
-        if($tutos->getAttachment()) {
-            return $this->helper->asset($tutos->getAttachment(), 'imageFile');
-        }
-
-        return $this->getThumbnails($tutos, 'small');
+        return $this->getThumbnails($yt, 'small');
     }
 
     /**
-     * @param Tutos $tutos
+     * @param YoutubeLinks $yt
      * @return string
      */
-    public function tutosThumbnail(Tutos $tutos): string
+    public function ytImgMedium(YoutubeLinks $yt): string
     {
-        if($tutos->getYoutubeId() && $tutos->getThumbnailsSmall()) {
-            return $tutos->getThumbnailsSmall();
+        if ($yt->getYoutubeId() && $yt->getImgMedium()){
+            return $yt->getImgMedium();
         }
-
-        if($tutos->getAttachment()) {
-            return $this->helper->asset($tutos->getAttachment(), 'imageFile');
-        }
-
-        return $this->getThumbnails($tutos, 'medium');
+        return $this->getThumbnails($yt, 'medium');
     }
 
     /**
-     * @param Tutos $tutos
+     * @param YoutubeLinks $yt
      * @return string
      */
-    public function tutosThumbnailLarge(Tutos $tutos): string
+    public function ytImgLarge(YoutubeLinks $yt): string
     {
-        if($tutos->getYoutubeId() && $tutos->getThumbnailsLarge()) {
-            return $tutos->getThumbnailsLarge();
+        if ($yt->getYoutubeId() && $yt->getImgLarge()){
+            return $yt->getImgLarge();
         }
-
-        if($tutos->getAttachment()) {
-            return $this->helper->asset($tutos->getAttachment(), 'imageFile');
-        }
-
-        return $this->getThumbnails($tutos, 'large');
+        return $this->getThumbnails($yt, 'large');
     }
 
     /**
-     * @param Tutos $tutos
+     * @param YoutubeLinks $yt
      * @param string $size
      * @return string
      */
-    private function getThumbnails(Tutos $tutos, string $size = 'medium'): string {
+    private function getThumbnails(YoutubeLinks $yt, string $size = 'medium'): string {
         try {
-            $video = $this->vsm->parse($tutos->getUrl());
-        } catch (\RicardoFiorani\Exception\ServiceNotAvailableException $e) {
+            $video = $this->vsm->parse($yt->getUrl());
+        } catch (ServiceNotAvailableException $e) {
             return '';
         }
 
@@ -130,10 +109,10 @@ class YoutubeExtension extends AbstractExtension
     {
         try {
             $video = $this->vsm->parse($value);
-        } catch (\RicardoFiorani\Exception\ServiceNotAvailableException $e) {
+        } catch (ServiceNotAvailableException $e) {
             return '';
         }
 
-        return $video->getEmbedCode('100%', 500, true, true);
+        return $video->getEmbedCode('100%', 600, false, true);
     }
 }

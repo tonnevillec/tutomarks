@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Recherche{% endblock %}
+
+{% form_theme form _self %}
+{% block _categories_row %}
+    {{ include('form/_badgebox.html.twig', {'color' : 'dark', 'name' : 'categories', 'withIco' : true}) }}
+{% endblock %}
+
+{% block _tags_row %}
+    {{ include('form/_badgebox.html.twig', {'color' : 'primary', 'name' : 'tags'}) }}
+{% endblock %}
+
+{% block _authors_row %}
+{#    {{ include('form/_badgebox.html.twig', {'color' : 'secondary', 'name' : 'authors', 'withYtLogo' : true}) }}#}
+    {% set _class = '' %}
+    {% for k, v in attr %}
+        {% if k is same as 'class' %}
+            {% set _class = v %}
+        {% endif %}
+    {% endfor %}
+    <div class="form-group {{ _class }}">
+        <label class="label">{{ label }}</label><br/>
+        {% if choices is iterable %}
+            <select class="form-select" multiple aria-label="{{ label }}" name="{{ name }}[]">
+            {% for id, k in choices %}
+                {% set chk = false %}
+                {% if k.data.id in form.vars.value
+                    or (app.request.query.has('element') and app.request.query.get('element') == name and app.request.query.get('value') == k.data.id)
+                %}
+                    {% set chk = true %}
+                {% endif %}
+                <option value="{{ k.data.id }}" {% if chk %}selected{% endif%}>
+                    {{ k.label }}
+                </option>
+            {% endfor %}
+            </select>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block _languages_row %}
+    {{ include('form/_badgebox.html.twig', {'color' : 'info', 'name' : 'languages', 'withLogo' : true}) }}
+{% endblock %}
+
+
+{% block body %}
+<section class="mt-4 mb-3">
+    <div class="container">
+        <h1 class="h1"><i class="bi bi-search me-1 text-primary"></i>{{ 'search.title'|trans|capitalize }}</h1>
+        <hr class="my-3">
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="input-group mb-3">
+                {% if app.request.query.has('element') and app.request.query.get('element') == 'word' %}
+                    {{ form_widget(form.search, { 'attr' : { 'value' : app.request.query.get('value') }}) }}
+                {% else %}
+                    {{ form_widget(form.search) }}
+                {% endif %}
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-success"><i class="bi bi-search me-1"></i>{{ 'btn.search'|trans|capitalize }}</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-outline-primary btn-sm toggle" data-target="advancedSearch" data-plus="{{ 'btn.show_more_filters'|trans|capitalize }}" data-moins="{{ 'btn.show_less_filters'|trans|capitalize }}">
+                    {% if form.vars.value.categories|length > 0 or form.vars.value.authors|length > 0 or form.vars.value.tags|length > 0 %}
+                        {{ 'btn.show_less_filters'|trans|capitalize }}
+                    {% else %}
+                        {{ 'btn.show_more_filters'|trans|capitalize }}
+                    {% endif%}
+                </button>
+            </div>
+            <div class="col-md-6 text-end">
+                <a class="btn btn-outline-info btn-sm" href="{{ path('search') }}">{{ 'btn.reset'|trans|capitalize }}</a>
+            </div>
+        </div>
+
+        <div class="mb-3 px-3 py-2 border border-primary{% if form.vars.value.categories|length > 0 or form.vars.value.authors|length > 0 or form.vars.value.tags|length > 0 %} {% else %} d-none{% endif%}" id="advancedSearch">
+            <div class="row mb-3">
+                <div class="col-md-6">{{ form_row(form.categories) }}</div>
+                <div class="col-md-6">{{ form_row(form.languages) }}</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form_row(form.authors) }}
+            </div>
+
+            {{ form_rest(form) }}
+        </div>
+
+        {{ form_end(form) }}
+
+        <hr class="my-3 border">
+
+        {% if result is defined %}
+        <h2 class="h2 mb-2">
+            {{ result.getTotalItemCount }} {{ 'search.results'|trans|capitalize }}{{ result.getTotalItemCount > 1 ? 's' : '' }}
+
+            <div class="dropdown float-end btn-group">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="search-order" data-bs-toggle="dropdown">
+                    {{ 'search.orderby.menu'|trans|capitalize }}
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-lg-right">
+                    {{ knp_pagination_sortable(result, 'search.orderby.title.asc'|trans|capitalize, 'l.title', { 'class' : 'dropdown-item', 'type' : 'button', 'data-icon' : 'fas fa-sort-alpha-up'}, {'direction' : 'asc'}) }}
+                    {{ knp_pagination_sortable(result, 'search.orderby.title.desc'|trans|capitalize, 'l.title', { 'class' : 'dropdown-item', 'type' : 'button', 'data-icon' : 'fas fa-sort-alpha-down'}, {'direction' : 'desc'}) }}
+                    {{ knp_pagination_sortable(result, 'search.orderby.date.asc'|trans|capitalize, 'l.published_at', { 'class' : 'dropdown-item', 'type' : 'button', 'data-icon' : 'fas fa-sort-numeric-up'}, {'direction' : 'asc'}) }}
+                    {{ knp_pagination_sortable(result, 'search.orderby.date.desc'|trans|capitalize, 'l.published_at', { 'class' : 'dropdown-item', 'type' : 'button', 'data-icon' : 'fas fa-sort-numeric-down'}, {'direction' : 'desc'}) }}
+                </div>
+            </div>
+        </h2>
+
+        <div class="row mb-4">
+            {% for link in result %}
+                {{ include('home/_card_simplelinks.html.twig', {'link': link, 'withIco' : true}) }}
+            {% endfor %}
+        </div>
+
+        <div class="navigation">
+            {{ knp_pagination_render(result) }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

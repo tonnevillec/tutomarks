@@ -5,10 +5,19 @@ use Google_Client;
 use Google_Service_YouTube;
 use Google_Service_YouTube_ChannelSnippet;
 use Google_Service_YouTube_VideoSnippet;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\env;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
 class CallApiService {
+
+    private string $key;
+    private string $appName;
+
+    public function __construct(string $appName, string $key)
+    {
+        $this->appName = $appName;
+        $this->key = $key;
+    }
 
     /**
      * @param $url
@@ -17,11 +26,11 @@ class CallApiService {
     public function getYoutubeId($url)
     {
         $id = null;
-        if(strpos($url, 'youtube') !== false){
+        if(str_contains($url, 'youtube')){
             if(preg_match('/(.+)youtube\.com\/watch\?v=([\w-]+)/', $url, $id)){
                 $id = $id[2];
             }
-        }elseif(strpos($url, 'youtu.be') !== false){
+        }elseif(str_contains($url, 'youtu.be')){
             if(preg_match('/(.+)youtu.be\/([\w-]+)/', $url, $id)){
                 $id = $id[2];
             }
@@ -67,8 +76,8 @@ class CallApiService {
     private function getYoutubeApi(): Google_Service_YouTube
     {
         $client = new Google_Client();
-        $client->setApplicationName('tutomarks');
-        $client->setDeveloperKey('AIzaSyAhMAnEh05Dg5ORAbuxNsTo6eENnL8-Jy8');
+        $client->setApplicationName($this->appName);
+        $client->setDeveloperKey($this->key);
 
         return new Google_Service_YouTube($client);
     }

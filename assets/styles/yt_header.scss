@@ -1,0 +1,85 @@
+.hamburger-btn {
+  background-color: inherit;
+  font-size: 24px;
+  color: $black;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+header {
+  height: 56px;
+  box-shadow: 0 0 4px 4px #f3f3f3;
+
+  .header-logo {
+    text-decoration: none;
+
+    span.one {
+      color: $primary !important;
+    }
+    span.two {
+      color: $secondary !important;
+    }
+
+    span.title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+  .header-logo:hover {
+    text-decoration: none;
+    span.one {
+      color: $secondary !important;
+    }
+    span.two {
+      color: $primary !important;
+    }
+  }
+
+  .logo {
+    background: transparent;
+    width: 48px;
+    height: 48px;
+  }
+
+  .search-box {
+    max-width: 640px;
+    .form-control {
+      border-radius: 0 !important;
+    }
+  }
+  .search-btn {
+    background-color: #f8f8f8;
+    border-radius: 0;
+    &:hover {
+      background-color: #f0f0f0;
+      border-color: #c6c6c6;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.10);
+      transition: none;
+    }
+  }
+
+  #login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow: hidden;
+    background-color: $white;
+
+    .help-block{
+      font-size:12px
+    }
+    .bottom{
+      //background-color: $gray-700;
+      border-top:1px solid $light-gray;
+      clear:both;
+      padding:14px;
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+  }
+
+}

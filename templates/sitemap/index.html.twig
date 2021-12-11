@@ -5,7 +5,7 @@
         <url>
             <loc>{{ hostname }}{{ url.loc }}</loc>
             {% if url.lastmod is defined %}
-            <lastmod>{{ url.lastmod }}</lastmod>
+                <lastmod>{{ url.lastmod }}</lastmod>
             {% endif %}
             <priority>{{ url.priority is defined ? url.priority : '0.80' }}</priority>
         </url>

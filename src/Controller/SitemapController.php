@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Repository\ChannelsRepository;
-use App\Repository\TutosRepository;
+use App\Repository\AuthorsRepository;
+use App\Repository\YoutubeLinksRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,14 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SitemapController extends AbstractController
 {
-    /**
-     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
-     */
+    #[Route('/sitemap.xml', name: 'sitemap', format: 'xml')]
     public function index(
         Request $request,
-        TutosRepository $tutosRepository,
-        ChannelsRepository $channelsRepository
-    ): Response {
+        YoutubeLinksRepository $linksRepository,
+        AuthorsRepository $authorsRepository
+    ): Response
+    {
         $hotsname = $request->getSchemeAndHttpHost();
 
         $urls = [];
@@ -29,22 +28,22 @@ class SitemapController extends AbstractController
         $urls[] = ['loc' => $this->generateUrl('about')];
         $urls[] = ['loc' => $this->generateUrl('confidentiality')];
         $urls[] = ['loc' => $this->generateUrl('search')];
-        $urls[] = ['loc' => $this->generateUrl('channels')];
+        $urls[] = ['loc' => $this->generateUrl('authors.index')];
 
-        foreach ($tutosRepository->findAll() as $tuto) {
+        foreach ($linksRepository->findAll() as $link) {
             $urls[] = [
-                'loc' => $this->generateUrl('tutos.show', [
-                    'slug'  => $tuto->getSlug(),
-                    'id'    => $tuto->getId()
+                'loc' => $this->generateUrl('links.show', [
+                    'slug'  => $link->getSlug(),
+                    'id'    => $link->getId()
                 ]),
-                'lastmod' => $tuto->getPublishedAt()->format('Y-m-d')
+                'lastmod' => $link->getPublishedAt()->format('Y-m-d')
             ];
         }
-        foreach ($channelsRepository->findAll() as $channel) {
+        foreach ($authorsRepository->findAll() as $authors) {
             $urls[] = [
-                'loc' => $this->generateUrl('channels.show', [
-                    'slug'  => $channel->getSlug(),
-                    'id'    => $channel->getId()
+                'loc' => $this->generateUrl('authors.show', [
+                    'slug'  => $authors->getSlug(),
+                    'id'    => $authors->getId()
                 ]),
             ];
         }

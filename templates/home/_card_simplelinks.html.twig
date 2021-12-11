@@ -1,0 +1,87 @@
+<div class="col-sm-12 col-md-6 col-lg-3 px-1">
+    <div class="video mb-3">
+        <div class="video-thumbnail">
+            {% if link.category.code is same as ('videos') %}
+                <a href="{{ path('links.show', {'slug': link.slug, 'id': link.id}) }}">
+                    <img src="{{ link.imgLarge }}" alt="" class="img-fluid">
+                </a>
+            {% else %}
+                <a href="{{ link.url }}"
+                   title="{{ 'links.target_blank'|trans|capitalize }}"
+                   data-toggle="tooltip"
+                   data-placement="middle">
+                    {% if link.category.image %}
+                        <img src="{{ vich_uploader_asset(link.category, 'imageFile') }}" alt="" class="img-fluid">
+                    {% else %}
+                        <img src="{{ asset('build/images/articles.jpg') }}" alt="" class="img-fluid">
+                    {% endif %}
+                </a>
+            {% endif %}
+            <div class="video-informations p-1">
+                {% if link.category.code is not same as ('videos') %}
+                    <span class="badge bg-primary rounded"
+                          title="{{ 'links.target_blank'|trans|capitalize }}"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                    >{{ link.category }}</span>
+                {% endif %}
+                {% if link.language.logo %}
+                    <img src="{{ vich_uploader_asset(link.language, 'imageFile') }}"
+                         class="img-fluid flag-tag"
+                         alt="{{ link.language }}"
+                         title="{{ link.language }}"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                    />
+                {% else %}
+                    <span class="badge bg-primary rounded"
+                          title="{{ link.language }}"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                    >{{ link.language }}</span>
+                {% endif %}
+                {% for tag in link.tags %}
+                    <img alt="{{ tag }}"
+                         data-toggle="tooltip"
+                         data-placement="top"
+                         title="{{ tag }}"
+                         src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=flat&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                {% endfor %}
+            </div>
+        </div>
+        <div class="d-flex mt-1">
+            {% if link.author.ytLogo %}
+                <div class="author-thumbnail me-2">
+                    <img src="{{ link.author.ytLogo }}" class="rounded-circle" alt="">
+                </div>
+            {% endif %}
+            <div class="align-self-start">
+                <div class="video-title fs my-1">
+                {% if link.category.code is same as ('videos') %}
+                    <a href="{{ path('links.show', {'slug': link.slug, 'id': link.id}) }}" class="text-decoration-none">
+                        <strong>{{ link.title|u.truncate(60, '...') }}</strong>
+                    </a>
+                {% else %}
+                    <a href="{{ link.url }}"
+                       data-bs-toggle="tooltip"
+                       data-bs-placement="top"
+                       title="{{ 'links.target_blank'|trans|capitalize }}"
+                       class="text-decoration-none">
+                        {% if withIco is defined %}<i class="{{ categoryIcon(link.category.code) }} me-1"></i>{% endif %}
+                        <strong>{{ link.title|u.truncate(60, '...') }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i>
+                    </a>
+                {% endif %}
+                </div>
+
+                <div class="video-meta small my-1">
+                    <a href="{{ path('authors.show', { 'slug' : link.author.slug, 'id' : link.author.id }) }}" class="text-decoration-none">
+                        <i class="bi bi-mortarboard-fill me-1"></i>{{ link.author }}
+                    </a>
+                </div>
+                <div class="video-date small">
+                    Ajouté le {{ link.publishedAt|date('d/m/Y') }} par {{ link.publishedBy }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

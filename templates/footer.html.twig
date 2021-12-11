@@ -1,48 +1,47 @@
-<footer id="footer" class="py-5 bg-dark">
-    <div class="container">
+<div class="d-flex pt-5">
+    <footer class="container pt-2">
         <div class="row">
-            <div class="col-md-4 col-sm-6">
-                <h3 class="h3 text-white">{{ 'footer.about'|trans|capitalize }}</h3>
-                <nav class="nav flex-column">
-                    <a href="{{ path('about') }}" class="nav-link nav-item text-white">{{ 'about.title'|trans|capitalize }}</a>
-                    <a href="{{ path('confidentiality') }}" class="nav-link nav-item text-white">{{ 'confidentiality.title'|trans|capitalize }}</a>
-                </nav>
+            <div class="col-sm-6 col-md-6 col-lg-4">
+                <h5>Sections</h5>
 
-                <div class="nav mt-4">
-                    <a class="nav-link nav-item text-white" href="https://twitter.com/tutomarks" target="_blank" title="Compte Twitter de Tutomark"><i class="fab fa-twitter fa-2x"></i></a>
-                    <a class="nav-link nav-item text-white" href="https://github.com/tonnevillec/tutomarks" target="_blank" title="Source Github de Tutomark"><i class="fab fa-github fa-2x"></i></a>
-
-                    <a class="nav-link nav-item" href="https://obambu.com/my/aff.php?aff=124" target="_blank" title="{{ 'nav.obambu'|trans }}">
-                        <img src="{{ asset('build/images/obambu.png') }}" class="img-obambu" alt="{{ 'nav.obambu'|trans }}">
-                    </a>
-
-                    <a href="https://www.buymeacoffee.com/tutomarks" class="nav-link nav-item btn btn-outline-secondary btn-sm rounded-pill mt-2 ml-3" target="_blank" title="{{ 'nav.buymeacoffee'|trans }}">
-                        <i class="fas fa-mug-hot"></i> {{ 'nav.buymeacoffee'|trans }}
-                    </a>
-                </div>
-
-{#                <div class="nav mt-4">#}
-{#                    <a href="https://twitter.com/tutomarks" class="twitter-follow-button" data-lang="fr" data-show-count="true">Suivre @Tutomarks</a>#}
-{#                </div>#}
+                {{ footerCategories() }}
             </div>
 
-{#            <div class="col-md-4 col-sm-6">#}
-{#                <h3 class="h3 text-white">{{ 'footer.last_tweets'|trans|capitalize }}</h3>#}
-{#                {% for tweet in tweets(twitter_api_key, twitter_api_secret, twitter_bearer_token)  %}#}
-{#                <blockquote class="blockquote text-justify">#}
-{#                    <p class="mb-0 text-white"><i class="fas fa-quote-left"></i> {{ autolink(tweet.text) }}</p>#}
-{#                </blockquote>#}
-{#                {% endfor %}#}
-{#            </div>#}
+            <div class="col-sm-6 col-md-6 col-lg-4">
+                <h5>A propos</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="{{ path("contact") }}" class="nav-link py-0 ps-3 pe-0">Contact</a></li>
+                    <li class="nav-item mb-2"><a href="{{ path("about") }}" class="nav-link py-0 ps-3 pe-0">A propos</a></li>
+                    <li class="nav-item mb-2"><a href="{{ path("confidentiality") }}" class="nav-link py-0 ps-3 pe-0">Politique de confidentialité</a></li>
+                </ul>
+            </div>
 
-            <div class="col-md-4 col-sm-6 offset-md-4"> <!-- offset-md-4"> -->
-                <h3 class="h3 text-white">{{ 'footer.contact.title'|trans|capitalize }}</h3>
+            <div class="col-md-12 col-lg-3 offset-lg-1">
+                <h5>Affiliation</h5>
+                <a class="nav-link nav-item btn mb-2 footer-aff-link" href="https://obambu.com/my/aff.php?aff=124" target="_blank" title="{{ 'nav.obambu'|trans }}">
+                    <img src="{{ asset('build/images/obambu.png') }}" class="img-obambu" alt="{{ 'nav.obambu'|trans }}">
+                </a>
 
-                {% include 'home/_contact.html.twig' %}
+                <a class="nav-link nav-item btn mb-2 footer-aff-link" href="https://www.buymeacoffee.com/tutomarks" target="_blank" title="{{ 'nav.buymeacoffee'|trans }}">
+                    <i class="bi bi-cup-fill"></i> {{ 'nav.buymeacoffee'|trans }}
+                </a>
             </div>
         </div>
-    </div>
-    <div class="container mt-4">
-        <p class="m-0 text-center text-white">&copyTutoMarks | Juin 2021</p>
-    </div>
-</footer>
+
+        <div class="d-flex justify-content-between pt-4 mt-4 pb-1 mb-1 border-top">
+            <p>© 2021 Tutomarks</p>
+            <ul class="list-unstyled d-flex">
+                <li class="ms-3">
+                    <a class="link-dark" href="https://twitter.com/tutomarks" target="_blank" title="Compte Twitter de Tutomark">
+                        <i class="bi bi-twitter bi-2x"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a class="link-dark" href="https://github.com/tonnevillec/tutomarks" target="_blank" title="Source Github de Tutomark">
+                        <i class="bi bi-github bi-2x"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
