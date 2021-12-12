@@ -139,7 +139,14 @@ class FunctionsExtension extends AbstractExtension
         foreach($categories as $category) {
             $logo = $category->getLogo() ? '<i class="'.$category->getLogo().' me-1"></i>' : '<i class="bi bi-plus-square me-1"></i>';
 
-            $return .= '<li><a class="dropdown-item" href="#">' . $logo . ' ' . $category->getTitle() . '</a></li>';
+            if($category->getCode() === 'videos') {
+                $path = $this->router->generate('ytlinks.add');
+            } else {
+                $path = $this->router->generate('slinks.add', [
+                    'category' => $category
+                ]);
+            }
+            $return .= '<li><a class="dropdown-item" href="'.$path.'">' . $logo . ' ' . $category->getTitle() . '</a></li>';
         }
         return $return;
     }
