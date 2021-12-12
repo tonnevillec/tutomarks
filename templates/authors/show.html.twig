@@ -66,7 +66,7 @@
                 <h2 class="h2 card-title"><i class="bi bi-caret-right-square-fill me-1 text-primary"></i>{{ 'authors.description.label'|trans|capitalize }} :</h2>
 
                 <div class="border rounded p-2">
-                    <p>{{ author.description|nl2br }}</p>
+                    <p>{{ author.description|nl2br|raw }}</p>
                 </div>
             </div>
             {% endif %}
