@@ -288,7 +288,7 @@ authors:
     link: 'site du créateur'
   youtube:
     placeholder: 'ID Youtube (ex: UCj_iGliGCkLcHSZ8eqVNPDQ)'
-    label: 'https://www.youtube.com/UCj_iGliGCkLcHSZ8eqVNPDQ'
+    label: 'Chaine Youtube'
   add:
     title.error: 'le nom de la chaine est manquant'
   twitter:
