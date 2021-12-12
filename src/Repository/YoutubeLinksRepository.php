@@ -37,7 +37,7 @@ class YoutubeLinksRepository extends ServiceEntityRepository
     public function findForMe(Users $users)
     {
         return $this->createQueryBuilder('y')
-            ->andWhere('y.author = :user')
+            ->andWhere('y.published_by = :user')
             ->setParameter('user', $users->getId())
             ->orderBy('y.published_at', 'DESC')
             ->getQuery()

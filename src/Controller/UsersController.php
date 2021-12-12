@@ -203,7 +203,7 @@ class UsersController extends AbstractController
     #[Route("/my_links", name: "users.my_links")]
     public function myLinks(Request $request): Response
     {
-        $ytlinks = $this->youtubeLinksRepository->findForMe($this->getUser()->getId());
+        $ytlinks = $this->youtubeLinksRepository->findForMe($this->getUser());
         $slinks = $this->em->getRepository(SimpleLinks::class)
             ->findBy([
                 'published_by' => $this->getUser()->getId()
