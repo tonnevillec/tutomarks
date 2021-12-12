@@ -31,7 +31,7 @@
         {% if app.user %}
             {% if notPublishedLinksCount(app.user.id) > 0 %}
             <div class="mx-2 flex-shrink-0">
-                <a class="btn" href="#" role="button" id="navbar-warning-not-published" title="Liens non publiés">
+                <a class="btn" href="{{ path('users.my_links') }}" role="button" id="navbar-warning-not-published" title="Liens non publiés">
                     <span class="badge rounded-pill bg-danger">{{ notPublishedLinksCount(app.user.id) }}</span>
                     <span class="visually-hidden">Liens non publiés</span>
                 </a>
