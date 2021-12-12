@@ -31,7 +31,6 @@ class SimpleLinksController extends AbstractController
     {
         $link = new SimpleLinks();
         if(!is_null($category)) {
-            dump($category);
             $cat = $this->em->getRepository(Categories::class)->findOneBy(['code' => $category]);
             if($cat) {
                 $link->setCategory($cat);
