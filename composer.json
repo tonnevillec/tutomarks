@@ -1,6 +1,8 @@
 {
     "type": "project",
     "license": "proprietary",
+    "name": "tonnevillec/tutomarks",
+    "description": "Sources du site tutomarks.fr",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
@@ -11,7 +13,7 @@
         "ext-xml": "*",
         "ext-simplexml": "*",
         "cocur/slugify": "^4.0",
-        "composer/package-versions-deprecated": "1.11.99.4",
+        "composer/package-versions-deprecated": "1.*",
         "copadia/php-video-url-parser": "^1.0",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.4",

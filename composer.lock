@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86ecca925f1bffe35fc26a5ed82978d8",
+    "content-hash": "89b931903f7100ec4c816fdfc6427218",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1930,16 +1930,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.224.1",
+            "version": "v0.225.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "06e515176ebf32c3dcf7c01b3f377af6bfca6ae3"
+                "reference": "0e2387a7c082fc05d62555952391791db8c55435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/06e515176ebf32c3dcf7c01b3f377af6bfca6ae3",
-                "reference": "06e515176ebf32c3dcf7c01b3f377af6bfca6ae3",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/0e2387a7c082fc05d62555952391791db8c55435",
+                "reference": "0e2387a7c082fc05d62555952391791db8c55435",
                 "shasum": ""
             },
             "require": {
@@ -1968,9 +1968,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.224.1"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.225.0"
             },
-            "time": "2021-12-05T12:26:30+00:00"
+            "time": "2021-12-12T12:24:34+00:00"
         },
         {
             "name": "google/auth",
