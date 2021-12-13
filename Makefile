@@ -4,7 +4,7 @@ VERT:=\033[1;32m
 NORMAL:=\033[0;39m
 
 # Version PHP
-PHP_VERSION=php7.4
+PHP_VERSION=php8.0
 
 COMPOSER=/usr/bin/composer
 
@@ -26,7 +26,7 @@ scc:
 
 # COMMANDES COMPOSER
 composer-install:
-	$(PHP_VERSION) $(COMPOSER) install
+	$(PHP_VERSION) $(COMPOSER) install --no-dev --optimize-autoloader
 
 composer-update:
 	$(PHP_VERSION) $(COMPOSER) update
@@ -101,3 +101,5 @@ prepare-dev:
 
 fix:
 	vendor/bin/phpcbf src
+
+install:
