@@ -11,7 +11,7 @@ env:
   ES_HTTP_PORT: 9209
 jobs:
   symfony:
-    name: Symfony 5.2 (PHP ${{ matrix.php-versions }})
+    name: Symfony 5.4 (PHP ${{ matrix.php-versions }})
     # https://hub.docker.com/_/ubuntu/
     runs-on: ubuntu-20.04
     services:
@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php-versions: ['7.4']
+        php-versions: ['8.0']
     steps:
       # —— Setup Github actions 🐙 —————————————————————————————————————————————
       # https://github.com/actions/checkout (official)
@@ -55,7 +55,7 @@ jobs:
       - name: Yarn install
         uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: '17'
           registry-url: npm.fontawesome.com
       - run: yarn install
         env:
@@ -94,12 +94,12 @@ jobs:
       # Can't handle PHP8 for now
       - name: Coding standards checks (php_codesniffer + php-cs-fixer)
         run: make cs
-        if: matrix.php-versions == '7.4'
+        if: matrix.php-versions == '8.0'
 
       ## —— Static analysis ✨ —————————————————————————————————————————————————
       - name: Static analysis of PHP code (PHPStan)
         run: make static-analysis
-        if: matrix.php-versions == '7.4'
+        if: matrix.php-versions == '8.0'
 
 #      ## —— Tests ✅ ———————————————————————————————————————————————————————————
 #      - name: Load Doctrine fixtures and populate the Elasticsearch indexes
