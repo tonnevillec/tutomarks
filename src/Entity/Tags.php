@@ -6,7 +6,6 @@ use App\Repository\TagsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * @ORM\Entity(repositoryClass=TagsRepository::class)
@@ -40,12 +39,11 @@ class Tags
      */
     private ?string $color;
 
-    #[Pure]
- public function __construct()
- {
-     $this->links = new ArrayCollection();
-     $this->color = 'black';
- }
+    public function __construct()
+    {
+        $this->links = new ArrayCollection();
+        $this->color = 'black';
+    }
 
     public function getId(): ?int
     {
@@ -112,9 +110,8 @@ class Tags
         return $this;
     }
 
-    #[Pure]
- public function __toString(): string
- {
-     return (string) $this->getTitle();
- }
+    public function __toString(): string
+    {
+        return (string) $this->getTitle();
+    }
 }

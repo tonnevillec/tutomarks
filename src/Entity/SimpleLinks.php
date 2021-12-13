@@ -81,9 +81,8 @@ class SimpleLinks extends Links
         return $this;
     }
 
-    #[Pure]
- public function __toString(): string
- {
-     return (string) $this->getTitle();
- }
+    public function __toString(): string
+    {
+        return (string) $this->getTitle();
+    }
 }

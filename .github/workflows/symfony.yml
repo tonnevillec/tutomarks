@@ -97,16 +97,4 @@ jobs:
 
       ## —— Static analysis ✨ —————————————————————————————————————————————————
       - name: Static analysis of PHP code (PHPStan)
-        run: make static-analysis
-        if: matrix.php-versions == '8.0'
-
-#      ## —— Tests ✅ ———————————————————————————————————————————————————————————
-#      - name: Load Doctrine fixtures and populate the Elasticsearch indexes
-#        run: |
-#          make load-fixtures
-#          make populate
-#
-#      - name: Run functionnal and unit tests
-#        run: |
-#          cp phpunit.xml.ci phpunit.xml
-#          ./vendor/bin/phpunit --testsuite='main'
+        run: /usr/bin/php8.0 ./vendor/bin/phpstan analyse src --memory-limit 1G

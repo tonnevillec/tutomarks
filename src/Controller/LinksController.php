@@ -16,6 +16,7 @@ class LinksController extends AbstractController
 {
     private TranslatorInterface $translator;
     private EmailService $mailer;
+    private ParameterBagInterface $param;
 
     public function __construct(TranslatorInterface $translator, EmailService $mailer, ParameterBagInterface $param)
     {

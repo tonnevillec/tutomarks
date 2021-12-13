@@ -235,11 +235,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Pure]
- public function __toString(): string
- {
-     return $this->username ?: $this->email;
- }
+    public function __toString(): string
+    {
+        return $this->username ?: $this->email;
+    }
 
     /**
      * @return Collection|Links[]

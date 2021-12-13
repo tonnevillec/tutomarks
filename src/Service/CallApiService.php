@@ -6,7 +6,6 @@ use Google_Client;
 use Google_Service_YouTube;
 use Google_Service_YouTube_ChannelSnippet;
 use Google_Service_YouTube_VideoSnippet;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
 class CallApiService
 {
@@ -19,12 +18,7 @@ class CallApiService
         $this->key = $key;
     }
 
-    /**
-     * @param $url
-     *
-     * @return mixed|null
-     */
-    public function getYoutubeId($url)
+    public function getYoutubeId($url): mixed
     {
         $id = null;
         if (str_contains($url, 'youtube')) {
@@ -40,9 +34,6 @@ class CallApiService
         return $id;
     }
 
-    /**
-     * @param $id
-     */
     public function getVideoInformations($id): ?Google_Service_YouTube_VideoSnippet
     {
         $service = $this->getYoutubeApi();
@@ -56,9 +47,6 @@ class CallApiService
         return 0 === $response['pageInfo']['totalResults'] ? null : $response->getItems()[0]->getSnippet();
     }
 
-    /**
-     * @param $id
-     */
     public function getChannelInformations($id): ?Google_Service_YouTube_ChannelSnippet
     {
         $service = $this->getYoutubeApi();

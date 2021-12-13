@@ -143,9 +143,8 @@ class Languages
         return $this->imageFile;
     }
 
-    #[Pure]
- public function __toString(): string
- {
-     return (string) $this->getName();
- }
+    public function __toString(): string
+    {
+        return (string) $this->getName();
+    }
 }

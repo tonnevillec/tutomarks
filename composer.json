@@ -25,6 +25,7 @@
         "knplabs/knp-paginator-bundle": "^5.7",
         "knpuniversity/oauth2-client-bundle": "^2.8",
         "phpdocumentor/reflection-docblock": "^5.2",
+        "phpstan/phpstan": "^1.2",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",

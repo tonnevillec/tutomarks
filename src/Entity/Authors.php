@@ -268,9 +268,8 @@ class Authors
         return (new Slugify())->slugify($this->getTitle());
     }
 
-    #[Pure]
- public function __toString(): string
- {
-     return (string) $this->getTitle();
- }
+    public function __toString(): string
+    {
+        return (string) $this->getTitle();
+    }
 }

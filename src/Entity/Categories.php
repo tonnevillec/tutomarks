@@ -222,9 +222,8 @@ class Categories
         return $this->imageFile;
     }
 
-    #[Pure]
- public function __toString(): string
- {
-     return (string) $this->getTitle();
- }
+    public function __toString(): string
+    {
+        return (string) $this->getTitle();
+    }
 }
