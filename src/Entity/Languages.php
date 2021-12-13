@@ -3,12 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\LanguagesRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=LanguagesRepository::class)
@@ -35,6 +34,7 @@ class Languages
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @var string|null
      */
     private $logo;
@@ -46,12 +46,14 @@ class Languages
 
     /**
      * @Vich\UploadableField(mapping="languages_images", fileNameProperty="logo")
+     *
      * @var ?File
      */
     private $imageFile;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @var DateTime|null
      */
     private $updatedAt;
@@ -105,37 +107,25 @@ class Languages
         return $this;
     }
 
-    /**
-     * @return ArrayCollection|null
-     */
     public function getLinks(): ?ArrayCollection
     {
         return $this->links;
     }
 
-    /**
-     * @param ArrayCollection $links
-     */
     public function setLinks(ArrayCollection $links): void
     {
         $this->links = $links;
     }
 
-    /**
-     * @return DateTime|null
-     */
     public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param DateTime|null $updatedAt
-     * @return Tags
-     */
     public function setUpdatedAt(?DateTime $updatedAt): Tags
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
@@ -153,8 +143,9 @@ class Languages
         return $this->imageFile;
     }
 
-    #[Pure] public function __toString(): string
-    {
-        return (string) $this->getName();
-    }
+    #[Pure]
+ public function __toString(): string
+ {
+     return (string) $this->getName();
+ }
 }

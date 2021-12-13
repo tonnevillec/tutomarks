@@ -47,6 +47,5 @@ class SimpleLinksCrudController extends AbstractCrudController
         }
 
         yield TextEditorField::new('description')->hideOnIndex();
-
     }
 }

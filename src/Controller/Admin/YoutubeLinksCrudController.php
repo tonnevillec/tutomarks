@@ -10,7 +10,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
@@ -21,7 +20,6 @@ class YoutubeLinksCrudController extends AbstractCrudController
     {
         return YoutubeLinks::class;
     }
-
 
     public function configureFields(string $pageName): iterable
     {
@@ -53,5 +51,4 @@ class YoutubeLinksCrudController extends AbstractCrudController
 
 //        yield ImageField::new('img_small')->hideOnIndex();
     }
-
 }

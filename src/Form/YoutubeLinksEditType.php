@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Languages;
 use App\Entity\Tags;
 use App\Entity\YoutubeLinks;
-
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,28 +26,28 @@ class YoutubeLinksEditType extends AbstractType
     {
         $builder
             ->add('is_publish', CheckboxType::class, [
-                'label'     => ucfirst($this->translator->trans('ytlinks.is_publish.label')),
-                'data'      => true,
+                'label' => ucfirst($this->translator->trans('ytlinks.is_publish.label')),
+                'data' => true,
             ])
             ->add('tags', EntityType::class, [
-                'class'         => Tags::class,
+                'class' => Tags::class,
                 'query_builder' => static function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.title', 'ASC');
                 },
-                'label' => ucfirst($this->translator->trans('ytlinks.tags.label')) ,
-                'choice_value'  => 'id',
-                'multiple'      => true,
-                'required'      => false,
-                'choice_label'  => 'title',
-                'expanded'      => true
+                'label' => ucfirst($this->translator->trans('ytlinks.tags.label')),
+                'choice_value' => 'id',
+                'multiple' => true,
+                'required' => false,
+                'choice_label' => 'title',
+                'expanded' => true,
             ])
             ->add('language', EntityType::class, [
-                'class'         => Languages::class,
-                'label'         => ucfirst($this->translator->trans('ytlinks.langue.label')) . ' *',
-                'choice_value'  => 'name',
-                'multiple'      => false,
-                'required'      => true
+                'class' => Languages::class,
+                'label' => ucfirst($this->translator->trans('ytlinks.langue.label')).' *',
+                'choice_value' => 'name',
+                'multiple' => false,
+                'required' => true,
             ])
         ;
     }
@@ -56,8 +55,8 @@ class YoutubeLinksEditType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => YoutubeLinks::class,
-            'method'            => 'post',
+            'data_class' => YoutubeLinks::class,
+            'method' => 'post',
         ]);
     }
 

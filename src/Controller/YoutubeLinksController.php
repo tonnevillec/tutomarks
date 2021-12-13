@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route("/links")]
+#[Route('/links')]
 class YoutubeLinksController extends AbstractController
 {
     private CallApiService $apiService;
@@ -30,41 +30,41 @@ class YoutubeLinksController extends AbstractController
         $this->translator = $translator;
     }
 
-    #[Route("/addYtLink", name: "ytlinks.add")]
+    #[Route('/addYtLink', name: 'ytlinks.add')]
     public function add(Request $request): Response
     {
         $ytLink = new YoutubeLinks();
         $form = $this->createForm(YoutubeLinksType::class, $ytLink);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $url = $request->request->get('url');
 
             $ytId = $this->apiService->getYoutubeId($url);
-            if(!is_null($ytId)) {
+            if (!is_null($ytId)) {
                 $uniq = $this->em
                     ->getRepository(YoutubeLinks::class)
                     ->findOneBy([
-                        'youtube_id' => $ytId
+                        'youtube_id' => $ytId,
                     ])
                 ;
 
-                if($uniq) {
-                    $this->addFlash('danger',  ucfirst($this->translator->trans('tutos.add.not_uniq')));
+                if ($uniq) {
+                    $this->addFlash('danger', ucfirst($this->translator->trans('tutos.add.not_uniq')));
 
                     return $this->redirectToRoute('ytlinks.add');
                 }
 
                 $video = $this->apiService->getVideoInformations($ytId);
                 $ytauthors = $this->apiService->getChannelInformations($video->getChannelId());
-                if(!is_null($ytauthors)){
+                if (!is_null($ytauthors)) {
                     $authors = $this->em
                         ->getRepository(Authors::class)
                         ->findOneBy([
-                            'title' => $ytauthors['title']
+                            'title' => $ytauthors['title'],
                         ]);
 
-                    if(!$authors) {
+                    if (!$authors) {
                         $authors = (new Authors())
                             ->setTitle($ytauthors['title'])
                             ->setDescription($ytauthors['description'])
@@ -76,7 +76,7 @@ class YoutubeLinksController extends AbstractController
                         $this->em->flush();
                     }
                 } else {
-                    $this->addFlash('danger',  ucfirst($this->translator->trans('tutos.add.unknown_author')));
+                    $this->addFlash('danger', ucfirst($this->translator->trans('tutos.add.unknown_author')));
 
                     return $this->redirectToRoute('ytlinks.add');
                 }
@@ -95,16 +95,16 @@ class YoutubeLinksController extends AbstractController
                     ->setIsPublish(false)
                     ->setPublishedBy($this->getUser())
                 ;
-                if($video->getThumbnails()->getMedium()) {
+                if ($video->getThumbnails()->getMedium()) {
                     $ytLink->setImgSmall($video->getThumbnails()->getDefault()->getUrl());
                 }
-                if($video->getThumbnails()->getMedium()) {
+                if ($video->getThumbnails()->getMedium()) {
                     $ytLink->setImgMedium($video->getThumbnails()->getMedium()->getUrl());
                 }
-                if($video->getThumbnails()->getHigh()) {
+                if ($video->getThumbnails()->getHigh()) {
                     $ytLink->setImgLarge($video->getThumbnails()->getHigh()->getUrl());
                 }
-                    // setCreationAt($video->publishedAt)
+                // setCreationAt($video->publishedAt)
 
                 $this->em->persist($ytLink);
                 $this->em->flush();
@@ -112,50 +112,50 @@ class YoutubeLinksController extends AbstractController
                 $this->addFlash('info', 'Vérifier et compléter les informations');
 
                 return $this->redirectToRoute('ytlinks.edit', [
-                    'id'    => $ytLink->getId(),
+                    'id' => $ytLink->getId(),
                 ]);
             }
 
-            $this->addFlash('danger',  ucfirst($this->translator->trans('tutos.add.no_datas')));
+            $this->addFlash('danger', ucfirst($this->translator->trans('tutos.add.no_datas')));
 
             return $this->redirectToRoute('ytlinks.add');
         }
 
         return $this->render('youtube_links/add.html.twig', [
-            'form'  => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route("/edit/{id}", name: "ytlinks.edit")]
+    #[Route('/edit/{id}', name: 'ytlinks.edit')]
     public function edit(Request $request, YoutubeLinks $ytLink)
     {
         $form = $this->createForm(YoutubeLinksEditType::class, $ytLink);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($ytLink);
             $this->em->flush();
 
             $this->addFlash('success', 'Votre partage a correctement été modifié');
 
             return $this->redirectToRoute('links.show', [
-                'slug'  => $ytLink->getSlug(),
-                'id'    => $ytLink->getId()
+                'slug' => $ytLink->getSlug(),
+                'id' => $ytLink->getId(),
             ]);
         }
 
         return $this->render('youtube_links/edit.html.twig', [
-            'ytLink'    => $ytLink,
-            'form'      => $form->createView()
+            'ytLink' => $ytLink,
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route("/{slug}-{id}", name: "links.show", requirements: ["slug" => "[a-z0-9\-]*"])]
+    #[Route('/{slug}-{id}', name: 'links.show', requirements: ['slug' => "[a-z0-9\-]*"])]
     public function show(Request $request, $slug, YoutubeLinks $yt): Response
     {
         return $this->render('youtube_links/show.html.twig', [
-            'slug'  => $slug,
-            'yt'    => $yt
+            'slug' => $slug,
+            'yt' => $yt,
         ]);
     }
 }

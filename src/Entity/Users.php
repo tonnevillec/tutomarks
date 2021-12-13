@@ -235,10 +235,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Pure] public function __toString(): string
-    {
-        return $this->username ?: $this->email;
-    }
+    #[Pure]
+ public function __toString(): string
+ {
+     return $this->username ?: $this->email;
+ }
 
     /**
      * @return Collection|Links[]
@@ -280,11 +281,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @param mixed $githubId
+     *
      * @return Users
      */
     public function setGithubId($githubId)
     {
         $this->githubId = $githubId;
+
         return $this;
     }
 
@@ -298,65 +301,49 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @param mixed $googleId
+     *
      * @return Users
      */
     public function setGoogleId($googleId)
     {
         $this->googleId = $googleId;
+
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPasswordRepeat(): ?string
     {
         return $this->password_repeat;
     }
 
-    /**
-     * @param string|null $password_repeat
-     * @return Users
-     */
     public function setPasswordRepeat(?string $password_repeat): Users
     {
         $this->password_repeat = $password_repeat;
+
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPasswordConfirm(): ?string
     {
         return $this->password_confirm;
     }
 
-    /**
-     * @param string|null $password_confirm
-     * @return Users
-     */
     public function setPasswordConfirm(?string $password_confirm): Users
     {
         $this->password_confirm = $password_confirm;
+
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEmailRepeat(): ?string
     {
         return $this->email_repeat;
     }
 
-    /**
-     * @param string|null $email_repeat
-     * @return Users
-     */
     public function setEmailRepeat(?string $email_repeat): Users
     {
         $this->email_repeat = $email_repeat;
+
         return $this;
     }
 }

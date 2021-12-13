@@ -24,7 +24,7 @@ class LinksController extends AbstractController
         $this->param = $param;
     }
 
-    #[Route("/deadlink/{id}", name: "links.deadlink")]
+    #[Route('/deadlink/{id}', name: 'links.deadlink')]
     public function deadlink(Request $request, YoutubeLinks $links): RedirectResponse
     {
         $this->mailer->send(
@@ -33,15 +33,15 @@ class LinksController extends AbstractController
             'deadlink',
             [
                 'mail_from' => $this->getUser()->getEmail(),
-                'link'      => $links,
+                'link' => $links,
             ]
         );
 
         $this->addFlash('success', ucfirst($this->translator->trans('deadlink.thanks.flash')));
-        
+
         return $this->redirectToRoute('links.show', [
-            'slug'  => $links->getSlug(),
-            'id'    => $links->getId()
+            'slug' => $links->getSlug(),
+            'id' => $links->getId(),
         ]);
     }
 }

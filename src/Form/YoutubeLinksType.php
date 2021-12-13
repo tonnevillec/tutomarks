@@ -21,8 +21,8 @@ class YoutubeLinksType extends AbstractType
     {
         $builder
             ->add('url', null, [
-                'label'     => ucfirst($this->translator->trans('tutos.addurl.label')),
-                'required'  => true,
+                'label' => ucfirst($this->translator->trans('tutos.addurl.label')),
+                'required' => true,
             ])
         ;
     }
@@ -30,9 +30,9 @@ class YoutubeLinksType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => YoutubeLinks::class,
-            'method'            => 'post',
-            'csrf_protection'   => false
+            'data_class' => YoutubeLinks::class,
+            'method' => 'post',
+            'csrf_protection' => false,
         ]);
     }
 

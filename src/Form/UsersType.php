@@ -22,9 +22,9 @@ class UsersType extends AbstractType
         $builder
             ->add('username', null, [
                 'label_attr' => [
-                    'class' => 'label'
+                    'class' => 'label',
                 ],
-                'label' => ucfirst($this->translator->trans('user.username.label'))
+                'label' => ucfirst($this->translator->trans('user.username.label')),
             ])
         ;
     }

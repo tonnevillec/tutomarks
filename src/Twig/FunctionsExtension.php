@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Twig;
 
 use App\Entity\Authors;
@@ -34,22 +35,19 @@ class FunctionsExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param String $code
-     * @return string
-     */
-    public function getCategoryIcon(String $code): string
+    public function getCategoryIcon(string $code): string
     {
         $category = $this->em
             ->getRepository(Categories::class)
             ->findOneBy([
-                'code'   => $code
+                'code' => $code,
             ]);
 
-        if(!$category) {
+        if (!$category) {
             return 'bi bi-box';
         }
-        return !is_null($category->getLogo()) && $category->getLogo() !== '' ? $category->getLogo() : 'bi bi-box';
+
+        return !is_null($category->getLogo()) && '' !== $category->getLogo() ? $category->getLogo() : 'bi bi-box';
     }
 
     public function getMenuAuthors(): string
@@ -59,26 +57,27 @@ class FunctionsExtension extends AbstractExtension
             ->findTop(5)
             ;
 
-        if(!$authors) {
-          return '';
+        if (!$authors) {
+            return '';
         }
 
         $return = '';
-        foreach($authors as $author) {
-            if($author[0]->getYtLogo()) {
+        foreach ($authors as $author) {
+            if ($author[0]->getYtLogo()) {
                 $logo = '<img src="'.$author[0]->getYtLogo().'" alt="" class="img-h30 me-1 rounded-circle">';
             } else {
                 $logo = '<span class="ico-author me-1 text-gray"><i class="bi bi-person"></i></span>';
             }
             $r = $this->generator->generate('authors.show', [
                 'slug' => $author[0]->getSlug(),
-                'id' => $author[0]->getId()
+                'id' => $author[0]->getId(),
             ]);
             $return .= '<a href="'.$r.'" class="list-group-item d-flex align-items-center">
                 '.$logo.'
                 <span class="text-truncate">'.$author[0]->getTitle().'</span>                
             </a>';
         }
+
         return $return;
     }
 
@@ -91,15 +90,16 @@ class FunctionsExtension extends AbstractExtension
 
         $return = '';
         foreach ($categories as $category) {
-            $logo = !is_null($category->getLogo()) && $category->getLogo() !== '' ? $category->getLogo() : 'bi bi-box';
+            $logo = !is_null($category->getLogo()) && '' !== $category->getLogo() ? $category->getLogo() : 'bi bi-box';
             $path = $this->router->generate('search', [
-                'categories[]'  => $category->getId()
+                'categories[]' => $category->getId(),
             ]);
             $return .= '<a href="'.$path.'" class="list-group-item d-flex align-items-center">
                 <i class="'.$logo.' me-1"></i>
                 <span>'.$category->getTitle().'</span>
             </a>';
         }
+
         return $return;
     }
 
@@ -111,12 +111,12 @@ class FunctionsExtension extends AbstractExtension
         ;
 
         $return = '';
-        if(count($categories) > 0) {
+        if (count($categories) > 0) {
             $return .= '<ul  class="nav flex-column">';
             foreach ($categories as $category) {
-                $logo = !is_null($category->getLogo()) && $category->getLogo() !== '' ? $category->getLogo() : 'bi bi-box';
+                $logo = !is_null($category->getLogo()) && '' !== $category->getLogo() ? $category->getLogo() : 'bi bi-box';
                 $path = $this->router->generate('search', [
-                    'categories[]'  => $category->getId()
+                    'categories[]' => $category->getId(),
                 ]);
                 $return .= '<li class="nav-item mb-2"><a href="'.$path.'" class="nav-link py-0 ps-3 pe-0">
                     <i class="'.$logo.' me-1"></i>
@@ -125,6 +125,7 @@ class FunctionsExtension extends AbstractExtension
             }
             $return .= '</ul>';
         }
+
         return $return;
     }
 
@@ -136,18 +137,19 @@ class FunctionsExtension extends AbstractExtension
         ;
 
         $return = '';
-        foreach($categories as $category) {
+        foreach ($categories as $category) {
             $logo = $category->getLogo() ? '<i class="'.$category->getLogo().' me-1"></i>' : '<i class="bi bi-plus-square me-1"></i>';
 
-            if($category->getCode() === 'videos') {
+            if ('videos' === $category->getCode()) {
                 $path = $this->router->generate('ytlinks.add');
             } else {
                 $path = $this->router->generate('slinks.add', [
-                    'category' => $category
+                    'category' => $category,
                 ]);
             }
-            $return .= '<li><a class="dropdown-item" href="'.$path.'">' . $logo . ' ' . $category->getTitle() . '</a></li>';
+            $return .= '<li><a class="dropdown-item" href="'.$path.'">'.$logo.' '.$category->getTitle().'</a></li>';
         }
+
         return $return;
     }
 
@@ -156,8 +158,8 @@ class FunctionsExtension extends AbstractExtension
         return count($this->em
             ->getRepository(Links::class)
             ->findBy([
-                'published_by'  => $userId,
-                'is_publish'    => false
+                'published_by' => $userId,
+                'is_publish' => false,
             ])
         );
     }

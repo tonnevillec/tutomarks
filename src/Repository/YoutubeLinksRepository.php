@@ -20,9 +20,9 @@ class YoutubeLinksRepository extends ServiceEntityRepository
         parent::__construct($registry, YoutubeLinks::class);
     }
 
-     /**
-      * @return YoutubeLinks[] Returns an array of YoutubeLinks objects
-      */
+    /**
+     * @return YoutubeLinks[] Returns an array of YoutubeLinks objects
+     */
     public function findLatestPublished($nb = 8): array
     {
         return $this->createQueryBuilder('y')

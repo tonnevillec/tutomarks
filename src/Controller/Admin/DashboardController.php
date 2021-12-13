@@ -26,6 +26,7 @@ class DashboardController extends AbstractDashboardController
 //        return parent::index();
 
         $routeBuilder = $this->get(AdminUrlGenerator::class);
+
         return $this->redirect(
             $routeBuilder->setController(CategoriesCrudController::class)->generateUrl()
         );
@@ -49,7 +50,7 @@ class DashboardController extends AbstractDashboardController
         ]);
 
         yield MenuItem::subMenu('Utilisateurs')->setSubItems([
-            MenuItem::linkToCrud('Users', 'fas fa-list', Users::class)
+            MenuItem::linkToCrud('Users', 'fas fa-list', Users::class),
         ]);
 
         yield MenuItem::subMenu('Links')->setSubItems([

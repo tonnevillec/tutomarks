@@ -36,7 +36,6 @@ class AuthorsCrudController extends AbstractCrudController
             DateTimeField::new('updated_at')->onlyOnIndex(),
             AssociationField::new('links')->onlyOnIndex(),
             TextField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
-
         ];
     }
 }

@@ -50,16 +50,16 @@ class LinksRepository extends ServiceEntityRepository
             ->andWhere('l.is_publish = 1')
         ;
 
-        if($search->getSearch()) {
+        if ($search->getSearch()) {
             $query = $query
                 ->andWhere('MATCH_AGAINST(l.title, l.description) AGAINST (:search boolean)>0')
                 ->setParameter('search', '*'.$search->getSearch().'*')
             ;
         }
 
-        if($search->getCategories() && count($search->getCategories()) !== 0) {
+        if ($search->getCategories() && 0 !== count($search->getCategories())) {
             $categories = [];
-            foreach ($search->getCategories() as $category){
+            foreach ($search->getCategories() as $category) {
                 $categories[] = $category->getId();
             }
             $query = $query
@@ -69,9 +69,9 @@ class LinksRepository extends ServiceEntityRepository
             ;
         }
 
-        if($search->getLanguages() && count($search->getLanguages()) !== 0) {
+        if ($search->getLanguages() && 0 !== count($search->getLanguages())) {
             $languages = [];
-            foreach ($search->getLanguages() as $language){
+            foreach ($search->getLanguages() as $language) {
                 $languages[] = $language->getId();
             }
             $query = $query
@@ -81,9 +81,9 @@ class LinksRepository extends ServiceEntityRepository
             ;
         }
 
-        if($search->getTags() && count($search->getTags()) !== 0) {
+        if ($search->getTags() && 0 !== count($search->getTags())) {
             $tags = [];
-            foreach ($search->getTags() as $tag){
+            foreach ($search->getTags() as $tag) {
                 $tags[] = $tag->getId();
             }
             $query = $query
@@ -93,9 +93,9 @@ class LinksRepository extends ServiceEntityRepository
             ;
         }
 
-        if($search->getAuthors() && count($search->getAuthors()) !== 0) {
+        if ($search->getAuthors() && 0 !== count($search->getAuthors())) {
             $authors = [];
-            foreach ($search->getAuthors() as $author){
+            foreach ($search->getAuthors() as $author) {
                 $authors[] = $author->getId();
             }
             $query = $query
@@ -105,7 +105,7 @@ class LinksRepository extends ServiceEntityRepository
             ;
         }
 
-        if($orderby === 'l.title') {
+        if ('l.title' === $orderby) {
             $query->orderBy($orderby, strtoupper($direction));
         } else {
             $query->orderBy('l.published_at', strtoupper($direction));

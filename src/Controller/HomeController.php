@@ -19,7 +19,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController
 {
-
     private TranslatorInterface $translator;
     private EmailService $mailer;
     private ParameterBagInterface $param;
@@ -31,8 +30,7 @@ class HomeController extends AbstractController
                                 ParameterBagInterface $param,
                                 EntityManagerInterface $em,
                                 HttpClientInterface $client
-    )
-    {
+    ) {
         $this->translator = $translator;
         $this->mailer = $mailer;
         $this->param = $param;
@@ -40,7 +38,7 @@ class HomeController extends AbstractController
         $this->client = $client;
     }
 
-    #[Route("/", name: "home")]
+    #[Route('/', name: 'home')]
     public function index(YoutubeLinksRepository $ytRepository): Response
     {
         $youtubelinks = $ytRepository->findLatestPublished();
@@ -56,17 +54,17 @@ class HomeController extends AbstractController
         )->toArray();
 
         return $this->render('home/index.html.twig', [
-            'youtubelinks'  => $youtubelinks,
-            'articles'      => $articles,
-            'podcasts'      => $podcasts,
-            'ressources'    => $ressources,
-            'authors'       => $authors,
-            'tags'          => $tags,
-            'hebdoo'        => $hebdoo
+            'youtubelinks' => $youtubelinks,
+            'articles' => $articles,
+            'podcasts' => $podcasts,
+            'ressources' => $ressources,
+            'authors' => $authors,
+            'tags' => $tags,
+            'hebdoo' => $hebdoo,
         ]);
     }
 
-    #[Route("/contact", name: "contact")]
+    #[Route('/contact', name: 'contact')]
     public function contact(Request $request): Response
     {
         return $this->render('home/contact.html.twig');
@@ -78,26 +76,26 @@ class HomeController extends AbstractController
         $datas = $request->request;
         $return = true;
 
-        if (!$datas->has('contact_email') || $datas->get('contact_email') === '') {
+        if (!$datas->has('contact_email') || '' === $datas->get('contact_email')) {
             $this->addFlash('danger', ucfirst($this->translator->trans('contact.error.email_required')));
             $return = false;
         }
 
-        if (!$datas->has('contact_subject') || $datas->get('contact_subject') === '') {
+        if (!$datas->has('contact_subject') || '' === $datas->get('contact_subject')) {
             $this->addFlash('danger', ucfirst($this->translator->trans('contact.error.subject_required')));
             $return = false;
         }
 
-        if (!$datas->has('contact_message') || $datas->get('contact_message') === '' || strlen($datas->get('contact_message')) < 10) {
+        if (!$datas->has('contact_message') || '' === $datas->get('contact_message') || strlen($datas->get('contact_message')) < 10) {
             $this->addFlash('danger', ucfirst($this->translator->trans('contact.error.message_required')));
             $return = false;
         }
 
-        if(!$return) {
+        if (!$return) {
             return $this->render('home/contact.html.twig', [
-                'mail_from'     => $datas->get('contact_email'),
-                'mail_subject'  => $datas->get('contact_subject'),
-                'mail_message'  => $datas->get('contact_message'),
+                'mail_from' => $datas->get('contact_email'),
+                'mail_subject' => $datas->get('contact_subject'),
+                'mail_message' => $datas->get('contact_message'),
             ]);
         }
 
@@ -106,24 +104,24 @@ class HomeController extends AbstractController
             ucfirst($this->translator->trans('mail.contact.subject')),
             'contact',
             [
-                'mail_from'     => $datas->get('contact_email'),
-                'mail_subject'  => $datas->get('contact_subject'),
-                'mail_message'  => $datas->get('contact_message'),
+                'mail_from' => $datas->get('contact_email'),
+                'mail_subject' => $datas->get('contact_subject'),
+                'mail_message' => $datas->get('contact_message'),
             ]
         );
 
         $this->addFlash('success', ucfirst($this->translator->trans('contact.send_ok')));
 
-        return $this->redirectToRoute("home");
+        return $this->redirectToRoute('home');
     }
 
-    #[Route("/about", name: "about")]
+    #[Route('/about', name: 'about')]
     public function about(Request $request): Response
     {
         return $this->render('home/about.html.twig');
     }
 
-    #[Route("/confidentiality", name: "confidentiality")]
+    #[Route('/confidentiality', name: 'confidentiality')]
     public function confidentiality(Request $request): Response
     {
         return $this->render('home/confidentiality.html.twig');

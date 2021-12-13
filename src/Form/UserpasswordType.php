@@ -26,36 +26,36 @@ class UserpasswordType extends AbstractType
         $builder
             ->setAction($this->router->generate('users.change.password'))
             ->add('password_confirm', PasswordType::class, [
-                'required'      => true,
-                'attr'          => [
-                    'placeholder' => 'user.profil.new_password.confirm'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.profil.new_password.confirm',
                 ],
-                'help'          => ucfirst($this->translator->trans('user.profil.new_password.help')),
-                'label_attr'    => [
-                    'class'     => 'label'
+                'help' => ucfirst($this->translator->trans('user.profil.new_password.help')),
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label'         => ucfirst($this->translator->trans('user.profil.new_password.confirm')) . ' *',
+                'label' => ucfirst($this->translator->trans('user.profil.new_password.confirm')).' *',
             ])
             ->add('password', PasswordType::class, [
-                'required'      => true,
-                'attr'          => [
-                    'placeholder' => 'user.profil.new_password.label'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.profil.new_password.label',
                 ],
-                'help'          => ucfirst($this->translator->trans('user.profil.new_password.help_rules')),
-                'label_attr'    => [
-                    'class'     => 'label'
+                'help' => ucfirst($this->translator->trans('user.profil.new_password.help_rules')),
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label'         => ucfirst($this->translator->trans('user.profil.new_password.label')) . ' *',
+                'label' => ucfirst($this->translator->trans('user.profil.new_password.label')).' *',
             ])
             ->add('password_repeat', PasswordType::class, [
-                'required'      => true,
-                'attr'          => [
-                    'placeholder'   => 'user.password.repeat',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.password.repeat',
                 ],
-                'label_attr'    => [
-                    'class'     => 'label'
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label'         => ucfirst($this->translator->trans('user.password.repeat')) . ' *',
+                'label' => ucfirst($this->translator->trans('user.password.repeat')).' *',
             ])
         ;
     }

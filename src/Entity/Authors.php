@@ -3,13 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\AuthorsRepository;
+use Cocur\Slugify\Slugify;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass=AuthorsRepository::class)
@@ -71,13 +71,13 @@ class Authors
 
     /**
      * @Vich\UploadableField(mapping="authors_images", fileNameProperty="logo")
+     *
      * @var ?File
      */
     private ?File $imageFile;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @var DateTime|null
      */
     private ?DateTime $updatedAt;
 
@@ -237,21 +237,15 @@ class Authors
         return $this;
     }
 
-    /**
-     * @return DateTime|null
-     */
     public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param DateTime|null $updatedAt
-     * @return Authors
-     */
     public function setUpdatedAt(?DateTime $updatedAt): Authors
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
@@ -274,8 +268,9 @@ class Authors
         return (new Slugify())->slugify($this->getTitle());
     }
 
-    #[Pure] public function __toString(): string
-    {
-        return (string) $this->getTitle();
-    }
+    #[Pure]
+ public function __toString(): string
+ {
+     return (string) $this->getTitle();
+ }
 }

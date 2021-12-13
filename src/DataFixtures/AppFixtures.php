@@ -36,42 +36,43 @@ class AppFixtures extends Fixture
 //        $this->loadForTest($manager);
     }
 
-    private function setCategories(ObjectManager $manager) {
+    private function setCategories(ObjectManager $manager)
+    {
         $categories = [
             [
-                'title'         => 'Vidéos',
-                'logo'          => 'bi bi-youtube',
-                'link_entity'   => 'youtube',
-                'code'          => 'videos',
-                'is_actif'      => true
+                'title' => 'Vidéos',
+                'logo' => 'bi bi-youtube',
+                'link_entity' => 'youtube',
+                'code' => 'videos',
+                'is_actif' => true,
             ],
             [
-                'title'         => 'Articles',
-                'logo'          => 'bi bi-newspaper',
-                'link_entity'   => 'simple',
-                'code'          => 'articles',
-                'is_actif'      => true
+                'title' => 'Articles',
+                'logo' => 'bi bi-newspaper',
+                'link_entity' => 'simple',
+                'code' => 'articles',
+                'is_actif' => true,
             ],
             [
-                'title'         => 'Podcasts',
-                'logo'          => 'bi bi-broadcast-pin',
-                'link_entity'   => 'simple',
-                'code'          => 'podcasts',
-                'is_actif'      => true
+                'title' => 'Podcasts',
+                'logo' => 'bi bi-broadcast-pin',
+                'link_entity' => 'simple',
+                'code' => 'podcasts',
+                'is_actif' => true,
             ],
             [
-                'title'         => 'Formations',
-                'logo'          => 'bi bi-award',
-                'link_entity'   => 'simple',
-                'code'          => 'formations',
-                'is_actif'      => false
+                'title' => 'Formations',
+                'logo' => 'bi bi-award',
+                'link_entity' => 'simple',
+                'code' => 'formations',
+                'is_actif' => false,
             ],
             [
-                'title'         => 'Ressources',
-                'logo'          => 'bi bi-tools',
-                'link_entity'   => 'simple',
-                'code'          => 'ressources',
-                'is_actif'      => true
+                'title' => 'Ressources',
+                'logo' => 'bi bi-tools',
+                'link_entity' => 'simple',
+                'code' => 'ressources',
+                'is_actif' => true,
             ],
         ];
 
@@ -88,7 +89,8 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function setTags(ObjectManager $manager) {
+    private function setTags(ObjectManager $manager)
+    {
         $tags = [
             [
                 'id' => 1,
@@ -427,22 +429,23 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function setLanguages(ObjectManager $manager) {
+    private function setLanguages(ObjectManager $manager)
+    {
         $languages = [
             [
-                'name'      => 'Francais',
+                'name' => 'Francais',
                 'shortname' => 'FR',
-                'logo'      => ''
+                'logo' => '',
             ],
             [
-                'name'      => 'Anglais',
+                'name' => 'Anglais',
                 'shortname' => 'EN',
-                'logo'      => ''
+                'logo' => '',
             ],
             [
-                'name'      => 'Espagnol',
+                'name' => 'Espagnol',
                 'shortname' => 'ES',
-                'logo'      => ''
+                'logo' => '',
             ],
         ];
 
@@ -457,33 +460,32 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function setAuthors(ObjectManager $manager) {
-
+    private function setAuthors(ObjectManager $manager)
+    {
         $authors = [
             [
-                'title'         => 'YoanDev',
-                'description'   => 'Yoan le développeur qui fait du Symfony',
-                'logo'          => 'https://yt3.ggpht.com/ytc/AAUvwnhPs5SD0uJxihTyciO4SScwDAWebP2bnnNOIW8M=s88-c-k-c0x00ffffff-no-rj',
-                'yt_logo'       => 'https://yt3.ggpht.com/ytc/AAUvwnhPs5SD0uJxihTyciO4SScwDAWebP2bnnNOIW8M=s88-c-k-c0x00ffffff-no-rj',
-                'site_url'      => 'https://www.yoandev.com',
-                'twitter'       => 'yOyO38',
-                'twitch'        => '',
-                'github'        => 'https://www.github.com/yoandev',
-                'youtube'       => 'https://www.youtube.com/UCRlsJWh1XwmNGxZPFgJ0Zlw',
+                'title' => 'YoanDev',
+                'description' => 'Yoan le développeur qui fait du Symfony',
+                'logo' => 'https://yt3.ggpht.com/ytc/AAUvwnhPs5SD0uJxihTyciO4SScwDAWebP2bnnNOIW8M=s88-c-k-c0x00ffffff-no-rj',
+                'yt_logo' => 'https://yt3.ggpht.com/ytc/AAUvwnhPs5SD0uJxihTyciO4SScwDAWebP2bnnNOIW8M=s88-c-k-c0x00ffffff-no-rj',
+                'site_url' => 'https://www.yoandev.com',
+                'twitter' => 'yOyO38',
+                'twitch' => '',
+                'github' => 'https://www.github.com/yoandev',
+                'youtube' => 'https://www.youtube.com/UCRlsJWh1XwmNGxZPFgJ0Zlw',
             ],
             [
-                'title'         => 'Lior Chamla',
-                'description'   => 'Un développeur qui fait du Symfony, du Angular et qui est fort',
-                'logo'          => 'https://yt3.ggpht.com/ytc/AAUvwnibA9asWibjOw39QRbW4zX3CTd4cx2hQghFb8FlVA=s88-c-k-c0x00ffffff-no-rj',
-                'yt_logo'       => 'https://yt3.ggpht.com/ytc/AAUvwnibA9asWibjOw39QRbW4zX3CTd4cx2hQghFb8FlVA=s88-c-k-c0x00ffffff-no-rj',
-                'site_url'      => 'https://learn.web-develop.me/',
-                'twitter'       => 'LiiorC',
-                'twitch'        => '',
-                'github'        => 'https://github.com/liorchamla/',
-                'youtube'       => 'https://www.youtube.com/UCS71mal_TkTW_PpZR9YLpIA',
+                'title' => 'Lior Chamla',
+                'description' => 'Un développeur qui fait du Symfony, du Angular et qui est fort',
+                'logo' => 'https://yt3.ggpht.com/ytc/AAUvwnibA9asWibjOw39QRbW4zX3CTd4cx2hQghFb8FlVA=s88-c-k-c0x00ffffff-no-rj',
+                'yt_logo' => 'https://yt3.ggpht.com/ytc/AAUvwnibA9asWibjOw39QRbW4zX3CTd4cx2hQghFb8FlVA=s88-c-k-c0x00ffffff-no-rj',
+                'site_url' => 'https://learn.web-develop.me/',
+                'twitter' => 'LiiorC',
+                'twitch' => '',
+                'github' => 'https://github.com/liorchamla/',
+                'youtube' => 'https://www.youtube.com/UCS71mal_TkTW_PpZR9YLpIA',
             ],
         ];
-
 
         foreach ($authors as $author) {
             $entity = (new Authors())
@@ -502,18 +504,20 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function setAdministrator(ObjectManager $manager) {
+    private function setAdministrator(ObjectManager $manager)
+    {
         $user = (new Users())
             ->setEmail('admin@tutomarks.fr')
             ->setUsername('Admin Tutomarks')
-            ->setRoles(["ROLE_USER", "ROLE_ADMIN"])
+            ->setRoles(['ROLE_USER', 'ROLE_ADMIN'])
             ;
         $user->setPassword($this->encoder->hashPassword($user, 'admin'));
         $manager->persist($user);
         $manager->flush();
     }
 
-    private function loadForTest(ObjectManager $manager) {
+    private function loadForTest(ObjectManager $manager)
+    {
         $categorie1 = $manager->getRepository(Categories::class)
             ->findOneBy(['code' => 'videos']);
         $categorie2 = $manager->getRepository(Categories::class)

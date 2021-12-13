@@ -16,8 +16,7 @@ class SitemapController extends AbstractController
         Request $request,
         YoutubeLinksRepository $linksRepository,
         AuthorsRepository $authorsRepository
-    ): Response
-    {
+    ): Response {
         $hotsname = $request->getSchemeAndHttpHost();
 
         $urls = [];
@@ -33,25 +32,25 @@ class SitemapController extends AbstractController
         foreach ($linksRepository->findAll() as $link) {
             $urls[] = [
                 'loc' => $this->generateUrl('links.show', [
-                    'slug'  => $link->getSlug(),
-                    'id'    => $link->getId()
+                    'slug' => $link->getSlug(),
+                    'id' => $link->getId(),
                 ]),
-                'lastmod' => $link->getPublishedAt()->format('Y-m-d')
+                'lastmod' => $link->getPublishedAt()->format('Y-m-d'),
             ];
         }
         foreach ($authorsRepository->findAll() as $authors) {
             $urls[] = [
                 'loc' => $this->generateUrl('authors.show', [
-                    'slug'  => $authors->getSlug(),
-                    'id'    => $authors->getId()
+                    'slug' => $authors->getSlug(),
+                    'id' => $authors->getId(),
                 ]),
             ];
         }
 
         $response = new Response(
             $this->renderView('sitemap/index.html.twig', [
-                'urls'      => $urls,
-                'hostname'  => $hotsname
+                'urls' => $urls,
+                'hostname' => $hotsname,
             ]),
             200
         );

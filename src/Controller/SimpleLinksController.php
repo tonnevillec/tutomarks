@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route("/simpleLinks")]
+#[Route('/simpleLinks')]
 class SimpleLinksController extends AbstractController
 {
     private EntityManagerInterface $em;
@@ -26,54 +26,54 @@ class SimpleLinksController extends AbstractController
         $this->translator = $translator;
     }
 
-    #[Route("/add/{category}", name: "slinks.add")]
+    #[Route('/add/{category}', name: 'slinks.add')]
     public function add(Request $request, string $category = null): Response
     {
         $link = new SimpleLinks();
-        if(!is_null($category)) {
+        if (!is_null($category)) {
             $cat = $this->em->getRepository(Categories::class)->findOneBy(['code' => $category]);
-            if($cat) {
+            if ($cat) {
                 $link->setCategory($cat);
             }
         }
         $form = $this->createForm(SimpleLinksType::class, $link);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $datas = $request->request->get('simple_links');
 
             $link->setPublishedBy($this->getUser());
 
             $uniqurl = $this->em->getRepository(Links::class)->findOneBy(['url' => $datas['url']]);
-            if($uniqurl) {
+            if ($uniqurl) {
                 $this->addFlash('danger', ucfirst($this->translator->trans('link.add.error.uniq_url')));
 
                 return $this->render('', [
-                    'form'          => $form->createView()
+                    'form' => $form->createView(),
                 ]);
             }
 
-            if($datas['author'] === '') {
+            if ('' === $datas['author']) {
                 $newAuthor = $request->request->get('newauthors');
 
-                if($newAuthor['title'] === '') {
+                if ('' === $newAuthor['title']) {
                     $this->addFlash('danger', ucfirst($this->translator->trans('channel.add.title.error')));
 
                     return $this->render('', [
-                        'form'          => $form->createView(),
-                        'new_author'    => 'simple_links_author_title'
+                        'form' => $form->createView(),
+                        'new_author' => 'simple_links_author_title',
                     ]);
                 }
 
                 $author = null;
-                if($newAuthor['youtube'] !== '') {
+                if ('' !== $newAuthor['youtube']) {
                     $notuniq = $this->em->getRepository(Authors::class)->findOneBy(['youtube' => $newAuthor['youtube']]);
-                    if($notuniq) {
+                    if ($notuniq) {
                         $author = $notuniq;
                     }
                 }
 
-                if(is_null($author)) {
+                if (is_null($author)) {
                     $author = (new Authors())
                         ->setTitle($newAuthor['title'])
                         ->setGithub($newAuthor['github'])
@@ -93,6 +93,7 @@ class SimpleLinksController extends AbstractController
             $this->em->flush();
 
             $this->addFlash('success', 'Votre lien a été ajouté');
+
             return $this->redirectToRoute('home');
         }
 

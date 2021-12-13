@@ -3,13 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\TagsRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=TagsRepository::class)
@@ -35,21 +32,20 @@ class Tags
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
      */
     private ?string $code;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
      */
     private ?string $color;
 
-    #[Pure] public function __construct()
-    {
-        $this->links = new ArrayCollection();
-        $this->color = "black";
-    }
+    #[Pure]
+ public function __construct()
+ {
+     $this->links = new ArrayCollection();
+     $this->color = 'black';
+ }
 
     public function getId(): ?int
     {
@@ -116,8 +112,9 @@ class Tags
         return $this;
     }
 
-    #[Pure] public function __toString(): string
-    {
-        return (string) $this->getTitle();
-    }
+    #[Pure]
+ public function __toString(): string
+ {
+     return (string) $this->getTitle();
+ }
 }

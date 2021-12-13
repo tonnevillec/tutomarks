@@ -40,11 +40,13 @@ class YoutubeLinks extends Links
 
     /**
      * @param mixed $youtube_id
+     *
      * @return YoutubeLinks
      */
     public function setYoutubeId($youtube_id)
     {
         $this->youtube_id = $youtube_id;
+
         return $this;
     }
 
@@ -58,11 +60,13 @@ class YoutubeLinks extends Links
 
     /**
      * @param mixed $img_small
+     *
      * @return YoutubeLinks
      */
     public function setImgSmall($img_small)
     {
         $this->img_small = $img_small;
+
         return $this;
     }
 
@@ -76,11 +80,13 @@ class YoutubeLinks extends Links
 
     /**
      * @param mixed $img_medium
+     *
      * @return YoutubeLinks
      */
     public function setImgMedium($img_medium)
     {
         $this->img_medium = $img_medium;
+
         return $this;
     }
 
@@ -94,11 +100,13 @@ class YoutubeLinks extends Links
 
     /**
      * @param mixed $img_large
+     *
      * @return YoutubeLinks
      */
     public function setImgLarge($img_large)
     {
         $this->img_large = $img_large;
+
         return $this;
     }
 
@@ -107,8 +115,9 @@ class YoutubeLinks extends Links
         return (new Slugify())->slugify($this->getTitle());
     }
 
-    #[Pure] public function __toString(): string
-    {
-        return (string) $this->getTitle();
-    }
+    #[Pure]
+ public function __toString(): string
+ {
+     return (string) $this->getTitle();
+ }
 }

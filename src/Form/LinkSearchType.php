@@ -28,78 +28,78 @@ class LinkSearchType extends AbstractType
     {
         $builder
             ->add('search', null, [
-                'label'     => false,
-                'required'  => false,
-                'attr'      => [
-                    'placeholder' => ucfirst($this->translator->trans('search.field.placeholder')) . ' ...'
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => ucfirst($this->translator->trans('search.field.placeholder')).' ...',
                 ],
 //                'help'      => ucfirst($this->translator->trans('search.field.help'))
             ])
             ->add('page', HiddenType::class, [
-                'data'          => '1'
+                'data' => '1',
             ])
             ->add('categories', EntityType::class, [
-                'label'         => ucfirst($this->translator->trans('search.category.label')),
-                'required'      => false,
-                'class'         => Categories::class,
+                'label' => ucfirst($this->translator->trans('search.category.label')),
+                'required' => false,
+                'class' => Categories::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->andWhere('c.is_actif = 1')
                         ->orderBy('c.title', 'ASC')
                         ;
                 },
-                'choice_value'  => 'id',
-                'choice_label'  => 'title',
-                'multiple'      => true,
-                'expanded'      => true
+                'choice_value' => 'id',
+                'choice_label' => 'title',
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('tags', EntityType::class, [
-                'label'         => ucfirst($this->translator->trans('search.tags.label')),
-                'required'      => false,
-                'class'         => Tags::class,
+                'label' => ucfirst($this->translator->trans('search.tags.label')),
+                'required' => false,
+                'class' => Tags::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.title', 'ASC')
                         ;
                 },
-                'choice_value'  => 'id',
-                'choice_label'  => 'title',
-                'multiple'      => true,
-                'expanded'      => true,
-                'attr'          => [
-                    'class'     => 'mb-2'
-                ]
+                'choice_value' => 'id',
+                'choice_label' => 'title',
+                'multiple' => true,
+                'expanded' => true,
+                'attr' => [
+                    'class' => 'mb-2',
+                ],
             ])
             ->add('languages', EntityType::class, [
-                'label'         => ucfirst($this->translator->trans('search.langue.label')),
-                'required'      => false,
-                'class'         => Languages::class,
+                'label' => ucfirst($this->translator->trans('search.langue.label')),
+                'required' => false,
+                'class' => Languages::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('l')
                         ->orderBy('l.name', 'ASC')
                         ;
                 },
-                'choice_value'  => 'id',
-                'choice_label'  => 'name',
-                'multiple'      => true,
-                'expanded'      => true
+                'choice_value' => 'id',
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
             ])
             ->add('authors', EntityType::class, [
-                'label'         => ucfirst($this->translator->trans('search.authors.label')),
-                'required'      => false,
-                'class'         => Authors::class,
+                'label' => ucfirst($this->translator->trans('search.authors.label')),
+                'required' => false,
+                'class' => Authors::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('a')
                         ->orderBy('a.title', 'ASC')
                         ;
                 },
-                'choice_value'  => 'id',
-                'choice_label'  => 'title',
-                'multiple'      => true,
-                'expanded'      => false,
-                'attr'          => [
-                    'class'     => 'mb-2',
-                ]
+                'choice_value' => 'id',
+                'choice_label' => 'title',
+                'multiple' => true,
+                'expanded' => false,
+                'attr' => [
+                    'class' => 'mb-2',
+                ],
             ])
         ;
     }
@@ -107,9 +107,9 @@ class LinkSearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'        => LinkSearch::class,
-            'method'            => 'get',
-            'csrf_protection'   => false
+            'data_class' => LinkSearch::class,
+            'method' => 'get',
+            'csrf_protection' => false,
         ]);
     }
 

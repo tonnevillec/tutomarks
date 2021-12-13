@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("/authors")]
+#[Route('/authors')]
 class AuthorsController extends AbstractController
 {
     private EntityManagerInterface $em;
@@ -22,7 +22,7 @@ class AuthorsController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route("/", name: "authors.index")]
+    #[Route('/', name: 'authors.index')]
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
         $orderby = $request->query->has('orderby') ? $request->query->get('orderby') : 'nb';
@@ -34,38 +34,38 @@ class AuthorsController extends AbstractController
         );
 
         return $this->render('authors/index.html.twig', [
-            'authors'    => $authors
+            'authors' => $authors,
         ]);
     }
 
-    #[Route("/{slug}-{id}", name: "authors.show", requirements: ["slug" => "[a-z0-9\-]*"])]
+    #[Route('/{slug}-{id}', name: 'authors.show', requirements: ['slug' => "[a-z0-9\-]*"])]
     public function show(Request $request, string $slug, Authors $author): Response
     {
         $yt = $this
             ->em
             ->getRepository(YoutubeLinks::class)
             ->findBy([
-                'author'        => $author,
-                'is_publish'    => true
+                'author' => $author,
+                'is_publish' => true,
             ], [
-                'published_at'  => 'DESC'
+                'published_at' => 'DESC',
             ]);
 
         $links = $this
             ->em
             ->getRepository(SimpleLinks::class)
             ->findBy([
-                'author'        => $author,
-                'is_publish'    => true
+                'author' => $author,
+                'is_publish' => true,
             ], [
-                'published_at'  => 'DESC'
+                'published_at' => 'DESC',
             ]);
 
         return $this->render('authors/show.html.twig', [
-            'slug'      => $slug,
-            'author'    => $author,
-            'videos'    => $yt,
-            'links'     => $links
+            'slug' => $slug,
+            'author' => $author,
+            'videos' => $yt,
+            'links' => $links,
         ]);
     }
 }

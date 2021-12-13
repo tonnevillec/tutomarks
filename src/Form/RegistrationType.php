@@ -24,34 +24,34 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'required'  => true,
-                'attr'      => [
-                    'placeholder'   => 'user.email.placeholder',
-                    'name'          => 'email'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.email.placeholder',
+                    'name' => 'email',
                 ],
-                'label'     => ucfirst($this->translator->trans('user.email.title')),
+                'label' => ucfirst($this->translator->trans('user.email.title')),
             ])
             ->add('username', TextType::class, [
-                'required'  => true,
-                'attr'      => [
-                    'placeholder'   => 'user.username.placeholder',
-                    'name'          => 'username'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.username.placeholder',
+                    'name' => 'username',
                 ],
-                'label'     => ucfirst($this->translator->trans('user.username.title'))
+                'label' => ucfirst($this->translator->trans('user.username.title')),
             ])
             ->add('password', PasswordType::class, [
-                'required'  => true,
-                'attr'      => [
-                    'placeholder'   => 'user.password.title'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.password.title',
                 ],
-                'label'     => ucfirst($this->translator->trans('user.password.title')),
+                'label' => ucfirst($this->translator->trans('user.password.title')),
             ])
             ->add('password_repeat', PasswordType::class, [
-                'required'  => true,
-                'attr'      => [
-                    'placeholder'   => 'user.password.repeat'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.password.repeat',
                 ],
-                'label'     => ucfirst($this->translator->trans('user.password.repeat')),
+                'label' => ucfirst($this->translator->trans('user.password.repeat')),
             ])
         ;
     }
@@ -59,8 +59,8 @@ class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'            => Users::class,
-            'translation_domain'    => 'messages'
+            'data_class' => Users::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

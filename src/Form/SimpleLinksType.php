@@ -29,50 +29,50 @@ class SimpleLinksType extends AbstractType
     {
         $builder
             ->add('title', null, [
-                'label_attr'    => [
-                    'class' => 'label'
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label' => ucfirst($this->translator->trans('tutos.title.label')) . ' *',
-                'attr'  => [
-                    'placeholder'   => ucfirst($this->translator->trans('tutos.title.placeholder'))
+                'label' => ucfirst($this->translator->trans('tutos.title.label')).' *',
+                'attr' => [
+                    'placeholder' => ucfirst($this->translator->trans('tutos.title.placeholder')),
                 ],
-                'required'  => true
+                'required' => true,
             ])
             ->add('url', null, [
-                'label_attr'    => [
-                    'class' => 'label'
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label' => ucfirst($this->translator->trans('tutos.url.label')) . ' *',
-                'attr'  => [
-                    'placeholder'   => ucfirst($this->translator->trans('tutos.url.placeholder'))
+                'label' => ucfirst($this->translator->trans('tutos.url.label')).' *',
+                'attr' => [
+                    'placeholder' => ucfirst($this->translator->trans('tutos.url.placeholder')),
                 ],
-                'required'  => true
+                'required' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label_attr'    => [
-                    'class' => 'label'
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label'         => ucfirst($this->translator->trans('tutos.description.label')),
-                'attr'  => [
-                    'class'     => 'mh-250p'
+                'label' => ucfirst($this->translator->trans('tutos.description.label')),
+                'attr' => [
+                    'class' => 'mh-250p',
                 ],
-                'required'      => false
+                'required' => false,
             ])
             ->add('tags', EntityType::class, [
-                'class'         => Tags::class,
+                'class' => Tags::class,
                 'query_builder' => static function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.title', 'ASC');
                 },
-                'label' => ucfirst($this->translator->trans('tutos.tags.label')) ,
-                'choice_value'  => 'id',
-                'multiple'      => true,
-                'required'      => false,
-                'choice_label'  => 'title',
-                'expanded'      => true
+                'label' => ucfirst($this->translator->trans('tutos.tags.label')),
+                'choice_value' => 'id',
+                'multiple' => true,
+                'required' => false,
+                'choice_label' => 'title',
+                'expanded' => true,
             ])
             ->add('category', EntityType::class, [
-                'class'         => Categories::class,
+                'class' => Categories::class,
                 'query_builder' => static function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->andWhere('c.is_actif = true')
@@ -80,34 +80,34 @@ class SimpleLinksType extends AbstractType
                         ->setParameter('youtube', 'youtube')
                         ->orderBy('c.title', 'ASC');
                 },
-                'label' => ucfirst($this->translator->trans('tutos.category.label')) . ' *',
-                'choice_value'  => 'title',
-                'multiple'      => false,
-                'required'      => true
+                'label' => ucfirst($this->translator->trans('tutos.category.label')).' *',
+                'choice_value' => 'title',
+                'multiple' => false,
+                'required' => true,
             ])
             ->add('language', EntityType::class, [
-                'class'         => Languages::class,
-                'label' => ucfirst($this->translator->trans('tutos.langue.label')) . ' *',
-                'choice_value'  => 'name',
-                'multiple'      => false,
-                'required'      => true
+                'class' => Languages::class,
+                'label' => ucfirst($this->translator->trans('tutos.langue.label')).' *',
+                'choice_value' => 'name',
+                'multiple' => false,
+                'required' => true,
             ])
 
             ->add('author', EntityType::class, [
-                'label'         => ucfirst($this->translator->trans('slinks.authors.label')),
-                'class'         => Authors::class,
+                'label' => ucfirst($this->translator->trans('slinks.authors.label')),
+                'class' => Authors::class,
                 'query_builder' => static function (EntityRepository $er) {
                     return $er->createQueryBuilder('a')
                         ->orderBy('a.title', 'ASC');
                 },
             ])
             ->add('is_publish', null, [
-                'label'         => ucfirst($this->translator->trans('links.is_publish.label')),
-                'data'          => true
+                'label' => ucfirst($this->translator->trans('links.is_publish.label')),
+                'data' => true,
             ])
             ->add('imageFile', FileType::class, [
-                'label'         => ucfirst($this->translator->trans('links.image.label')),
-                'required'      => false
+                'label' => ucfirst($this->translator->trans('links.image.label')),
+                'required' => false,
             ])
         ;
     }

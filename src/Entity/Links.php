@@ -24,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Links
 {
-    CONST LINK_ENTITY = ['simple', 'youtube'];
+    public const LINK_ENTITY = ['simple', 'youtube'];
 
     /**
      * @ORM\Id

@@ -43,7 +43,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
         return new Passport(
-            new UserBadge($email, function($userIdentifier) {
+            new UserBadge($email, function ($userIdentifier) {
                 $user = $this->usersRepository->findOneBy(['email' => $userIdentifier, 'is_actif' => true]);
 
                 if (!$user) {

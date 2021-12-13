@@ -55,18 +55,21 @@ class Categories
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      * @var string|null
      */
     private $image;
 
     /**
      * @Vich\UploadableField(mapping="categories_images", fileNameProperty="image")
+     *
      * @var ?File
      */
     private $imageFile;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      * @var DateTime|null
      */
     private $updatedAt;
@@ -173,11 +176,11 @@ class Categories
 
     /**
      * @param false $is_actif
-     * @return Categories
      */
     public function setIsActif(bool $is_actif): Categories
     {
         $this->is_actif = $is_actif;
+
         return $this;
     }
 
@@ -193,9 +196,6 @@ class Categories
         return $this;
     }
 
-    /**
-     * @return DateTime|null
-     */
     public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
@@ -204,6 +204,7 @@ class Categories
     public function setUpdatedAt(?DateTime $updatedAt): Categories
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
@@ -221,9 +222,9 @@ class Categories
         return $this->imageFile;
     }
 
-    #[Pure] public function __toString(): string
-    {
-        return (string) $this->getTitle();
-    }
-
+    #[Pure]
+ public function __toString(): string
+ {
+     return (string) $this->getTitle();
+ }
 }

@@ -27,34 +27,34 @@ class UsermailType extends AbstractType
         $builder
             ->setAction($this->router->generate('users.change.mail'))
             ->add('password_confirm', PasswordType::class, [
-                'required'      => true,
-                'attr'          => [
-                    'placeholder' => 'user.password.repeat'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.password.repeat',
                 ],
-                'label_attr'    => [
-                    'class'     => 'label'
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label'         => ucfirst($this->translator->trans('user.profil.password')) . ' *',
+                'label' => ucfirst($this->translator->trans('user.profil.password')).' *',
             ])
             ->add('email', EmailType::class, [
-                'required'      => true,
-                'attr'          => [
-                    'placeholder' => 'user.profil.new_email.label'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.profil.new_email.label',
                 ],
-                'label_attr'    => [
-                    'class'     => 'label'
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label' => ucfirst($this->translator->trans('user.profil.new_email.label')) . ' *',
+                'label' => ucfirst($this->translator->trans('user.profil.new_email.label')).' *',
             ])
             ->add('email_repeat', EmailType::class, [
-                'required'      => true,
-                'attr'          => [
-                    'placeholder' => 'user.profil.new_email.label'
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'user.profil.new_email.label',
                 ],
-                'label_attr'    => [
-                    'class'     => 'label'
+                'label_attr' => [
+                    'class' => 'label',
                 ],
-                'label' => ucfirst($this->translator->trans('user.profil.new_email.validation')) . ' *',
+                'label' => ucfirst($this->translator->trans('user.profil.new_email.validation')).' *',
             ])
         ;
     }
@@ -62,8 +62,8 @@ class UsermailType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'            => Users::class,
-            'translation_domain'    => 'messages'
+            'data_class' => Users::class,
+            'translation_domain' => 'messages',
         ]);
     }
 }

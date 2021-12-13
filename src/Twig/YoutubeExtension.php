@@ -27,48 +27,35 @@ class YoutubeExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param YoutubeLinks $yt
-     * @return string
-     */
     public function ytImgSmall(YoutubeLinks $yt): string
     {
-        if ($yt->getYoutubeId() && $yt->getImgSmall()){
+        if ($yt->getYoutubeId() && $yt->getImgSmall()) {
             return $yt->getImgSmall();
         }
+
         return $this->getThumbnails($yt, 'small');
     }
 
-    /**
-     * @param YoutubeLinks $yt
-     * @return string
-     */
     public function ytImgMedium(YoutubeLinks $yt): string
     {
-        if ($yt->getYoutubeId() && $yt->getImgMedium()){
+        if ($yt->getYoutubeId() && $yt->getImgMedium()) {
             return $yt->getImgMedium();
         }
+
         return $this->getThumbnails($yt, 'medium');
     }
 
-    /**
-     * @param YoutubeLinks $yt
-     * @return string
-     */
     public function ytImgLarge(YoutubeLinks $yt): string
     {
-        if ($yt->getYoutubeId() && $yt->getImgLarge()){
+        if ($yt->getYoutubeId() && $yt->getImgLarge()) {
             return $yt->getImgLarge();
         }
+
         return $this->getThumbnails($yt, 'large');
     }
 
-    /**
-     * @param YoutubeLinks $yt
-     * @param string $size
-     * @return string
-     */
-    private function getThumbnails(YoutubeLinks $yt, string $size = 'medium'): string {
+    private function getThumbnails(YoutubeLinks $yt, string $size = 'medium'): string
+    {
         try {
             $video = $this->vsm->parse($yt->getUrl());
         } catch (ServiceNotAvailableException $e) {
@@ -78,7 +65,7 @@ class YoutubeExtension extends AbstractExtension
         try {
             $video->getEmbedUrl();
 
-            switch($size) {
+            switch ($size) {
                 case 'small':
                     $img = $video->getSmallThumbnail();
                 break;
@@ -101,10 +88,6 @@ class YoutubeExtension extends AbstractExtension
         }
     }
 
-    /**
-     * @param string $value
-     * @return string
-     */
     public function youtubePlayer(string $value): string
     {
         try {

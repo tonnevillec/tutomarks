@@ -32,7 +32,7 @@ class AuthorsRepository extends ServiceEntityRepository
     public function findAllAuthors(string $orderby = 'title', string $direction = 'asc')
     {
         return $this->findWithCount()
-            ->orderBy($orderby === 'title' ? 'a.title' : 'nb', strtoupper($direction))
+            ->orderBy('title' === $orderby ? 'a.title' : 'nb', strtoupper($direction))
             ->getQuery()
             ->getResult()
         ;
