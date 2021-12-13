@@ -26,7 +26,7 @@ scc:
 
 # COMMANDES COMPOSER
 composer-install:
-	$(PHP_VERSION) $(COMPOSER) install --no-dev --optimize-autoloader
+	$(PHP_VERSION) $(COMPOSER) install --optimize-autoloader
 
 composer-update:
 	$(PHP_VERSION) $(COMPOSER) update
