@@ -4,9 +4,15 @@ VERT:=\033[1;32m
 NORMAL:=\033[0;39m
 
 # Version PHP
-PHP_VERSION=php8.0
+PHP_VERSION   = /usr/bin/php8.0
 
-COMPOSER=/usr/bin/composer
+# Executables:
+PHPUNIT       = ./vendor/bin/phpunit
+PHPSTAN       = ./vendor/bin/phpstan
+PHP_CS_FIXER  = ./vendor/bin/php-cs-fixer
+NPX           = npx
+YARN          = yarn
+COMPOSER      = /usr/bin/composer
 
 usage:
 	@echo "$(VERT)make cc                   : $(NORMAL)Effacer le cache avec la command >php bin/console c:c"
@@ -102,4 +108,22 @@ prepare-dev:
 fix:
 	vendor/bin/phpcbf src
 
-install:
+## —— Coding standards ✨ ——————————————————————————————————————————————————————
+cs: lint-php lint-js ## Run all coding standards checks
+
+static-analysis: stan ## Run the static analysis (PHPStan)
+
+stan: ## Run PHPStan
+	@$(PHPSTAN) analyse -c configuration/phpstan.neon --memory-limit 1G
+
+lint-php: ## Lint files with php-cs-fixer
+	/usr/bin/php8.0 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
+
+fix-php: ## Fix files with php-cs-fixer
+	@$(PHP_CS_FIXER) fix --allow-risky=yes
+
+lint-js: ## Lints JS coding standards
+	@$(NPX) eslint assets/js
+
+fix-js: ## Fixes JS files
+	@$(NPX) eslint assets/js --fix
