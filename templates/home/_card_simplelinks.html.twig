@@ -10,7 +10,9 @@
                    title="{{ 'links.target_blank'|trans|capitalize }}"
                    data-toggle="tooltip"
                    data-placement="middle">
-                    {% if link.category.image %}
+                    {% if link.image %}
+                    <img src="{{ vich_uploader_asset(link, 'imageFile') }}" alt="" class="img-fluid">
+                    {% elseif link.category.image %}
                         <img src="{{ vich_uploader_asset(link.category, 'imageFile') }}" alt="" class="img-fluid">
                     {% else %}
                         <img src="{{ asset('build/images/articles.jpg') }}" alt="" class="img-fluid">
