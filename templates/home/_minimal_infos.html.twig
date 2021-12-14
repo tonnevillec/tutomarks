@@ -29,6 +29,7 @@
                 <a href="{{ link.url }}"
                    class="text-decoration-none"
                    title="{{ 'links.target_blank'|trans|capitalize }}"
+                   target="_blank"
                    data-toggle="tooltip"
                    data-placement="top">
                     <strong>{{ link.title|u.truncate(60, '...') }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i>
@@ -36,7 +37,8 @@
             </div>
 
             <div class="video-meta small my-1">
-                <a href="{{ path('authors.show', { 'slug' : link.author.slug, 'id' : link.author.id }) }}" class="text-decoration-none">
+                <a href="{{ path('authors.show', { 'slug' : link.author.slug, 'id' : link.author.id }) }}"
+                   class="text-decoration-none">
                     <i class="bi bi-mortarboard-fill me-1"></i>{{ link.author }}
                 </a>
             </div>
