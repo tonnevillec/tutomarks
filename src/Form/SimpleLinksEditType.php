@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class SimpleLinksType extends AbstractType
+class SimpleLinksEditType extends AbstractType
 {
     protected TranslatorInterface $translator;
 
@@ -81,7 +81,6 @@ class SimpleLinksType extends AbstractType
                 'multiple' => false,
                 'required' => true,
             ])
-
             ->add('author', EntityType::class, [
                 'label' => ucfirst($this->translator->trans('slinks.authors.label')),
                 'class' => Authors::class,

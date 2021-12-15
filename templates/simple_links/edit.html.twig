@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Editer un lien{% endblock %}
+{% form_theme form _self %}
+{% block _simple_links_edit_tags_row %}
+    <div class="form-group">
+        <label class="label">{{ label }}</label><br/>
+        {% if choices is iterable %}
+            {% for id, k in choices %}
+                <label for="simple_links_edit_tags_{{ k.value }}" class="btn btn-sm {% if k.data.id in form.vars.value %}btn-primary{% else %}btn-outline-primary{% endif%} m-1">
+                    <input type="checkbox" name="simple_links_edit[tags][]" value="{{ k.data.id }}" id="simple_links_edit_tags_{{ k.value }}" {% if k.data.id in form.vars.value %}checked="checked"{% endif%} class="badgebox d-none" data-color="primary">{{ k.label }}
+                </label>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block _simple_links_edit_is_publish_row %}
+    <div class="form-check form-switch mb-3 mt-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="simple_links_edit_is_publish" name="simple_links_edit[is_publish]" value="{{ form.vars.value }}" {% if form.vars.checked %}checked="checked"{% endif %}>
+        <label class="form-check-label" for="simple_links_edit_is_publish">{{ form.vars.label }}</label>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <section class="my-4">
+
+        <div class="container">
+            <h1 class="h1 mb-3 fw-bold">
+                <i class="bi bi-newspaper me-1 text-primary"></i> {{ 'slinks.edit.title'|trans|capitalize }}
+            </h1>
+
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                        {{ message|capitalize }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_start(form) }}
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.url) }}
+
+                    <div class="my-3">
+                        {{ form_row(form.author) }}
+                    </div>
+
+                    {{ form_row(form.category, { 'attr': { 'class': 'form-select' }}) }}
+                    {{ form_row(form.language) }}
+
+                    {{ form_row(form.is_publish) }}
+
+                    <small class="form-text text-muted">* {{ 'required_fields'|trans|capitalize }}</small>
+                </div>
+
+                <div class="col-sm-12 col-md-6">
+                    <div class="mb-3">
+                        {{ form_row(form.imageFile) }}
+                    </div>
+
+                    <div class="my-3">
+                        {{ form_row(form.tags) }}
+                    </div>
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+            <div class="row">
+                <div class="col text-center">
+                    <a href="{{ path('home') }}" class="btn btn-outline-danger">
+                        <i class="bi bi-x-square me-1"></i> {{ 'btn.cancel'|trans|capitalize }}
+                    </a>
+
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="bi bi-check me-1"></i> {{ 'btn.submit'|trans|capitalize }}
+                    </button>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

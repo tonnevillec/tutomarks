@@ -6,9 +6,11 @@ use App\Entity\Authors;
 use App\Entity\Categories;
 use App\Entity\Links;
 use App\Entity\SimpleLinks;
+use App\Form\SimpleLinksEditType;
 use App\Form\SimpleLinksType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -98,6 +100,29 @@ class SimpleLinksController extends AbstractController
         }
 
         return $this->render('simple_links/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/edit/{id}', name: 'slinks.edit')]
+    public function edit(Request $request, SimpleLinks $link): RedirectResponse|Response
+    {
+        $this->denyAccessUnlessGranted('edit', $link);
+
+        $form = $this->createForm(SimpleLinksEditType::class, $link);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($link);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Votre partage a correctement été modifié');
+
+            return $this->redirectToRoute('users.my_links');
+        }
+
+        return $this->render('simple_links/edit.html.twig', [
+            'ytLink' => $link,
             'form' => $form->createView(),
         ]);
     }

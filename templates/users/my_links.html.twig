@@ -83,7 +83,9 @@
                                     {% for link in slinks %}
                                         <div class="list-group-item d-flex justify-content-between align-items-start">
                                             <div class="m-1">
-                                                <span class="fw-bold" title="{{ 'links.edit'|trans|capitalize }}"><i class="bi bi-pencil-square me-1"></i>{{ link.title }}</span>
+                                                <a href="{{ path('slinks.edit', { 'id' : link.id }) }}" class="fw-bold" title="{{ 'links.edit'|trans|capitalize }}">
+                                                    <i class="bi bi-pencil-square me-1"></i>{{ link.title }}
+                                                </a>
                                                 <br><i class="bi bi-mortarboard-fill me-1"></i>{{ link.author }}
                                                 <br>{{ 'links.published_at'|trans|capitalize }} {{ link.publishedAt|date('d/m/Y') }}
                                                 <br>
