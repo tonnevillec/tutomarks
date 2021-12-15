@@ -107,8 +107,6 @@ class SimpleLinksController extends AbstractController
     #[Route('/edit/{id}', name: 'slinks.edit')]
     public function edit(Request $request, SimpleLinks $link): RedirectResponse|Response
     {
-        $this->denyAccessUnlessGranted('edit', $link);
-
         $form = $this->createForm(SimpleLinksEditType::class, $link);
         $form->handleRequest($request);
 
