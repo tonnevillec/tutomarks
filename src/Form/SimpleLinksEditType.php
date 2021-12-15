@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class SimpleLinksType extends AbstractType
+class SimpleLinksEditType extends AbstractType
 {
     protected TranslatorInterface $translator;
 
@@ -54,12 +54,12 @@ class SimpleLinksType extends AbstractType
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.title', 'ASC');
                 },
-                'label' => ucfirst($this->translator->trans('tutos.tags.label')),
-                'choice_value' => 'id',
-                'multiple' => true,
-                'required' => false,
-                'choice_label' => 'title',
-                'expanded' => true,
+                'label'         => ucfirst($this->translator->trans('tutos.tags.label')),
+                'choice_value'  => 'id',
+                'multiple'      => true,
+                'required'      => false,
+                'choice_label'  => 'title',
+                'expanded'      => true,
             ])
             ->add('category', EntityType::class, [
                 'class' => Categories::class,
@@ -82,7 +82,6 @@ class SimpleLinksType extends AbstractType
                 'multiple' => false,
                 'required' => true,
             ])
-
             ->add('author', EntityType::class, [
                 'label' => ucfirst($this->translator->trans('slinks.authors.label')),
                 'class' => Authors::class,

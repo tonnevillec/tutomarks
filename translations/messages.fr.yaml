@@ -264,6 +264,8 @@ slinks:
   authors:
     label: 'créateur/source'
     new: 'nouveau créateur'
+  edit:
+    title: 'édition du lien'
 
 categories:
   videos:
