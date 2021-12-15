@@ -128,8 +128,6 @@ class YoutubeLinksController extends AbstractController
     #[Route('/edit/{id}', name: 'ytlinks.edit')]
     public function edit(Request $request, YoutubeLinks $ytLink)
     {
-        $this->denyAccessUnlessGranted('edit', $ytLink);
-
         $form = $this->createForm(YoutubeLinksEditType::class, $ytLink);
         $form->handleRequest($request);
 
