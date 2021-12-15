@@ -1,8 +1,10 @@
 <div class="{% if xclass is defined %}{{ xclass }}{% else %}col-md-12 col-lg-6{% endif %}">
     <div class="author-card row g-0 border overflow-hidden flex-md-row mb-4 position-relative">
         <div class="col-3 p-1 text-center">
-            {% if author[0].ytLogo %}
-                <img alt="{{ author[0].title }}" src="{{ author[0].ytLogo }}" class="img-fluid">
+            {% if author[0].logo %}
+                <img alt="{{ author[0].title }}" src="{{ author[0].logo }}" class="img-fluid">
+            {% elseif author[0].attachment %}
+                <img src="{{ vich_uploader_asset(author[0].attachment, 'imageFile') }}" alt="{{ author[0].title }}" class="img-fluid">
             {% else %}
                 <span class="ico-author text-gray"><i class="bi bi-person bi-3x"></i></span>
             {% endif %}

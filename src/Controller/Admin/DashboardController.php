@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Attachments;
 use App\Entity\Authors;
 use App\Entity\Categories;
 use App\Entity\Languages;
@@ -23,8 +24,6 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-//        return parent::index();
-
         $routeBuilder = $this->get(AdminUrlGenerator::class);
 
         return $this->redirect(
@@ -40,13 +39,12 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-//        yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-
         yield MenuItem::subMenu('Administation')->setSubItems([
             MenuItem::linkToCrud('Categories', 'fas fa-list', Categories::class),
             MenuItem::linkToCrud('Tags', 'fas fa-list', Tags::class),
             MenuItem::linkToCrud('Authors', 'fas fa-list', Authors::class),
             MenuItem::linkToCrud('Languages', 'fas fa-list', Languages::class),
+            MenuItem::linkToCrud('Attachments', 'fas fa-list', Attachments::class),
         ]);
 
         yield MenuItem::subMenu('Utilisateurs')->setSubItems([
@@ -58,10 +56,6 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('YoutubeLinks', 'fas fa-list', YoutubeLinks::class),
         ]);
 
-//        yield MenuItem::linkToRoute('Retour au site', 'far fa-arrow-alt-circle-left', 'home');
         yield MenuItem::linkToUrl('Retour au site', 'far fa-arrow-alt-circle-left', $this->generateUrl('home'));
-
-//        yield MenuItem::linkToCrud('Retour au site', 'fas fa-list', 'home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

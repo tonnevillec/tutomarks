@@ -27,9 +27,7 @@
                        data-icon="badgebox-icon-{{ name }}-{{ k.value }}"
                 >
                 <i class="bi bi-{% if chk %}check2-{% endif %}square me-1" id="badgebox-icon-{{ name }}-{{ k.value }}"></i>
-                {% if withYtLogo is defined %}
-                    {% if k.data.ytLogo %}<img src="{{ k.data.ytLogo }}" class="rounded-circle badgebox-img me-1" alt="">{% endif %}{{ k.label }}
-                {% elseif withLogo is defined %}
+                {% if withLogo is defined %}
                     {{ k.label }}{% if k.data.logo %}<img src="{{ vich_uploader_asset(k.data, 'imageFile') }}" class="rounded-circle badgebox-img ms-1" alt="">{% endif %}
                 {% elseif withIco is defined %}
                     {% if k.data.logo %}<i class="{{ k.data.logo }} me-1"></i>{% endif %}{{ k.label }}

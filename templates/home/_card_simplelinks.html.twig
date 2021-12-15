@@ -52,9 +52,13 @@
             </div>
         </div>
         <div class="d-flex mt-1">
-            {% if link.author.ytLogo %}
+            {% if link.author.logo %}
                 <div class="author-thumbnail me-2">
-                    <img src="{{ link.author.ytLogo }}" class="rounded-circle" alt="">
+                    <img src="{{ link.author.logo }}" class="rounded-circle" alt="{{ link.author.title }}">
+                </div>
+            {% elseif link.author.attachment %}
+                <div class="author-thumbnail me-2">
+                    <img src="{{ vich_uploader_asset(link.author.attachment, 'imageFile') }}" alt="{{ link.author.title }}" class="rounded-circle">
                 </div>
             {% endif %}
             <div class="align-self-start">

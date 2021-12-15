@@ -9,11 +9,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=AuthorsRepository::class)
- * @Vich\Uploadable()
  */
 class Authors
 {
@@ -70,13 +68,6 @@ class Authors
     private $links;
 
     /**
-     * @Vich\UploadableField(mapping="authors_images", fileNameProperty="logo")
-     *
-     * @var ?File
-     */
-    private ?File $imageFile;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $updatedAt;
@@ -86,12 +77,16 @@ class Authors
      */
     private ?string $yt_logo;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Attachments::class, cascade={"persist", "remove"})
+     */
+    private ?Attachments $attachment;
+
     public function __construct()
     {
         $this->links = new ArrayCollection();
         $this->updatedAt = new DateTime();
-        $this->imageFile = null;
-        $this->logo = '';
+        $this->logo = null;
     }
 
     public function getId(): ?int
@@ -249,18 +244,16 @@ class Authors
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function getAttachment(): ?Attachments
     {
-        $this->imageFile = $image;
-
-        if ($image) {
-            $this->updatedAt = new DateTime();
-        }
+        return $this->attachment;
     }
 
-    public function getImageFile(): ?File
+    public function setAttachment(?Attachments $attachment): self
     {
-        return $this->imageFile;
+        $this->attachment = $attachment;
+
+        return $this;
     }
 
     public function getSlug(): string

@@ -7,8 +7,10 @@
         <div class="container">
             <div class="author-card row g-0 border overflow-hidden flex-md-row mb-4 position-relative">
                 <div class="col-2 p-1 text-center">
-                    {% if author.ytLogo %}
-                        <img alt="{{ author.title }}" src="{{ author.ytLogo }}">
+                    {% if author.logo %}
+                        <img alt="{{ author.title }}" src="{{ author.logo }}" class="img-fluid">
+                    {% elseif author.attachment %}
+                        <img src="{{ vich_uploader_asset(author.attachment, 'imageFile') }}" alt="{{ author.title }}" class="img-fluid">
                     {% else %}
                         <span class="ico-author text-gray"><i class="bi bi-person bi-3x"></i></span>
                     {% endif %}

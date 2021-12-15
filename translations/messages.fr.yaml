@@ -234,6 +234,7 @@ tutos:
 ytlinks:
   add:
     title: 'ajouter un nouveau lien Youtube'
+    unknown_author: "l'auteur du lien est inconnu"
   edit:
     title: "édition du lien"
   is_publish:
