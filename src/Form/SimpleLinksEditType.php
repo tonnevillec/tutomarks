@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -54,12 +53,12 @@ class SimpleLinksEditType extends AbstractType
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.title', 'ASC');
                 },
-                'label'         => ucfirst($this->translator->trans('tutos.tags.label')),
-                'choice_value'  => 'id',
-                'multiple'      => true,
-                'required'      => false,
-                'choice_label'  => 'title',
-                'expanded'      => true,
+                'label' => ucfirst($this->translator->trans('tutos.tags.label')),
+                'choice_value' => 'id',
+                'multiple' => true,
+                'required' => false,
+                'choice_label' => 'title',
+                'expanded' => true,
             ])
             ->add('category', EntityType::class, [
                 'class' => Categories::class,

@@ -122,8 +122,8 @@ class SimpleLinksController extends AbstractController
         }
 
         return $this->render('simple_links/edit.html.twig', [
-            'ytLink'    => $link,
-            'form'      => $form->createView(),
+            'ytLink' => $link,
+            'form' => $form->createView(),
         ]);
     }
 }
