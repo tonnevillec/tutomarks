@@ -9,11 +9,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class LinksVoter extends Voter
 {
-    const LINK_EDIT = 'link_edit';
+    public const LINK_EDIT = 'link_edit';
 
     protected function supports(string $attribute, $link): bool
     {
-        return $attribute == self::LINK_EDIT
+        return self::LINK_EDIT == $attribute
             && $link instanceof Links;
     }
 
@@ -25,16 +25,18 @@ class LinksVoter extends Voter
             return false;
         }
 
-        if ($link->getPublishedBy() === null) return false;
+        if (null === $link->getPublishedBy()) {
+            return false;
+        }
 
         return match ($attribute) {
             self::LINK_EDIT => $this->canEdit($link, $user),
             default => false,
         };
-
     }
 
-    private function canEdit(Links $link, UserInterface $user) {
+    private function canEdit(Links $link, UserInterface $user)
+    {
         return $user === $link->getPublishedBy();
     }
 }
