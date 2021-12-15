@@ -2,6 +2,14 @@
   box-shadow: 0 0 4px 4px #f3f3f3;
 }
 
+.shortcut-nav {
+  font-size: .9rem;
+
+  a.nav-link:hover {
+    color: $secondary !important;
+  }
+}
+
 main.content {
   .video-thumbnail {
     position: relative;

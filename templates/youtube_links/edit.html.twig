@@ -61,8 +61,10 @@
 
                     <div class="row mb-3">
                         <div class="col-sm-4 col-md-2">
-                            {% if ytLink.author.ytLogo %}
-                                <img alt="{{ ytLink.author.title }}" src="{{ ytLink.author.ytLogo }}" class="twPc-avatarImg img-fluid">
+                            {% if ytLink.author.logo %}
+                                <img alt="{{ ytLink.author.title }}" src="{{ ytLink.author.logo }}" class="twPc-avatarImg img-fluid">
+                            {% elseif ytLink.author.attachment %}
+                                <img src="{{ vich_uploader_asset(ytLink.author.attachment, 'imageFile') }}" alt="{{ ytLink.author.title }}" class="twPc-avatarImg img-fluid">
                             {% else %}
                                 <img alt="{{ ytLink.author.title }}" src="{{ asset('build/images/no-preview.png') }}" class="twPc-avatarImg img-fluid">
                             {% endif %}

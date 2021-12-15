@@ -496,7 +496,6 @@ class AppFixtures extends Fixture
                 ->setTwitter($author['twitter'])
                 ->setGithub($author['github'])
                 ->setYoutube($author['youtube'])
-                ->setYtLogo($author['yt_logo'])
                 ->setLogo($author['logo'])
             ;
             $manager->persist($entity);

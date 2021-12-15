@@ -120,7 +120,7 @@ lint-php: ## Lint files with php-cs-fixer
 	/usr/bin/php8.0 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
 
 fix-php: ## Fix files with php-cs-fixer
-	@$(PHP_CS_FIXER) fix --allow-risky=yes
+	/usr/bin/php8.0 ./vendor/bin/php-cs-fixer fix --allow-risky=yes
 
 lint-js: ## Lints JS coding standards
 	@$(NPX) eslint assets/js

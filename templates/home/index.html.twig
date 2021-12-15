@@ -4,6 +4,16 @@
 
 {% block body %}
     <div class="container">
+        <nav class="nav justify-content-center mt-2 shortcut-nav">
+            <a href="#section_videos" class="nav-link" target="_self">Vidéos</a>
+            <a href="#section_authors" class="nav-link" target="_self">Top créateurs</a>
+            <a href="#section_hebdoo" class="nav-link" target="_self">Hebdoo.fr</a>
+            <a href="#section_ressources" class="nav-link" target="_self">Ressources</a>
+            <a href="#section_tags" class="nav-link" target="_self">Tags</a>
+            <a href="#section_articles" class="nav-link" target="_self">Articles</a>
+            <a href="#section_podcasts" class="nav-link" target="_self">Podcasts</a>
+            {#            <a href="#section_formations" class="nav-link">Formations</a>#}
+        </nav>
 
         {% for label, messages in app.flashes %}
             {% for message in messages %}
@@ -14,7 +24,7 @@
             {% endfor %}
         {% endfor %}
 
-        <div class="video-row pb-2">
+        <div class="video-row pb-2" id="section_videos">
             <div class="video-row-title my-4 ml-1">
                 <h2 class="h2">
                     <span class="text-primary me-1"><i class="{{ categoryIcon('videos') }}"></i></span> {{ 'home.last-videos'|trans|capitalize }}
@@ -48,7 +58,7 @@
         <div class="row pb-2">
             <div class="col-sm-12 col-md-6 col-lg-8">
                 <div class="video-row-title my-4 ml-1">
-                    <h2 class="h2">
+                    <h2 class="h2" id="section_authors">
                         <span class="text-primary me-1"><i class="bi bi-git"></i></span> {{ 'home.top-channels'|trans|capitalize }}
                     </h2>
                 </div>
@@ -68,7 +78,7 @@
                 <div class="row pb-3">
                     <div class="col-12">
                         <div class="video-row-title my-4 ml-1">
-                            <h2 class="h2">
+                            <h2 class="h2" id="section_ressources">
                                 <span class="text-primary me-1"><i class="{{ categoryIcon('ressources') }}"></i></span> {{ 'home.last-resources'|trans|capitalize }}
 
                                 {% if app.user and is_granted('ROLE_ADMIN') %}
@@ -101,7 +111,7 @@
 
             <div class="col-sm-12 col-md-6 col-lg-4 ps-5">
                 <div class="video-row-title my-4 ml-1">
-                    <h2 class="h2">
+                    <h2 class="h2" id="section_hebdoo">
                         <a href="https://www.hebdoo.fr" title="Accèder au site Hebdoo.fr dans une nouvelle fenetre" target="_blank" class="text-decoration-none">
                             <span class="text-primary me-1">H</span> {{ 'home.hebdoo'|trans|capitalize }}
                         </a><br>
@@ -142,7 +152,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="video-row-title my-4 ml-1">
-                        <h2 class="h2">
+                        <h2 class="h2" id="section_tags">
                             <span class="text-primary me-1"><i class="bi bi-tags-fill"></i></span> {{ 'home.top-tags'|trans|capitalize }}
                         </h2>
                     </div>
@@ -167,7 +177,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="video-row-title my-4 ml-1">
-                        <h2 class="h2">
+                        <h2 class="h2" id="section_articles">
                             <span class="text-primary me-1"><i class="{{ categoryIcon('articles') }}"></i></span> {{ 'home.last-articles'|trans|capitalize }}
 
                             {% if app.user %}
@@ -196,7 +206,7 @@
 
                 <div class="col-md-6 col-sm-12">
                     <div class="video-row-title my-4 ml-1">
-                        <h2 class="h2">
+                        <h2 class="h2" id="section_podcasts">
                             <span class="text-primary me-1"><i class="{{ categoryIcon('podcasts') }}"></i></span> {{ 'home.last-podcasts'|trans|capitalize }}
 
                             {% if app.user %}

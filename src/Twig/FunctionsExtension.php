@@ -63,8 +63,10 @@ class FunctionsExtension extends AbstractExtension
 
         $return = '';
         foreach ($authors as $author) {
-            if ($author[0]->getYtLogo()) {
-                $logo = '<img src="'.$author[0]->getYtLogo().'" alt="" class="img-h30 me-1 rounded-circle">';
+            if ($author[0]->getLogo()) {
+                $logo = '<img src="'.$author[0]->getLogo().'" alt="'.$author[0]->getTitle().'" class="img-h30 me-1 rounded-circle">';
+            } elseif ($author[0]->getAttachment()) {
+                $logo = '<img src="'.$author[0]->getAttachment().'" alt="'.$author[0]->getTitle().'" class="img-h30 me-1 rounded-circle">';
             } else {
                 $logo = '<span class="ico-author me-1 text-gray"><i class="bi bi-person"></i></span>';
             }

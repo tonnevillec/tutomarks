@@ -109,8 +109,10 @@
 
         <div class="row mb-3">
             <div class="col-sm-4 col-md-1">
-                {% if yt.author.ytLogo %}
-                    <img alt="{{ yt.author.title }}" src="{{ yt.author.ytLogo }}" class="twPc-avatarImg img-fluid">
+                {% if yt.author.logo %}
+                    <img alt="{{ yt.author.title }}" src="{{ yt.author.logo }}" class="twPc-avatarImg img-fluid">
+                {% elseif yt.author.attachment %}
+                    <img src="{{ vich_uploader_asset(yt.author.attachment, 'imageFile') }}" alt="{{ yt.author.title }}" class="twPc-avatarImg img-fluid">
                 {% else %}
                     <img alt="{{ yt.author.title }}" src="{{ asset('build/images/no-preview.png') }}" class="twPc-avatarImg img-fluid">
                 {% endif %}

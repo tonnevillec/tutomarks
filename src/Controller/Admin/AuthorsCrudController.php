@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Authors;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -22,20 +23,35 @@ class AuthorsCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id')->onlyOnIndex(),
-            ImageField::new('logo')->setBasePath('/uploads/images/')->onlyOnIndex(),
-            TextField::new('yt_logo')->hideOnIndex(),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-            UrlField::new('site_url'),
-            UrlField::new('twitter'),
-            UrlField::new('github'),
-            UrlField::new('twitch'),
-            UrlField::new('youtube'),
-            DateTimeField::new('updated_at')->onlyOnIndex(),
-            AssociationField::new('links')->onlyOnIndex(),
-            TextField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
-        ];
+        yield IdField::new('id')->onlyOnIndex();
+        yield ImageField::new('logo')
+                ->setBasePath('/uploads/images/')
+                ->onlyOnIndex();
+//        yield TextField::new('yt_logo')
+//            ->hideOnIndex();
+        yield TextField::new('title');
+        yield TextEditorField::new('description');
+        yield UrlField::new('site_url');
+        yield UrlField::new('twitter');
+        yield UrlField::new('github');
+        yield UrlField::new('twitch');
+        yield UrlField::new('youtube');
+        yield DateTimeField::new('updated_at')->onlyOnIndex();
+        yield AssociationField::new('links')->onlyOnIndex();
+        yield AssociationField::new('attachment')->hideOnIndex();
+//        yield TextField::new('imageFile')
+//                ->setFormType(VichImageType::class)
+//                ->hideOnIndex();
+
+        $updatedAt = DateTimeField::new('updated_at')->setFormTypeOptions([
+            'html5' => true,
+            'years' => range(date('Y'), date('Y') + 5),
+            'widget' => 'single_text',
+        ]);
+        if (Crud::PAGE_EDIT === $pageName) {
+            yield $updatedAt->setFormTypeOption('disabled', true);
+        } else {
+            yield $updatedAt;
+        }
     }
 }
