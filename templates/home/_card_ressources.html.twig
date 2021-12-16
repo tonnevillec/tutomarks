@@ -6,6 +6,7 @@
                     <a href="{{ link.url }}"
                        data-bs-toggle="tooltip"
                        data-bs-placement="top"
+                       target="_blank"
                        title="{{ 'links.target_blank'|trans|capitalize }}"
                        class="text-decoration-none">
                         {% if withIco is defined %}<i class="{{ categoryIcon(link.category.code) }} me-1"></i>{% endif %}
