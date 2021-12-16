@@ -175,6 +175,7 @@ tutos:
     title: 'ajouter un nouveau tutoriel'
     validate: 'merci pour votre contribution!'
     not_uniq: 'la fiche du tutoriel existe déjà'
+    no_datas: "ce lien n'est pas une url Youtube valide"
   title:
     label: 'titre'
     placeholder: 'titre du tutoriel'
