@@ -20,7 +20,7 @@
             <div class="btn-toolbar justify-content-start fs-3" role="toolbar" aria-label="Les liens pour suivre cet auteur">
                 {% if author[0].youtube %}
                     <div class="btn-group me-2" role="group">
-                        <a href="{{ author[0].youtube }}" class="btn" target="_blank" title="{{ 'authors.youtube.label'|trans|capitalize }}">
+                        <a href="https://www.youtube.com/channel/{{ author[0].youtube }}" class="btn" target="_blank" title="{{ 'authors.youtube.label'|trans|capitalize }}">
                             <i class="bi bi-youtube"></i>
                         </a>
                     </div>

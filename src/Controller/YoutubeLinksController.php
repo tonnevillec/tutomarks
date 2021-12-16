@@ -69,7 +69,7 @@ class YoutubeLinksController extends AbstractController
                             ->setTitle($ytauthors['title'])
                             ->setDescription($ytauthors['description'])
                             ->setLogo($ytauthors['thumbnails']['default']['url'])
-                            ->setYoutube('https://www.youtube.com/channel/'.$video['channelId'])
+                            ->setYoutube($video['channelId'])
                         ;
                         $this->em->persist($authors);
                         $this->em->flush();
