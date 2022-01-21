@@ -40,6 +40,7 @@ home:
   top-channels: 'top créateurs'
   top-tags: 'tags'
   hebdoo: 'Hebdoo.fr'
+  formations: 'formations'
 
 nav:
   home: 'accueil'
@@ -150,6 +151,7 @@ btn:
   show_more: 'voir plus'
   show_more_filters: 'afficher plus de filtres'
   show_less_filters: 'afficher moins de filtres'
+  show_description: 'description'
   submit: 'soumettre'
   send: 'envoyer'
   deadlink: 'signaler un lien mort'
@@ -267,6 +269,9 @@ slinks:
     new: 'nouveau créateur'
   edit:
     title: 'édition du lien'
+  description:
+    label: 'description'
+    help: 'Quel est le contenu de la formation? Quels sont les points abordés?'
 
 categories:
   videos:

@@ -1,4 +1,4 @@
-<div class="col-sm-12 col-md-6 col-lg-3 px-1">
+<div class="{% if gClass is defined %} {{ gClass }} {% else %}col-sm-12 col-md-6 col-lg-3{% endif%} px-1">
     <div class="video mb-3">
         <div class="video-thumbnail">
             {% if link.category.code is same as ('videos') %}
@@ -85,9 +85,22 @@
                         <i class="bi bi-mortarboard-fill me-1"></i>{{ link.author }}
                     </a>
                 </div>
+
                 <div class="video-date small">
                     Ajouté le {{ link.publishedAt|date('d/m/Y') }} par {{ link.publishedBy }}
                 </div>
+
+                {% if link.category.code is same as ('formations') %}
+                    {% if withDesc is defined %}
+                    <div class="mt-2 fs-7">
+                        {{ link.description|raw|nl2br }}
+                    </div>
+                    {% elseif link.description|length > 0 %}
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ link.description|raw }}">
+                            {{ 'btn.show_description'|trans|capitalize }}
+                        </button>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

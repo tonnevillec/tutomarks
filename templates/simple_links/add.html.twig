@@ -107,9 +107,11 @@
                         {{ form_row(form.imageFile) }}
                     </div>
 
-{#                    {{ form_label(form.description) }}#}
-{#                    <br/><small class="form-text text-muted">{{ 'tutos.description.help'|trans|capitalize }}</small>#}
-{#                    {{ form_widget(form.description) }}#}
+                    {% if form.category.vars.value is same as ('Formations') %}
+                        {{ form_label(form.description) }}
+                        <br/><small class="form-text text-muted">{{ 'slinks.description.help'|trans }}</small>
+                        {{ form_widget(form.description) }}
+                    {% endif %}
 
                     <div class="my-3">
                         {{ form_row(form.tags) }}

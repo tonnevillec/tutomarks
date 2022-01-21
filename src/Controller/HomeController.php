@@ -44,6 +44,7 @@ class HomeController extends AbstractController
         $youtubelinks = $ytRepository->findLatestPublished();
         $articles = $this->em->getRepository(Links::class)->findLatestSimpleLinks('articles', 4);
         $podcasts = $this->em->getRepository(Links::class)->findLatestSimpleLinks('podcasts', 4);
+        $formations = $this->em->getRepository(Links::class)->findLatestSimpleLinks('formations', 3);
         $ressources = $this->em->getRepository(Links::class)->findLatestSimpleLinks('ressources', 3);
         $authors = $this->em->getRepository(Authors::class)->findTop(6);
         $tags = $this->em->getRepository(Tags::class)->findBy([], ['title' => 'ASC']);
@@ -54,13 +55,14 @@ class HomeController extends AbstractController
         )->toArray();
 
         return $this->render('home/index.html.twig', [
-            'youtubelinks' => $youtubelinks,
-            'articles' => $articles,
-            'podcasts' => $podcasts,
-            'ressources' => $ressources,
-            'authors' => $authors,
-            'tags' => $tags,
-            'hebdoo' => $hebdoo,
+            'youtubelinks'  => $youtubelinks,
+            'articles'      => $articles,
+            'podcasts'      => $podcasts,
+            'formations'    => $formations,
+            'ressources'    => $ressources,
+            'authors'       => $authors,
+            'tags'          => $tags,
+            'hebdoo'        => $hebdoo,
         ]);
     }
 
