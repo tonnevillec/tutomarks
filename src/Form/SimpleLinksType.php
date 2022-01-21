@@ -65,8 +65,10 @@ class SimpleLinksType extends AbstractType
                 'query_builder' => static function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->andWhere('c.is_actif = true')
-                        ->andWhere('c.link_entity <> :youtube')
-                        ->setParameter('youtube', 'youtube')
+                        ->andWhere('c.code <> :youtube')
+                        ->setParameter('youtube', 'videos')
+                        ->andWhere('c.code <> :formations')
+                        ->setParameter('formations', 'formations')
                         ->orderBy('c.title', 'ASC');
                 },
                 'label' => ucfirst($this->translator->trans('tutos.category.label')).' *',
@@ -96,6 +98,10 @@ class SimpleLinksType extends AbstractType
             ])
             ->add('imageFile', FileType::class, [
                 'label' => ucfirst($this->translator->trans('links.image.label')),
+                'required' => false,
+            ])
+            ->add('description', null, [
+                'label' => ucfirst($this->translator->trans('slinks.description.label')),
                 'required' => false,
             ])
         ;

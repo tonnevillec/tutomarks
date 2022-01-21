@@ -12,7 +12,7 @@
             <a href="#section_tags" class="nav-link" target="_self">Tags</a>
             <a href="#section_articles" class="nav-link" target="_self">Articles</a>
             <a href="#section_podcasts" class="nav-link" target="_self">Podcasts</a>
-            {#            <a href="#section_formations" class="nav-link">Formations</a>#}
+            <a href="#section_formations" class="nav-link" target="_self">Formations</a>
         </nav>
 
         {% for label, messages in app.flashes %}
@@ -236,5 +236,35 @@
             </div>
         </div>
 
+        <div class="video-row pb-2">
+            <div class="video-row-title my-4 ml-1">
+                <h2 class="h2">
+                    <span class="text-primary me-1"><i class="{{ categoryIcon('formations') }}"></i></span> {{ 'home.formations'|trans|capitalize }}
+
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <div class="float-end">
+                            <a href="{{ path('slinks.add', { 'category' : 'formations' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                                <i class="bi bi-plus"></i>
+                                <span>{{ 'categories.formations.new'|trans|capitalize }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div class="row pb-3">
+                {% for formation in formations %}
+                    {{ include('home/_card_simplelinks.html.twig', { 'link': formation, 'gClass' : 'col-sm-12 col-md-6 col-lg-4 mb-2', 'withDesc' : true }) }}
+                {% endfor %}
+            </div>
+
+            {% if formations|length > 0 %}
+                <div class="row py-3">
+                    <a href="{{ path('search', {'categories[]' : formations[0].category.id}) }}" class="col a-show-more text-center small">
+                        <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_formations'|trans }}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
