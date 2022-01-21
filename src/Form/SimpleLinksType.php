@@ -101,8 +101,8 @@ class SimpleLinksType extends AbstractType
                 'required' => false,
             ])
             ->add('description', null, [
-                'label'     => ucfirst($this->translator->trans('slinks.description.label')),
-                'required'  => false
+                'label' => ucfirst($this->translator->trans('slinks.description.label')),
+                'required' => false,
             ])
         ;
     }
