@@ -67,8 +67,6 @@ class SimpleLinksType extends AbstractType
                         ->andWhere('c.is_actif = true')
                         ->andWhere('c.code <> :youtube')
                         ->setParameter('youtube', 'videos')
-                        ->andWhere('c.code <> :formations')
-                        ->setParameter('formations', 'formations')
                         ->orderBy('c.title', 'ASC');
                 },
                 'label' => ucfirst($this->translator->trans('tutos.category.label')).' *',
