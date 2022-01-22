@@ -152,6 +152,7 @@ btn:
   show_more_filters: 'afficher plus de filtres'
   show_less_filters: 'afficher moins de filtres'
   show_description: 'description'
+  follow_formation_link: 'accèder à la formation'
   submit: 'soumettre'
   send: 'envoyer'
   deadlink: 'signaler un lien mort'
