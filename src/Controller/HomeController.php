@@ -44,7 +44,7 @@ class HomeController extends AbstractController
         $youtubelinks = $ytRepository->findLatestPublished();
         $articles = $this->em->getRepository(Links::class)->findLatestSimpleLinks('articles', 4);
         $podcasts = $this->em->getRepository(Links::class)->findLatestSimpleLinks('podcasts', 4);
-        $formations = $this->em->getRepository(Links::class)->findLatestSimpleLinks('formations', 3);
+        $formations = $this->em->getRepository(Links::class)->findLatestSimpleLinks('formations', 6);
         $ressources = $this->em->getRepository(Links::class)->findLatestSimpleLinks('ressources', 3);
         $authors = $this->em->getRepository(Authors::class)->findTop(6);
         $tags = $this->em->getRepository(Tags::class)->findBy([], ['title' => 'ASC']);
