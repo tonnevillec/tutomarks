@@ -47,6 +47,18 @@ require('@popperjs/core');
         })
     }
 
+    let newEventAuthor = document.getElementById('events_author');
+    if(newEventAuthor) {
+        newEventAuthor.addEventListener('change', function () {
+            let dest = document.getElementById('events_author_new')
+            if (this.value === '') {
+                dest.classList.remove('d-none');
+            } else {
+                dest.classList.add('d-none');
+            }
+        })
+    }
+
     let toggle = document.querySelectorAll('.toggle');
     if(toggle) {
         for(let a of toggle){

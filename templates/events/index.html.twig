@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Liste des événements à venir{% endblock %}
+
+{% block body %}
+<section class="my-4">
+
+    <div class="container">
+        <div class="video-row-title my-4 ml-1">
+            <h2 class="h2" id="section_events">
+                <span class="text-primary me-1"><i class="bi bi-calendar3"></i></span> {{ 'events.futur.title'|trans|capitalize }}
+
+                {% if app.user %}
+                    <div class="float-end">
+                        <a href="{{ path('events.add') }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                            <i class="bi bi-plus"></i>
+                            <span>{{ 'categories.events.new'|trans|capitalize }}</span>
+                        </a>
+                    </div>
+                {% endif %}
+            </h2>
+        </div>
+
+        <div class="row pb-3">
+            <div class="list-group">
+                {% for event in events %}
+                    {{ include('home/_card_events.html.twig', { 'event': event}) }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="video-row-title my-4 ml-1">
+            <h2 class="h2" id="section_events">
+                <span class="text-primary me-1"><i class="bi bi-calendar2-check"></i></span> {{ 'events.finished.title'|trans|capitalize }}
+            </h2>
+        </div>
+
+        <div class="row pb-3">
+            <div class="list-group">
+                {% for event in finished %}
+                    {{ include('home/_card_events.html.twig', { 'event': event}) }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

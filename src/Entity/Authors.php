@@ -81,11 +81,17 @@ class Authors
      */
     private ?Attachments $attachment;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Events::class, mappedBy="author")
+     */
+    private $events;
+
     public function __construct()
     {
         $this->links = new ArrayCollection();
         $this->updatedAt = new DateTime();
         $this->logo = null;
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -263,5 +269,35 @@ class Authors
     public function __toString(): string
     {
         return (string) $this->getTitle();
+    }
+
+    /**
+     * @return Collection|Events[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Events $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Events $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getAuthor() === $this) {
+                $event->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 }

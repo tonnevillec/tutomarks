@@ -31,61 +31,61 @@ abstract class Links
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    protected int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $title;
+    protected ?string $title;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $published_at;
+    protected \DateTimeInterface $published_at;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $url;
+    protected ?string $url;
 
     /**
      * @ORM\ManyToOne(targetEntity=Categories::class, inversedBy="links")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $category;
+    protected ?Categories $category;
 
     /**
      * @ORM\ManyToOne(targetEntity=Authors::class, inversedBy="links")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $author;
+    protected ?Authors $author;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tags::class, inversedBy="links")
      */
-    protected $tags;
+    protected Collection $tags;
 
     /**
      * @ORM\ManyToOne(targetEntity=Languages::class, inversedBy="links")
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $language;
+    protected ?Languages $language;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $is_publish;
+    protected bool $is_publish;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    protected $description;
+    protected ?string $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="links")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $published_by;
+    private ?Users $published_by;
 
     public function __construct()
     {
@@ -160,7 +160,7 @@ abstract class Links
     }
 
     /**
-     * @return Collection|Tags[]
+     * @return Collection
      */
     public function getTags(): Collection
     {

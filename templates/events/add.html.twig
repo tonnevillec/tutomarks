@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Nouvel événement{% endblock %}
+
+{% form_theme form _self %}
+
+{% block _events_author_row %}
+    <div class="form-group">
+        <label class="label" for="events_author">{{ label }}</label>
+        {% if choices is iterable %}
+            <select id="events_author" class="form-control" name="events[author]">
+                {% for id, k in choices %}
+                    <option value="{{ k.data.id }}" {% if k.data.id == form.vars.value %}selected="selected"{% endif%}>{{ k.label }}</option>
+                {% endfor %}
+                <option value="" {% if new_author is defined %}selected="selected"{% endif %}>(+) {{ 'slinks.authors.new'|trans|capitalize }}</option>
+            </select>
+        {% endif %}
+    </div>
+
+    <fieldset class="form-group {% if new_author is not defined or (new_author is defined and new_author is not same as ('')) %}d-none{% endif %} border border-gray p-2" id="events_author_new">
+        <legend class="d-none col-form-label">{{ 'events.authors.new'|trans|capitalize }}</legend>
+        <div>
+            <div class="form-group mb-2">
+                <label class="label" for="events_author_title">{{ 'authors.title.label'|trans|capitalize }} *</label>
+                <input type="text" id="events_author_title" name="newauthors[title]" maxlength="255" placeholder="{{ 'authors.title.placeholder'|trans|capitalize }}" class="form-control {% if new_author is defined %}is-invalid{% endif %}">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="events_author_site_url"><i class="bi bi-globe me-1"></i> {{ 'authors.site_url.label'|trans|capitalize }}</label>
+                <input type="text" id="events_author_site_url" name="newauthors[site_url]" placeholder="{{ 'authors.site_url.placeholder'|trans|capitalize }}" inputmode="url" class="form-control">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="events_author_youtube"><i class="bi bi-youtube me-1"></i> {{ 'authors.youtube.label'|trans|capitalize }}</label>
+                <input type="text" id="events_author_youtube" name="newauthors[youtube]" maxlength="255" placeholder="{{ 'authors.youtube.placeholder'|trans }}" class="form-control">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="events_author_twitter"><i class="bi bi-twitter me-1"></i> {{ 'authors.twitter.label'|trans|capitalize }}</label>
+                <input type="text" id="events_author_twitter" name="newauthors[twitter]" maxlength="255" placeholder="{{ 'authors.twitter.placeholder'|trans }}" class="form-control">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="events_author_twitch"><i class="bi bi-twitch me-1"></i> {{ 'authors.twitch.label'|trans|capitalize }}</label>
+                <input type="text" id="events_author_twitch" name="newauthors[twitch]" maxlength="255" placeholder="{{ 'authors.twitch.placeholder'|trans }}" class="form-control">
+            </div>
+            <div class="form-group mb-2">
+                <label class="label" for="events_author_github"><i class="bi bi-github me-1"></i> {{ 'authors.github.label'|trans|capitalize }}</label>
+                <input type="text" id="events_author_github" name="newauthors[github]" maxlength="255" placeholder="{{ 'authors.github.placeholder'|trans }}" class="form-control">
+            </div>
+        </div>
+    </fieldset>
+{% endblock %}
+
+{% block body %}
+    <section class="my-4">
+
+        <div class="container">
+            <h1 class="h1 mb-3 fw-bold">
+                <i class="bi bi-newspaper me-1 text-primary"></i> {{ 'events.add.title'|trans|capitalize }}
+            </h1>
+
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+                        {{ message|capitalize }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_start(form) }}
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.url) }}
+
+                    <div class="my-3">
+                        {{ form_row(form.author) }}
+                    </div>
+
+                    {{ form_row(form.live_on_twitch) }}
+                    {{ form_row(form.live_on_twitter) }}
+                    {{ form_row(form.live_on_youtube) }}
+                    {{ form_row(form.is_physical) }}
+
+                    {{ form_row(form.is_free) }}
+
+                    <small class="form-text text-muted">* {{ 'required_fields'|trans|capitalize }}</small>
+                </div>
+
+                <div class="col-sm-12 col-md-6">
+                    {{ form_label(form.description) }}
+                    <br/><small class="form-text text-muted">{{ 'events.description.help'|trans|capitalize }}</small>
+                    {{ form_widget(form.description) }}
+
+                    {{ form_row(form.started_at) }}
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <a href="{{ path('home') }}" class="btn btn-outline-danger">
+                        <i class="bi bi-x-square me-1"></i> {{ 'btn.cancel'|trans|capitalize }}
+                    </a>
+
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="bi bi-check me-1"></i> {{ 'btn.submit'|trans|capitalize }}
+                    </button>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

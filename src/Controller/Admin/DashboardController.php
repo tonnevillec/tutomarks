@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Attachments;
 use App\Entity\Authors;
 use App\Entity\Categories;
+use App\Entity\Events;
 use App\Entity\Languages;
 use App\Entity\SimpleLinks;
 use App\Entity\Tags;
@@ -54,6 +55,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Links')->setSubItems([
             MenuItem::linkToCrud('SimpleLinks', 'fas fa-list', SimpleLinks::class),
             MenuItem::linkToCrud('YoutubeLinks', 'fas fa-list', YoutubeLinks::class),
+            MenuItem::linkToCrud('Events', 'fas fa-list', Events::class),
         ]);
 
         yield MenuItem::linkToUrl('Retour au site', 'far fa-arrow-alt-circle-left', $this->generateUrl('home'));
