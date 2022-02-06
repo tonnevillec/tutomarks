@@ -58,15 +58,15 @@ class HomeController extends AbstractController
         )->toArray();
 
         return $this->render('home/index.html.twig', [
-            'youtubelinks'  => $youtubelinks,
-            'articles'      => $articles,
-            'podcasts'      => $podcasts,
-            'formations'    => $formations,
-            'ressources'    => $ressources,
-            'authors'       => $authors,
-            'tags'          => $tags,
-            'hebdoo'        => $hebdoo,
-            'events'        => $events,
+            'youtubelinks' => $youtubelinks,
+            'articles' => $articles,
+            'podcasts' => $podcasts,
+            'formations' => $formations,
+            'ressources' => $ressources,
+            'authors' => $authors,
+            'tags' => $tags,
+            'hebdoo' => $hebdoo,
+            'events' => $events,
         ]);
     }
 

@@ -66,6 +66,43 @@
                     <img alt="{{ tag }}" src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=flat&logo={{ tag.code }}&logoColor={{ tag.color }}" />
                 {% endfor %}
             </div>
+
+            {% if link.category.code is same as ('formations') %}
+                {% if withDesc is defined %}
+                    <div class="mt-2 fs-7">
+                        {{ link.description|raw|nl2br }}
+                    </div>
+                {% elseif link.description|length > 0 %}
+                    <button type="button" class="btn btn-outline-primary btn-sm mt-1" data-bs-toggle="modal" data-bs-target="#jsDescrModal{{ link.id }}">
+                        {{ 'btn.show_description'|trans|capitalize }}
+                    </button>
+
+                    <div class="modal fade" id="jsDescrModal{{ link.id }}" tabindex="-1" aria-labelledby="jsDescrModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="jsDescrModalLabel">{{ link.title }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ link.description|raw|nl2br }}
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{{ link.url }}"
+                                       title="{{ 'links.target_blank'|trans|capitalize }}"
+                                       class="btn btn-outline-success me-2"
+                                       target="_blank"
+                                       data-toggle="tooltip"
+                                       data-placement="middle">
+                                        {{ 'btn.follow_formation_link'|trans|capitalize }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>

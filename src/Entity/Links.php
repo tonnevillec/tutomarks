@@ -159,9 +159,6 @@ abstract class Links
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getTags(): Collection
     {
         return $this->tags;

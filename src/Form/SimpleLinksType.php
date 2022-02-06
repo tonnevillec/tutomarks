@@ -91,7 +91,7 @@ class SimpleLinksType extends AbstractType
             ])
             ->add('is_publish', null, [
                 'label' => ucfirst($this->translator->trans('links.is_publish.label')),
-                'data'  => true,
+                'data' => true,
             ])
             ->add('imageFile', FileType::class, [
                 'label' => ucfirst($this->translator->trans('links.image.label')),

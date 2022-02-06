@@ -29,7 +29,7 @@ class EventsType extends AbstractType
                 'label_attr' => [
                     'class' => 'label',
                 ],
-                'label' => ucfirst($this->translator->trans('events.title.label')) . ' *',
+                'label' => ucfirst($this->translator->trans('events.title.label')).' *',
                 'attr' => [
                     'placeholder' => ucfirst($this->translator->trans('events.title.placeholder')),
                 ],
@@ -39,8 +39,8 @@ class EventsType extends AbstractType
                 'label_attr' => [
                     'class' => 'label',
                 ],
-                'label' => ucfirst($this->translator->trans('events.url.label')) . ' *',
-                'attr'  => [
+                'label' => ucfirst($this->translator->trans('events.url.label')).' *',
+                'attr' => [
                     'placeholder' => ucfirst($this->translator->trans('events.url.placeholder')),
                 ],
                 'required' => true,
@@ -54,56 +54,56 @@ class EventsType extends AbstractType
                 },
             ])
             ->add('started_at', DateType::class, [
-                'widget'    => 'single_text',
-                'label'     => ucfirst($this->translator->trans('events.started_at.label'))
+                'widget' => 'single_text',
+                'label' => ucfirst($this->translator->trans('events.started_at.label')),
             ])
             ->add('live_on_twitch', CheckboxType::class, [
-                'label'         => ucfirst($this->translator->trans('events.live_on_twitch.label')),
-                'data'          => false,
-                'required'      => false,
-                'label_attr'    => [
-                    'class' => 'checkbox-switch'
-                ]
+                'label' => ucfirst($this->translator->trans('events.live_on_twitch.label')),
+                'data' => false,
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'checkbox-switch',
+                ],
             ])
             ->add('live_on_twitter', CheckboxType::class, [
-                'label'         => ucfirst($this->translator->trans('events.live_on_twitter.label')),
-                'data'          => false,
-                'required'      => false,
-                'label_attr'    => [
-                    'class' => 'checkbox-switch'
-                ]
+                'label' => ucfirst($this->translator->trans('events.live_on_twitter.label')),
+                'data' => false,
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'checkbox-switch',
+                ],
             ])
             ->add('live_on_youtube', CheckboxType::class, [
-                'label'         => ucfirst($this->translator->trans('events.live_on_youtube.label')),
-                'data'          => false,
-                'required'      => false,
-                'label_attr'    => [
-                    'class' => 'checkbox-switch'
-                ]
+                'label' => ucfirst($this->translator->trans('events.live_on_youtube.label')),
+                'data' => false,
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'checkbox-switch',
+                ],
             ])
             ->add('is_physical', CheckboxType::class, [
-                'label'         => ucfirst($this->translator->trans('events.is_physical.label')),
-                'data'          => true,
-                'required'      => false,
-                'label_attr'    => [
-                    'class' => 'checkbox-switch'
-                ]
+                'label' => ucfirst($this->translator->trans('events.is_physical.label')),
+                'data' => true,
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'checkbox-switch',
+                ],
             ])
             ->add('is_free', CheckboxType::class, [
-                'label'         => ucfirst($this->translator->trans('events.is_free.label')),
-                'data'          => true,
-                'required'      => false,
-                'label_attr'    => [
-                    'class' => 'checkbox-switch'
-                ]
+                'label' => ucfirst($this->translator->trans('events.is_free.label')),
+                'data' => true,
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'checkbox-switch',
+                ],
             ])
             ->add('description', null, [
-                'label'     => ucfirst($this->translator->trans('events.description.label')),
-                'required'  => false,
-                'attr'      => [
+                'label' => ucfirst($this->translator->trans('events.description.label')),
+                'required' => false,
+                'attr' => [
                     'class' => 'mb-3',
-                    'rows'  => 10
-                ]
+                    'rows' => 10,
+                ],
             ])
         ;
     }

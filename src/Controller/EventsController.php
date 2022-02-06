@@ -31,8 +31,8 @@ class EventsController extends AbstractController
         $finished = $this->em->getRepository(Events::class)->findFinishEvents();
 
         return $this->render('events/index.html.twig', [
-            'events'    => $events,
-            'finished'  => $finished,
+            'events' => $events,
+            'finished' => $finished,
         ]);
     }
 

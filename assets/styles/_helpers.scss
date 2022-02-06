@@ -184,3 +184,11 @@ a.tags-link:hover {
 .fs-7 {
   font-size: .8rem;
 }
+
+.rounded-10 {
+  border-radius: 10px !important;
+}
+
+.card-hover:hover {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
