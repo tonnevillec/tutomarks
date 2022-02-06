@@ -458,6 +458,7 @@ contact:
     email_required: 'adresse mail requise'
     subject_required: 'sujet requis'
     message_required: 'message requis avec 10 caractères minimums'
+    no_robot: "je n'aime pas les robots attention!"
   send_ok: 'mail envoyé'
 
 about:

@@ -27,7 +27,7 @@
                 <input type="email" class="form-control form-control-sm"
                        name="contact_email"
                        id="contact_email"
-                       value="{{ app.user ? app.user.email : mail_subject is defined ? mail_subject : '' }}"
+                       value="{{ app.user ? app.user.email : mail_from is defined ? mail_from : '' }}"
                        placeholder="{{ 'contact.email.placeholder'|trans|capitalize }}"
                        required
                        aria-required="true"
@@ -45,7 +45,14 @@
                 <textarea type="text" class="form-control" name="contact_message" id="contact_message" required aria-required="true" minlength="10">{{ mail_message is defined ? mail_message : '' }}</textarea>
             </div>
 
-            <small class="text-danger">* {{ 'required_fields'|trans|capitalize }}</small>
+            <div class="form-group my-3">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="contact_robot" name="contact_robot">
+                    <label class="form-check-label" for="contact_robot">Parcequ'il le faut bien, confirmez-vous que vous n'êtes pas un robot ?</label>
+                </div>
+            </div>
+
+            <small class="text-danger mt-3">* {{ 'required_fields'|trans|capitalize }}</small>
 
             <div class="text-end mt-3">
                 <button class="btn btn-outline-success btn-sm" type="submit" id="js-form-contact"><i class="bi bi-send me-2"></i> {{ 'btn.submit'|trans|capitalize }}</button>

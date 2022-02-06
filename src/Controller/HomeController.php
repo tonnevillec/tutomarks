@@ -82,6 +82,11 @@ class HomeController extends AbstractController
         $datas = $request->request;
         $return = true;
 
+        if (!$datas->has('contact_robot')) {
+            $this->addFlash('danger', ucfirst($this->translator->trans('contact.error.no_robot')));
+            $return = false;
+        }
+
         if (!$datas->has('contact_email') || '' === $datas->get('contact_email')) {
             $this->addFlash('danger', ucfirst($this->translator->trans('contact.error.email_required')));
             $return = false;
