@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\YoutubeLinks;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -50,5 +52,12 @@ class YoutubeLinksCrudController extends AbstractCrudController
         yield TextEditorField::new('description')->hideOnIndex();
 
 //        yield ImageField::new('img_small')->hideOnIndex();
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->disable(Action::NEW)
+            ;
     }
 }

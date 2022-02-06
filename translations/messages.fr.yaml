@@ -17,6 +17,7 @@ show_more_podcasts: 'de podcasts'
 show_more_formations: 'de formations'
 show_more_resources: 'de ressources'
 show_more_authors: "de créateurs"
+show_more_events: "d'événements"
 
 login:
   success: 'connexion réussie'
@@ -41,6 +42,7 @@ home:
   top-tags: 'tags'
   hebdoo: 'Hebdoo.fr'
   formations: 'formations'
+  events: 'évenements'
 
 nav:
   home: 'accueil'
@@ -153,6 +155,7 @@ btn:
   show_less_filters: 'afficher moins de filtres'
   show_description: 'description'
   follow_formation_link: 'accèder à la formation'
+  follow_event_link: "accèder à l'événement'"
   submit: 'soumettre'
   send: 'envoyer'
   deadlink: 'signaler un lien mort'
@@ -285,6 +288,41 @@ categories:
     new: 'nouvelle formation'
   ressources:
     new: 'nouvelle ressource'
+  events:
+    new: 'nouvel événement'
+
+events:
+  navlink: "événements"
+  target_blank: "ouvrir le lien de l'événement dans un nouvel onglet"
+  add:
+    title: 'ajouter un événement'
+  title:
+    label: 'titre'
+    placeholder: "titre de l'événement"
+  url:
+    label: "lien vers l'événement"
+    placeholder: "saisir une url valide"
+  description:
+    label: "présentation de l'événement"
+    help: "description courte de l'événement"
+  live_on_twitch:
+    label: "diffusion sur Twitch"
+  live_on_twitter:
+    label: "diffusion sur Twitter"
+  live_on_youtube:
+    label: "diffusion sur Youtube"
+  is_physical:
+    label: "événement physique"
+  is_free:
+    label: "événement gratuit"
+  started_at:
+    label: "date de début"
+  ended_at:
+    label: "date de fin"
+  futur:
+    title: "événements à venir"
+  finished:
+    title: "événements terminés"
 
 authors:
   show:

@@ -13,6 +13,7 @@
             <a href="#section_articles" class="nav-link" target="_self">Articles</a>
             <a href="#section_podcasts" class="nav-link" target="_self">Podcasts</a>
             <a href="#section_formations" class="nav-link" target="_self">Formations</a>
+            <a href="#section_events" class="nav-link" target="_self">{{ 'events.navlink'|trans|capitalize }}</a>
         </nav>
 
         {% for label, messages in app.flashes %}
@@ -237,34 +238,72 @@
         </div>
 
         <div class="video-row pb-2">
-            <div class="video-row-title my-4 ml-1">
-                <h2 class="h2" id="section_formations">
-                    <span class="text-primary me-1"><i class="{{ categoryIcon('formations') }}"></i></span> {{ 'home.formations'|trans|capitalize }}
+            <div class="row">
+                <div class="col-md-8 col-lg-8 col-sm-12">
+                    <div class="video-row-title my-4 ml-1">
+                        <h2 class="h2" id="section_formations">
+                            <span class="text-primary me-1"><i class="{{ categoryIcon('formations') }}"></i></span> {{ 'home.formations'|trans|capitalize }}
 
-                    {% if app.user and is_granted('ROLE_ADMIN') %}
-                        <div class="float-end">
-                            <a href="{{ path('slinks.add', { 'category' : 'formations' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
-                                <i class="bi bi-plus"></i>
-                                <span>{{ 'categories.formations.new'|trans|capitalize }}</span>
+                            {% if app.user and is_granted('ROLE_ADMIN') %}
+                                <div class="float-end">
+                                    <a href="{{ path('slinks.add', { 'category' : 'formations' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                                        <i class="bi bi-plus"></i>
+                                        <span>{{ 'categories.formations.new'|trans|capitalize }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </h2>
+                    </div>
+
+                    <div class="row pb-3">
+                        {% for formation in formations %}
+                            {{ include('home/_minimal_infos.html.twig', {'link': formation}) }}
+{#                            {{ include('home/_card_simplelinks.html.twig', { 'link': formation, 'gClass' : 'col-sm-12 col-md-6 mb-2' }) }}#}
+                        {% endfor %}
+                    </div>
+
+                    {% if formations|length > 0 %}
+                        <div class="row py-3">
+                            <a href="{{ path('search', {'categories[]' : formations[0].category.id}) }}" class="col a-show-more text-center small">
+                                <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_formations'|trans }}
                             </a>
                         </div>
                     {% endif %}
-                </h2>
-            </div>
-
-            <div class="row pb-3">
-                {% for formation in formations %}
-                    {{ include('home/_card_simplelinks.html.twig', { 'link': formation, 'gClass' : 'col-sm-12 col-md-6 col-lg-4 mb-2' }) }}
-                {% endfor %}
-            </div>
-
-            {% if formations|length > 0 %}
-                <div class="row py-3">
-                    <a href="{{ path('search', {'categories[]' : formations[0].category.id}) }}" class="col a-show-more text-center small">
-                        <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_formations'|trans }}
-                    </a>
                 </div>
-            {% endif %}
+
+                <div class="col-md-4 col-lg-4 col-sm-12">
+                    <div class="video-row-title my-4 ml-1">
+                        <h2 class="h2" id="section_events">
+                            <span class="text-primary me-1"><i class="bi bi-calendar3"></i></span> {{ 'home.events'|trans|capitalize }}
+
+                            {% if app.user %}
+                                <div class="float-end">
+                                    <a href="{{ path('events.add') }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                                        <i class="bi bi-plus"></i>
+                                        <span>{{ 'categories.events.new'|trans|capitalize }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </h2>
+                    </div>
+
+                    <div class="row pb-3">
+                        <div class="list-group">
+                            {% for event in events %}
+                                {{ include('home/_card_events.html.twig', { 'event': event}) }}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if events|length > 0 %}
+                        <div class="row py-3">
+                            <a href="{{ path('events.index') }}" class="col a-show-more text-center small">
+                                <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_events'|trans }}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

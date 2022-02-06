@@ -6,29 +6,32 @@
     </div>
     <div class="side-menu-body">
         <div class="list-group">
-            <a href="{{ path('home') }}" class="list-group-item d-flex align-items-center active">
+            <a href="{{ path('home') }}" class="list-group-item d-flex align-items-center {% if app.request.get('_route') is same as ('home') %}active{% endif %}">
                 <i class="bi bi-house me-1"></i>
                 <span>Accueil</span>
             </a>
             {{ menuCategories() }}
-        </div>
 
-        <div class="list-group">
-            <a href="{{ path('search') }}" class="list-group-item d-flex align-items-center">
+            <a href="{{ path('events.index') }}" class="list-group-item d-flex align-items-center {% if app.request.get('_route') is same as ('events.index') %}active{% endif %}">
+                <i class="bi bi-calendar3 me-1"></i>
+                <span>{{ 'home.events'|trans|capitalize }}</span>
+            </a>
+
+            <a href="{{ path('search') }}" class="list-group-item d-flex align-items-center {% if app.request.get('_route') is same as ('search') %}active{% endif %}">
                 <i class="bi bi-search me-1"></i>
                 <span>Recherche</span>
             </a>
         </div>
 
         <div class="list-group">
-            <div class="group-title pt-2 px-4 mx-1 text-uppercase text-muted">Créateurs</div>
+            <div class="group-title pt-1 px-4 mx-1 text-uppercase text-muted">Créateurs</div>
             {{ menuAuthors() }}
             <a href="{{ path('authors.index') }}" class="list-group-item d-flex align-items-center"><i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }} {{ 'show_more_authors'|trans }}</a>
         </div>
 
         {% if app.user %}
             <div class="list-group">
-                <div class="group-title pt-2 px-4 mx-1 text-uppercase text-muted">Mes informations</div>
+                <div class="group-title pt-1 px-4 mx-1 text-uppercase text-muted">Mes informations</div>
 
                 <a href="{{ path('users.profil') }}" class="list-group-item d-flex align-items-center">
                     <i class="bi bi-person me me-1"></i>

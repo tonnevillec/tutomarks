@@ -97,6 +97,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email_repeat;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Events::class, mappedBy="published_by")
+     */
+    private $events;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -104,6 +109,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->is_actif = true;
         $this->roles = ['ROLE_USER'];
         $this->links = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -342,6 +348,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmailRepeat(?string $email_repeat): Users
     {
         $this->email_repeat = $email_repeat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Events[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Events $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setPublishedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Events $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getPublishedBy() === $this) {
+                $event->setPublishedBy(null);
+            }
+        }
 
         return $this;
     }

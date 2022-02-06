@@ -16,8 +16,11 @@ class FunctionsExtension extends AbstractExtension
     private UrlGeneratorInterface $router;
     private UrlGeneratorInterface $generator;
 
-    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $router, UrlGeneratorInterface $generator)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        UrlGeneratorInterface $router,
+        UrlGeneratorInterface $generator
+    ) {
         $this->em = $em;
         $this->router = $router;
         $this->generator = $generator;
@@ -25,13 +28,16 @@ class FunctionsExtension extends AbstractExtension
 
     public function getFunctions(): array
     {
+        $default = ['is_safe' => ['html']];
+
         return [
-            new TwigFunction('categoryIcon', [$this, 'getCategoryIcon'], ['is_safe' => ['html']]),
-            new TwigFunction('menuAuthors', [$this, 'getMenuAuthors'], ['is_safe' => ['html']]),
-            new TwigFunction('menuCategories', [$this, 'getMenuCategories'], ['is_safe' => ['html']]),
-            new TwigFunction('footerCategories', [$this, 'getFooterCategories'], ['is_safe' => ['html']]),
-            new TwigFunction('headerMenuAddByCategories', [$this, 'getHeaderMenuAddByCategories'], ['is_safe' => ['html']]),
-            new TwigFunction('notPublishedLinksCount', [$this, 'getNotPublishedLinksCount'], ['is_safe' => ['html']]),
+            new TwigFunction('categoryIcon', [$this, 'getCategoryIcon'], $default),
+            new TwigFunction('menuAuthors', [$this, 'getMenuAuthors'], $default),
+            new TwigFunction('menuCategories', [$this, 'getMenuCategories'], $default),
+            new TwigFunction('footerCategories', [$this, 'getFooterCategories'], $default),
+            new TwigFunction('headerMenuAddByCategories', [$this, 'getHeaderMenuAddByCategories'], $default),
+            new TwigFunction('notPublishedLinksCount', [$this, 'getNotPublishedLinksCount'], $default),
+            new TwigFunction('dateToFr', [$this, 'dateToFr'], $default),
         ];
     }
 
@@ -125,6 +131,12 @@ class FunctionsExtension extends AbstractExtension
                     <span>'.$category->getTitle().'</span>
                 </a></li>';
             }
+
+            $return .= '<li class="nav-item mb-2"><a href="'.$this->router->generate('events.index').'" class="nav-link py-0 ps-3 pe-0">
+                    <i class="bi bi-calendar3 me-1"></i>
+                    <span>Événements</span>
+                </a></li>';
+
             $return .= '</ul>';
         }
 
@@ -164,5 +176,16 @@ class FunctionsExtension extends AbstractExtension
                 'is_publish' => false,
             ])
         );
+    }
+
+    public function dateToFr(\DateTime $date, string $format): string
+    {
+        $english_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        $french_days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+
+        $english_months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        $french_months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        return str_replace($english_months, $french_months, str_replace($english_days, $french_days, $date->format($format)));
     }
 }

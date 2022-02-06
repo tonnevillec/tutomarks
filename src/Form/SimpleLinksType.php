@@ -81,7 +81,6 @@ class SimpleLinksType extends AbstractType
                 'multiple' => false,
                 'required' => true,
             ])
-
             ->add('author', EntityType::class, [
                 'label' => ucfirst($this->translator->trans('slinks.authors.label')),
                 'class' => Authors::class,

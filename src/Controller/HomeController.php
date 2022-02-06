@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Authors;
+use App\Entity\Events;
 use App\Entity\Links;
 use App\Entity\Tags;
 use App\Repository\YoutubeLinksRepository;
@@ -49,6 +50,8 @@ class HomeController extends AbstractController
         $authors = $this->em->getRepository(Authors::class)->findTop(6);
         $tags = $this->em->getRepository(Tags::class)->findBy([], ['title' => 'ASC']);
 
+        $events = $this->em->getRepository(Events::class)->findEventsByDate(6);
+
         $hebdoo = $this->client->request(
             'GET',
             'https://hebdoo.fr/api/last'
@@ -63,6 +66,7 @@ class HomeController extends AbstractController
             'authors' => $authors,
             'tags' => $tags,
             'hebdoo' => $hebdoo,
+            'events' => $events,
         ]);
     }
 

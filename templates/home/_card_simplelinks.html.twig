@@ -1,4 +1,4 @@
-<div class="{% if gClass is defined %} {{ gClass }} {% else %}col-sm-12 col-md-6 col-lg-3{% endif%} px-1">
+<div class="{% if gClass is defined %} {{ gClass }} {% else %}col-sm-12 col-md-6 col-lg-3{% endif%}">
     <div class="video mb-3">
         <div class="video-thumbnail">
             {% if link.category.code is same as ('videos') %}
@@ -72,7 +72,7 @@
                        data-bs-toggle="tooltip"
                        data-bs-placement="top"
                        target="_blank"
-                       title="{{ 'links.target_blank'|trans|capitalize }}"
+                       title="{{ 'links.target_blank'|trans|capitalize }} - {{ link.title }}"
                        class="text-decoration-none">
                         {% if withIco is defined %}<i class="{{ categoryIcon(link.category.code) }} me-1"></i>{% endif %}
                         <strong>{{ link.title|u.truncate(60, '...') }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i>

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\SimpleLinks;
+use App\Entity\Events;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -11,31 +11,28 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class SimpleLinksCrudController extends AbstractCrudController
+class EventsCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return SimpleLinks::class;
+        return Events::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
-        yield IdField::new('id')->hideOnForm();
+        yield IdField::new('id')->onlyOnIndex();
         yield TextField::new('title');
         yield AssociationField::new('author');
-        yield UrlField::new('url');
-        yield AssociationField::new('category');
-        yield AssociationField::new('tags');
-        yield AssociationField::new('language');
-        yield TextField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex();
-        yield ImageField::new('image')->setBasePath('/uploads/images/')->onlyOnIndex();
-        yield BooleanField::new('is_publish');
+        yield TextField::new('url');
+
+        yield BooleanField::new('is_free');
+        yield BooleanField::new('is_physical');
+        yield BooleanField::new('live_on_twitch');
+        yield BooleanField::new('live_on_twitter');
+        yield BooleanField::new('live_on_youtube');
 
         $publishedAt = DateTimeField::new('published_at')->setFormTypeOptions([
             'html5' => true,
@@ -55,6 +52,6 @@ class SimpleLinksCrudController extends AbstractCrudController
     {
         return $actions
             ->disable(Action::NEW)
-            ;
+        ;
     }
 }
