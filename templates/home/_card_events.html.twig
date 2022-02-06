@@ -2,7 +2,7 @@
     <div class="mb-2">
         <i class="bi bi-calendar3 me-2"></i>{{ dateToFr(event.startedAt, "l j F Y") }}
     </div>
-    <div class="mb-2">
+    <div class="mb-1">
         <a href="{{ event.url }}"
            data-bs-toggle="tooltip"
            data-bs-placement="top"
@@ -10,6 +10,13 @@
            title="{{ 'links.target_blank'|trans|capitalize }} - {{ event.title }}"
            class="text-decoration-none">
         <strong>{{ event.title|u.truncate(60, '...') }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i>
+        </a>
+    </div>
+
+    <div class="video-meta small mb-2">
+        <a href="{{ path('authors.show', { 'slug' : event.author.slug, 'id' : event.author.id }) }}"
+           class="text-decoration-none">
+            <i class="bi bi-mortarboard-fill me-1"></i>{{ event.author }}
         </a>
     </div>
 
