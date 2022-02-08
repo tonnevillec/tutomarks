@@ -1,0 +1,69 @@
+.bg-orange-100 {
+  background-color: rgb(255 237 213/1);
+
+  &:hover {
+    background-color: rgb(253 186 116/1);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+}
+
+.bg-orange-300 {
+  background-color: rgb(253 186 116/1);
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.text-cyan-600 {
+  color: rgb(8 145 178/1);
+}
+.bg-cyan-100 {
+  background-color: rgb(207 250 254/1);
+}
+
+.text-yellow-600 {
+  color: rgb(202 138 4/1);
+}
+.bg-yellow-100 {
+    background-color: rgb(254 249 195/1);
+}
+
+.text-green-900 {
+    color: rgb(20 83 45/1);
+}
+.bg-green-100 {
+    background-color: rgb(220 252 231/1);
+}
+
+.text-violet-600 {
+    color: rgb(124 58 237/1);
+}
+
+.bg-violet-100 {
+    background-color: rgb(237 233 254/1);
+}
+
+.text-zinc-600 {
+    color: rgb(82 82 91/1);
+}
+
+.bg-zinc-100 {
+    background-color: rgb(244 244 245/1);
+}
+
+.text-purple-600 {
+  color: rgb(147 51 234/1);
+}
+
+.bg-purple-100 {
+    background-color: rgb(243 232 255/1);
+}
+
+.text-red-600 {
+    color: rgb(220 38 38/1);
+}
+
+.bg-red-100 {
+    background-color: rgb(254 226 226/1);
+}

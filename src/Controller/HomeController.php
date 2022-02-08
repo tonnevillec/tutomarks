@@ -8,6 +8,7 @@ use App\Entity\Links;
 use App\Entity\Tags;
 use App\Repository\YoutubeLinksRepository;
 use App\Service\EmailService;
+use App\Service\MyLittleTeamService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Yoanbernabeu\AirtableClientBundle\AirtableClientInterface;
 
 class HomeController extends AbstractController
 {
@@ -25,18 +27,21 @@ class HomeController extends AbstractController
     private ParameterBagInterface $param;
     private EntityManagerInterface $em;
     private HttpClientInterface $client;
+    private MyLittleTeamService $mlt;
 
     public function __construct(TranslatorInterface $translator,
                                 EmailService $mailer,
                                 ParameterBagInterface $param,
                                 EntityManagerInterface $em,
-                                HttpClientInterface $client
+                                HttpClientInterface $client,
+                                MyLittleTeamService $mlt,
     ) {
         $this->translator = $translator;
         $this->mailer = $mailer;
         $this->param = $param;
         $this->em = $em;
         $this->client = $client;
+        $this->mlt = $mlt;
     }
 
     #[Route('/', name: 'home')]
@@ -57,16 +62,26 @@ class HomeController extends AbstractController
             'https://hebdoo.fr/api/last'
         )->toArray();
 
+        $orderField = 'Company name (from Team ID)';
+        $mlt = $this->mlt->findLatest(
+            $this->getParameter('mlt_table'),
+            $this->getParameter('mlt_view'),
+            6,
+            $orderField,
+            'desc'
+        );
+
         return $this->render('home/index.html.twig', [
-            'youtubelinks' => $youtubelinks,
-            'articles' => $articles,
-            'podcasts' => $podcasts,
-            'formations' => $formations,
-            'ressources' => $ressources,
-            'authors' => $authors,
-            'tags' => $tags,
-            'hebdoo' => $hebdoo,
-            'events' => $events,
+            'youtubelinks'  => $youtubelinks,
+            'articles'      => $articles,
+            'podcasts'      => $podcasts,
+            'formations'    => $formations,
+            'ressources'    => $ressources,
+            'authors'       => $authors,
+            'tags'          => $tags,
+            'hebdoo'        => $hebdoo,
+            'events'        => $events,
+            'mlt'           => $mlt
         ]);
     }
 

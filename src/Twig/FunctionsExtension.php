@@ -38,6 +38,7 @@ class FunctionsExtension extends AbstractExtension
             new TwigFunction('headerMenuAddByCategories', [$this, 'getHeaderMenuAddByCategories'], $default),
             new TwigFunction('notPublishedLinksCount', [$this, 'getNotPublishedLinksCount'], $default),
             new TwigFunction('dateToFr', [$this, 'dateToFr'], $default),
+            new TwigFunction('mltSkills', [$this, 'mltSkills'], $default),
         ];
     }
 
@@ -187,5 +188,17 @@ class FunctionsExtension extends AbstractExtension
         $french_months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
         return str_replace($english_months, $french_months, str_replace($english_days, $french_days, $date->format($format)));
+    }
+
+    public function mltSkills(string $skills): string
+    {
+        $skill = explode(',', $skills);
+
+        $return = '';
+        foreach($skill as $s) {
+            $return .= '<span class="badge text-green-900 bg-green-100 font-semibold"># ' . $s . '</span>';
+        }
+
+        return $return;
     }
 }
