@@ -8,8 +8,9 @@ parameters:
     google_api_key: '%env(GOOGLE_API_KEY)%'
     mailer_from: '%env(MAILER_FROM)%'
 
-    mlt_table: '%env(MLT_TABLE)%'
-    mlt_view: '%env(MLT_VIEW)%'
+    mlt_table: '%env(string:MLT_TABLE)%'
+    mlt_view: '%env(string:MLT_VIEW)%'
+    mlt_enable: '%env(bool:MLT_ENABLE)%'
 
 services:
     # default configuration for services in *this* file

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Service;
 
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -6,7 +7,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MyLittleTeamService
 {
-
     private HttpClientInterface $client;
     private ObjectNormalizer $normalizer;
     private string $base_url;
@@ -22,13 +22,13 @@ class MyLittleTeamService
         $this->airtable_key = $airtable_key;
         $this->airtable_id = $airtable_id;
 
-        $this->url = $this->base_url . $this->airtable_id;
+        $this->url = $this->base_url.$this->airtable_id;
     }
 
-    public function findLatest(string $table, string $view, int $nb = 3, ?string $orderfield = null, ?string $orderby = 'asc'): array
+    public function findLatest(string $table, string $view, int $nb = 3, string $orderfield = 'Created', string $orderby = 'desc'): array
     {
         $opt = [];
-        if(!is_null($orderfield)) {
+        if (!is_null($orderfield)) {
             $opt = [
                 'sort' => [
                     0 => [
@@ -36,12 +36,13 @@ class MyLittleTeamService
                         'direction' => $orderby,
                     ],
                 ],
+                'filterByFormula' => 'IS_BEFORE({Valid Through}, TODAY())',
             ];
         }
 
         $params = [
-            'view'          => $view,
-            'maxRecords'    => $nb,
+            'view' => $view,
+            'maxRecords' => $nb,
             $opt,
         ];
 
@@ -53,9 +54,9 @@ class MyLittleTeamService
 
         $response = $this->client->request(
             'GET',
-            $this->url . '/' . $url,
+            $this->url.'/'.$url,
             [
-                'auth_bearer' => $this->airtable_key
+                'auth_bearer' => $this->airtable_key,
             ]
         );
 

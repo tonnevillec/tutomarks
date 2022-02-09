@@ -195,8 +195,8 @@ class FunctionsExtension extends AbstractExtension
         $skill = explode(',', $skills);
 
         $return = '';
-        foreach($skill as $s) {
-            $return .= '<span class="badge text-green-900 bg-green-100 font-semibold"># ' . $s . '</span>';
+        foreach ($skill as $s) {
+            $return .= '<span class="badge text-green-900 bg-green-100 font-semibold"># '.$s.'</span>';
         }
 
         return $return;

@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Yoanbernabeu\AirtableClientBundle\AirtableClientInterface;
 
 class HomeController extends AbstractController
 {
@@ -62,26 +61,23 @@ class HomeController extends AbstractController
             'https://hebdoo.fr/api/last'
         )->toArray();
 
-        $orderField = 'Company name (from Team ID)';
-        $mlt = $this->mlt->findLatest(
+        $mlt = ($this->getParameter('mlt_enable')) ? $this->mlt->findLatest(
             $this->getParameter('mlt_table'),
             $this->getParameter('mlt_view'),
-            6,
-            $orderField,
-            'desc'
-        );
+            6
+        ) : [];
 
         return $this->render('home/index.html.twig', [
-            'youtubelinks'  => $youtubelinks,
-            'articles'      => $articles,
-            'podcasts'      => $podcasts,
-            'formations'    => $formations,
-            'ressources'    => $ressources,
-            'authors'       => $authors,
-            'tags'          => $tags,
-            'hebdoo'        => $hebdoo,
-            'events'        => $events,
-            'mlt'           => $mlt
+            'youtubelinks' => $youtubelinks,
+            'articles' => $articles,
+            'podcasts' => $podcasts,
+            'formations' => $formations,
+            'ressources' => $ressources,
+            'authors' => $authors,
+            'tags' => $tags,
+            'hebdoo' => $hebdoo,
+            'events' => $events,
+            'mlt' => $mlt,
         ]);
     }
 

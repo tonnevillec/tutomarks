@@ -14,7 +14,9 @@
             <a href="#section_podcasts" class="nav-link" target="_self">Podcasts</a>
             <a href="#section_formations" class="nav-link" target="_self">Formations</a>
             <a href="#section_events" class="nav-link" target="_self">{{ 'events.navlink'|trans|capitalize }}</a>
-            <a href="#section_mlt" class="nav-link" target="_self">{{ 'mlt.navlink'|trans|capitalize }}</a>
+            {% if mlt|length > 0 %}
+                <a href="#section_mlt" class="nav-link" target="_self">{{ 'mlt.navlink'|trans|capitalize }}</a>
+            {% endif %}
         </nav>
 
         {% for label, messages in app.flashes %}
