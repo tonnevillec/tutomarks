@@ -8,6 +8,7 @@ use App\Entity\Links;
 use App\Entity\Tags;
 use App\Repository\YoutubeLinksRepository;
 use App\Service\EmailService;
+use App\Service\MyLittleTeamService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -25,18 +26,21 @@ class HomeController extends AbstractController
     private ParameterBagInterface $param;
     private EntityManagerInterface $em;
     private HttpClientInterface $client;
+    private MyLittleTeamService $mlt;
 
     public function __construct(TranslatorInterface $translator,
                                 EmailService $mailer,
                                 ParameterBagInterface $param,
                                 EntityManagerInterface $em,
-                                HttpClientInterface $client
+                                HttpClientInterface $client,
+                                MyLittleTeamService $mlt,
     ) {
         $this->translator = $translator;
         $this->mailer = $mailer;
         $this->param = $param;
         $this->em = $em;
         $this->client = $client;
+        $this->mlt = $mlt;
     }
 
     #[Route('/', name: 'home')]
@@ -57,6 +61,12 @@ class HomeController extends AbstractController
             'https://hebdoo.fr/api/last'
         )->toArray();
 
+        $mlt = ($this->getParameter('mlt_enable')) ? $this->mlt->findLatest(
+            $this->getParameter('mlt_table'),
+            $this->getParameter('mlt_view'),
+            6
+        ) : [];
+
         return $this->render('home/index.html.twig', [
             'youtubelinks' => $youtubelinks,
             'articles' => $articles,
@@ -67,6 +77,7 @@ class HomeController extends AbstractController
             'tags' => $tags,
             'hebdoo' => $hebdoo,
             'events' => $events,
+            'mlt' => $mlt,
         ]);
     }
 

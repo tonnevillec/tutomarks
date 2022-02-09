@@ -14,6 +14,9 @@
             <a href="#section_podcasts" class="nav-link" target="_self">Podcasts</a>
             <a href="#section_formations" class="nav-link" target="_self">Formations</a>
             <a href="#section_events" class="nav-link" target="_self">{{ 'events.navlink'|trans|capitalize }}</a>
+            {% if mlt|length > 0 %}
+                <a href="#section_mlt" class="nav-link" target="_self">{{ 'mlt.navlink'|trans|capitalize }}</a>
+            {% endif %}
         </nav>
 
         {% for label, messages in app.flashes %}
@@ -114,7 +117,7 @@
                 <div class="video-row-title my-4 ml-1">
                     <h2 class="h2" id="section_hebdoo">
                         <a href="https://www.hebdoo.fr" title="Accèder au site Hebdoo.fr dans une nouvelle fenetre" target="_blank" class="text-decoration-none">
-                            <span class="text-primary me-1">H</span> {{ 'home.hebdoo'|trans|capitalize }}
+                            <img src="{{ asset('build/images/hebdoo.png') }}" class="me-1"> {{ 'home.hebdoo'|trans|capitalize }}
                         </a><br>
                     </h2>
                 </div>
@@ -304,5 +307,27 @@
                 </div>
             </div>
         </div>
+
+        {% if mlt|length > 0 %}
+        <div class="video-row pb-2" id="section_mlt">
+            <div class="video-row-title my-4 ml-1">
+                <h2 class="h2">
+                    <img src="{{ asset('build/images/mlt.png') }}" width="40px" height="40px" class="me-1"> {{ 'mlt.title'|trans|capitalize }}
+                </h2>
+            </div>
+
+            <div class="row pb-3">
+                {% for job in mlt %}
+                    {{ include('home/_mlt.html.twig', { 'job': job }) }}
+                {% endfor %}
+            </div>
+
+            <div class="row py-3">
+                <a href="https://www.mylittleteam.com/?source=tutomarks" class="col a-show-more text-center small">
+                    {{ 'mlt.link'|trans|capitalize }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
+                </a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}

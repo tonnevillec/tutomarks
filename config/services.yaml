@@ -8,6 +8,10 @@ parameters:
     google_api_key: '%env(GOOGLE_API_KEY)%'
     mailer_from: '%env(MAILER_FROM)%'
 
+    mlt_table: '%env(string:MLT_TABLE)%'
+    mlt_view: '%env(string:MLT_VIEW)%'
+    mlt_enable: '%env(bool:MLT_ENABLE)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -17,7 +21,7 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/'
+        resource: '../src/*'
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
@@ -34,3 +38,8 @@ services:
         arguments:
             - 'tutomarks'
             - '%env(GOOGLE_API_KEY)%'
+
+    App\Service\MyLittleTeamService:
+        arguments:
+            $airtable_key: '%env(AIRTABLE_KEY)%'
+            $airtable_id: '%env(AIRTABLE_ID)%'
