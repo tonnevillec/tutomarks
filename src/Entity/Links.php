@@ -36,7 +36,7 @@ abstract class Links
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected ?string $title;
+    protected ?string $title = null;
 
     /**
      * @ORM\Column(type="datetime")
@@ -46,19 +46,19 @@ abstract class Links
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected ?string $url;
+    protected ?string $url = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Categories::class, inversedBy="links")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected ?Categories $category;
+    protected ?Categories $category = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Authors::class, inversedBy="links")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected ?Authors $author;
+    protected ?Authors $author = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tags::class, inversedBy="links")
@@ -69,7 +69,7 @@ abstract class Links
      * @ORM\ManyToOne(targetEntity=Languages::class, inversedBy="links")
      * @ORM\JoinColumn(nullable=true)
      */
-    protected ?Languages $language;
+    protected ?Languages $language = null;
 
     /**
      * @ORM\Column(type="boolean")
@@ -79,18 +79,18 @@ abstract class Links
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    protected ?string $description;
+    protected ?string $description = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="links")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Users $published_by;
+    private ?Users $published_by = null;
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-        $this->published_at = new \Datetime();
+        $this->published_at = new \DateTime();
         $this->is_publish = false;
     }
 
