@@ -14,38 +14,26 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController
 {
-    private TranslatorInterface $translator;
-    private EmailService $mailer;
-    private ParameterBagInterface $param;
-    private EntityManagerInterface $em;
-    private YoutubeLinksRepository $ytRepository;
-    private HttpClientInterface $client;
-    private MyLittleTeamService $mlt;
-
-    public function __construct(TranslatorInterface $translator,
-                                EmailService $mailer,
-                                ParameterBagInterface $param,
-                                EntityManagerInterface $em,
-                                YoutubeLinksRepository $ytRepository,
-                                HttpClientInterface $client,
-                                MyLittleTeamService $mlt,
+    public function __construct(private TranslatorInterface $translator,
+                                private EmailService $mailer,
+                                private ParameterBagInterface $param,
+                                private EntityManagerInterface $em,
+                                private YoutubeLinksRepository $ytRepository,
+                                private HttpClientInterface $client,
+                                private MyLittleTeamService $mlt,
+                                private SerializerInterface $serializer
     ) {
-        $this->translator = $translator;
-        $this->mailer = $mailer;
-        $this->param = $param;
-        $this->em = $em;
-        $this->ytRepository = $ytRepository;
-        $this->client = $client;
-        $this->mlt = $mlt;
     }
 
     #[Route('/', name: 'home')]
@@ -66,11 +54,7 @@ class HomeController extends AbstractController
             'https://hebdoo.fr/api/last'
         )->toArray();
 
-        $mlt = ($this->getParameter('mlt_enable')) ? $this->mlt->findLatest(
-            $this->getParameter('mlt_table'),
-            $this->getParameter('mlt_view'),
-            6
-        ) : [];
+        $mlt = $this->getParameter('mlt_enable');
 
         return $this->render('home/index.html.twig', [
             'youtubelinks' => $youtubelinks,
@@ -169,5 +153,17 @@ class HomeController extends AbstractController
             'events' => $events,
             'categories' => $categories,
         ]);
+    }
+
+    #[Route('/api/mlt', name: 'api.mlt', methods: ['GET'])]
+    public function apiMlt(): JsonResponse
+    {
+        $mlt = ($this->getParameter('mlt_enable')) ? $this->mlt->findLatest(
+            $this->getParameter('mlt_table'),
+            $this->getParameter('mlt_view'),
+            6
+        ) : [];
+
+        return new JsonResponse($this->serializer->serialize($mlt, 'json'), 201, [], true);
     }
 }
