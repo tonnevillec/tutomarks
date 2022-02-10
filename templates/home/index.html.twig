@@ -153,7 +153,7 @@
             </div>
         </div>
 
-        <div class="video-row pb-2">
+        <div class="video-row pb-2 reveal">
             <div class="row">
                 <div class="col-12">
                     <div class="video-row-title my-4 ml-1">
@@ -178,7 +178,7 @@
             </div>
         </div>
 
-        <div class="video-row pb-2">
+        <div class="video-row pb-2 reveal">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="video-row-title my-4 ml-1">
@@ -240,7 +240,7 @@
             </div>
         </div>
 
-        <div class="video-row pb-2">
+        <div class="video-row pb-2 reveal">
             <div class="row">
                 <div class="col-md-8 col-lg-8 col-sm-12">
                     <div class="video-row-title my-4 ml-1">
@@ -308,26 +308,19 @@
             </div>
         </div>
 
-        {% if mlt|length > 0 %}
-        <div class="video-row pb-2" id="section_mlt">
-            <div class="video-row-title my-4 ml-1">
-                <h2 class="h2">
-                    <img src="{{ asset('build/images/mlt.png') }}" width="40px" height="40px" class="me-1"> {{ 'mlt.title'|trans|capitalize }}
-                </h2>
-            </div>
-
-            <div class="row pb-3">
-                {% for job in mlt %}
-                    {{ include('home/_mlt.html.twig', { 'job': job }) }}
-                {% endfor %}
-            </div>
-
-            <div class="row py-3">
-                <a href="https://www.mylittleteam.com/?source=tutomarks" class="col a-show-more text-center small">
-                    {{ 'mlt.link'|trans|capitalize }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
-                </a>
-            </div>
+        {% if mlt %}
+        <div id="section_mlt" class="reveal">
+            <mlts-component
+                    data-logosrc="{{ asset('build/images/mlt.png') }}"
+                    data-logoalt="Logo de MyLittleTeam"
+                    data-logoclass="me-1"
+                    data-logowidth="40px"
+                    data-logoheight="40px"
+                    data-title="{{ 'mlt.title'|trans|capitalize }}"
+            >
+            </mlts-component>
         </div>
         {% endif %}
+
     </div>
 {% endblock %}
