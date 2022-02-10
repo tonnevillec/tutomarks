@@ -10,7 +10,6 @@ use App\Entity\Tags;
 use App\Repository\YoutubeLinksRepository;
 use App\Service\EmailService;
 use App\Service\MyLittleTeamService;
-use ContainerMUf1qaO\getSecurity_Logout_Listener_RememberMe_MainService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -167,8 +166,8 @@ class HomeController extends AbstractController
         ;
 
         return $this->render('home/weekly_tweet.html.twig', [
-            'events'        => $events,
-            'categories'    => $categories,
+            'events' => $events,
+            'categories' => $categories,
         ]);
     }
 }
