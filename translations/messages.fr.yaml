@@ -63,6 +63,7 @@ nav:
     podcast: 'podcast'
     article: 'article'
   admin: 'administration'
+  weekly_tweet: 'Weekly Tweet'
   connection: 'connectez-vous'
   tutos:
     user: 'mes contributions'

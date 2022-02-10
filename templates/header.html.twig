@@ -77,6 +77,12 @@
                                 <i class="bi bi-gear-fill me-1"></i> {{ 'nav.admin'|trans|capitalize }}
                             </a>
                         </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-secondary" href="{{ path('weekly.tweet') }}">
+                                <i class="bi bi-twitter me-1"></i> {{ 'nav.weekly_tweet'|trans|capitalize }}
+                            </a>
+                        </li>
                     {% endif %}
                     <li class="dropdown-divider"></li>
                     <li>
