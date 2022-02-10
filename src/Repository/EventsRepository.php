@@ -52,4 +52,15 @@ class EventsRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function findWeeklyPublished()
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.published_at >= :date')
+            ->setParameter('date', date('Y-m-d', strtotime('-7 days')))
+            ->orderBy('e.published_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

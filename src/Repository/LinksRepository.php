@@ -20,7 +20,7 @@ class LinksRepository extends ServiceEntityRepository
         parent::__construct($registry, Links::class);
     }
 
-    public function findLatestPublished($nb = 6)
+    public function findLatestPublished(int $nb = 6)
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.is_publish = 1')
@@ -31,7 +31,7 @@ class LinksRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findLatestSimpleLinks($value, $nb = 6)
+    public function findLatestSimpleLinks(string $value, int $nb = 6)
     {
         return $this->createQueryBuilder('l')
             ->innerJoin('l.category', 'c')
@@ -112,5 +112,20 @@ class LinksRepository extends ServiceEntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+    public function findWeeklyPublished(string $category)
+    {
+        return $this->createQueryBuilder('l')
+            ->innerJoin('l.category', 'c')
+            ->andWhere('c.code = :val')
+            ->setParameter('val', $category)
+            ->andWhere('l.is_publish = 1')
+            ->andWhere('l.published_at >= :date')
+            ->setParameter('date', date('Y-m-d', strtotime('-7 days')))
+            ->orderBy('l.published_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

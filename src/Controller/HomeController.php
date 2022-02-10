@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Authors;
+use App\Entity\Categories;
 use App\Entity\Events;
 use App\Entity\Links;
 use App\Entity\Tags;
@@ -10,6 +11,7 @@ use App\Repository\YoutubeLinksRepository;
 use App\Service\EmailService;
 use App\Service\MyLittleTeamService;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,6 +27,7 @@ class HomeController extends AbstractController
     private EmailService $mailer;
     private ParameterBagInterface $param;
     private EntityManagerInterface $em;
+    private YoutubeLinksRepository $ytRepository;
     private HttpClientInterface $client;
     private MyLittleTeamService $mlt;
 
@@ -32,6 +35,7 @@ class HomeController extends AbstractController
                                 EmailService $mailer,
                                 ParameterBagInterface $param,
                                 EntityManagerInterface $em,
+                                YoutubeLinksRepository $ytRepository,
                                 HttpClientInterface $client,
                                 MyLittleTeamService $mlt,
     ) {
@@ -39,14 +43,15 @@ class HomeController extends AbstractController
         $this->mailer = $mailer;
         $this->param = $param;
         $this->em = $em;
+        $this->ytRepository = $ytRepository;
         $this->client = $client;
         $this->mlt = $mlt;
     }
 
     #[Route('/', name: 'home')]
-    public function index(YoutubeLinksRepository $ytRepository): Response
+    public function index(): Response
     {
-        $youtubelinks = $ytRepository->findLatestPublished();
+        $youtubelinks = $this->ytRepository->findLatestPublished();
         $articles = $this->em->getRepository(Links::class)->findLatestSimpleLinks('articles', 4);
         $podcasts = $this->em->getRepository(Links::class)->findLatestSimpleLinks('podcasts', 4);
         $formations = $this->em->getRepository(Links::class)->findLatestSimpleLinks('formations', 6);
@@ -147,5 +152,22 @@ class HomeController extends AbstractController
     public function confidentiality(Request $request): Response
     {
         return $this->render('home/confidentiality.html.twig');
+    }
+
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/weekly/tweet', name: 'weekly.tweet')]
+    public function weeklyTweet()
+    {
+        $events = $this->em->getRepository(Events::class)->findWeeklyPublished();
+
+        $categories = $this->em
+            ->getRepository(Categories::class)
+            ->findBy(['is_actif' => true])
+        ;
+
+        return $this->render('home/weekly_tweet.html.twig', [
+            'events' => $events,
+            'categories' => $categories,
+        ]);
     }
 }

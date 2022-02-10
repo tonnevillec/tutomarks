@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tutomarks - Accueil{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row pb-2 mt-4 mb-2 ml-1">
+        <h1 class="h1">
+            Cette semaine sur Tutomarks
+        </h1>
+    </div>
+
+    {% set tweet_text = 'Retrouvez dans ce Thread les partages de la semaine sur #Tutomarks' %}
+    <a href="https://twitter.com/intent/tweet?text={{ tweet_text|url_encode }}" class="btn btn-outline-success my-4" target="_blank">Initialisation du Tweet</a>
+
+    {% for cat in categories %}
+        <div class="row pb-2 mb-2 ml-1">
+            <h2 class="h2">
+                <span class="text-primary me-1"><i class="{{ categoryIcon(cat.code) }}"></i></span> {{ cat.title }}
+            </h2>
+        </div>
+
+        <div class="row mb-4">
+            {% set tab = categoryArray(cat.code) %}
+            {% if tab|length > 0 %}
+                <ul class="list-group">
+                    {% for link in tab %}
+                        <li class="list-group-item">
+                            #Tutomarks - #{{ cat.title }}<br>
+                            {{ link.title }} - {{ link.author.twitter is defined and link.author.twitter is not null ? twitter(link.author.twitter) : 'par ' ~ link.author.title }} => {{ link.url }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+            <span>Pas de {{ cat.title }} cette semaine</span>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="row pb-2 mb-2 ml-1">
+        <h2 class="h2">
+            <span class="text-primary me-1"><i class="bi bi-calendar3"></i></span> {{ 'home.events'|trans|capitalize }}
+        </h2>
+    </div>
+
+    <div class="row mb-4">
+        {% if events|length > 0 %}
+            <ul class="list-group">
+                {% for event in events %}
+                    <li class="list-group-item">
+                        #Tutomarks - #Evénements<br>
+                        [{{ dateToFr(event.startedAt, "l j F Y") }}] {{ event.title }} - {{ event.author.twitter is defined and event.author.twitter is not null ? twitter(event.author.twitter) : 'par ' ~ event.author.title }} => {{ event.url }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <span>Pas d'événements cette semaine</span>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
