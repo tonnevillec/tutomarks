@@ -22,7 +22,7 @@ class EventsRepository extends ServiceEntityRepository
     public function findEventsByDate(int $nb, string $order = 'ASC'): array
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.started_at >= :date')
+            ->andWhere('e.started_at > :date')
             ->setParameter('date', new \DateTime())
             ->orderBy('e.started_at', $order)
             ->setMaxResults($nb)
