@@ -23,7 +23,7 @@ class EventsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.started_at >= :date')
-            ->setParameter('date', new \DateTime())
+            ->setParameter('date', (new \DateTime())->modify('-2 day'))
             ->orderBy('e.started_at', $order)
             ->setMaxResults($nb)
             ->getQuery()

@@ -34,6 +34,12 @@ class EventsCrudController extends AbstractCrudController
         yield BooleanField::new('live_on_twitter');
         yield BooleanField::new('live_on_youtube');
 
+        yield DateTimeField::new('started_at')->setFormTypeOptions([
+            'html5' => true,
+            'years' => range(date('Y'), date('Y') + 5),
+            'widget' => 'single_text',
+        ]);
+
         $publishedAt = DateTimeField::new('published_at')->setFormTypeOptions([
             'html5' => true,
             'years' => range(date('Y'), date('Y') + 5),
