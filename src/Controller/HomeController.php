@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Authors;
+use App\Entity\Categories;
 use App\Entity\Events;
 use App\Entity\Links;
 use App\Entity\Tags;
@@ -158,18 +159,16 @@ class HomeController extends AbstractController
     #[Route('/weekly/tweet', name: 'weekly.tweet')]
     public function weeklyTweet()
     {
-        $youtubelinks = $this->ytRepository->findWeeklyPublished();
-        $articles = $this->em->getRepository(Links::class)->findWeeklyPublished('articles');
-        $podcasts = $this->em->getRepository(Links::class)->findWeeklyPublished('podcasts');
-        $formations = $this->em->getRepository(Links::class)->findWeeklyPublished('formations');
-        $ressources = $this->em->getRepository(Links::class)->findWeeklyPublished('ressources');
+        $events = $this->em->getRepository(Events::class)->findWeeklyPublished();
+
+        $categories = $this->em
+            ->getRepository(Categories::class)
+            ->findBy(['is_actif' => true])
+        ;
 
         return $this->render('home/weekly_tweet.html.twig', [
-            'youtubelinks'  => $youtubelinks,
-            'articles'      => $articles,
-            'podcasts'      => $podcasts,
-            'formations'    => $formations,
-            'ressources'    => $ressources,
+            'events'        => $events,
+            'categories'    => $categories,
         ]);
     }
 }

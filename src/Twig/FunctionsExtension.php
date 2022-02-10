@@ -5,6 +5,7 @@ namespace App\Twig;
 use App\Entity\Authors;
 use App\Entity\Categories;
 use App\Entity\Links;
+use App\Repository\YoutubeLinksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Extension\AbstractExtension;
@@ -15,15 +16,18 @@ class FunctionsExtension extends AbstractExtension
     private EntityManagerInterface $em;
     private UrlGeneratorInterface $router;
     private UrlGeneratorInterface $generator;
+    private YoutubeLinksRepository $ytRepository;
 
     public function __construct(
         EntityManagerInterface $em,
         UrlGeneratorInterface $router,
-        UrlGeneratorInterface $generator
+        UrlGeneratorInterface $generator,
+        YoutubeLinksRepository $ytRepository
     ) {
         $this->em = $em;
         $this->router = $router;
         $this->generator = $generator;
+        $this->ytRepository = $ytRepository;
     }
 
     public function getFunctions(): array
@@ -39,6 +43,8 @@ class FunctionsExtension extends AbstractExtension
             new TwigFunction('notPublishedLinksCount', [$this, 'getNotPublishedLinksCount'], $default),
             new TwigFunction('dateToFr', [$this, 'dateToFr'], $default),
             new TwigFunction('mltSkills', [$this, 'mltSkills'], $default),
+            new TwigFunction('categoryArray', [$this, 'categoryArray'], $default),
+            new TwigFunction('twitter', [$this, 'twitter'], $default),
         ];
     }
 
@@ -200,5 +206,22 @@ class FunctionsExtension extends AbstractExtension
         }
 
         return $return;
+    }
+
+    public function categoryArray(string $category)
+    {
+        return match ($category) {
+            'videos' => $this->ytRepository->findWeeklyPublished(),
+            'articles' => $this->em->getRepository(Links::class)->findWeeklyPublished('articles'),
+            'podcasts' => $this->em->getRepository(Links::class)->findWeeklyPublished('podcasts'),
+            'formations' => $this->em->getRepository(Links::class)->findWeeklyPublished('formations'),
+            'ressources' => $this->em->getRepository(Links::class)->findWeeklyPublished('ressources'),
+            default => [],
+        };
+    }
+
+    public function twitter(string $link)
+    {
+        return str_replace('https://twitter.com/', '@', $link);
     }
 }
