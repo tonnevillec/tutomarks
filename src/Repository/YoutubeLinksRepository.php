@@ -44,4 +44,16 @@ class YoutubeLinksRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findWeeklyPublished()
+    {
+        return $this->createQueryBuilder('y')
+            ->andWhere('y.is_publish = 1')
+            ->andWhere('y.published_at >= :date')
+            ->setParameter('date', date('Y-m-d', strtotime('-7 days')))
+            ->orderBy('y.published_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

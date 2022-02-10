@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tutomarks - Accueil{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row pb-2 my-4 ml-1">
+        <h1 class="h1">
+            Cette semaine sur Tutomarks
+        </h1>
+    </div>
+
+    <div class="row pb-2 mb-2 ml-1">
+        <h2 class="h2">
+            <span class="text-primary me-1"><i class="{{ categoryIcon('videos') }}"></i></span> {{ 'home.last-videos'|trans|capitalize }}
+        </h2>
+    </div>
+
+    <div class="row mb-4">
+        {% if youtubelinks|length > 0 %}
+            <ul class="list-group">
+                {% for ytlink in youtubelinks %}
+                    <li class="list-group-item">{{ ytlink.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <span>Pas de vidéo cette semaine</span>
+        {% endif %}
+    </div>
+
+    <div class="row pb-2 mb-2 ml-1">
+        <h2 class="h2">
+            <span class="text-primary me-1"><i class="{{ categoryIcon('ressources') }}"></i></span> {{ 'home.last-resources'|trans|capitalize }}
+        </h2>
+    </div>
+
+    <div class="row mb-4">
+        {% if ressources|length > 0 %}
+            <ul class="list-group">
+                {% for ressource in ressources %}
+                    <li class="list-group-item">{{ ressource.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span>Pas de ressource cette semaine</span>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
