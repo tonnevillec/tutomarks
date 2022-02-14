@@ -44,7 +44,7 @@ export function usePaginatedFetch (url) {
         if(response.ok) {
             setItems(responseData)
         } else {
-            console.log(responseData)
+            console.log('error', responseData)
         }
 
         setLoading(false)

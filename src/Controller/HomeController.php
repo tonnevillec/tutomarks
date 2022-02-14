@@ -45,7 +45,6 @@ class HomeController extends AbstractController
         $formations = $this->em->getRepository(Links::class)->findLatestSimpleLinks('formations', 6);
         $ressources = $this->em->getRepository(Links::class)->findLatestSimpleLinks('ressources', 3);
         $authors = $this->em->getRepository(Authors::class)->findTop(6);
-        $tags = $this->em->getRepository(Tags::class)->findBy([], ['title' => 'ASC']);
 
         $events = $this->em->getRepository(Events::class)->findEventsByDate(6);
 
@@ -63,7 +62,6 @@ class HomeController extends AbstractController
             'formations' => $formations,
             'ressources' => $ressources,
             'authors' => $authors,
-            'tags' => $tags,
             'hebdoo' => $hebdoo,
             'events' => $events,
             'mlt' => $mlt,
@@ -165,5 +163,13 @@ class HomeController extends AbstractController
         ) : [];
 
         return new JsonResponse($this->serializer->serialize($mlt, 'json'), 201, [], true);
+    }
+
+    #[Route('/api/tags', name: 'api.tags', methods: ['GET'])]
+    public function apiTags(): JsonResponse
+    {
+        $tags = $this->em->getRepository(Tags::class)->findBy([], ['title' => 'ASC']);
+
+        return $this->json($tags, 200, [], ['groups' => 'show_tags']);
     }
 }

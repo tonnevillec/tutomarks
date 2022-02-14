@@ -2,6 +2,7 @@ require('bootstrap');
 require('@popperjs/core');
 
 import './React/mlts/mlts';
+import './React/tagscloud/tagscloud';
 
 (function () {
 

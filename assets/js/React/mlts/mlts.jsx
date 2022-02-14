@@ -6,7 +6,7 @@ import {Image} from "../components/Image";
 import {Badge} from "../components/Badge";
 
 function Mlts (props) {
-    const {items: jobs, load, loading} = usePaginatedFetch('/api/mlt');
+    const {items: jobs, load} = usePaginatedFetch('/api/mlt');
     const {logoSrc, logoAlt, logoClass, logoWidth, logoHeight, title} = props
 
     useEffect(() => {

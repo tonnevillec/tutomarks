@@ -164,14 +164,7 @@
 
                     <div class="row pb-3">
                         <div class="col text-center">
-                            {% for tag in tags %}
-                                <a href="{{ path('search', {'tags[]' : tag.id}) }}"
-                                   class="tags-link"
-                                   title="{{ tag }}"
-                                   data-toggle="tooltip"
-                                   data-placement="top"
-                                ><img alt="{{ tag }}" src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=for-the-badge&logo={{ tag.code }}&logoColor={{ tag.color }}" /></a>
-                            {% endfor %}
+                            <tagscloud-component data-url="{{ path('search', {'__tags__' : '__id__'}) }}" />
                         </div>
                     </div>
                 </div>
