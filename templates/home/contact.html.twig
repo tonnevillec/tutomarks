@@ -21,37 +21,39 @@
             <span class="small">{{ 'contact.subtitle'|trans|capitalize }}</span>
         </div>
 
-        <form name="form_contact" method="post" action="{{ path('contact.send') }}" id="contact_form">
-            <div class="form-group">
-                <label class="form-label" for="contact_email">{{ 'contact.email.label'|trans|capitalize }} <span class="text-danger">*</span></label>
-                <input type="email" class="form-control form-control-sm"
-                       name="contact_email"
-                       id="contact_email"
-                       value="{{ app.user ? app.user.email : mail_from is defined ? mail_from : '' }}"
-                       placeholder="{{ 'contact.email.placeholder'|trans|capitalize }}"
-                       required
-                       aria-required="true"
-                       {% if app.user %}readonly{% endif %}
-                >
-            </div>
+        <p>En raison de nombreux spams, je vous propose de prendre contact avec moi directement via Twitter => <a href="https://www.twitter.com/tutomarks" target="_blank">@tutomarks</a></p>
 
-            <div class="form-group mt-3">
-                <label class="form-label" for="contact_subject">{{ 'contact.subject.label'|trans|capitalize }} <span class="text-danger">*</span></label>
-                <input type="text" value="{{ mail_subject is defined ? mail_subject : '' }}" class="form-control form-control-sm" name="contact_subject" id="contact_subject" placeholder="{{ 'contact.subject.placeholder'|trans|capitalize }}" required aria-required="true">
-            </div>
+{#        <form name="form_contact" method="post" action="{{ path('contact.send') }}" id="contact_form">#}
+{#            <div class="form-group">#}
+{#                <label class="form-label" for="contact_email">{{ 'contact.email.label'|trans|capitalize }} <span class="text-danger">*</span></label>#}
+{#                <input type="email" class="form-control form-control-sm"#}
+{#                       name="contact_email"#}
+{#                       id="contact_email"#}
+{#                       value="{{ app.user ? app.user.email : mail_from is defined ? mail_from : '' }}"#}
+{#                       placeholder="{{ 'contact.email.placeholder'|trans|capitalize }}"#}
+{#                       required#}
+{#                       aria-required="true"#}
+{#                       {% if app.user %}readonly{% endif %}#}
+{#                >#}
+{#            </div>#}
 
-            <div class="form-group mt-3">
-                <label class="form-label" for="contact_message">{{ 'contact.message.label'|trans|capitalize }} <span class="text-danger">*</span> <span class="small">({{ 'contact.message.minlength'|trans|capitalize }})</span></label>
-                <textarea type="text" class="form-control" name="contact_message" id="contact_message" required aria-required="true" minlength="10">{{ mail_message is defined ? mail_message : '' }}</textarea>
-            </div>
+{#            <div class="form-group mt-3">#}
+{#                <label class="form-label" for="contact_subject">{{ 'contact.subject.label'|trans|capitalize }} <span class="text-danger">*</span></label>#}
+{#                <input type="text" value="{{ mail_subject is defined ? mail_subject : '' }}" class="form-control form-control-sm" name="contact_subject" id="contact_subject" placeholder="{{ 'contact.subject.placeholder'|trans|capitalize }}" required aria-required="true">#}
+{#            </div>#}
 
-            <input type="hidden" name="contact_robot">
+{#            <div class="form-group mt-3">#}
+{#                <label class="form-label" for="contact_message">{{ 'contact.message.label'|trans|capitalize }} <span class="text-danger">*</span> <span class="small">({{ 'contact.message.minlength'|trans|capitalize }})</span></label>#}
+{#                <textarea type="text" class="form-control" name="contact_message" id="contact_message" required aria-required="true" minlength="10">{{ mail_message is defined ? mail_message : '' }}</textarea>#}
+{#            </div>#}
 
-            <small class="text-danger mt-3">* {{ 'required_fields'|trans|capitalize }}</small>
+{#            <input type="hidden" name="contact_robot">#}
 
-            <div class="text-end mt-3">
-                <button class="btn btn-outline-success btn-sm" type="submit" id="js-form-contact"><i class="bi bi-send me-2"></i> {{ 'btn.submit'|trans|capitalize }}</button>
-            </div>
-        </form>
+{#            <small class="text-danger mt-3">* {{ 'required_fields'|trans|capitalize }}</small>#}
+
+{#            <div class="text-end mt-3">#}
+{#                <button class="btn btn-outline-success btn-sm" type="submit" id="js-form-contact"><i class="bi bi-send me-2"></i> {{ 'btn.submit'|trans|capitalize }}</button>#}
+{#            </div>#}
+{#        </form>#}
     </div>
 {% endblock %}

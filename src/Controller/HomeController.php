@@ -53,7 +53,7 @@ class HomeController extends AbstractController
             'https://hebdoo.fr/api/last'
         )->toArray();
 
-        $mlt = $this->getParameter('mlt_enable');
+//        $mlt = $this->getParameter('mlt_enable');
 
         return $this->render('home/index.html.twig', [
             'youtubelinks' => $youtubelinks,
@@ -64,7 +64,7 @@ class HomeController extends AbstractController
             'authors' => $authors,
             'hebdoo' => $hebdoo,
             'events' => $events,
-            'mlt' => $mlt,
+            'mlt' => false,
         ]);
     }
 
