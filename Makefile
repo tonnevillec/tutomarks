@@ -32,7 +32,7 @@ scc:
 
 # COMMANDES COMPOSER
 composer-install:
-	$(PHP_VERSION) $(COMPOSER) install --optimize-autoloader
+	$(PHP_VERSION) $(COMPOSER) install --optimize-autoloader --no-interaction --no-progress
 
 composer-update:
 	$(PHP_VERSION) $(COMPOSER) update
