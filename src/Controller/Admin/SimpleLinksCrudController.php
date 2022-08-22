@@ -55,6 +55,6 @@ class SimpleLinksCrudController extends AbstractCrudController
     {
         return $actions
             ->disable(Action::NEW)
-            ;
+        ;
     }
 }

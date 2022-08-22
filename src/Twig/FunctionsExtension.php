@@ -68,7 +68,7 @@ class FunctionsExtension extends AbstractExtension
         $authors = $this->em
             ->getRepository(Authors::class)
             ->findTop(5)
-            ;
+        ;
 
         if (!$authors) {
             return '';

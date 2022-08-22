@@ -20,12 +20,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    /**
-     * @Route("/admin", name="admin")
-     */
+    #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        $routeBuilder = $this->get(AdminUrlGenerator::class);
+        $routeBuilder = $this->container->get(AdminUrlGenerator::class);
 
         return $this->redirect(
             $routeBuilder->setController(CategoriesCrudController::class)->generateUrl()
@@ -35,7 +33,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Tutomarks V3');
+            ->setTitle('Tutomarks');
     }
 
     public function configureMenuItems(): iterable

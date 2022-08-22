@@ -509,7 +509,7 @@ class AppFixtures extends Fixture
             ->setEmail('admin@tutomarks.fr')
             ->setUsername('Admin Tutomarks')
             ->setRoles(['ROLE_USER', 'ROLE_ADMIN'])
-            ;
+        ;
         $user->setPassword($this->encoder->hashPassword($user, 'admin'));
         $manager->persist($user);
         $manager->flush();
