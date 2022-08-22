@@ -12,66 +12,82 @@ on:
 env:
   ES_HTTP_PORT: 9209
 jobs:
-  ci:
-    runs-on: ubuntu-latest
-    continue-on-error: false
+  symfony:
+    name: Symfony 6.1 (PHP ${{ matrix.php-versions }})
+    # https://hub.docker.com/_/ubuntu/
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: true
+      matrix:
+        php-versions: ['8.1']
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      # —— Setup Github actions 🐙 —————————————————————————————————————————————
+      # https://github.com/actions/checkout (official)
+      - name: Checkout
+        uses: actions/checkout@v2
 
       # https://github.com/shivammathur/setup-php (community)
       - name: Setup PHP, extensions and composer with shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json, mbstring, pdo
+        env:
+          update: true
 
-      - name: Cache multiple paths
-        uses: actions/cache@v2
+      - name: Check PHP Version
+        run: php -v
+
+      # https://github.com/zhulik/redis-action (community)
+      - name: Setup Redis with zhulik/redis-action
+        uses: zhulik/redis-action@1.1.0
         with:
-          path: |
-            vendor
-          key: ${{ runner.os }}-${{ hashFiles('composer.lock') }}
+          redis version: '5'
 
-      - name: "Composer install"
-        run: composer install --no-interaction --no-progress
+      ## —— Yarn 🐱 ————————————————————————————————————————————————————————————
+      - name: Yarn install
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+          registry-url: npm.fontawesome.com
+      - run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
-      # Install Symfony CLI
-      - name: Symfony CLI
+      - name: Yarn build
+        run: yarn run encore production
+
+      # —— Composer 🧙‍️ —————————————————————————————————————————————————————————
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: make composer-install
+
+      # —— Symfony 🎵 ——————————————————————————————————————————————————————————
+#      - name: Check Symfony requirements
+#        run: vendor/bin/requirements-checker
+
+      - name: Check the Symfony console
         run: |
-          curl -sS https://get.symfony.com/cli/installer | bash
-          mv /home/runner/.symfony/bin/symfony /usr/local/bin/symfony
+          bin/console about
 
-      # Check vulnerabilities
-      - name: Symfony Check Vulnerabilities
-        run: symfony check:security
+      ## —— Coding standards ✨ ————————————————————————————————————————————————
+      # Can't handle PHP8 for now
+      - name: Coding standards checks (php_codesniffer + php-cs-fixer)
+        run: /usr/bin/php8.1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
 
-      # PHP CS FIXER
-      - name: PHP-CS-Fixer
-        run: |
-          composer require friendsofphp/php-cs-fixer
-          ./vendor/bin/php-cs-fixer fix --dry-run
-          
-                # PHP STAN
-      - name: PHP Stan
-        run: |
-          ./vendor/bin/simple-phpunit install
-          composer require phpstan/phpstan
-          composer require phpstan/extension-installer
-          composer config --no-plugins allow-plugins.phpstan/extension-installer true
-          composer require phpstan/phpstan-symfony
-          ./vendor/bin/phpstan analyse src --memory-limit 1G
-
-      - name: Lint YAML files
-        run: ./bin/console lint:yaml config --parse-tags
-
-      - name: Lint Twig templates
-        run: ./bin/console lint:twig templates --env=prod
-
-      - name: Lint Parameters and Services
-        run: ./bin/console lint:container --no-debug
-
-      - name: Lint Doctrine entities
-        run: ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-
-      - name: PHP Unit
-        run: ./bin/phpunit
+      ## —— Static analysis ✨ —————————————————————————————————————————————————
+      - name: Static analysis of PHP code (PHPStan)
+        run: /usr/bin/php8.1 ./vendor/bin/phpstan analyse src --memory-limit 1G
