@@ -46,7 +46,7 @@ class LinkSearchType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->andWhere('c.is_actif = 1')
                         ->orderBy('c.title', 'ASC')
-                        ;
+                    ;
                 },
                 'choice_value' => 'id',
                 'choice_label' => 'title',
@@ -60,7 +60,7 @@ class LinkSearchType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.title', 'ASC')
-                        ;
+                    ;
                 },
                 'choice_value' => 'id',
                 'choice_label' => 'title',
@@ -77,7 +77,7 @@ class LinkSearchType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('l')
                         ->orderBy('l.name', 'ASC')
-                        ;
+                    ;
                 },
                 'choice_value' => 'id',
                 'choice_label' => 'name',
@@ -91,7 +91,7 @@ class LinkSearchType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('a')
                         ->orderBy('a.title', 'ASC')
-                        ;
+                    ;
                 },
                 'choice_value' => 'id',
                 'choice_label' => 'title',

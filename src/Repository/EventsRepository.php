@@ -28,7 +28,7 @@ class EventsRepository extends ServiceEntityRepository
             ->setMaxResults($nb)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function findFuturEvents(string $order = 'ASC')
@@ -39,7 +39,7 @@ class EventsRepository extends ServiceEntityRepository
             ->orderBy('e.started_at', $order)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function findFinishEvents(string $order = 'ASC')
@@ -50,7 +50,7 @@ class EventsRepository extends ServiceEntityRepository
             ->orderBy('e.started_at', $order)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function findWeeklyPublished()
@@ -61,6 +61,6 @@ class EventsRepository extends ServiceEntityRepository
             ->orderBy('e.published_at', 'ASC')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

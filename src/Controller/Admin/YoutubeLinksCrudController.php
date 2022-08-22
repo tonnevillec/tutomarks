@@ -58,6 +58,6 @@ class YoutubeLinksCrudController extends AbstractCrudController
     {
         return $actions
             ->disable(Action::NEW)
-            ;
+        ;
     }
 }

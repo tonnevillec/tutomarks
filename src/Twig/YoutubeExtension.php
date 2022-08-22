@@ -68,15 +68,15 @@ class YoutubeExtension extends AbstractExtension
             switch ($size) {
                 case 'small':
                     $img = $video->getSmallThumbnail();
-                break;
+                    break;
 
                 case 'medium':
                     $img = $video->getMediumThumbnail();
-                break;
+                    break;
 
                 case 'large':
                     $img = $video->getLargestThumbnail();
-                break;
+                    break;
 
                 default:
                     return '';
