@@ -16,6 +16,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
         "easycorp/easyadmin-bundle": "^4",
+        "google/apiclient": "^2.11",
         "knplabs/knp-paginator-bundle": "^5.8",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.7",
