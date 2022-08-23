@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,102 +12,62 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=UsersRepository::class)
- * @UniqueEntity(
- *     fields={"email"},
- *     message="Le compte existe déjà"
- * )
- */
+#[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Le compte existe déjà')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Email()
-     */
-    private $email;
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\Email]
+    private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire au moins 8 caractères")
-     */
-    private $password;
+    #[ORM\Column(type: 'string')]
+    #[Assert\Length(min: 8, minMessage: 'Votre mot de passe doit faire au moins 8 caractères')]
+    private ?string $password = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_actif;
+    #[ORM\Column(type: 'boolean')]
+    private bool $is_actif = true;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $created_at;
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTime $created_at;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $last_connection;
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTime $last_connection;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $username;
+    #[ORM\Column(name: 'username', type: 'string', length: 255, nullable: true)]
+    private ?string $username = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Links::class, mappedBy="published_by")
-     */
-    private $links;
+    #[ORM\OneToMany(mappedBy: 'published_by', targetEntity: Links::class)]
+    private Collection $links;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $githubId;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $githubId = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $googleId;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $googleId = null;
 
-    /**
-     * @var string|null
-     * @Assert\EqualTo(propertyPath="password", message="Le mot de passe ne correspond pas")
-     */
-    private $password_repeat;
+    #[Assert\EqualTo(propertyPath: 'password', message: 'Le mot de passe ne correspond pas')]
+    private ?string $password_repeat = null;
 
-    /**
-     * @var string|null
-     */
-    private $password_confirm;
+    private ?string $password_confirm = null;
 
-    /**
-     * @var string|null
-     * @Assert\EqualTo(propertyPath="email", message="Le mail ne correspond pas")
-     */
-    private $email_repeat;
+    #[Assert\EqualTo(propertyPath: 'email', message: 'Le mail ne correspond pas')]
+    private ?string $email_repeat = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Events::class, mappedBy="published_by")
-     */
-    private $events;
+    #[ORM\OneToMany(mappedBy: 'published_by', targetEntity: Events::class)]
+    private Collection $events;
 
     public function __construct()
     {
         $this->created_at = new \DateTime();
         $this->last_connection = new \DateTime();
-        $this->is_actif = true;
         $this->roles = ['ROLE_USER'];
         $this->links = new ArrayCollection();
         $this->events = new ArrayCollection();
@@ -129,11 +90,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
@@ -151,13 +107,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->username;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -170,9 +122,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -185,20 +134,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
-     * @see UserInterface
-     */
     public function getSalt(): ?string
     {
         return null;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
@@ -217,24 +157,24 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(DateTime $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getLastConnection(): ?\DateTimeInterface
+    public function getLastConnection(): ?DateTime
     {
         return $this->last_connection;
     }
 
-    public function setLastConnection(\DateTimeInterface $last_connection): self
+    public function setLastConnection(DateTime $last_connection): self
     {
         $this->last_connection = $last_connection;
 
@@ -246,9 +186,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username ?: $this->email;
     }
 
-    /**
-     * @return Collection|Links[]
-     */
     public function getLinks(): Collection
     {
         return $this->links;
@@ -276,40 +213,24 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getGithubId()
+    public function getGithubId(): ?string
     {
         return $this->githubId;
     }
 
-    /**
-     * @param mixed $githubId
-     *
-     * @return Users
-     */
-    public function setGithubId($githubId)
+    public function setGithubId(?string $githubId): self
     {
         $this->githubId = $githubId;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getGoogleId()
+    public function getGoogleId(): ?string
     {
         return $this->googleId;
     }
 
-    /**
-     * @param mixed $googleId
-     *
-     * @return Users
-     */
-    public function setGoogleId($googleId)
+    public function setGoogleId(?string $googleId): self
     {
         $this->googleId = $googleId;
 
@@ -352,9 +273,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Events[]
-     */
     public function getEvents(): Collection
     {
         return $this->events;

@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  database:
+    image: 'mysql:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: main
+    ports:
+      - '3306:3306'
+    cap_add:
+      - SYS_NICE
+    network_mode: bridge
+  mailer:
+    image: schickling/mailcatcher
+    ports: [1025, 1080]
+    network_mode: bridge
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    ports: [5672, 15672]
+    network_mode: bridge

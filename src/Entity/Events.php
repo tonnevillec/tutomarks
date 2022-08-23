@@ -3,96 +3,61 @@
 namespace App\Entity;
 
 use App\Repository\EventsRepository;
-use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=EventsRepository::class)
- */
+#[ORM\Entity(repositoryClass: EventsRepository::class)]
 class Events
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private string $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $title = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Authors::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Authors::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
     private Authors $author;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private DateTimeInterface $started_at;
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTimeInterface $started_at;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Url
-     */
-    private ?string $url;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Url]
+    private ?string $url = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private ?string $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private DateTimeInterface $published_at;
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTimeInterface $published_at;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
     private Users $published_by;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $live_on_twitch;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $live_on_twitch = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $live_on_youtube;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $live_on_youtube = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $live_on_twitter;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $live_on_twitter = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $is_physical;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $is_physical = true;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $is_free;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $is_free = true;
 
     public function __construct()
     {
-        $this->started_at = new DateTime();
-        $this->published_at = new DateTime();
-
-        $this->is_free = true;
-        $this->live_on_twitch = false;
-        $this->live_on_twitter = false;
-        $this->live_on_youtube = false;
-        $this->is_physical = true;
+        $this->started_at = new \DateTimeImmutable();
+        $this->published_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

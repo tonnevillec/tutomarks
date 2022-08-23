@@ -9,88 +9,57 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=AuthorsRepository::class)
- */
+#[ORM\Entity(repositoryClass: AuthorsRepository::class)]
 class Authors
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private ?string $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $title = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private ?string $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $logo;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $logo = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $site_url;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $site_url = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $twitter;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $twitter = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $github;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $github = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $twitch;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $twitch = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $youtube;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $youtube = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Links::class, mappedBy="author")
-     */
-    private $links;
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Links::class)]
+    private Collection $links;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTime $updatedAt;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $yt_logo;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Attachments::class, cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: Attachments::class, cascade: ['persist', 'remove'])]
     private ?Attachments $attachment;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Events::class, mappedBy="author")
-     */
-    private $events;
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Events::class)]
+    private Collection $events;
 
     public function __construct()
     {
         $this->links = new ArrayCollection();
         $this->updatedAt = new DateTime();
-        $this->logo = null;
         $this->events = new ArrayCollection();
     }
 
@@ -207,9 +176,6 @@ class Authors
         return $this;
     }
 
-    /**
-     * @return Collection|Links[]
-     */
     public function getLinks(): Collection
     {
         return $this->links;
@@ -271,9 +237,6 @@ class Authors
         return (string) $this->getTitle();
     }
 
-    /**
-     * @return Collection|Events[]
-     */
     public function getEvents(): Collection
     {
         return $this->events;

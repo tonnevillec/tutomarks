@@ -3,67 +3,43 @@
 namespace App\Entity;
 
 use App\Repository\LanguagesRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity(repositoryClass=LanguagesRepository::class)
- * @Vich\Uploadable()
- */
+#[ORM\Entity(repositoryClass: LanguagesRepository::class)]
+#[Vich\Uploadable]
 class Languages
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=3, nullable=true)
-     */
-    private $shortname;
+    #[ORM\Column(type: 'string', length: 3, nullable: true)]
+    private ?string $shortname = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @var string|null
-     */
-    private $logo;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $logo = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Links::class, mappedBy="language")
-     */
-    private $links;
+    #[ORM\OneToMany(mappedBy: 'language', targetEntity: Links::class)]
+    private ?Collection $links;
 
-    /**
-     * @Vich\UploadableField(mapping="languages_images", fileNameProperty="logo")
-     *
-     * @var ?File
-     */
-    private $imageFile;
+    #[Vich\UploadableField(mapping: 'languages_images', fileNameProperty: 'logo')]
+    private ?File $imageFile = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var DateTime|null
-     */
-    private $updatedAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
         $this->links = new ArrayCollection();
-        $this->updatedAt = new DateTime();
-        $this->imageFile = null;
-        $this->logo = '';
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -117,24 +93,24 @@ class Languages
         $this->links = $links;
     }
 
-    public function getUpdatedAt(): ?DateTime
+    public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?DateTime $updatedAt): Tags
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(?File $image = null): void
     {
         $this->imageFile = $image;
 
-        if ($image) {
-            $this->updatedAt = new DateTime();
+        if (null !== $image) {
+            $this->updatedAt = new \DateTimeImmutable();
         }
     }
 

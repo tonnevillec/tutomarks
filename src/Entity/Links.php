@@ -6,92 +6,65 @@ use App\Repository\LinksRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=LinksRepository::class)
- * @ORM\Table(
- *     name="links",
- *     indexes={
- *          @ORM\Index(columns={"title", "description"}, flags={"fulltext"})
- *     }
- * )
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({
- *  "youtube" = "YoutubeLinks",
- *  "simple" = "SimpleLinks"
- * })
- */
+#[ORM\Entity(repositoryClass: LinksRepository::class)]
+#[ORM\Table(name: 'links')]
+#[ORM\Index(columns: ['title', 'description'], flags: ['fulltext'])]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'youtube' => YoutubeLinks::class,
+    'simple' => SimpleLinks::class,
+])]
 abstract class Links
 {
-    public const LINK_ENTITY = ['simple', 'youtube'];
+    final public const LINK_ENTITY = ['simple', 'youtube'];
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    protected int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected ?string $title = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    private ?string $title = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    protected \DateTimeInterface $published_at;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTimeInterface $published_at;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected ?string $url = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Url]
+    private ?string $url = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Categories::class, inversedBy="links")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected ?Categories $category = null;
+    #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'links')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categories $category = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Authors::class, inversedBy="links")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected ?Authors $author = null;
+    #[ORM\ManyToOne(targetEntity: Authors::class, inversedBy: 'links')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Authors $author = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Tags::class, inversedBy="links")
-     */
-    protected Collection $tags;
+    #[ORM\ManyToMany(targetEntity: Tags::class, inversedBy: 'links')]
+    private Collection $tags;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Languages::class, inversedBy="links")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    protected ?Languages $language = null;
+    #[ORM\ManyToOne(targetEntity: Languages::class, inversedBy: 'links')]
+    private ?Languages $language = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected bool $is_publish;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $is_publish = false;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected ?string $description = null;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="links")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'links')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Users $published_by = null;
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-        $this->published_at = new \DateTime();
-        $this->is_publish = false;
+        $this->published_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -164,20 +137,18 @@ abstract class Links
         return $this->tags;
     }
 
-    public function addTag(Tags $tag): self
+    public function addTag(Tags ...$tags): void
     {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
+        foreach ($tags as $tag) {
+            if (!$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
         }
-
-        return $this;
     }
 
-    public function removeTag(Tags $tag): self
+    public function removeTag(Tags $tag): void
     {
         $this->tags->removeElement($tag);
-
-        return $this;
     }
 
     public function getLanguage(): ?Languages
