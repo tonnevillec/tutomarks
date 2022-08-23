@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export function Badge ({text, back, icon, title}) {
     return <span className={"badge " + back + " " + text + " font-semibold me-1"}>

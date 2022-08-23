@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Tutomarks v3!{% endblock %}</title>
+        <title>{% block title %}Tutomarks V4!{% endblock %}</title>
         <meta name="description" content="L'annuaire de tutoriaux Tutomarks a été développé pour les futurs développeurs afin de recencer les contenus qui leurs permettront d'apprendre avec les meilleurs formateurs et les meilleurse formations">
         <link rel="icon" type="image/png" sizes="16x16"  href="{{ asset('build/images/logo.ico') }}">
 
@@ -13,35 +13,20 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-
-        <!-- Matomo -->
-        <script>
-          let _paq = window._paq = window._paq || [];
-          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-          _paq.push(['trackPageView']);
-          _paq.push(['enableLinkTracking']);
-          (function() {
-            let u="//dev.tutomarks.fr/";
-            _paq.push(['setTrackerUrl', u+'matomo.php']);
-            _paq.push(['setSiteId', '1']);
-            let d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-          })();
-        </script>
-        <!-- End Matomo Code -->
     </head>
-    <body>
-        {% include('header.html.twig') %}
 
-        <div id="page" class="d-flex mt-5 pt-3">
-            {% include('aside.html.twig') %}
+    <body class="bg-gray-100">
+    {% include('header.html.twig') %}
 
-            <main class="content w-100 mb-10">
-                {% block body %}{% endblock %}
-            </main>
-            <div class="side-menu-backdrop" onclick="document.getElementById('side-menu').classList.toggle('open')"></div>
-        </div>
+    <div id="page" class="d-flex mt-5 pt-3">
+        {% include('aside.html.twig') %}
 
-        {% include('footer.html.twig') %}
+        <main class="content w-100 mb-10">
+            {% block body %}{% endblock %}
+        </main>
+        <div class="side-menu-backdrop" onclick="document.getElementById('side-menu').classList.toggle('open')"></div>
+    </div>
+
+    {% include('footer.html.twig') %}
     </body>
 </html>

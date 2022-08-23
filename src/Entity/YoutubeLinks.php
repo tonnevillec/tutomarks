@@ -2,108 +2,72 @@
 
 namespace App\Entity;
 
+use App\Repository\YoutubeLinksRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: YoutubeLinksRepository::class)]
 class YoutubeLinks extends Links
 {
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $youtube_id;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $youtube_id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $img_small;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $img_small = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $img_medium;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $img_medium = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $img_large;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $img_large = null;
 
-    /**
-     * @return mixed
-     */
-    public function getYoutubeId()
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function getYoutubeId(): ?string
     {
         return $this->youtube_id;
     }
 
-    /**
-     * @param mixed $youtube_id
-     *
-     * @return YoutubeLinks
-     */
-    public function setYoutubeId($youtube_id)
+    public function setYoutubeId(?string $youtube_id): self
     {
         $this->youtube_id = $youtube_id;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImgSmall()
+    public function getImgSmall(): ?string
     {
         return $this->img_small;
     }
 
-    /**
-     * @param mixed $img_small
-     *
-     * @return YoutubeLinks
-     */
-    public function setImgSmall($img_small)
+    public function setImgSmall(?string $img_small): self
     {
         $this->img_small = $img_small;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImgMedium()
+    public function getImgMedium(): ?string
     {
         return $this->img_medium;
     }
 
-    /**
-     * @param mixed $img_medium
-     *
-     * @return YoutubeLinks
-     */
-    public function setImgMedium($img_medium)
+    public function setImgMedium(?string $img_medium): self
     {
         $this->img_medium = $img_medium;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImgLarge()
+    public function getImgLarge(): ?string
     {
         return $this->img_large;
     }
 
-    /**
-     * @param mixed $img_large
-     *
-     * @return YoutubeLinks
-     */
-    public function setImgLarge($img_large)
+    public function setImgLarge(?string $img_large): self
     {
         $this->img_large = $img_large;
 

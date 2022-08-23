@@ -2,45 +2,28 @@
 
 namespace App\Entity;
 
-use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity
- * @Vich\Uploadable()
- */
+#[ORM\Entity]
+#[Vich\Uploadable]
 class SimpleLinks extends Links
 {
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @var string|null
-     */
-    private $image;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $image = null;
 
-    /**
-     * @Vich\UploadableField(mapping="simple_links_images", fileNameProperty="image")
-     *
-     * @var ?File
-     */
-    private $imageFile;
+    #[Vich\UploadableField(mapping: 'simple_links_images', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var DateTime|null
-     */
-    private $updatedAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
         parent::__construct();
-
-        $this->updatedAt = new DateTime();
-        $this->imageFile = null;
-        $this->image = '';
     }
 
     public function getImage(): ?string
@@ -48,37 +31,37 @@ class SimpleLinks extends Links
         return $this->image;
     }
 
-    public function setImage(?string $image): SimpleLinks
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageFile(?File $image = null)
-    {
-        $this->imageFile = $image;
-
-        if ($image) {
-            $this->updatedAt = new DateTime();
-        }
-    }
-
-    public function getUpdatedAt(): ?DateTime
+    public function getUpdatedAt(): DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?DateTime $updatedAt): SimpleLinks
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function setImageFile(?File $image = null): void
+    {
+        $this->imageFile = $image;
+
+        if (null !== $image) {
+            $this->updatedAt = new DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     public function __toString(): string

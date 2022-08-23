@@ -6,39 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class LinkSearch
 {
-    /**
-     * @var string|null
-     */
-    private $search;
-
-    /**
-     * @var int|null
-     */
-    private $page;
-
-    /**
-     * @var ArrayCollection|null
-     */
-    private $categories;
-
-    /**
-     * @var ArrayCollection|null
-     */
-    private $tags;
-
-    /**
-     * @var ArrayCollection|null
-     */
-    private $languages;
-
-    /**
-     * @var ArrayCollection|null
-     */
-    private $authors;
+    private ?string $search = null;
+    private ?int $page = 1;
+    private ?ArrayCollection $categories;
+    private ?ArrayCollection $tags;
+    private ?ArrayCollection $languages;
+    private ?ArrayCollection $authors;
 
     public function __construct()
     {
-        $this->page = 1;
         $this->tags = new ArrayCollection();
         $this->authors = new ArrayCollection();
         $this->languages = new ArrayCollection();

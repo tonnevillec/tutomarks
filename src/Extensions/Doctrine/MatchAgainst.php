@@ -7,14 +7,10 @@ use Doctrine\ORM\Query\Lexer;
 
 class MatchAgainst extends FunctionNode
 {
-    /** @var array list of \Doctrine\ORM\Query\AST\PathExpression */
-    protected $pathExp = null;
-    /** @var string */
-    protected $against = null;
-    /** @var bool */
-    protected $booleanMode = false;
-    /** @var bool */
-    protected $queryExpansion = false;
+    protected ?array $pathExp = null;
+    protected ?string $against = null;
+    protected bool $booleanMode = false;
+    protected bool $queryExpansion = false;
 
     public function parse(\Doctrine\ORM\Query\Parser $parser)
     {

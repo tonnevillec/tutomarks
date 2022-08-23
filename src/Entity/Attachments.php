@@ -8,32 +8,22 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity(repositoryClass=AttachmentsRepository::class)
- * @Vich\Uploadable()
- */
+#[ORM\Entity(repositoryClass: AttachmentsRepository::class)]
+#[Vich\Uploadable]
 class Attachments
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable="true")
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $image;
 
-    /**
-     * @Vich\UploadableField(mapping="attachments", fileNameProperty="image")
-     */
+    #[Vich\UploadableField(mapping: 'attachments', fileNameProperty: 'image')]
     private ?File $imageFile;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private DateTime $updatedAt;
 
     public function __construct()

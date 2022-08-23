@@ -8,46 +8,33 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=TagsRepository::class)
- */
+#[ORM\Entity(repositoryClass: TagsRepository::class)]
 class Tags
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"show_tags"})
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(groups: ['show_tags'])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"show_tags"})
-     */
-    private ?string $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(groups: ['show_tags'])]
+    private ?string $title = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Links::class, mappedBy="tags")
-     */
-    private $links;
+    #[ORM\ManyToMany(targetEntity: Links::class, mappedBy: 'tags')]
+    private Collection $links;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"show_tags"})
-     */
-    private ?string $code;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(groups: ['show_tags'])]
+    private ?string $code = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"show_tags"})
-     */
-    private ?string $color;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(groups: ['show_tags'])]
+    private ?string $color = 'black';
 
     public function __construct()
     {
         $this->links = new ArrayCollection();
-        $this->color = 'black';
     }
 
     public function getId(): ?int
