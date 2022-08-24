@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
-import {render, unmountComponentAtNode} from "react-dom";
+import {createRoot} from "react-dom/client";
+import {unmountComponentAtNode} from "react-dom";
 import {usePaginatedFetch} from "../hooks";
 
 function Tagscloud (props) {
@@ -22,8 +23,7 @@ const Tag = React.memo(({tag, url}) => {
            title={tag.title}
            data-toggle="tooltip"
            data-placement="top"
-        ><img alt={tag.title}
-              src={"https://img.shields.io/badge/" + tag.title + "-FFFFFF?logo=" + tag.code + "&logoColor=" + tag.color + "&style=for-the-badge"} />
+        >{tag.title}
         </a>
     </div>
 });
@@ -43,7 +43,8 @@ class TagscloudElement extends HTMLElement {
                 entries.forEach(entry => {
                     if(entry.isIntersecting && entry.target === this) {
                         observer.disconnect()
-                        render(<Tagscloud baseUrl={baseUrl} />, this)
+                        const root = createRoot(this)
+                        root.render(<Tagscloud baseUrl={baseUrl} />)
                     }
                 })
             })

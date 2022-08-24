@@ -10,9 +10,7 @@
                    title="{{ 'links.target_blank'|trans|capitalize }}"
                    data-toggle="tooltip"
                    data-placement="middle">
-                    {% if link.image %}
-                    <img src="{{ vich_uploader_asset(link, 'imageFile') }}" alt="" class="img-fluid">
-                    {% elseif link.category.image %}
+                    {% if link.category.image %}
                         <img src="{{ vich_uploader_asset(link.category, 'imageFile') }}" alt="" class="img-fluid">
                     {% else %}
                         <img src="{{ asset('build/images/articles.jpg') }}" alt="" class="img-fluid">
@@ -43,11 +41,11 @@
                     >{{ link.language }}</span>
                 {% endif %}
                 {% for tag in link.tags %}
-                    <img alt="{{ tag }}"
-                         data-toggle="tooltip"
-                         data-placement="top"
-                         title="{{ tag }}"
-                         src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=flat&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                    <span class="badge bg-primary rounded"
+                          title="{{ tag }}"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                    >{{ tag }}</span>
                 {% endfor %}
             </div>
         </div>

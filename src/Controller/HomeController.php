@@ -9,7 +9,6 @@ use App\Entity\Links;
 use App\Entity\Tags;
 use App\Repository\YoutubeLinksRepository;
 use App\Service\EmailService;
-use App\Service\MyLittleTeamService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +30,6 @@ class HomeController extends AbstractController
                                 private EntityManagerInterface $em,
                                 private YoutubeLinksRepository $ytRepository,
                                 private HttpClientInterface $client,
-                                private MyLittleTeamService $mlt,
                                 private SerializerInterface $serializer
     ) {
     }
@@ -46,10 +44,10 @@ class HomeController extends AbstractController
         $ressources = $this->em->getRepository(Links::class)->findLatestSimpleLinks('ressources', 3);
         $authors = $this->em->getRepository(Authors::class)->findTop(6);
 
-        $hebdoo = $this->client->request(
-            'GET',
-            'https://hebdoo.fr/api/last'
-        )->toArray();
+//        $hebdoo = $this->client->request(
+//            'GET',
+//            'https://hebdoo.fr/api/last'
+//        )->toArray();
 
         return $this->render('home/index.html.twig', [
             'youtubelinks' => $youtubelinks,
@@ -58,8 +56,7 @@ class HomeController extends AbstractController
             'formations' => $formations,
             'ressources' => $ressources,
             'authors' => $authors,
-            'hebdoo' => $hebdoo,
-            'mlt' => false,
+//            'hebdoo' => $hebdoo
         ]);
     }
 
@@ -146,18 +143,6 @@ class HomeController extends AbstractController
             'events' => $events,
             'categories' => $categories,
         ]);
-    }
-
-    #[Route('/api/mlt', name: 'api.mlt', methods: ['GET'])]
-    public function apiMlt(): JsonResponse
-    {
-        $mlt = ($this->getParameter('mlt_enable')) ? $this->mlt->findLatest(
-            $this->getParameter('mlt_table'),
-            $this->getParameter('mlt_view'),
-            6
-        ) : [];
-
-        return new JsonResponse($this->serializer->serialize($mlt, 'json'), 201, [], true);
     }
 
     #[Route('/api/tags', name: 'api.tags', methods: ['GET'])]

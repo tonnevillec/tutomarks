@@ -1,0 +1,65 @@
+.single-widget {
+  position: relative;
+  z-index: 1;
+}
+
+.followers-widget {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+
+  a {
+    width: -moz-available;
+    display: inline-block;
+    height: auto;
+    padding: 15px 5px;
+    color: $white;
+
+    i {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    i, span {
+      display: block;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    span.counter {
+      font-size: 18px;
+    }
+  }
+
+  a.authors {
+    background-color: #39579a;
+  }
+
+  a.articles {
+    background-color: #55acee;
+  }
+
+  a.videos {
+    background-color: #dd4b39;
+  }
+
+  a.podcasts {
+    background-color: $success;
+  }
+
+  a.ressources {
+    background-color: $warning;
+  }
+
+  a.formations {
+    background-color: $secondary;
+  }
+
+  a:hover {
+    background-color: $primary !important;
+    color: $white !important;
+  }
+}
