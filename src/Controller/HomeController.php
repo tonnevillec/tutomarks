@@ -172,6 +172,7 @@ class HomeController extends AbstractController
     public function apiEvents(): JsonResponse
     {
         $events = $this->em->getRepository(Events::class)->findEventsByDate(6);
+
         return $this->json($events, 200, [], ['groups' => 'show_events']);
     }
 }
