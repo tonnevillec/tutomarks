@@ -283,20 +283,16 @@
                     </div>
 
                     <div class="row pb-3">
-                        <div class="list-group">
-                            {% for event in events %}
-                                {{ include('home/_card_events.html.twig', { 'event': event}) }}
-                            {% endfor %}
+                        <div class="list-group reveal">
+                            <events-component></events-component>
                         </div>
                     </div>
 
-                    {% if events|length > 0 %}
-                        <div class="row py-3">
-                            <a href="{{ path('events.index') }}" class="col a-show-more text-center small">
-                                <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_events'|trans }}
-                            </a>
-                        </div>
-                    {% endif %}
+                    <div class="row py-3">
+                        <a href="{{ path('events.index') }}" class="col a-show-more text-center small">
+                            <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_events'|trans }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

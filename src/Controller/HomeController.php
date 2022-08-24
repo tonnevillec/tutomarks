@@ -46,14 +46,10 @@ class HomeController extends AbstractController
         $ressources = $this->em->getRepository(Links::class)->findLatestSimpleLinks('ressources', 3);
         $authors = $this->em->getRepository(Authors::class)->findTop(6);
 
-        $events = $this->em->getRepository(Events::class)->findEventsByDate(6);
-
         $hebdoo = $this->client->request(
             'GET',
             'https://hebdoo.fr/api/last'
         )->toArray();
-
-//        $mlt = $this->getParameter('mlt_enable');
 
         return $this->render('home/index.html.twig', [
             'youtubelinks' => $youtubelinks,
@@ -63,7 +59,6 @@ class HomeController extends AbstractController
             'ressources' => $ressources,
             'authors' => $authors,
             'hebdoo' => $hebdoo,
-            'events' => $events,
             'mlt' => false,
         ]);
     }
@@ -171,5 +166,13 @@ class HomeController extends AbstractController
         $tags = $this->em->getRepository(Tags::class)->findBy([], ['title' => 'ASC']);
 
         return $this->json($tags, 200, [], ['groups' => 'show_tags']);
+    }
+
+    #[Route('/api/events', name: 'api.events', methods: ['GET'])]
+    public function apiEvents(): JsonResponse
+    {
+        $events = $this->em->getRepository(Events::class)->findEventsByDate(6);
+
+        return $this->json($events, 200, [], ['groups' => 'show_events']);
     }
 }

@@ -2,6 +2,7 @@ require('bootstrap');
 require('@popperjs/core');
 
 import './React/mlts/mlts';
+import './React/events/events';
 import './React/tagscloud/tagscloud';
 
 (function () {
@@ -26,7 +27,6 @@ import './React/tagscloud/tagscloud';
     document.querySelectorAll('.reveal').forEach(function (r) {
         observer.observe(r)
     })
-    // observer.observe(document.querySelector('.reveal'))
 
     let badges = document.querySelectorAll('.badgebox');
     if(badges) {
