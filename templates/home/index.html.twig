@@ -60,7 +60,7 @@
             <div class="col-sm-12 col-md-6 col-lg-8">
                 <div class="section-heading style-2 my-4">
                     <h2 class="h2" id="section_authors">
-                        <span class="text-primary me-2"><i class="bi bi-git"></i></span>{{ 'home.top-channels'|trans|capitalize }}
+                        <span class="text-primary me-2"><i class="bi bi-mortarboard-fill"></i></span>{{ 'home.top-channels'|trans|capitalize }}
                     </h2>
                     <div class="line"></div>
                 </div>
@@ -115,39 +115,39 @@
             <div class="col-sm-12 col-md-6 col-lg-4 ps-5">
                 <div class="row mt-4 sidebar-area">
                     <div class="single-widget followers-widget">
-                        <a href="#" class="videos">
-                            <i class="bi bi-youtube" aria-hidden="true"></i>
+                        <a href="{{ categoryPath('videos') }}" class="videos">
+                            <i class="{{ categoryIcon('videos') }}" aria-hidden="true"></i>
                             <span class="counter">{{ countForCategory('videos') }}</span>
                             <span>Vidéos</span>
                         </a>
 
-                        <a href="#" class="articles">
-                            <i class="bi bi-twitter" aria-hidden="true"></i>
+                        <a href="{{ categoryPath('articles') }}" class="articles">
+                            <i class="{{ categoryIcon('articles') }}" aria-hidden="true"></i>
                             <span class="counter">{{ countForCategory('articles') }}</span>
                             <span>Articles</span>
                         </a>
 
-                        <a href="#" class="authors">
+                        <a href="{{ path('authors.index') }}" class="authors">
                             <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
                             <span class="counter">{{ countForAuthors() }}</span>
                             <span>Créateurs</span>
                         </a>
                     </div>
                     <div class="single-widget followers-widget mb-4">
-                        <a href="#" class="podcasts">
-                            <i class="bi bi-youtube" aria-hidden="true"></i>
+                        <a href="{{ categoryPath('podcasts') }}" class="podcasts">
+                            <i class="{{ categoryIcon('podcasts') }}" aria-hidden="true"></i>
                             <span class="counter">{{ countForCategory('podcasts') }}</span>
                             <span>Podcasts</span>
                         </a>
 
-                        <a href="#" class="ressources">
+                        <a href="{{ categoryPath('ressources') }}" class="ressources">
                             <i class="{{ categoryIcon('ressources') }}" aria-hidden="true"></i>
                             <span class="counter">{{ countForCategory('ressources') }}</span>
                             <span>Ressources</span>
                         </a>
 
-                        <a href="#" class="formations">
-                            <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
+                        <a href="{{ categoryPath('formations') }}" class="formations">
+                            <i class="{{ categoryIcon('formations') }}" aria-hidden="true"></i>
                             <span class="counter">{{ countForCategory('formations') }}</span>
                             <span>Formations</span>
                         </a>

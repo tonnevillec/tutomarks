@@ -29,6 +29,7 @@ class FunctionsExtension extends AbstractExtension
             new TwigFunction('categoryIcon', [$this, 'getCategoryIcon'], $default),
             new TwigFunction('countForCategory', [$this, 'getCountForCategory'], $default),
             new TwigFunction('countForAuthors', [$this, 'getCountForAuthors'], $default),
+            new TwigFunction('categoryPath', [$this, 'getCategoryPath'], $default),
             new TwigFunction('menuAuthors', [$this, 'getMenuAuthors'], $default),
             new TwigFunction('menuCategories', [$this, 'getMenuCategories'], $default),
             new TwigFunction('footerCategories', [$this, 'getFooterCategories'], $default),
@@ -59,6 +60,15 @@ class FunctionsExtension extends AbstractExtension
             ->findAll();
 
         return count($c);
+    }
+
+    public function getCategoryPath(string $code): string
+    {
+        $c = $this->em->getRepository(Categories::class)->findOneBy(['code' => $code]);
+
+        return $this->router->generate('search', [
+            'categories[]' => $c->getId(),
+        ]);
     }
 
     public function getCategoryIcon(string $code): string
