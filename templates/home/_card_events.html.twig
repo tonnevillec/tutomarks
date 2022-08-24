@@ -25,35 +25,35 @@
             {{ 'btn.show_description'|trans|capitalize }}
         </button>
 
+        <div class="modal fade" id="jsEventModal{{ event.id }}" tabindex="-1" aria-labelledby="jsEventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="jsEventModalLabel{{ event.id }}">{{ event.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ event.description|raw|nl2br }}
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ event.url }}"
+                           title="{{ 'events.target_blank'|trans|capitalize }}"
+                           class="btn btn-outline-success me-2"
+                           target="_blank"
+                           data-toggle="tooltip"
+                           data-placement="middle">
+                            {{ 'btn.follow_event_link'|trans|capitalize }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
+                        </a>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {% if event.isPhysical %}<a href="#" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'events.is_physical.label'|trans|capitalize }}"><i class="bi bi-building me-2"></i></a>{% endif %}
         {% if event.liveOnYoutube %}<a href="#" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'events.live_on_youtube.label'|trans|capitalize }}"><i class="bi bi-youtube me-2"></i></a>{% endif %}
         {% if event.liveOnTwitch %}<a href="#" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'events.live_on_twitch.label'|trans|capitalize }}"><i class="bi bi-twitch me-2"></i></a>{% endif %}
         {% if event.liveOnTwitter %}<a href="#" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'events.live_on_twitter.label'|trans|capitalize }}"><i class="bi bi-twitter me-2"></i></a>{% endif %}
         <a href="#" class="text-decoration-none {% if event.isFree %}text-success{% else %}text-danger{% endif %}" data-bs-toggle="tooltip" data-bs-placement="top" title="{% if event.isFree %}Gratuit{% else %}Payant{% endif %}"><i class="bi bi-currency-euro me-2"></i></a>
     </span>
-</div>
-
-<div class="modal fade" id="jsEventModal{{ event.id }}" tabindex="-1" aria-labelledby="jsEventModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="jsEventModalLabel">{{ event.title }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {{ event.description|raw|nl2br }}
-            </div>
-            <div class="modal-footer">
-                <a href="{{ event.url }}"
-                   title="{{ 'events.target_blank'|trans|capitalize }}"
-                   class="btn btn-outline-success me-2"
-                   target="_blank"
-                   data-toggle="tooltip"
-                   data-placement="middle">
-                    {{ 'btn.follow_event_link'|trans|capitalize }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
-                </a>
-                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Fermer</button>
-            </div>
-        </div>
-    </div>
 </div>
