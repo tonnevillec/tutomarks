@@ -3,7 +3,6 @@ import {createRoot} from "react-dom/client";
 import {Button, Modal, NavLink} from "react-bootstrap";
 import nl2br from "react-nl2br";
 import {unmountComponentAtNode} from "react-dom";
-import {Icon} from "../components/Icon";
 
 function Events () {
     const [events, setEvents] = useState([]);

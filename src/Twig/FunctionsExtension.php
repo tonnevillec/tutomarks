@@ -13,21 +13,12 @@ use Twig\TwigFunction;
 
 class FunctionsExtension extends AbstractExtension
 {
-    private EntityManagerInterface $em;
-    private UrlGeneratorInterface $router;
-    private UrlGeneratorInterface $generator;
-    private YoutubeLinksRepository $ytRepository;
-
     public function __construct(
-        EntityManagerInterface $em,
-        UrlGeneratorInterface $router,
-        UrlGeneratorInterface $generator,
-        YoutubeLinksRepository $ytRepository
+        private readonly EntityManagerInterface $em,
+        private readonly UrlGeneratorInterface $router,
+        private readonly UrlGeneratorInterface $generator,
+        private readonly YoutubeLinksRepository $ytRepository
     ) {
-        $this->em = $em;
-        $this->router = $router;
-        $this->generator = $generator;
-        $this->ytRepository = $ytRepository;
     }
 
     public function getFunctions(): array
@@ -36,6 +27,8 @@ class FunctionsExtension extends AbstractExtension
 
         return [
             new TwigFunction('categoryIcon', [$this, 'getCategoryIcon'], $default),
+            new TwigFunction('countForCategory', [$this, 'getCountForCategory'], $default),
+            new TwigFunction('countForAuthors', [$this, 'getCountForAuthors'], $default),
             new TwigFunction('menuAuthors', [$this, 'getMenuAuthors'], $default),
             new TwigFunction('menuCategories', [$this, 'getMenuCategories'], $default),
             new TwigFunction('footerCategories', [$this, 'getFooterCategories'], $default),
@@ -46,6 +39,26 @@ class FunctionsExtension extends AbstractExtension
             new TwigFunction('categoryArray', [$this, 'categoryArray'], $default),
             new TwigFunction('twitter', [$this, 'twitter'], $default),
         ];
+    }
+
+    public function getCountForCategory(string $code): string
+    {
+        $c = $this->em
+            ->getRepository(Links::class)
+            ->findBy([
+                'category' => $this->em->getRepository(Categories::class)->findOneBy(['code' => $code]),
+            ]);
+
+        return count($c);
+    }
+
+    public function getCountForAuthors(): string
+    {
+        $c = $this->em
+            ->getRepository(Authors::class)
+            ->findAll();
+
+        return count($c);
     }
 
     public function getCategoryIcon(string $code): string

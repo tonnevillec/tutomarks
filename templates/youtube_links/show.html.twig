@@ -176,11 +176,11 @@
                 {% endif %}
                 {% if yt.tags %}
                     {% for tag in yt.tags %}
-                        <img alt="{{ tag }}"
-                             data-toggle="tooltip"
-                             data-placement="top"
-                             title="{{ tag }}"
-                             src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=for-the-badge&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                        <span class="badge bg-primary rounded"
+                              title="{{ tag }}"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                        >{{ tag }}</span><br />
                     {% endfor %}
                 {% endif %}
             </div>
