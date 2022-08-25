@@ -1,14 +1,21 @@
 <div class="d-flex pt-5">
     <footer class="container pt-2">
         <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-4">
-                <h5>Sections</h5>
+            <div class="col-sm-6 col-md-6 col-lg-3">
+                <div class="section-heading style-2 mb-4">
+                    <h5 class="h5">Sections</h5>
+                    <div class="line"></div>
+                </div>
 
                 {{ footerCategories() }}
             </div>
 
-            <div class="col-sm-6 col-md-6 col-lg-4">
-                <h5>A propos</h5>
+            <div class="col-sm-6 col-md-6 col-lg-3 offset-lg-1">
+                <div class="section-heading style-2 mb-4">
+                    <h5 class="h5">A propos</h5>
+                    <div class="line"></div>
+                </div>
+
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a href="{{ path("contact") }}" class="nav-link py-0 ps-3 pe-0">Contact</a></li>
                     <li class="nav-item mb-2"><a href="{{ path("about") }}" class="nav-link py-0 ps-3 pe-0">A propos</a></li>
@@ -16,10 +23,14 @@
                 </ul>
             </div>
 
-            <div class="col-md-12 col-lg-3 offset-lg-1">
-                <h5>Affiliation</h5>
-                <a class="nav-link nav-item btn mb-2 footer-aff-link" href="https://obambu.com/my/aff.php?aff=124" target="_blank" title="{{ 'nav.obambu'|trans }}">
-                    <img src="{{ asset('build/images/obambu.png') }}" class="img-obambu" alt="{{ 'nav.obambu'|trans }}">
+            <div class="col-sm-12 col-md-12 col-lg-4 offset-lg-1">
+                <div class="section-heading style-2 mb-4">
+                    <h5 class="h5">Affiliation</h5>
+                    <div class="line"></div>
+                </div>
+
+                <a class="nav-link nav-item btn mb-2 footer-aff-link" href="https://hidora.io/fr" target="_blank" title="{{ 'nav.hidora'|trans }}">
+                    <img src="{{ asset('build/images/hidora.png') }}" class="img-obambu" alt="{{ 'nav.hidora'|trans }}">
                 </a>
 
                 <a class="nav-link nav-item btn mb-2 footer-aff-link" href="https://www.buymeacoffee.com/tutomarks" target="_blank" title="{{ 'nav.buymeacoffee'|trans }}">
