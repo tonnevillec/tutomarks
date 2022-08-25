@@ -4,7 +4,7 @@ VERT:=\033[1;32m
 NORMAL:=\033[0;39m
 
 # Version PHP
-PHP_VERSION   = /usr/bin/php8.0
+PHP_VERSION   = /usr/bin/php8.1
 
 # Executables:
 PHPUNIT       = ./vendor/bin/phpunit
@@ -32,7 +32,7 @@ scc:
 
 # COMMANDES COMPOSER
 composer-install:
-	$(PHP_VERSION) $(COMPOSER) install --optimize-autoloader
+	$(PHP_VERSION) $(COMPOSER) install --optimize-autoloader --no-interaction --no-progress
 
 composer-update:
 	$(PHP_VERSION) $(COMPOSER) update
@@ -117,10 +117,10 @@ stan: ## Run PHPStan
 	@$(PHPSTAN) analyse -c configuration/phpstan.neon --memory-limit 1G
 
 lint-php: ## Lint files with php-cs-fixer
-	/usr/bin/php8.0 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
+	/usr/bin/php8.1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
 
 fix-php: ## Fix files with php-cs-fixer
-	/usr/bin/php8.0 ./vendor/bin/php-cs-fixer fix --allow-risky=yes
+	/usr/bin/php8.1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes
 
 lint-js: ## Lints JS coding standards
 	@$(NPX) eslint assets/js

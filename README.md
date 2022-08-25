@@ -1,10 +1,10 @@
-# tutomarks_v3
+# tutomarks
 
 ## Description Technique
 
-PHP 8.0
+PHP 8.1
 
-Symfony 5.4
+Symfony 6.1
 
 
 ## Lancer le projet

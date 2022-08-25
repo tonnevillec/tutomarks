@@ -28,7 +28,7 @@ class LinksRepository extends ServiceEntityRepository
             ->setMaxResults($nb)
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 
     public function findLatestSimpleLinks(string $value, int $nb = 6)
@@ -126,6 +126,6 @@ class LinksRepository extends ServiceEntityRepository
             ->orderBy('l.published_at', 'ASC')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

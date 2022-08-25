@@ -7,16 +7,12 @@
         <nav class="nav justify-content-center mt-2 shortcut-nav">
             <a href="#section_videos" class="nav-link" target="_self">Vidéos</a>
             <a href="#section_authors" class="nav-link" target="_self">Top créateurs</a>
-            <a href="#section_hebdoo" class="nav-link" target="_self">Hebdoo.fr</a>
-            <a href="#section_ressources" class="nav-link" target="_self">Ressources</a>
             <a href="#section_tags" class="nav-link" target="_self">Tags</a>
+            <a href="#section_ressources" class="nav-link" target="_self">Ressources</a>
             <a href="#section_articles" class="nav-link" target="_self">Articles</a>
             <a href="#section_podcasts" class="nav-link" target="_self">Podcasts</a>
             <a href="#section_formations" class="nav-link" target="_self">Formations</a>
             <a href="#section_events" class="nav-link" target="_self">{{ 'events.navlink'|trans|capitalize }}</a>
-            {% if mlt|length > 0 %}
-                <a href="#section_mlt" class="nav-link" target="_self">{{ 'mlt.navlink'|trans|capitalize }}</a>
-            {% endif %}
         </nav>
 
         {% for label, messages in app.flashes %}
@@ -29,19 +25,20 @@
         {% endfor %}
 
         <div class="video-row pb-2" id="section_videos">
-            <div class="video-row-title my-4 ml-1">
+            <div class="section-heading style-2 my-4">
                 <h2 class="h2">
-                    <span class="text-primary me-1"><i class="{{ categoryIcon('videos') }}"></i></span> {{ 'home.last-videos'|trans|capitalize }}
+                    <span class="text-primary me-2"><i class="{{ categoryIcon('videos') }}"></i></span>{{ 'home.last-videos'|trans|capitalize }}
 
                     {% if app.user %}
-                        <div class="float-end">
-                            <a href="{{ path('ytlinks.add') }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
-                                <i class="bi bi-plus"></i>
-                                <span>{{ 'categories.videos.new'|trans|capitalize }}</span>
-                            </a>
-                        </div>
+                    <div class="float-end">
+                        <a href="{{ path('ytlinks.add') }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                            <i class="bi bi-plus"></i>
+                            <span>{{ 'categories.videos.new'|trans|capitalize }}</span>
+                        </a>
+                    </div>
                     {% endif %}
                 </h2>
+                <div class="line"></div>
             </div>
 
             <div class="row pb-3">
@@ -61,10 +58,11 @@
 
         <div class="row pb-2">
             <div class="col-sm-12 col-md-6 col-lg-8">
-                <div class="video-row-title my-4 ml-1">
+                <div class="section-heading style-2 my-4">
                     <h2 class="h2" id="section_authors">
-                        <span class="text-primary me-1"><i class="bi bi-git"></i></span> {{ 'home.top-channels'|trans|capitalize }}
+                        <span class="text-primary me-2"><i class="bi bi-mortarboard-fill"></i></span>{{ 'home.top-channels'|trans|capitalize }}
                     </h2>
+                    <div class="line"></div>
                 </div>
 
                 <div class="row pb-3">
@@ -81,11 +79,11 @@
 
                 <div class="row pb-3">
                     <div class="col-12">
-                        <div class="video-row-title my-4 ml-1">
+                        <div class="section-heading style-2 my-4">
                             <h2 class="h2" id="section_ressources">
-                                <span class="text-primary me-1"><i class="{{ categoryIcon('ressources') }}"></i></span> {{ 'home.last-resources'|trans|capitalize }}
+                                <span class="text-primary me-2"><i class="{{ categoryIcon('ressources') }}"></i></span>{{ 'home.last-resources'|trans|capitalize }}
 
-                                {% if app.user and is_granted('ROLE_ADMIN') %}
+                                {% if app.user %}
                                     <div class="float-end">
                                         <a href="{{ path('slinks.add', { 'category' : 'ressources' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
                                             <i class="bi bi-plus"></i>
@@ -94,6 +92,7 @@
                                     </div>
                                 {% endif %}
                             </h2>
+                            <div class="line"></div>
                         </div>
 
                         <div class="row pb-3">
@@ -114,57 +113,79 @@
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-4 ps-5">
-                <div class="video-row-title my-4 ml-1">
-                    <h2 class="h2" id="section_hebdoo">
-                        <a href="https://www.hebdoo.fr" title="Accèder au site Hebdoo.fr dans une nouvelle fenetre" target="_blank" class="text-decoration-none">
-                            <img src="{{ asset('build/images/hebdoo.png') }}" class="me-1"> {{ 'home.hebdoo'|trans|capitalize }}
-                        </a><br>
-                    </h2>
+                <div class="row mt-4 sidebar-area">
+                    <div class="single-widget followers-widget">
+                        <a href="{{ categoryPath('videos') }}" class="videos">
+                            <i class="{{ categoryIcon('videos') }}" aria-hidden="true"></i>
+                            <span class="counter">{{ countForCategory('videos') }}</span>
+                            <span>Vidéos</span>
+                        </a>
+
+                        <a href="{{ categoryPath('articles') }}" class="articles">
+                            <i class="{{ categoryIcon('articles') }}" aria-hidden="true"></i>
+                            <span class="counter">{{ countForCategory('articles') }}</span>
+                            <span>Articles</span>
+                        </a>
+
+                        <a href="{{ path('authors.index') }}" class="authors">
+                            <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
+                            <span class="counter">{{ countForAuthors() }}</span>
+                            <span>Créateurs</span>
+                        </a>
+                    </div>
+                    <div class="single-widget followers-widget mb-4">
+                        <a href="{{ categoryPath('podcasts') }}" class="podcasts">
+                            <i class="{{ categoryIcon('podcasts') }}" aria-hidden="true"></i>
+                            <span class="counter">{{ countForCategory('podcasts') }}</span>
+                            <span>Podcasts</span>
+                        </a>
+
+                        <a href="{{ categoryPath('ressources') }}" class="ressources">
+                            <i class="{{ categoryIcon('ressources') }}" aria-hidden="true"></i>
+                            <span class="counter">{{ countForCategory('ressources') }}</span>
+                            <span>Ressources</span>
+                        </a>
+
+                        <a href="{{ categoryPath('formations') }}" class="formations">
+                            <i class="{{ categoryIcon('formations') }}" aria-hidden="true"></i>
+                            <span class="counter">{{ countForCategory('formations') }}</span>
+                            <span>Formations</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="row pb-3">
-                    <div class="col">
-                        <h3 class="h3">
-                            <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
-                               class="text-decoration-none"
-                               data-bs-toggle="tooltip"
-                               data-bs-placement="top"
-                               title="Accèder à la vidéo Hebdoo.fr sur Youtube"
-                               target="_blank">
-                                Semaine du {{ hebdoo.semaine }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
-                            </a>
-                        </h3>
-                        <div class="list-group">
-                        {% for ressoure in hebdoo.ressources %}
-                            <a href="{{ ressoure.url }}"
-                               class="list-group-item list-group-item-action"
-                               title="Ouvrir la ressource dans une nouvelle fenetre"
-                               target="_blank"
-                               data-bs-toggle="tooltip"
-                               data-bs-placement="top"
-                            >
-                                <strong>{{ ressoure.title }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i><br>
-                                par {{ ressoure.pseudo }}
-                            </a>
-                        {% endfor %}
+                    <div class="col-12">
+                        <div class="section-heading style-2 my-4">
+                            <h2 class="h2" id="section_tags">
+                                <span class="text-primary me-2"><i class="bi bi-tags-fill"></i></span>{{ 'home.top-tags'|trans|capitalize }}
+                            </h2>
+                            <div class="line"></div>
+                        </div>
+
+                        <div class="row pb-3 reveal">
+                            <div class="col text-center">
+                                <tagscloud-component data-url="{{ path('search', {'__tags__' : '__id__'}) }}" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="video-row pb-2 reveal">
-            <div class="row">
-                <div class="col-12">
-                    <div class="video-row-title my-4 ml-1">
-                        <h2 class="h2" id="section_tags">
-                            <span class="text-primary me-1"><i class="bi bi-tags-fill"></i></span> {{ 'home.top-tags'|trans|capitalize }}
-                        </h2>
-                    </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading style-3 my-4">
+                            <h3 class="h2" id="section_tags">
+                                <span class="text-secondary me-2"><i class="bi bi-box"></i></span>Site hébergé par
+                            </h3>
+                            <div class="line"></div>
+                        </div>
 
-                    <div class="row pb-3">
-                        <div class="col text-center">
-                            <tagscloud-component data-url="{{ path('search', {'__tags__' : '__id__'}) }}" />
+                        <div class="row pb-3">
+                            <div class="col text-center">
+                                <a href="https://www.hidora.io/fr" title="{{ 'nav.hidora'|trans }}" target="_blank">
+                                <img src="{{ asset('build/images/hidora.png') }}" class="img-fluid" alt="Logo Hidora" />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,12 +195,12 @@
         <div class="video-row pb-2 reveal">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    <div class="video-row-title my-4 ml-1">
+                    <div class="section-heading style-2 my-4">
                         <h2 class="h2" id="section_articles">
-                            <span class="text-primary me-1"><i class="{{ categoryIcon('articles') }}"></i></span> {{ 'home.last-articles'|trans|capitalize }}
+                            <span class="text-primary me-2"><i class="{{ categoryIcon('articles') }}"></i></span>{{ 'home.last-articles'|trans|capitalize }}
 
                             {% if app.user %}
-                                <div class="float-end pe-2">
+                                <div class="float-end">
                                     <a href="{{ path('slinks.add', { 'category' : 'articles' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
                                         <i class="bi bi-plus"></i>
                                         <span>{{ 'categories.articles.new'|trans|capitalize }}</span>
@@ -187,6 +208,7 @@
                                 </div>
                             {% endif %}
                         </h2>
+                        <div class="line"></div>
                     </div>
 
                     {% for article in articles %}
@@ -203,12 +225,12 @@
                 </div>
 
                 <div class="col-md-6 col-sm-12">
-                    <div class="video-row-title my-4 ml-1">
+                    <div class="section-heading style-2 my-4">
                         <h2 class="h2" id="section_podcasts">
-                            <span class="text-primary me-1"><i class="{{ categoryIcon('podcasts') }}"></i></span> {{ 'home.last-podcasts'|trans|capitalize }}
+                            <span class="text-primary me-2"><i class="{{ categoryIcon('podcasts') }}"></i></span>{{ 'home.last-podcasts'|trans|capitalize }}
 
                             {% if app.user %}
-                                <div class="float-end pe-2">
+                                <div class="float-end">
                                     <a href="{{ path('slinks.add', { 'category' : 'podcasts' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
                                         <i class="bi bi-plus"></i>
                                         <span>{{ 'categories.podcasts.new'|trans|capitalize }}</span>
@@ -216,6 +238,7 @@
                                 </div>
                             {% endif %}
                         </h2>
+                        <div class="line"></div>
                     </div>
 
                     {% for podcast in podcasts %}
@@ -236,19 +259,20 @@
         <div class="video-row pb-2 reveal">
             <div class="row">
                 <div class="col-md-8 col-lg-8 col-sm-12">
-                    <div class="video-row-title my-4 ml-1">
+                    <div class="section-heading style-2 my-4">
                         <h2 class="h2" id="section_formations">
-                            <span class="text-primary me-1"><i class="{{ categoryIcon('formations') }}"></i></span> {{ 'home.formations'|trans|capitalize }}
+                            <span class="text-primary me-2"><i class="{{ categoryIcon('formations') }}"></i></span>{{ 'home.formations'|trans|capitalize }}
 
                             {% if app.user and is_granted('ROLE_ADMIN') %}
                                 <div class="float-end">
-                                    <a href="{{ path('slinks.add', { 'category' : 'formations' }) }}" class="btn btn-xs btn-outline-primary btn-showlabelonhover">
+                                    <a href="{{ path('slinks.add', { 'category' : 'formations' }) }}" class="btn btn-xs btn-outline-danger btn-showlabelonhover">
                                         <i class="bi bi-plus"></i>
                                         <span>{{ 'categories.formations.new'|trans|capitalize }}</span>
                                     </a>
                                 </div>
                             {% endif %}
                         </h2>
+                        <div class="line"></div>
                     </div>
 
                     <div class="row pb-3">
@@ -267,9 +291,9 @@
                 </div>
 
                 <div class="col-md-4 col-lg-4 col-sm-12">
-                    <div class="video-row-title my-4 ml-1">
+                    <div class="section-heading style-2 my-4">
                         <h2 class="h2" id="section_events">
-                            <span class="text-primary me-1"><i class="bi bi-calendar3"></i></span> {{ 'home.events'|trans|capitalize }}
+                            <span class="text-primary me-2"><i class="bi bi-calendar3"></i></span>{{ 'home.events'|trans|capitalize }}
 
                             {% if app.user %}
                                 <div class="float-end">
@@ -280,40 +304,22 @@
                                 </div>
                             {% endif %}
                         </h2>
+                        <div class="line"></div>
                     </div>
 
                     <div class="row pb-3">
-                        <div class="list-group">
-                            {% for event in events %}
-                                {{ include('home/_card_events.html.twig', { 'event': event}) }}
-                            {% endfor %}
+                        <div class="list-group reveal">
+                            <events-component></events-component>
                         </div>
                     </div>
 
-                    {% if events|length > 0 %}
-                        <div class="row py-3">
-                            <a href="{{ path('events.index') }}" class="col a-show-more text-center small">
-                                <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_events'|trans }}
-                            </a>
-                        </div>
-                    {% endif %}
+                    <div class="row py-3">
+                        <a href="{{ path('events.index') }}" class="col a-show-more text-center small">
+                            <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_events'|trans }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        {% if mlt %}
-        <div id="section_mlt" class="reveal">
-            <mlts-component
-                    data-logosrc="{{ asset('build/images/mlt.png') }}"
-                    data-logoalt="Logo de MyLittleTeam"
-                    data-logoclass="me-1"
-                    data-logowidth="40px"
-                    data-logoheight="40px"
-                    data-title="{{ 'mlt.title'|trans|capitalize }}"
-            >
-            </mlts-component>
-        </div>
-        {% endif %}
-
     </div>
 {% endblock %}

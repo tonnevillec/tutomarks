@@ -63,7 +63,11 @@
                     >{{ link.language }}</span>
                 {% endif %}
                 {% for tag in link.tags %}
-                    <img alt="{{ tag }}" src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=flat&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                    <span class="badge bg-primary rounded"
+                          title="{{ tag }}"
+                          data-toggle="tooltip"
+                          data-placement="top"
+                    >{{ tag }}</span>
                 {% endfor %}
             </div>
 

@@ -46,6 +46,6 @@ class AuthorsRepository extends ServiceEntityRepository
             ->leftJoin('a.links', 'l')
             ->andWhere('l.is_publish = 1')
             ->groupBy('a.id')
-            ;
+        ;
     }
 }

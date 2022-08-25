@@ -3,96 +3,74 @@
 namespace App\Entity;
 
 use App\Repository\EventsRepository;
-use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=EventsRepository::class)
- */
+#[ORM\Entity(repositoryClass: EventsRepository::class)]
 class Events
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(groups: ['show_events'])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private string $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(groups: ['show_events'])]
+    private ?string $title = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Authors::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Authors::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(groups: ['show_events'])]
     private Authors $author;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private DateTimeInterface $started_at;
+    #[ORM\Column(type: 'datetime')]
+    #[Groups(groups: ['show_events'])]
+    private ?DateTimeInterface $started_at;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Url
-     */
-    private ?string $url;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Url]
+    #[Groups(groups: ['show_events'])]
+    private ?string $url = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private ?string $description;
+    #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(groups: ['show_events'])]
+    private ?string $description = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private DateTimeInterface $published_at;
+    #[ORM\Column(type: 'datetime')]
+    #[Groups(groups: ['show_events'])]
+    private ?DateTimeInterface $published_at;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
     private Users $published_by;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $live_on_twitch;
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(groups: ['show_events'])]
+    private ?bool $live_on_twitch = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $live_on_youtube;
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(groups: ['show_events'])]
+    private ?bool $live_on_youtube = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $live_on_twitter;
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(groups: ['show_events'])]
+    private ?bool $live_on_twitter = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $is_physical;
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(groups: ['show_events'])]
+    private ?bool $is_physical = true;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private bool $is_free;
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(groups: ['show_events'])]
+    private ?bool $is_free = true;
 
     public function __construct()
     {
-        $this->started_at = new DateTime();
-        $this->published_at = new DateTime();
-
-        $this->is_free = true;
-        $this->live_on_twitch = false;
-        $this->live_on_twitter = false;
-        $this->live_on_youtube = false;
-        $this->is_physical = true;
+        $this->started_at = new \DateTimeImmutable();
+        $this->published_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -247,5 +225,25 @@ class Events
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    private array $english_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    private array $french_days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+
+    private array $english_months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    private array $french_months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+    #[Groups(groups: ['show_events'])]
+    public function getStartedAtLocal(string $format = 'l j F Y'): string
+    {
+        return str_replace(
+            $this->english_months,
+            $this->french_months,
+            str_replace(
+                $this->english_days,
+                $this->french_days,
+                $this->started_at->format($format)
+            )
+        );
     }
 }

@@ -3,84 +3,51 @@
 namespace App\Entity;
 
 use App\Repository\CategoriesRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-/**
- * @ORM\Entity(repositoryClass=CategoriesRepository::class)
- * @Vich\Uploadable()
- */
+#[ORM\Entity(repositoryClass: CategoriesRepository::class)]
+#[Vich\Uploadable]
 class Categories
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $title = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $logo;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $logo = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Links::class, mappedBy="category")
-     */
-    private $links;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Links::class)]
+    private ?Collection $links;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $link_entity;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $link_entity = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $code;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $code = null;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $is_actif;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private bool $is_actif = false;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @var string|null
-     */
-    private $image;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $image = null;
 
-    /**
-     * @Vich\UploadableField(mapping="categories_images", fileNameProperty="image")
-     *
-     * @var ?File
-     */
-    private $imageFile;
+    #[Vich\UploadableField(mapping: 'categories_images', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var DateTime|null
-     */
-    private $updatedAt;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
         $this->links = new ArrayCollection();
-        $this->is_actif = false;
-        $this->updatedAt = new DateTime();
-        $this->imageFile = null;
-        $this->image = '';
     }
 
     public function getId(): ?int
@@ -112,9 +79,6 @@ class Categories
         return $this;
     }
 
-    /**
-     * @return Collection|Links[]
-     */
     public function getLinks(): Collection
     {
         return $this->links;
@@ -166,18 +130,12 @@ class Categories
         return $this;
     }
 
-    /**
-     * @return false
-     */
     public function getIsActif(): bool
     {
         return $this->is_actif;
     }
 
-    /**
-     * @param false $is_actif
-     */
-    public function setIsActif(bool $is_actif): Categories
+    public function setIsActif(bool $is_actif): self
     {
         $this->is_actif = $is_actif;
 
@@ -196,24 +154,24 @@ class Categories
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTime
+    public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?DateTime $updatedAt): Categories
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): Categories
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function setImageFile(?File $image = null): void
     {
         $this->imageFile = $image;
 
-        if ($image) {
-            $this->updatedAt = new DateTime();
+        if (null !== $image) {
+            $this->updatedAt = new \DateTimeImmutable();
         }
     }
 
