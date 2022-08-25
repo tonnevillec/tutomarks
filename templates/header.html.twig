@@ -11,13 +11,13 @@
     <div class="mx-sm-5 flex-grow-1">
         {% if app.request.get('_route') not in ['search'] %}
         <form name="f_search" method="get" action="{{ path('search') }}" class="search-box input-group input-group-sm mx-auto d-none d-md-flex">
-            <input type="text" class="form-control" name="value" placeholder="{{ 'search.word'|trans|capitalize }} ...">
+            <input type="text" class="form-control" name="value" placeholder="{{ 'search.word'|trans|capitalize }} ..." />
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary border search-btn" type="submit" style="width: 65px;">
                     <i class="bi bi-search"></i>
                 </button>
             </div>
-            <input type="hidden" name="element" value="word">
+            <input type="hidden" name="element" value="word" />
         </form>
         {% endif %}
     </div>
