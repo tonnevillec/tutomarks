@@ -48,12 +48,14 @@ jobs:
 
       ## —— NPM 🐱 ————————————————————————————————————————————————————————————
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@master
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Upgrade NPM
+        run: npm install -g npm
       - name: NPM install build
         run: |
           npm ci
