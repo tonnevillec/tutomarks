@@ -21,8 +21,9 @@ class SimpleLinksController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly TranslatorInterface    $translator
-    ) {}
+        private readonly TranslatorInterface $translator
+    ) {
+    }
 
     #[Route('/add/{category}', name: 'slinks.add')]
     public function add(Request $request, string $category = null): Response
