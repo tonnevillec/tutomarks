@@ -19,14 +19,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[Route('/simpleLinks')]
 class SimpleLinksController extends AbstractController
 {
-    private EntityManagerInterface $em;
-    private TranslatorInterface $translator;
-
-    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
-    {
-        $this->em = $em;
-        $this->translator = $translator;
-    }
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly TranslatorInterface    $translator
+    ) {}
 
     #[Route('/add/{category}', name: 'slinks.add')]
     public function add(Request $request, string $category = null): Response
@@ -42,15 +38,15 @@ class SimpleLinksController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $datas = $request->request->get('simple_links');
+            $datas = $request->request->all()['simple_links'];
 
             $link->setPublishedBy($this->getUser());
 
             $uniqurl = $this->em->getRepository(Links::class)->findOneBy(['url' => $datas['url']]);
             if ($uniqurl) {
-                $this->addFlash('danger', ucfirst($this->translator->trans('link.add.error.uniq_url')));
+                $this->addFlash('danger', ucfirst($this->translator->trans('links.add.error.uniq_url')));
 
-                return $this->render('', [
+                return $this->render('simple_links/add.html.twig', [
                     'form' => $form->createView(),
                 ]);
             }
@@ -59,9 +55,9 @@ class SimpleLinksController extends AbstractController
                 $newAuthor = $request->request->get('newauthors');
 
                 if ('' === $newAuthor['title']) {
-                    $this->addFlash('danger', ucfirst($this->translator->trans('channel.add.title.error')));
+                    $this->addFlash('danger', ucfirst($this->translator->trans('authors.add.title.error')));
 
-                    return $this->render('', [
+                    return $this->render('simple_links/add.html.twig', [
                         'form' => $form->createView(),
                         'new_author' => 'simple_links_author_title',
                     ]);

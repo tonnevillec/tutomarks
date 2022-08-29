@@ -265,6 +265,9 @@ links:
   edit: 'éditer le lien'
   published_at: 'lien publié le'
   no_data: 'aucun lien partagé pour le moment'
+  add:
+    error:
+      uniq_url: "Le lien de l'addresse fournie existe déjà"
 
 slinks:
   add:
