@@ -11,6 +11,16 @@
 }
 
 main.content {
+  .video {
+    //box-shadow: 0 0 4px 4px #f3f3f3;
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, .25) !important;
+  }
+
+  .video-group {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
   .video-thumbnail {
     position: relative;
     display: inline-block;
@@ -59,10 +69,14 @@ main.content {
   }
 }
 
+.minimal-card {
+  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, .25) !important;
+}
+
 .author-card {
   background: linear-gradient(261.28deg, $primary 21.01%, $secondary 97.91%) !important;
   color: $white !important;
-  border-radius: 8px !important;
+
   box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, .25) !important;
 }
 
@@ -97,4 +111,8 @@ main.content {
   opacity: 1;
   transform: translateY(0);
   transition: 2s cubic-bezier(.5, 0, 0, 1);
+}
+
+.card-event {
+  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, .25) !important;
 }

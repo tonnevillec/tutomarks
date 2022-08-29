@@ -1,5 +1,5 @@
-<div class="{% if gClass is defined %} {{ gClass }} {% else %}col-sm-12 col-md-6 col-lg-3{% endif%}">
-    <div class="video mb-3">
+<div class="{% if gClass is defined %} {{ gClass }} {% else %}col-sm-12 col-md-6 col-lg-3{% endif%} video-group">
+    <div class="video mb-3 rounded-4 overflow-hidden">
         <div class="video-thumbnail">
             {% if link.category.code is same as ('videos') %}
                 <a href="{{ path('links.show', {'slug': link.slug, 'id': link.id}) }}">
@@ -49,7 +49,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="d-flex mt-1">
+        <div class="d-flex mt-1 p-2">
             {% if link.author.logo %}
                 <div class="author-thumbnail me-2">
                     <img src="{{ link.author.logo }}" class="rounded-circle" alt="{{ link.author.title }}">

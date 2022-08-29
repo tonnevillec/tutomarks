@@ -44,7 +44,7 @@ const EventCard = React.memo(({event}) => {
     const handleShow = () => setShow(true);
 
     return <>
-        <div className="list-group-item my-2 rounded-10 card-hover">
+        <div className="mb-3 rounded-4 overflow-hidden card-event p-2">
             <div className="mb-2">
                 <i className="bi bi-calendar3 me-2"></i>{event.startedAtLocal}
             </div>

@@ -3,7 +3,7 @@
 {% block title %}Tutomarks - Accueil{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-lg">
         <nav class="nav justify-content-center mt-2 shortcut-nav">
             <a href="#section_videos" class="nav-link" target="_self">Vidéos</a>
             <a href="#section_authors" class="nav-link" target="_self">Top créateurs</a>
@@ -211,9 +211,11 @@
                         <div class="line"></div>
                     </div>
 
-                    {% for article in articles %}
-                        {{ include('home/_minimal_infos.html.twig', {'link': article}) }}
-                    {% endfor %}
+                    <div class="row pb-3 pe-2">
+                        {% for article in articles %}
+                            {{ include('home/_minimal_infos.html.twig', {'link': article}) }}
+                        {% endfor %}
+                    </div>
 
                     {% if articles|length > 0 %}
                         <div class="row py-3 px-5">
@@ -241,9 +243,11 @@
                         <div class="line"></div>
                     </div>
 
-                    {% for podcast in podcasts %}
-                        {{ include('home/_minimal_infos.html.twig', {'link': podcast}) }}
-                    {% endfor %}
+                    <div class="row pb-3 pe-2">
+                        {% for podcast in podcasts %}
+                            {{ include('home/_minimal_infos.html.twig', {'link': podcast}) }}
+                        {% endfor %}
+                    </div>
 
                     {% if podcasts|length > 0 %}
                         <div class="row py-3 px-5">
@@ -275,14 +279,14 @@
                         <div class="line"></div>
                     </div>
 
-                    <div class="row pb-3">
+                    <div class="row pb-3 pe-3">
                         {% for formation in formations %}
                             {{ include('home/_minimal_infos.html.twig', {'link': formation}) }}
                         {% endfor %}
                     </div>
 
                     {% if formations|length > 0 %}
-                        <div class="row py-3">
+                        <div class="row py-2">
                             <a href="{{ path('search', {'categories[]' : formations[0].category.id}) }}" class="col a-show-more text-center small">
                                 <i class="bi bi-arrow-right-square me-1"></i> {{ 'show_more'|trans|capitalize }}  {{ 'show_more_formations'|trans }}
                             </a>
@@ -308,7 +312,7 @@
                     </div>
 
                     <div class="row pb-3">
-                        <div class="list-group reveal">
+                        <div class="reveal">
                             <events-component></events-component>
                         </div>
                     </div>
