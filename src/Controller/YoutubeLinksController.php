@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Authors;
 use App\Entity\Categories;
 use App\Entity\Languages;
+use App\Entity\Tags;
 use App\Entity\YoutubeLinks;
 use App\Form\YoutubeLinksEditType;
 use App\Form\YoutubeLinksType;
@@ -19,15 +20,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[Route('/links')]
 class YoutubeLinksController extends AbstractController
 {
-    private CallApiService $apiService;
-    private EntityManagerInterface $em;
-    private TranslatorInterface $translator;
-
-    public function __construct(EntityManagerInterface $em, CallApiService $apiService, TranslatorInterface $translator)
-    {
-        $this->apiService = $apiService;
-        $this->em = $em;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly CallApiService $apiService,
+        private readonly EntityManagerInterface $em,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     #[Route('/addYtLink', name: 'ytlinks.add')]
@@ -133,7 +130,21 @@ class YoutubeLinksController extends AbstractController
         $form = $this->createForm(YoutubeLinksEditType::class, $ytLink);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            $datas = $request->request->all();
+            $tags = array_key_exists('tags', $datas) ? $datas['tags'] : [];
+            foreach ($tags as $tag) {
+                $t = $this->em->find(Tags::class, $tag);
+                if (!$t) {
+                    $t = (new Tags())
+                        ->setTitle($tag)
+                    ;
+                    $this->em->persist($t);
+                    $this->em->flush();
+                }
+                $ytLink->addTag($t);
+            }
+
             $this->em->persist($ytLink);
             $this->em->flush();
 

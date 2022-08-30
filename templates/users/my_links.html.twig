@@ -41,11 +41,7 @@
                                                 <br>{{ 'links.published_at'|trans|capitalize }} {{ yt.publishedAt|date('d/m/Y') }}
                                                 <br>
                                                 {% for tag in yt.tags %}
-{#                                                    <span class="badge badge-pill bg-primary me-1">{{ tag }}</span>#}
-                                                    <img alt="{{ tag }}"
-                                                         data-toggle="tooltip"
-                                                         data-placement="top"
-                                                         src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=flat&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                                                    <span class="badge badge-pill bg-primary me-1">{{ tag }}</span>
                                                 {% endfor %}
                                             </div>
 
@@ -91,11 +87,7 @@
                                                 <br>
                                                 <span class="badge badge-pill bg-primary me-1">{{ link.category }}</span>
                                                 {% for tag in link.tags %}
-                                                    <img alt="{{ tag }}"
-                                                         data-toggle="tooltip"
-                                                         data-placement="top"
-                                                         title="{{ tag }}"
-                                                         src="https://img.shields.io/badge/{{ tag }}-white.svg?&style=flat&logo={{ tag.code }}&logoColor={{ tag.color }}" />
+                                                    <span class="badge badge-pill bg-primary me-1">{{ tag }}</span>
                                                 {% endfor %}
                                             </div>
 

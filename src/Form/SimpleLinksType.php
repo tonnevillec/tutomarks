@@ -17,11 +17,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SimpleLinksType extends AbstractType
 {
-    protected TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(protected readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -58,7 +55,7 @@ class SimpleLinksType extends AbstractType
                 'multiple' => true,
                 'required' => false,
                 'choice_label' => 'title',
-                'expanded' => true,
+                'expanded' => false,
             ])
             ->add('category', EntityType::class, [
                 'class' => Categories::class,

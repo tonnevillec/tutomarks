@@ -10,11 +10,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class YoutubeLinksType extends AbstractType
 {
-    protected TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(protected readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

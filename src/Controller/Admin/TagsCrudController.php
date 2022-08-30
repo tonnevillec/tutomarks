@@ -21,8 +21,6 @@ class TagsCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('title'),
             AssociationField::new('links')->onlyOnIndex(),
-            TextField::new('code'),
-            TextField::new('color'),
         ];
     }
 }

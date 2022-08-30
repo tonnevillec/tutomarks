@@ -6,6 +6,7 @@ use App\Entity\Authors;
 use App\Entity\Categories;
 use App\Entity\Links;
 use App\Entity\SimpleLinks;
+use App\Entity\Tags;
 use App\Form\SimpleLinksEditType;
 use App\Form\SimpleLinksType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,7 +39,8 @@ class SimpleLinksController extends AbstractController
         $form = $this->createForm(SimpleLinksType::class, $link);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+//        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $datas = $request->request->all()['simple_links'];
 
             $link->setPublishedBy($this->getUser());
@@ -86,6 +88,19 @@ class SimpleLinksController extends AbstractController
 
                     $link->setAuthor($author);
                 }
+            }
+
+            $tags = array_key_exists('tags', $datas) ? $datas['tags'] : [];
+            foreach ($tags as $tag) {
+                $t = $this->em->find(Tags::class, $tag);
+                if (!$t) {
+                    $t = (new Tags())
+                        ->setTitle($tag)
+                    ;
+                    $this->em->persist($t);
+                    $this->em->flush();
+                }
+                $link->addTag($t);
             }
 
             $this->em->persist($link);

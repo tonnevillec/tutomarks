@@ -33,7 +33,6 @@ class LinkSearchType extends AbstractType
                 'attr' => [
                     'placeholder' => ucfirst($this->translator->trans('search.field.placeholder')).' ...',
                 ],
-//                'help'      => ucfirst($this->translator->trans('search.field.help'))
             ])
             ->add('page', HiddenType::class, [
                 'data' => '1',
@@ -59,6 +58,11 @@ class LinkSearchType extends AbstractType
                 'class' => Tags::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
+                        ->select('t')
+                        ->leftJoin('t.links', 'l')
+                        ->andWhere('l.is_publish = 1')
+                        ->groupBy('t.id')
+                        ->having('COUNT(l) > 0')
                         ->orderBy('t.title', 'ASC')
                     ;
                 },

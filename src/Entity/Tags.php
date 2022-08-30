@@ -24,14 +24,6 @@ class Tags
     #[ORM\ManyToMany(targetEntity: Links::class, mappedBy: 'tags')]
     private Collection $links;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(groups: ['show_tags'])]
-    private ?string $code = null;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(groups: ['show_tags'])]
-    private ?string $color = 'black';
-
     public function __construct()
     {
         $this->links = new ArrayCollection();
@@ -74,30 +66,6 @@ class Tags
         if ($this->links->removeElement($link)) {
             $link->removeTag($this);
         }
-
-        return $this;
-    }
-
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
-
-    public function setCode(?string $code): self
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(?string $color): self
-    {
-        $this->color = $color;
 
         return $this;
     }
