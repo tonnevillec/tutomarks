@@ -18,19 +18,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HomeController extends AbstractController
 {
-    public function __construct(private TranslatorInterface $translator,
-                                private EmailService $mailer,
-                                private ParameterBagInterface $param,
-                                private EntityManagerInterface $em,
-                                private YoutubeLinksRepository $ytRepository,
-                                private HttpClientInterface $client,
-                                private SerializerInterface $serializer
+    public function __construct(private readonly TranslatorInterface $translator,
+                                private readonly EmailService $mailer,
+                                private readonly ParameterBagInterface $param,
+                                private readonly EntityManagerInterface $em,
+                                private readonly YoutubeLinksRepository $ytRepository
     ) {
     }
 
@@ -44,11 +40,6 @@ class HomeController extends AbstractController
         $ressources = $this->em->getRepository(Links::class)->findLatestSimpleLinks('ressources', 3);
         $authors = $this->em->getRepository(Authors::class)->findTop(6);
 
-//        $hebdoo = $this->client->request(
-//            'GET',
-//            'https://hebdoo.fr/api/last'
-//        )->toArray();
-
         return $this->render('home/index.html.twig', [
             'youtubelinks' => $youtubelinks,
             'articles' => $articles,
@@ -56,7 +47,6 @@ class HomeController extends AbstractController
             'formations' => $formations,
             'ressources' => $ressources,
             'authors' => $authors,
-//            'hebdoo' => $hebdoo
         ]);
     }
 

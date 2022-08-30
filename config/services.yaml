@@ -12,6 +12,8 @@ parameters:
     mlt_view: '%env(string:MLT_VIEW)%'
     mlt_enable: '%env(bool:MLT_ENABLE)%'
 
+    matomo: '%env(string:MATOMO_LINK)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
