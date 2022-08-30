@@ -15,11 +15,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    public function __construct(private readonly ParameterBagInterface $param)
+    {
+    }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -56,6 +61,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Events', 'fas fa-list', Events::class),
         ]);
 
+        yield MenuItem::section('Analytic');
+        yield MenuItem::linkToUrl('Matomo', 'fas fa-chart-line', $this->param->get('matomo'));
+
+        yield MenuItem::section();
         yield MenuItem::linkToUrl('Retour au site', 'far fa-arrow-alt-circle-left', $this->generateUrl('home'));
     }
 }
