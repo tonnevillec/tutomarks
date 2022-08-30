@@ -4,13 +4,13 @@
 {% form_theme form _self %}
 {% block _simple_links_edit_tags_row %}
     <div class="form-group">
-        <label class="label">{{ label }}</label><br/>
+        <label class="label" for="jstomselect">{{ label }}</label><br/>
         {% if choices is iterable %}
-            {% for id, k in choices %}
-                <label for="simple_links_edit_tags_{{ k.value }}" class="btn btn-sm {% if k.data.id in form.vars.value %}btn-primary{% else %}btn-outline-primary{% endif%} m-1">
-                    <input type="checkbox" name="simple_links_edit[tags][]" value="{{ k.data.id }}" id="simple_links_edit_tags_{{ k.value }}" {% if k.data.id in form.vars.value %}checked="checked"{% endif%} class="badgebox d-none" data-color="primary">{{ k.label }}
-                </label>
-            {% endfor %}
+            <select id="jstomselect" name="simple_links_edit[tags][]" multiple autocomplete="off">
+                {% for id, k in choices %}
+                    <option value="{{ k.data.id }}" {% if k.data.id in form.vars.value %}selected{% endif%}>{{ k.label }}</option>
+                {% endfor %}
+            </select>
         {% endif %}
     </div>
 {% endblock %}

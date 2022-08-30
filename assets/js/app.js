@@ -1,5 +1,8 @@
+import TomSelect from "tom-select";
+
 require('bootstrap');
 require('@popperjs/core');
+require('tom-select');
 
 import './React/events/events';
 import './React/tagscloud/tagscloud';
@@ -101,5 +104,17 @@ import './React/tagscloud/tagscloud';
                 }
             })
         }
+    }
+
+    let settings = {
+        create: true,
+        createFilter: function(input) {
+            input = input.toLowerCase();
+            return !(input in this.options);
+        }
+    };
+    let jstomselect = document.getElementById('jstomselect');
+    if(jstomselect){
+        new TomSelect('#jstomselect', settings);
     }
 })();

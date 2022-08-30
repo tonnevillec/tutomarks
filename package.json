@@ -25,6 +25,7 @@
         "react": "^18.2.0",
         "react-bootstrap": "^2.5.0",
         "react-dom": "^18.2.0",
-        "react-nl2br": "^1.0.4"
+        "react-nl2br": "^1.0.4",
+        "tom-select": "^2.1.0"
     }
 }

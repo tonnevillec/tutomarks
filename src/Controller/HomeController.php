@@ -138,7 +138,10 @@ class HomeController extends AbstractController
     #[Route('/api/tags', name: 'api.tags', methods: ['GET'])]
     public function apiTags(): JsonResponse
     {
-        $tags = $this->em->getRepository(Tags::class)->findBy([], ['title' => 'ASC']);
+        $tags = $this
+            ->em
+            ->getRepository(Tags::class)
+            ->findNotNull();
 
         return $this->json($tags, 200, [], ['groups' => 'show_tags']);
     }
