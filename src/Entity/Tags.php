@@ -14,11 +14,11 @@ class Tags
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
-    #[Groups(groups: ['show_tags'])]
+    #[Groups(groups: ['show_tags', 'show_hebdoos'])]
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(groups: ['show_tags'])]
+    #[Groups(groups: ['show_tags', 'show_hebdoos'])]
     private ?string $title = null;
 
     #[ORM\ManyToMany(targetEntity: Links::class, mappedBy: 'tags')]

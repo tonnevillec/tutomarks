@@ -6,6 +6,8 @@ use App\Entity\Attachments;
 use App\Entity\Authors;
 use App\Entity\Categories;
 use App\Entity\Events;
+use App\Entity\Hebdoo;
+use App\Entity\HebdooSemaine;
 use App\Entity\Languages;
 use App\Entity\SimpleLinks;
 use App\Entity\Tags;
@@ -60,6 +62,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('YoutubeLinks', 'fas fa-list', YoutubeLinks::class),
             MenuItem::linkToCrud('Events', 'fas fa-list', Events::class),
         ]);
+
+        yield MenuItem::section('Hebdoo');
+        yield MenuItem::linkToCrud('Ressource', 'fas fa-list', Hebdoo::class);
+        yield MenuItem::linkToCrud('Hebdoo de la semaine', 'fas fa-list', HebdooSemaine::class);
 
         yield MenuItem::section('Analytic');
         yield MenuItem::linkToUrl('Matomo', 'fas fa-chart-line', $this->param->get('matomo'));

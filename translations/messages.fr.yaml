@@ -489,3 +489,20 @@ mlt:
   link: "voir plus sur MyLittleTeam.com"
   navlink: "MyLittleTeam"
   joblink: "Retrouvez le job sur My Little Team"
+
+hebdoo:
+  title:
+    label: "titre"
+    placeholder: "titre de la ressource"
+  url:
+    label: "URL"
+    placeholder: "URL de la ressource"
+  pseudo:
+    label: "pseudo"
+    placeholder: "votre pseudo"
+  tags:
+    label: "tags"
+    placeholder: "tags"
+  language:
+    label: "langue"
+    placeholder: "langue"
