@@ -1,8 +1,7 @@
 body {
-  font-family: Roboto, arial, sans-serif;
-  //height: 1500px;
-
+  font-family: Inter, Roboto, arial, sans-serif;
   background-color: $white;
+  color: $black;
 }
 
 a {
@@ -11,6 +10,10 @@ a {
   &:hover {
     color: $primary !important;
   }
+}
+
+.bg-faded-primary {
+  background-color: rgba(118,109,244,.08) !important;
 }
 
 .dropdown-item:hover:hover {

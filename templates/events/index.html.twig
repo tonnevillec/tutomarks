@@ -3,12 +3,11 @@
 {% block title %}[Tutomarks] Liste des événements à venir{% endblock %}
 
 {% block body %}
-<section class="my-4">
-
+<section class="mt-5 mb-3">
     <div class="container">
-        <div class="video-row-title my-4 ml-1">
-            <h2 class="h2" id="section_events">
-                <span class="text-primary me-1"><i class="bi bi-calendar3"></i></span> {{ 'events.futur.title'|trans|capitalize }}
+        <div class="section-heading style-2 my-4">
+            <h2 class="h2">
+                <span class="text-primary me-2"><i class="bi bi-calendar3"></i></span>{{ 'events.futur.title'|trans|capitalize }}
 
                 {% if app.user %}
                     <div class="float-end">
@@ -19,6 +18,7 @@
                     </div>
                 {% endif %}
             </h2>
+            <div class="line"></div>
         </div>
 
         <div class="row pb-3">
@@ -29,10 +29,11 @@
             </div>
         </div>
 
-        <div class="video-row-title my-4 ml-1">
-            <h2 class="h2" id="section_events">
-                <span class="text-primary me-1"><i class="bi bi-calendar2-check"></i></span> {{ 'events.finished.title'|trans|capitalize }}
+        <div class="section-heading style-2 my-4">
+            <h2 class="h2">
+                <span class="text-primary me-2"><i class="bi bi-calendar2-check"></i></span>{{ 'events.finished.title'|trans|capitalize }}
             </h2>
+            <div class="line"></div>
         </div>
 
         <div class="row pb-3">

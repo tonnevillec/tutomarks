@@ -39,7 +39,6 @@ class SimpleLinksController extends AbstractController
         $form = $this->createForm(SimpleLinksType::class, $link);
         $form->handleRequest($request);
 
-//        if ($form->isSubmitted() && $form->isValid()) {
         if ($form->isSubmitted()) {
             $datas = $request->request->all()['simple_links'];
 

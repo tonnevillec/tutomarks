@@ -5,7 +5,7 @@
 {% form_theme form _self %}
 {% block _tags_row %}
     <div class="form-group">
-        <label class="label" for="jstomselect">{{ label }}</label><br/>
+        <label class="form-label" for="jstomselect">{{ label }}</label>
         {% if choices is iterable %}
             <select id="jstomselect" name="tags[]" multiple autocomplete="off">
                 {% for id, k in choices %}

@@ -100,7 +100,6 @@ class YoutubeLinksController extends AbstractController
                 if ($video->getThumbnails()->getHigh()) {
                     $ytLink->setImgLarge($video->getThumbnails()->getHigh()->getUrl());
                 }
-                // setCreationAt($video->publishedAt)
 
                 $this->em->persist($ytLink);
                 $this->em->flush();
