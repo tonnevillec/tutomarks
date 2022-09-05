@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Hebdoo;
 use App\Entity\HebdooSemaine;
+use App\Entity\Tags;
 use App\Form\HebdooType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,7 +44,22 @@ class HebdooController extends AbstractController
         $form = $this->createForm(HebdooType::class, $hebdoo);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            $datas = $request->request->all()['hebdoo'];
+
+            $tags = array_key_exists('tags', $datas) ? $datas['tags'] : [];
+            foreach ($tags as $tag) {
+                $t = $this->em->find(Tags::class, $tag);
+                if (!$t) {
+                    $t = (new Tags())
+                        ->setTitle($tag)
+                    ;
+                    $this->em->persist($t);
+                    $this->em->flush();
+                }
+                $hebdoo->addTag($t);
+            }
+
             $this->em->persist($hebdoo);
             $this->em->flush();
 
