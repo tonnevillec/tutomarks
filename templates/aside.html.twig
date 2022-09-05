@@ -12,6 +12,11 @@
             </a>
             {{ menuCategories() }}
 
+            <a href="{{ path('hebdoo.semaine') }}" class="list-group-item d-flex align-items-center {% if app.request.get('_route') is same as ('hebdoo.semaine') %}active{% endif %}">
+                <i class="bi bi-h-square me-1"></i>
+                <span>{{ 'home.hebdoo'|trans|capitalize }}</span>
+            </a>
+
             <a href="{{ path('events.index') }}" class="list-group-item d-flex align-items-center {% if app.request.get('_route') is same as ('events.index') %}active{% endif %}">
                 <i class="bi bi-calendar3 me-1"></i>
                 <span>{{ 'home.events'|trans|capitalize }}</span>

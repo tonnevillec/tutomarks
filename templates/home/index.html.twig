@@ -9,6 +9,7 @@
             <a href="#section_authors" class="nav-link" target="_self">Top créateurs</a>
             <a href="#section_tags" class="nav-link" target="_self">Tags</a>
             <a href="#section_ressources" class="nav-link" target="_self">Ressources</a>
+            <a href="#section_hebdoo" class="nav-link" target="_self">Hebdoo</a>
             <a href="#section_articles" class="nav-link" target="_self">Articles</a>
             <a href="#section_podcasts" class="nav-link" target="_self">Podcasts</a>
             <a href="#section_formations" class="nav-link" target="_self">Formations</a>
@@ -23,7 +24,6 @@
                 </div>
             {% endfor %}
         {% endfor %}
-
 
         <div class="video-row pb-2" id="section_videos">
             <div class="section-heading style-2 my-4">
@@ -175,8 +175,8 @@
                 <div class="row pb-3">
                     <div class="col">
                         <div class="section-heading style-2 my-4">
-                            <h2 class="h2">
-                                <img src="{{ asset('build/images/hebdoo.png') }}" class="me-1"  alt="Logo Hebdoo"/> {{ 'home.hebdoo'|trans|capitalize }}
+                            <h2 class="h2" id="section_hebdoo">
+                                <span class="text-primary me-2"><i class="bi bi-h-square"></i></span>{{ 'home.hebdoo'|trans|capitalize }}
                             </h2>
                             <div class="line"></div>
                         </div>

@@ -167,6 +167,11 @@ class FunctionsExtension extends AbstractExtension
                     <span>Événements</span>
                 </a></li>';
 
+            $return .= '<li class="nav-item mb-2"><a href="'.$this->router->generate('hebdoo.semaine').'" class="nav-link py-0 ps-3 pe-0">
+                    <i class="bi bi-h-square me-1"></i>
+                    <span>Hebdoo de la semaine</span>
+                </a></li>';
+
             $return .= '</ul>';
         }
 
