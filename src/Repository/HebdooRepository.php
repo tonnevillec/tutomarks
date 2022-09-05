@@ -39,28 +39,12 @@ class HebdooRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Hebdoo[] Returns an array of Hebdoo objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('h')
-//            ->andWhere('h.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('h.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Hebdoo
-//    {
-//        return $this->createQueryBuilder('h')
-//            ->andWhere('h.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findAllOrderByDate(): array
+    {
+        return $this->createQueryBuilder('h')
+            ->orderBy('h.created_at', 'DeSC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

@@ -60,10 +60,6 @@ class HebdooController extends AbstractController
     #[Route('/archives', name: 'hebdoo.archives')]
     public function archives(): Response
     {
-        $hebdoo = $this->em->getRepository(Hebdoo::class)->findAll();
-
-        return $this->render('hebdoo/archives.html.twig', [
-            'hebdoo' => $hebdoo,
-        ]);
+        return $this->render('hebdoo/archives.html.twig');
     }
 }

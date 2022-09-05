@@ -161,7 +161,7 @@ class HomeController extends AbstractController
     #[Route('/api/hebdoos', name: 'api.hebdoos', methods: ['GET'])]
     public function apiHebdoos(): JsonResponse
     {
-        $events = $this->em->getRepository(Hebdoo::class)->findAll();
+        $events = $this->em->getRepository(Hebdoo::class)->findAllOrderByDate();
 
         return $this->json($events, 200, [], ['groups' => 'show_hebdoos']);
     }
