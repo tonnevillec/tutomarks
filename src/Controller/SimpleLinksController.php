@@ -54,7 +54,7 @@ class SimpleLinksController extends AbstractController
             }
 
             if ('' === $datas['author']) {
-                $newAuthor = $request->request->get('newauthors');
+                $newAuthor = $request->request->all()['newauthors'];
 
                 if ('' === $newAuthor['title']) {
                     $this->addFlash('danger', ucfirst($this->translator->trans('authors.add.title.error')));
