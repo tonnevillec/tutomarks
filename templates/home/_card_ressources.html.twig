@@ -21,6 +21,7 @@
                 </div>
 
                 <div class="video-tags">
+                    <a href="{{ path('search', {'languages': link.language.id}) }}">
                     {% if link.language.logo %}
                         <img src="{{ vich_uploader_asset(link.language, 'imageFile') }}"
                              class="img-fluid flag-tag"
@@ -36,12 +37,16 @@
                               data-placement="top"
                         >{{ link.language }}</span>
                     {% endif %}
+                    </a>
+
                     {% for tag in link.tags %}
+                    <a href="{{ path('search', {'tags[]': tag.id}) }}">
                         <span class="badge bg-primary rounded"
                               title="{{ tag }}"
                               data-toggle="tooltip"
                               data-placement="top"
                         >{{ tag }}</span>
+                    </a>
                     {% endfor %}
                 </div>
 

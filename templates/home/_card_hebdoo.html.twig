@@ -1,0 +1,60 @@
+<div class="col-12 mb-1">
+    <div class="video ressources-card border rounded-4 p-2 flex-fill">
+        <div class="d-flex">
+            <div class="align-self-start">
+                <div class="video-title fs my-1">
+                    <a href="{{ link.url }}"
+                       data-bs-toggle="tooltip"
+                       data-bs-placement="top"
+                       target="_blank"
+                       title="{{ 'links.target_blank'|trans|capitalize }}"
+                       class="text-decoration-none">
+                        <strong>{{ link.title|u.truncate(60, '...') }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i>
+                    </a>
+                </div>
+
+{#                <div class="video-meta small my-1">#}
+{#                    <a href="{{ path('authors.show', { 'slug' : link.author.slug, 'id' : link.author.id }) }}" class="text-decoration-none">#}
+{#                        <i class="bi bi-mortarboard-fill me-1"></i>{{ link.author }}#}
+{#                    </a>#}
+{#                </div>#}
+
+                <div class="video-tags">
+                    {% if link.language %}
+                    <a href="{{ path('search', {'languages': link.language.id}) }}">
+                        {% if link.language.logo %}
+                            <img src="{{ vich_uploader_asset(link.language, 'imageFile') }}"
+                                 class="img-fluid flag-tag"
+                                 alt="{{ link.language }}"
+                                 title="{{ link.language }}"
+                                 data-toggle="tooltip"
+                                 data-placement="top"
+                            />
+                        {% else %}
+                            <span class="badge bg-primary rounded"
+                                  title="{{ link.language }}"
+                                  data-toggle="tooltip"
+                                  data-placement="top"
+                            >{{ link.language }}</span>
+                        {% endif %}
+                    </a>
+                    {% endif %}
+
+                    {% for tag in link.tags %}
+                        <a href="{{ path('search', {'tags[]': tag.id}) }}">
+                        <span class="badge bg-primary rounded"
+                              title="{{ tag }}"
+                              data-toggle="tooltip"
+                              data-placement="top"
+                        >{{ tag }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+
+                <div class="video-date small">
+                    Ajouté le {{ link.createdAtLocal }} par {{ link.pseudo }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

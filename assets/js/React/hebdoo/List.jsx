@@ -83,8 +83,8 @@ function HebdooList () {
                                 {ressource.language.logo &&
                                 <img src={"/uploads/images/" + ressource.language.logo}
                                      className="img-fluid flag-tag"
-                                     alt="{{ ressource.language }}"
-                                     title="{{ ressource.language }}"
+                                     alt={ ressource.language }
+                                     title={ ressource.language }
                                      data-toggle="tooltip"
                                      data-placement="top"
                                 />}

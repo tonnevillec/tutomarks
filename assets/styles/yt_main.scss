@@ -12,7 +12,6 @@
 
 main.content {
   .video {
-    //box-shadow: 0 0 4px 4px #f3f3f3;
     box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, .25) !important;
   }
 
@@ -27,6 +26,25 @@ main.content {
 
     .video-informations {
       display: none;
+    }
+  }
+
+  .video-informations,
+  .video-tags
+  {
+    a {
+      text-decoration: none;
+
+      > span,
+      > img
+      {
+        transition: 0.3s;
+      }
+    }
+    a:hover>span,
+    a:hover>img
+    {
+      transform: rotate(-8deg);
     }
   }
 
