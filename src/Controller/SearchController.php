@@ -15,13 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/search')]
 class SearchController extends AbstractController
 {
-    private EntityManagerInterface $em;
-    private PaginatorInterface $paginator;
-
-    public function __construct(EntityManagerInterface $em, PaginatorInterface $paginator)
-    {
-        $this->em = $em;
-        $this->paginator = $paginator;
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly PaginatorInterface $paginator
+    ) {
     }
 
     #[Route('/', name: 'search')]
@@ -52,11 +49,9 @@ class SearchController extends AbstractController
         $datas = $request->query;
         if ($datas->has('element') && $datas->has('value')) {
             $go = false;
-            switch ($datas->get('element')) {
-                case 'word':
-                    $search->setSearch($datas->get('value'));
-                    $go = true;
-                    break;
+            if ('word' === $datas->get('element')) {
+                $search->setSearch($datas->get('value'));
+                $go = true;
             }
 
             if ($go) {

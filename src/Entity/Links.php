@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LinksRepository::class)]
-#[ORM\Table(name: 'links')]
-#[ORM\Index(columns: ['title', 'description'], flags: ['fulltext'])]
+#[ORM\Index(columns: ['title', 'description'], name: 'links', flags: ['fulltext'])]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([

@@ -4,6 +4,8 @@ namespace App\Extensions\Doctrine;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\Parser;
+use Doctrine\ORM\Query\SqlWalker;
 
 class MatchAgainst extends FunctionNode
 {
@@ -12,7 +14,7 @@ class MatchAgainst extends FunctionNode
     protected bool $booleanMode = false;
     protected bool $queryExpansion = false;
 
-    public function parse(\Doctrine\ORM\Query\Parser $parser)
+    public function parse(Parser $parser)
     {
         // match
         $parser->match(Lexer::T_IDENTIFIER);
@@ -45,7 +47,7 @@ class MatchAgainst extends FunctionNode
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
 
-    public function getSql(\Doctrine\ORM\Query\SqlWalker $walker)
+    public function getSql(SqlWalker $walker)
     {
         $fields = [];
         foreach ($this->pathExp as $pathExp) {

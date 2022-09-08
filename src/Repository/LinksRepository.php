@@ -44,16 +44,15 @@ class LinksRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findAllPublished(LinkSearch $search, string $orderby = 'l.title', string $direction = 'desc')
+    public function findAllPublished(?LinkSearch $search, string $orderby = 'l.title', string $direction = 'desc')
     {
         $query = $this->createQueryBuilder('l')
-            ->andWhere('l.is_publish = 1')
+            ->where('l.is_publish = 1')
         ;
 
         if ($search->getSearch()) {
-            $query = $query
-                ->andWhere('MATCH_AGAINST(l.title, l.description) AGAINST (:search boolean)>0')
-                ->setParameter('search', '*'.$search->getSearch().'*')
+            $query
+                ->andWhere("MATCH_AGAINST(l.title, l.description) AGAINST ('".$search->getSearch()."' boolean)>0")
             ;
         }
 
@@ -62,7 +61,7 @@ class LinksRepository extends ServiceEntityRepository
             foreach ($search->getCategories() as $category) {
                 $categories[] = $category->getId();
             }
-            $query = $query
+            $query
                 ->leftJoin('l.category', 'categories')
                 ->andWhere('categories.id IN (:categories)')
                 ->setParameter(':categories', $categories)
@@ -74,7 +73,7 @@ class LinksRepository extends ServiceEntityRepository
             foreach ($search->getLanguages() as $language) {
                 $languages[] = $language->getId();
             }
-            $query = $query
+            $query
                 ->leftJoin('l.language', 'languages')
                 ->andWhere('languages.id IN (:languages)')
                 ->setParameter(':languages', $languages)
@@ -86,7 +85,7 @@ class LinksRepository extends ServiceEntityRepository
             foreach ($search->getTags() as $tag) {
                 $tags[] = $tag->getId();
             }
-            $query = $query
+            $query
                 ->leftJoin('l.tags', 'tags')
                 ->andWhere('tags.id IN (:tags)')
                 ->setParameter(':tags', $tags)
@@ -98,7 +97,7 @@ class LinksRepository extends ServiceEntityRepository
             foreach ($search->getAuthors() as $author) {
                 $authors[] = $author->getId();
             }
-            $query = $query
+            $query
                 ->leftJoin('l.author', 'authors')
                 ->andWhere('authors.id IN (:authors)')
                 ->setParameter(':authors', $authors)
