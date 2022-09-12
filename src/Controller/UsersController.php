@@ -76,7 +76,7 @@ class UsersController extends AbstractController
         $code = 'danger';
         $action = 'password';
 
-        $old = $request->request->get('userpassword')['password_confirm'];
+        $old = $request->request->all()['userpassword']['password_confirm'];
         if ($this->encoder->isPasswordValid($this->getUser(), $old)) {
             $form = $this->createForm(UserpasswordType::class, $this->getUser());
             $form->handleRequest($request);
@@ -221,7 +221,7 @@ class UsersController extends AbstractController
     #[Route('/publish_links', name: 'users.publish_links', methods: ['POST'])]
     public function publishLink(Request $request)
     {
-        $datas = $request->request->get('link');
+        $datas = $request->request->all()['link'];
         $link = $this->em->getRepository(Links::class)->find($datas);
 
         if (!$link) {

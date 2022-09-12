@@ -99,7 +99,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_password');
         }
 
-        $email = $request->request->get('pwd_email');
+        $email = $request->request->all()['pwd_email'];
         $user = $this->em->getRepository(Users::class)->findOneBy(['email' => $email]);
 
         if (!$user) {

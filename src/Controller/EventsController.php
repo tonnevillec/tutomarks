@@ -44,7 +44,7 @@ class EventsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $datas = $request->request->get('events');
+            $datas = $request->request->all()['events'];
 
             $event->setPublishedBy($this->getUser());
 
@@ -58,7 +58,7 @@ class EventsController extends AbstractController
             }
 
             if ('' === $datas['author']) {
-                $newAuthor = $request->request->get('newauthors');
+                $newAuthor = $request->request->all()['newauthors'];
 
                 if ('' === $newAuthor['title']) {
                     $this->addFlash('danger', ucfirst($this->translator->trans('channel.add.title.error')));

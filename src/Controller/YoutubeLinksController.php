@@ -35,7 +35,7 @@ class YoutubeLinksController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $url = $request->request->get('url');
+            $url = $request->request->all()['url'];
 
             $ytId = $this->apiService->getYoutubeId($url);
             if (!is_null($ytId)) {
