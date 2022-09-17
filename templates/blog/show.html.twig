@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Blog - {{ post.title }}{% endblock %}
+
+{% block body %}
+    <section class="mt-4 mb-3">
+        <div class="container">
+            <div class="section-heading style-2 my-4">
+                <h1 class="h1">
+                    <span class="text-primary me-2"><i class="bi bi-bootstrap"></i></span>Blog > {{ post.title }}
+                </h1>
+                <div class="line"></div>
+            </div>
+
+            <p class="post-metadata">
+                <span class="metadata me-3">
+                    <i class="bi bi-calendar"></i> {{ post.publishedAtLocal }}
+                </span>
+                <span class="metadata"><i class="bi bi-people"></i> {{ post.author.username }}</span>
+            </p>
+
+            <div class="post-content mb-4">
+                {{ post.content|raw|nl2br }}
+            </div>
+
+            <div class="video-tags">
+                {% for tag in post.tags %}
+                    <a href="#"
+                       title="{{ tag.title }}"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       class="me-2"
+                    >
+                        <span class="badge bg-primary rounded">{{ tag.title }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

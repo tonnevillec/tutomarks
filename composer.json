@@ -9,7 +9,7 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "cocur/slugify": "^4.0",
+        "cocur/slugify": "^3.0",
         "copadia/php-video-url-parser": "^1.0",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.7",

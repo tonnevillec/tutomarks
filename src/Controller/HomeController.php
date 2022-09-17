@@ -8,6 +8,7 @@ use App\Entity\Events;
 use App\Entity\Hebdoo;
 use App\Entity\HebdooSemaine;
 use App\Entity\Links;
+use App\Entity\Posts;
 use App\Entity\Tags;
 use App\Repository\YoutubeLinksRepository;
 use App\Service\EmailService;
@@ -164,5 +165,13 @@ class HomeController extends AbstractController
         $events = $this->em->getRepository(Hebdoo::class)->findAllOrderByDate();
 
         return $this->json($events, 200, [], ['groups' => 'show_hebdoos']);
+    }
+
+    #[Route('/api/posts', name: 'api.posts', methods: ['GET'])]
+    public function apiPosts(): JsonResponse
+    {
+        $posts = $this->em->getRepository(Posts::class)->findAllOrderByDate();
+
+        return $this->json($posts, 200, [], ['groups' => 'posts.show']);
     }
 }
