@@ -50,6 +50,6 @@ class PostsCrudController extends AbstractCrudController
     {
         return $actions
 //            ->disable(Action::NEW)
-            ;
+        ;
     }
 }

@@ -45,6 +45,6 @@ class PostsRepository extends ServiceEntityRepository
             ->orderBy('p.published_at', 'DESC')
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
 }

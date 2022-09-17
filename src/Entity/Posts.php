@@ -23,11 +23,11 @@ class Posts
     #[Groups(groups: ['posts.show'])]
     private ?string $title = null;
 
-    #[ORM\Column(type:'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     #[Groups(groups: ['posts.show'])]
     private ?string $slug = null;
 
-    #[ORM\Column(type:'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups(groups: ['posts.show'])]
     private ?string $summary = null;
 

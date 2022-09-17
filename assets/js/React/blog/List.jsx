@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {createRoot} from "react-dom/client";
-// import Tags from "../components/Tags";
 import Pagination from "../components/Pagination";
-import Tag from "../components/Tag";
+import Tags from "./Tags";
 
 function Posts (props) {
     const [datas, setDatas] = useState([]);
@@ -50,23 +49,23 @@ function Posts (props) {
                     </h2>
 
                     <p className="post-metadata">
-                    <span className="metadata">
-                        <i className="fa fa-calendar"></i> {post.publishedAtLocal}
-                    </span>
-                        <span className="metadata"><i className="fa fa-user"></i> {post.author.fullName}</span>
+                        <span className="metadata me-3">
+                            <i className="bi bi-calendar"></i> {post.publishedAtLocal}
+                        </span>
+                        <span className="metadata"><i className="bi bi-people"></i> {post.author.username}</span>
                     </p>
 
                     <p>{post.summary}</p>
 
-                    <Tag list={post.tags} />
+                    <Tags list={post.tags} />
                 </article>
                 )}
 
                 {itemsPerPage < datas.length &&
                     <Pagination currentPage={currentPage}
-                    itemsPerPage={itemsPerPage}
-                    length={datas.length}
-                    onPageChanged={handlePageChange}
+                                itemsPerPage={itemsPerPage}
+                                length={datas.length}
+                                onPageChanged={handlePageChange}
                     />
                 }
             </>}
