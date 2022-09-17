@@ -506,3 +506,6 @@ hebdoo:
   language:
     label: "langue"
     placeholder: "langue"
+
+posts:
+  slug_unique: "Un article de blog avec le même nom a déjà été posté"

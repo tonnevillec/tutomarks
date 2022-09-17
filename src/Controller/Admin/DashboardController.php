@@ -9,6 +9,7 @@ use App\Entity\Events;
 use App\Entity\Hebdoo;
 use App\Entity\HebdooSemaine;
 use App\Entity\Languages;
+use App\Entity\Posts;
 use App\Entity\SimpleLinks;
 use App\Entity\Tags;
 use App\Entity\Users;
@@ -62,6 +63,9 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('YoutubeLinks', 'fas fa-list', YoutubeLinks::class),
             MenuItem::linkToCrud('Events', 'fas fa-list', Events::class),
         ]);
+
+        yield MenuItem::section('');
+        yield MenuItem::linkToCrud('Blog', 'fas fa-list', Posts::class);
 
         yield MenuItem::section('Hebdoo');
         yield MenuItem::linkToCrud('Ressource', 'fas fa-list', Hebdoo::class);

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Blog{% endblock %}
+
+{% block body %}
+<section class="mt-4 mb-3">
+    <div class="container">
+        <div class="section-heading style-2 my-4">
+            <h1 class="h1">
+                <span class="text-primary me-2"><i class="bi bi-bootstrap"></i></span>Blog
+            </h1>
+            <div class="line"></div>
+        </div>
+
+        <posts-component data-url="{{ path('blog.post', {'slug' : '__slug__'}) }}"></posts-component>
+
+    </div>
+</section>
+{% endblock %}

@@ -7,6 +7,7 @@ require('tom-select');
 import './React/events/events';
 import './React/tagscloud/tagscloud';
 import './React/hebdoo/List';
+import './React/blog/List';
 
 (function () {
 
