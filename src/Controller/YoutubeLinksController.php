@@ -12,6 +12,7 @@ use App\Form\YoutubeLinksType;
 use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -119,6 +120,35 @@ class YoutubeLinksController extends AbstractController
         return $this->render('youtube_links/add.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/addPlaylist', name: 'ytlinks.playlist.add')]
+    public function addPlaylist(): Response
+    {
+        return $this->render('youtube_links/playlist_add.html.twig');
+    }
+
+    #[Route('/search/playlist/{search}', name: 'ytlinks.playlist.api.search', methods: ['GET'])]
+    public function searchPlaylist(string $search): JsonResponse
+    {
+        $data = [];
+        $playlist = $this->apiService->getPlaylistInformations($search);
+
+        if ($playlist[0]) {
+            $infos = [
+                'title' => $playlist[0]['snippet']['title'],
+                'channelId' => $playlist[0]['snippet']['channelId'],
+                'channelTitle' => $playlist[0]['snippet']['channelTitle'],
+                'thumbnails' => $playlist[0]['snippet']['thumbnails'],
+            ];
+
+            $items = $this->apiService->getPlaylistItemsInformations($search);
+
+            $data['infos'] = $infos;
+            $data['items'] = $items;
+        }
+
+        return $this->json(['data' => $data]);
     }
 
     #[Route('/edit/{id}', name: 'ytlinks.edit')]

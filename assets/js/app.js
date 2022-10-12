@@ -8,6 +8,7 @@ import './React/events/events';
 import './React/tagscloud/tagscloud';
 import './React/hebdoo/List';
 import './React/blog/List';
+import './React/playlists/add';
 
 (function () {
 

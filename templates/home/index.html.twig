@@ -198,53 +198,6 @@
                             {% for ressource in hebdoo.ressources %}
                                 {{ include('home/_card_hebdoo.html.twig', {'link': ressource}) }}
                             {% endfor %}
-{#                            <div class="list-group">#}
-{#                                {% for ressource in hebdoo.ressources %}#}
-{#                                    <a href="{{ ressource.url }}"#}
-{#                                       class="list-group-item list-group-item-action"#}
-{#                                       title="Ouvrir la ressource dans une nouvelle fenetre"#}
-{#                                       target="_blank"#}
-{#                                       data-bs-toggle="tooltip"#}
-{#                                       data-bs-placement="top"#}
-{#                                    >#}
-{#                                        <strong>{{ ressource.title }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i><br>#}
-
-{#                                        <div class="video-informations p-1">#}
-{#                                        {% if ressource.language %}#}
-{#                                        <a href="{{ path('search', {'languages': ressource.language.id}) }}">#}
-{#                                            {% if ressource.language.logo %}#}
-{#                                                <img src="{{ vich_uploader_asset(ressource.language, 'imageFile') }}"#}
-{#                                                     class="img-fluid flag-tag"#}
-{#                                                     alt="{{ ressource.language }}"#}
-{#                                                     title="{{ ressource.language }}"#}
-{#                                                     data-toggle="tooltip"#}
-{#                                                     data-placement="top"#}
-{#                                                />#}
-{#                                            {% else %}#}
-{#                                                <span class="badge bg-primary rounded"#}
-{#                                                      title="{{ ressource.language }}"#}
-{#                                                      data-toggle="tooltip"#}
-{#                                                      data-placement="top"#}
-{#                                                >{{ ressource.language }}</span>#}
-{#                                            {% endif %}#}
-{#                                        </a>#}
-{#                                        {% endif %}#}
-
-{#                                        {% for tag in ressource.tags %}#}
-{#                                            <a href="{{ path('search', {'tags[]': tag.id}) }}">#}
-{#                                                <span class="badge bg-primary rounded"#}
-{#                                                      title="{{ tag }}"#}
-{#                                                      data-toggle="tooltip"#}
-{#                                                      data-placement="top"#}
-{#                                                >{{ tag }}</span>#}
-{#                                            </a>#}
-{#                                        {% endfor %}#}
-{#                                        </div>#}
-
-{#                                        par {{ ressource.pseudo }}#}
-{#                                    </a>#}
-{#                                {% endfor %}#}
-{#                            </div>#}
                         </div>
                     </div>
                 </div>

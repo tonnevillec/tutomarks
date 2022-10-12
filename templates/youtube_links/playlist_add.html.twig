@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}[Tutomarks] Nouvelle playlist{% endblock %}
+
+{% block body %}
+    <section class="my-4">
+
+        <div class="container">
+            <h1 class="h1 mb-3 fw-bold"><i class="bi bi-youtube me-1 text-primary"></i> {{ 'ytlinks.playlist.add.title'|trans|capitalize }}</h1>
+
+            <playlistadd-component></playlistadd-component>
+        </div>
+    </section>
+{% endblock %}

@@ -9,13 +9,10 @@ use Google_Service_YouTube_VideoSnippet;
 
 class CallApiService
 {
-    private string $key;
-    private string $appName;
-
-    public function __construct(string $appName, string $key)
-    {
-        $this->appName = $appName;
-        $this->key = $key;
+    public function __construct(
+        private string $appName,
+        private string $key
+    ) {
     }
 
     public function getYoutubeId($url): mixed
@@ -58,6 +55,32 @@ class CallApiService
         $response = $service->channels->listChannels('snippet,contentDetails', $queryParams);
 
         return 0 === $response['pageInfo']['totalResults'] ? null : $response->getItems()[0]->getSnippet();
+    }
+
+    public function getPlaylistInformations(string $id): ?array
+    {
+        $service = $this->getYoutubeApi();
+
+        $queryParams = [
+            'id' => $id,
+        ];
+
+        $response = $service->playlists->listPlaylists('snippet,contentDetails', $queryParams);
+
+        return 0 === $response['pageInfo']['totalResults'] ? null : $response->getItems();
+    }
+
+    public function getPlaylistItemsInformations(string $id): ?array
+    {
+        $service = $this->getYoutubeApi();
+
+        $queryParams = [
+            'playlistId' => $id,
+        ];
+
+        $response = $service->playlistItems->listPlaylistItems('snippet,contentDetails', $queryParams);
+
+        return 0 === $response['pageInfo']['totalResults'] ? null : $response->getItems();
     }
 
     private function getYoutubeApi(): Google_Service_YouTube
