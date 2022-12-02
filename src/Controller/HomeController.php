@@ -174,4 +174,18 @@ class HomeController extends AbstractController
 
         return $this->json($posts, 200, [], ['groups' => 'posts.show']);
     }
+
+    #[Route('/concours/noel2022', name: 'concours.noel', methods: ['GET'])]
+    public function concoursNoel(): Response
+    {
+        return $this->render('home/concours_noel.html.twig');
+    }
+
+    #[Route('/concours/noel2022', name: 'concours.noel.validation', methods: ['POST'])]
+    public function validConcoursNoel(Request $request): RedirectResponse
+    {
+        dump($request);
+        $this->addFlash('success', 'Bravo ta participation est bien enregistrée');
+        return $this->redirectToRoute('concours.noel');
+    }
 }

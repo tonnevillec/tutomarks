@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TutoMarks : {{ 'about.title'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+<div class="container mt-3 text-center">
+    <h1 class="h1 my-3">#ConcoursNoelTutomarks</h1>
+
+    <p class="mb-3">
+        Félicitation tu as trouvé la page qui va te permettre de participer au concours de Noel 2022 pour tenter de remporter ta place pour l'AFUP Day 2023 à Lille ou à Lyon selon tes possibilités!
+
+        <br /><br/>
+        <span class="fw-bold fs-4">Je te demande de ne participer à ce tirage au sort que si tu as la possibilité de te rendre à l'un ou l'autre des événements afin que la place ne soit pas perdu et inutile.</span>
+        <br/><br/>
+
+        Si tu ne peux pas y aller, tu peux participer au <a href="#" target="_blank">tirage au sort Twitter</a> pour tenter de gagner une des formations proposée par les partenaires de l'opération.
+    </p>
+    <p>
+        <h3>Réglement du jeu:</h3>
+        <br/>
+        Pour participer, c'est très simple.
+        <br/>
+        <ul>
+            <li>Indique ton @ Twitter dans le champs ci-dessous</li>
+            <li>Follow les comptes Twitter <a href="https://twitter.com/tutomarks" target="_blank">@tutomarks</a> et <a href="https://twitter.com/afup" target="_blank">@afup</a></li>
+            <li>Une seule participation par compte</li>
+            <li>Tirage au sort le Lundi 26 Décembre</li>
+        </ul>
+        <br/>
+        <br/>
+        <span class="text-danger">Note importante: La base utilisée pour le concours sera supprimée à la fin du concours, je ne conserverais aucune information ne t'en fais pas.</span>
+    </p>
+
+    <form name="f_concours" method="post" action="{{ path('concours.noel.validation') }}" class="row g-2 align-items-center">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-floating">
+                <input type="text" name="compte_twitter" id="labelCompte" placeholder="Compte Twitter (ex: @pseudo)" class="form-control" required />
+                <label for="labelCompte">Compte Twitter (ex: @pseudo)</label>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-success">Valider ma participation</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
