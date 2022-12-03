@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Authors;
 use App\Entity\Categories;
+use App\Entity\Concours;
+use App\Entity\ConcoursParticipants;
 use App\Entity\Events;
 use App\Entity\Hebdoo;
 use App\Entity\HebdooSemaine;
@@ -178,14 +180,38 @@ class HomeController extends AbstractController
     #[Route('/concours/noel2022', name: 'concours.noel', methods: ['GET'])]
     public function concoursNoel(): Response
     {
-        return $this->render('home/concours_noel.html.twig');
+        $concours = $this->em->getRepository(Concours::class)->findOneBy(['isOpen' => true]);
+        if (!$concours) {
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('home/concours_noel.html.twig', [
+            'concours' => $concours,
+        ]);
     }
 
     #[Route('/concours/noel2022', name: 'concours.noel.validation', methods: ['POST'])]
     public function validConcoursNoel(Request $request): RedirectResponse
     {
-        dump($request);
+        $concours = $this->em->getRepository(Concours::class)->findOneBy(['isOpen' => true]);
+        if (!$concours) {
+            return $this->redirectToRoute('home');
+        }
+
+        if (!$request->request->has('compte_twitter') or '' === $request->request->get('compte_twitter')) {
+            $this->addFlash('danger', 'Il faut saisir son compte Twitter pour participer');
+            $this->redirectToRoute('concours.noel');
+        }
+
+        $participant = (new ConcoursParticipants())
+            ->setConcours($concours)
+            ->setTwitterAccount($request->request->get('compte_twitter'))
+        ;
+        $this->em->persist($participant);
+        $this->em->flush();
+
         $this->addFlash('success', 'Bravo ta participation est bien enregistrée');
-        return $this->redirectToRoute('concours.noel');
+
+        return $this->redirectToRoute('home');
     }
 }

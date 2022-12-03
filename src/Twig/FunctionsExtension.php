@@ -4,6 +4,7 @@ namespace App\Twig;
 
 use App\Entity\Authors;
 use App\Entity\Categories;
+use App\Entity\Concours;
 use App\Entity\Links;
 use App\Repository\YoutubeLinksRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,6 +27,7 @@ class FunctionsExtension extends AbstractExtension
         $default = ['is_safe' => ['html']];
 
         return [
+            new TwigFunction('isConcoursOpen', [$this, 'isConcoursOpen'], $default),
             new TwigFunction('categoryIcon', [$this, 'getCategoryIcon'], $default),
             new TwigFunction('countForCategory', [$this, 'getCountForCategory'], $default),
             new TwigFunction('countForAuthors', [$this, 'getCountForAuthors'], $default),
@@ -40,6 +42,13 @@ class FunctionsExtension extends AbstractExtension
             new TwigFunction('categoryArray', [$this, 'categoryArray'], $default),
             new TwigFunction('twitter', [$this, 'twitter'], $default),
         ];
+    }
+
+    public function isConcoursOpen(): bool
+    {
+        $concours = $this->em->getRepository(Concours::class)->findOneBy(['isOpen' => true]);
+
+        return (bool) $concours;
     }
 
     public function getCountForCategory(string $code): string

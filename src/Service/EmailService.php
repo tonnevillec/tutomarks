@@ -6,12 +6,12 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
 
 class EmailService
 {
     public function __construct(private readonly MailerInterface $mailer)
-    {}
+    {
+    }
 
     public function send(string $to, string $subject, string $template, array $context = []): void
     {

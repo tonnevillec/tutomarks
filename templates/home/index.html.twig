@@ -176,21 +176,36 @@
                     <div class="col">
                         <div class="section-heading style-2 my-4">
                             <h2 class="h2" id="section_hebdoo">
-                                <span class="text-primary me-2"><i class="bi bi-h-square"></i></span>{{ 'home.hebdoo'|trans|capitalize }}
+                                {% if isConcoursOpen() %}
+                                    <span class="text-primary me-2"><i class="bi bi-gift"></i></span>Concours:
+                                {% else %}
+                                    <span class="text-primary me-2"><i class="bi bi-h-square"></i></span>{{ 'home.hebdoo'|trans|capitalize }}
+                                {% endif %}
                             </h2>
                             <div class="line"></div>
                         </div>
 
                         <div class="row pb-1">
                             <h3 class="h3">
-                                <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
-                                   class="text-decoration-none"
-                                   data-bs-toggle="tooltip"
-                                   data-bs-placement="top"
-                                   title="Accèder à la vidéo Hebdoo.fr sur Youtube"
-                                   target="_blank">
-                                    Semaine du {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
-                                </a>
+                                {% if isConcoursOpen() %}
+                                    <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
+                                       class="text-decoration-none"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="Accèder à la vidéo de présentation des lots sur Youtube"
+                                       target="_blank">
+                                        {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
+                                       class="text-decoration-none"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="Accèder à la vidéo Hebdoo.fr sur Youtube"
+                                       target="_blank">
+                                        Semaine du {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                {% endif %}
                             </h3>
                         </div>
 
@@ -198,53 +213,6 @@
                             {% for ressource in hebdoo.ressources %}
                                 {{ include('home/_card_hebdoo.html.twig', {'link': ressource}) }}
                             {% endfor %}
-{#                            <div class="list-group">#}
-{#                                {% for ressource in hebdoo.ressources %}#}
-{#                                    <a href="{{ ressource.url }}"#}
-{#                                       class="list-group-item list-group-item-action"#}
-{#                                       title="Ouvrir la ressource dans une nouvelle fenetre"#}
-{#                                       target="_blank"#}
-{#                                       data-bs-toggle="tooltip"#}
-{#                                       data-bs-placement="top"#}
-{#                                    >#}
-{#                                        <strong>{{ ressource.title }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i><br>#}
-
-{#                                        <div class="video-informations p-1">#}
-{#                                        {% if ressource.language %}#}
-{#                                        <a href="{{ path('search', {'languages': ressource.language.id}) }}">#}
-{#                                            {% if ressource.language.logo %}#}
-{#                                                <img src="{{ vich_uploader_asset(ressource.language, 'imageFile') }}"#}
-{#                                                     class="img-fluid flag-tag"#}
-{#                                                     alt="{{ ressource.language }}"#}
-{#                                                     title="{{ ressource.language }}"#}
-{#                                                     data-toggle="tooltip"#}
-{#                                                     data-placement="top"#}
-{#                                                />#}
-{#                                            {% else %}#}
-{#                                                <span class="badge bg-primary rounded"#}
-{#                                                      title="{{ ressource.language }}"#}
-{#                                                      data-toggle="tooltip"#}
-{#                                                      data-placement="top"#}
-{#                                                >{{ ressource.language }}</span>#}
-{#                                            {% endif %}#}
-{#                                        </a>#}
-{#                                        {% endif %}#}
-
-{#                                        {% for tag in ressource.tags %}#}
-{#                                            <a href="{{ path('search', {'tags[]': tag.id}) }}">#}
-{#                                                <span class="badge bg-primary rounded"#}
-{#                                                      title="{{ tag }}"#}
-{#                                                      data-toggle="tooltip"#}
-{#                                                      data-placement="top"#}
-{#                                                >{{ tag }}</span>#}
-{#                                            </a>#}
-{#                                        {% endfor %}#}
-{#                                        </div>#}
-
-{#                                        par {{ ressource.pseudo }}#}
-{#                                    </a>#}
-{#                                {% endfor %}#}
-{#                            </div>#}
                         </div>
                     </div>
                 </div>

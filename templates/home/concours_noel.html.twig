@@ -4,16 +4,16 @@
 
 {% block body %}
 <div class="container mt-3 text-center">
-    <h1 class="h1 my-3">#ConcoursNoelTutomarks</h1>
+    <h1 class="h1 my-3">{{ concours.title }}</h1>
 
     <p class="mb-3">
-        Félicitation tu as trouvé la page qui va te permettre de participer au concours de Noel 2022 pour tenter de remporter ta place pour l'AFUP Day 2023 à Lille ou à Lyon selon tes possibilités!
+        <span class="fs-3">Félicitation !</span> tu as trouvé la page qui va te permettre de participer au concours de Noel 2022 pour tenter de remporter ta place pour l'AFUP Day 2023 à Lille ou à Lyon selon tes possibilités!
 
         <br /><br/>
         <span class="fw-bold fs-4">Je te demande de ne participer à ce tirage au sort que si tu as la possibilité de te rendre à l'un ou l'autre des événements afin que la place ne soit pas perdu et inutile.</span>
         <br/><br/>
 
-        Si tu ne peux pas y aller, tu peux participer au <a href="#" target="_blank">tirage au sort Twitter</a> pour tenter de gagner une des formations proposée par les partenaires de l'opération.
+        Si tu sais déjà que tu ne pourras pas te rendre à l'un des deux événements, tu peux participer au <a href="{{ concours.postTwitter }}" target="_blank">tirage au sort Twitter</a> pour tenter de gagner une des formations proposée par les partenaires de l'opération.
     </p>
     <p>
         <h3>Réglement du jeu:</h3>
