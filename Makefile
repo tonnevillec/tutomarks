@@ -42,10 +42,10 @@ composer-dump-env-dev:
 
 # DOCKER
 docker-start:
-	docker-compose up -d
+	docker compose up -d
 
 docker-stop:
-	docker-compose stop
+	docker compose stop
 
 # docker-status:
 #    sudo docker-compose ps

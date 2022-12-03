@@ -5,6 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Attachments;
 use App\Entity\Authors;
 use App\Entity\Categories;
+use App\Entity\Conferences;
+use App\Entity\ConfEventPlaylist;
+use App\Entity\ConfEvents;
 use App\Entity\Events;
 use App\Entity\Hebdoo;
 use App\Entity\HebdooSemaine;
@@ -70,6 +73,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Hebdoo');
         yield MenuItem::linkToCrud('Ressource', 'fas fa-list', Hebdoo::class);
         yield MenuItem::linkToCrud('Hebdoo de la semaine', 'fas fa-list', HebdooSemaine::class);
+
+        yield MenuItem::section('Conférences');
+        yield MenuItem::linkToCrud('Conférences', 'fas fa-list', Conferences::class);
+        yield MenuItem::linkToCrud('Evènements', 'fas fa-list', ConfEvents::class);
+        yield MenuItem::linkToCrud('Playlists', 'fas fa-list', ConfEventPlaylist::class);
 
         yield MenuItem::section('Analytic');
         yield MenuItem::linkToUrl('Matomo', 'fas fa-chart-line', $this->param->get('matomo'));
