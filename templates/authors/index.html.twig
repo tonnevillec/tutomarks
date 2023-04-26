@@ -40,6 +40,8 @@
             <div class="row pb-3">
                 {% for author in authors %}
                     {{ include('home/_creator_card.html.twig', {'author': author, 'xclass': 'col-sm-12 col-md-6 col-lg-4'}) }}
+                {% else %}
+                    <p>Aucun créateur n'a été trouvé</p>
                 {% endfor %}
             </div>
 

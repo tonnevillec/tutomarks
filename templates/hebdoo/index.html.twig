@@ -3,73 +3,83 @@
 {% block title %}[Tutomarks] Hebdoo de la semaine{% endblock %}
 
 {% block body %}
-    <section class="mt-4 mb-3">
-        <div class="container">
-            <div class="section-heading style-2 my-4">
-                <h1 class="h1">
-                    {% if isConcoursOpen() %}
-                        <span class="text-primary me-2"><i class="bi bi-gift"></i></span>Présentation du concours:
-                    {% else %}
-                        <span class="text-primary me-2"><i class="bi bi-h-square"></i></span>Hebdoo de la semaine:
-                    {% endif %}
-                    <span class="bg-faded-primary rounded-4 text-primary px-3 py-2">{{ hebdoo.title }}</span>
-                </h1>
-                <div class="line"></div>
+    {% if hebdoo %}
+        <section class="mt-4 mb-3">
+            <div class="container">
+                <div class="section-heading style-2 my-4">
+                    <h1 class="h1">
+                        {% if isConcoursOpen() %}
+                            <span class="text-primary me-2"><i class="bi bi-gift"></i></span>Présentation du concours:
+                        {% else %}
+                            <span class="text-primary me-2"><i class="bi bi-h-square"></i></span>Hebdoo de la semaine:
+                        {% endif %}
+                        <span class="bg-faded-primary rounded-4 text-primary px-3 py-2">{{ hebdoo.title }}</span>
+                    </h1>
+                    <div class="line"></div>
+                </div>
+
+                <div class="row mt-2 mb-3">
+                    {% set yturl = "https://www.youtube.com/watch?v=" ~ hebdoo.youtube %}
+                    {{ yturl|youtube_player|raw }}
+                </div>
+
+                <div class="list-group">
+                        {% for ressource in hebdoo.ressources %}
+                            <div class="list-group-item my-2 rounded-10 card-hover">
+                                <div class="mb-1">
+                                    <a href="{{ ressource.url }}"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    target="_blank"
+                                    title="{{ 'links.target_blank'|trans|capitalize }} - {{ ressource.title }}"
+                                    class="text-decoration-none">
+                                        <strong>{{ ressource.title }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </div>
+
+                                <div class="video-meta small mb-2">
+                                    {% if ressource.language %}
+                                        {% if ressource.language.logo %}
+                                            <img src="{{ vich_uploader_asset(ressource.language, 'imageFile') }}"
+                                                class="img-fluid flag-tag"
+                                                alt="{{ ressource.language }}"
+                                                title="{{ ressource.language }}"
+                                                data-toggle="tooltip"
+                                                data-placement="top"
+                                            />
+                                        {% else %}
+                                            <span class="badge bg-primary rounded"
+                                                title="{{ ressource.language }}"
+                                                data-toggle="tooltip"
+                                                data-placement="top"
+                                            >{{ ressource.language }}</span>
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% for tag in ressource.tags %}
+                                        <span class="badge bg-primary rounded"
+                                            title="{{ tag }}"
+                                            data-toggle="tooltip"
+                                            data-placement="top"
+                                        >{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="video-meta small mb-2">
+                                    Ressource partagée par {{ ressource.pseudo }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <p>Aucune ressource partagée pour le moment.</p>
+                        {% endfor %}
+                </div>
             </div>
-
-            <div class="row mt-2 mb-3">
-                {% set yturl = "https://www.youtube.com/watch?v=" ~ hebdoo.youtube %}
-                {{ yturl|youtube_player|raw }}
+        </section>
+    {% else %}
+        <section class="mt-5">
+            <div class="container text-center">
+                <p>Aucune ressource partagée pour le moment.</p>
             </div>
-
-            <div class="list-group">
-                {% for ressource in hebdoo.ressources %}
-                    <div class="list-group-item my-2 rounded-10 card-hover">
-                        <div class="mb-1">
-                            <a href="{{ ressource.url }}"
-                               data-bs-toggle="tooltip"
-                               data-bs-placement="top"
-                               target="_blank"
-                               title="{{ 'links.target_blank'|trans|capitalize }} - {{ ressource.title }}"
-                               class="text-decoration-none">
-                                <strong>{{ ressource.title }}</strong><i class="ms-1 bi bi-box-arrow-up-right"></i>
-                            </a>
-                        </div>
-
-                        <div class="video-meta small mb-2">
-                            {% if ressource.language %}
-                                {% if ressource.language.logo %}
-                                    <img src="{{ vich_uploader_asset(ressource.language, 'imageFile') }}"
-                                         class="img-fluid flag-tag"
-                                         alt="{{ ressource.language }}"
-                                         title="{{ ressource.language }}"
-                                         data-toggle="tooltip"
-                                         data-placement="top"
-                                    />
-                                {% else %}
-                                    <span class="badge bg-primary rounded"
-                                          title="{{ ressource.language }}"
-                                          data-toggle="tooltip"
-                                          data-placement="top"
-                                    >{{ ressource.language }}</span>
-                                {% endif %}
-                            {% endif %}
-
-                            {% for tag in ressource.tags %}
-                                <span class="badge bg-primary rounded"
-                                      title="{{ tag }}"
-                                      data-toggle="tooltip"
-                                      data-placement="top"
-                                >{{ tag }}</span>
-                            {% endfor %}
-                        </div>
-
-                        <div class="video-meta small mb-2">
-                            Ressource partagée par {{ ressource.pseudo }}
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
 {% endblock %}

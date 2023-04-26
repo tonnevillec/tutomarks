@@ -45,6 +45,8 @@
             <div class="row pb-3">
                 {% for yt in youtubelinks %}
                     {{ include('home/_card_simplelinks.html.twig', { 'link': yt }) }}
+                {% else %}
+                    <p class="text-center">Aucune vidéo pour le moment</p>
                 {% endfor %}
             </div>
 
@@ -69,6 +71,8 @@
                 <div class="row pb-3">
                     {% for author in authors %}
                         {{ include('home/_creator_card.html.twig', {'author': author}) }}
+                    {% else %}
+                        <p class="text-center">Aucun créateur pour le moment</p>
                     {% endfor %}
                 </div>
 
@@ -116,6 +120,8 @@
                         <div class="row pb-3">
                             {% for ressource in ressources %}
                                 {{ include('home/_card_ressources.html.twig', {'link': ressource}) }}
+                            {% else %}
+                                <p class="text-center">Aucune ressource pour le moment</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -187,32 +193,40 @@
 
                         <div class="row pb-1">
                             <h3 class="h3">
-                                {% if isConcoursOpen() %}
-                                    <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
-                                       class="text-decoration-none"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="Accèder à la vidéo de présentation des lots sur Youtube"
-                                       target="_blank">
-                                        {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
-                                    </a>
-                                {% else %}
-                                    <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
-                                       class="text-decoration-none"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="Accèder à la vidéo Hebdoo.fr sur Youtube"
-                                       target="_blank">
-                                        Semaine du {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
-                                    </a>
+                                {% if hebdoo %}                            
+                                    {% if isConcoursOpen() %}
+                                        <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
+                                        class="text-decoration-none"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Accèder à la vidéo de présentation des lots sur Youtube"
+                                        target="_blank">
+                                            {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
+                                        </a>
+                                    {% else %}
+                                        <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
+                                        class="text-decoration-none"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Accèder à la vidéo Hebdoo.fr sur Youtube"
+                                        target="_blank">
+                                            Semaine du {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
                             </h3>
                         </div>
 
                         <div class="row pb-3">
-                            {% for ressource in hebdoo.ressources %}
-                                {{ include('home/_card_hebdoo.html.twig', {'link': ressource}) }}
-                            {% endfor %}
+                            {% if hebdoo %}
+                                {% for ressource in hebdoo.ressources %}
+                                    {{ include('home/_card_hebdoo.html.twig', {'link': ressource}) }}
+                                {% else %}
+                                    <p>Aucune ressource pour le moment</p>
+                                {% endfor %}
+                            {% else %}
+                                <p>Aucune ressource pour le moment</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -241,6 +255,8 @@
                     <div class="row pb-3 pe-2">
                         {% for article in articles %}
                             {{ include('home/_minimal_infos.html.twig', {'link': article}) }}
+                        {% else %}
+                            <p class="text-center">Aucun article pour le moment</p>
                         {% endfor %}
                     </div>
 
@@ -273,6 +289,8 @@
                     <div class="row pb-3 pe-2">
                         {% for podcast in podcasts %}
                             {{ include('home/_minimal_infos.html.twig', {'link': podcast}) }}
+                        {% else %}
+                            <p class="text-center">Aucun podcast pour le moment</p>
                         {% endfor %}
                     </div>
 
@@ -309,6 +327,8 @@
                     <div class="row pb-3 pe-3">
                         {% for formation in formations %}
                             {{ include('home/_minimal_infos.html.twig', {'link': formation}) }}
+                        {% else %}
+                            <p class="text-center">Aucune formation pour le moment</p>
                         {% endfor %}
                     </div>
 
