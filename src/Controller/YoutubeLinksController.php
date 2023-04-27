@@ -11,6 +11,7 @@ use App\Form\YoutubeLinksEditType;
 use App\Form\YoutubeLinksType;
 use App\Service\CallApiService;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,7 @@ class YoutubeLinksController extends AbstractController
     }
 
     #[Route('/addYtLink', name: 'ytlinks.add')]
+    #[IsGranted('ROLE_USER')]
     public function add(Request $request): Response
     {
         $ytLink = new YoutubeLinks();
@@ -122,6 +124,7 @@ class YoutubeLinksController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'ytlinks.edit')]
+    #[IsGranted('ROLE_USER')]
     public function edit(Request $request, YoutubeLinks $ytLink)
     {
         $this->denyAccessUnlessGranted('link_edit', $ytLink);
