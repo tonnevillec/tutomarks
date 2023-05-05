@@ -117,10 +117,10 @@ stan: ## Run PHPStan
 	@$(PHPSTAN) analyse -c configuration/phpstan.neon --memory-limit 1G
 
 lint-php: ## Lint files with php-cs-fixer
-	/usr/bin/php8.2 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
+	PHP_CS_FIXER_IGNORE_ENV=1 /usr/bin/php8.2 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
 
 fix-php: ## Fix files with php-cs-fixer
-	/usr/bin/php8.2 ./vendor/bin/php-cs-fixer fix --allow-risky=yes
+	PHP_CS_FIXER_IGNORE_ENV=1 /usr/bin/php8.2 ./vendor/bin/php-cs-fixer fix --allow-risky=yes
 
 lint-js: ## Lints JS coding standards
 	@$(NPX) eslint assets/js
