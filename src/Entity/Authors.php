@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\AuthorsRepository;
 use Cocur\Slugify\Slugify;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -49,7 +48,7 @@ class Authors
     private Collection $links;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?DateTime $updatedAt;
+    private ?\DateTime $updatedAt;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $yt_logo;
@@ -63,7 +62,7 @@ class Authors
     public function __construct()
     {
         $this->links = new ArrayCollection();
-        $this->updatedAt = new DateTime();
+        $this->updatedAt = new \DateTime();
         $this->events = new ArrayCollection();
     }
 
@@ -207,12 +206,12 @@ class Authors
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTime
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?DateTime $updatedAt): Authors
+    public function setUpdatedAt(?\DateTime $updatedAt): Authors
     {
         $this->updatedAt = $updatedAt;
 

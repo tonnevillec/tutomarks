@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\EventsRepository;
-use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,7 +27,7 @@ class Events
 
     #[ORM\Column(type: 'datetime')]
     #[Groups(groups: ['show_events'])]
-    private ?DateTimeInterface $started_at;
+    private ?\DateTimeInterface $started_at;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Url]
@@ -41,7 +40,7 @@ class Events
 
     #[ORM\Column(type: 'datetime')]
     #[Groups(groups: ['show_events'])]
-    private ?DateTimeInterface $published_at;
+    private ?\DateTimeInterface $published_at;
 
     #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
@@ -102,12 +101,12 @@ class Events
         return $this;
     }
 
-    public function getStartedAt(): ?DateTimeInterface
+    public function getStartedAt(): ?\DateTimeInterface
     {
         return $this->started_at;
     }
 
-    public function setStartedAt(DateTimeInterface $started_at): self
+    public function setStartedAt(\DateTimeInterface $started_at): self
     {
         $this->started_at = $started_at;
 
@@ -138,12 +137,12 @@ class Events
         return $this;
     }
 
-    public function getPublishedAt(): ?DateTimeInterface
+    public function getPublishedAt(): ?\DateTimeInterface
     {
         return $this->published_at;
     }
 
-    public function setPublishedAt(DateTimeInterface $published_at): self
+    public function setPublishedAt(\DateTimeInterface $published_at): self
     {
         $this->published_at = $published_at;
 

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\AttachmentsRepository;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -24,11 +23,11 @@ class Attachments
     private ?File $imageFile;
 
     #[ORM\Column(type: 'datetime')]
-    private DateTime $updatedAt;
+    private \DateTime $updatedAt;
 
     public function __construct()
     {
-        $this->updatedAt = new DateTime('now');
+        $this->updatedAt = new \DateTime('now');
         $this->image = '';
         $this->imageFile = null;
     }
@@ -50,12 +49,12 @@ class Attachments
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTime
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(DateTime $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -67,7 +66,7 @@ class Attachments
         $this->imageFile = $image;
 
         if ($image) {
-            $this->updatedAt = new DateTime('now');
+            $this->updatedAt = new \DateTime('now');
         }
     }
 
