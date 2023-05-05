@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,10 +38,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $is_actif = true;
 
     #[ORM\Column(type: 'datetime')]
-    private ?DateTime $created_at;
+    private ?\DateTime $created_at;
 
     #[ORM\Column(type: 'datetime')]
-    private ?DateTime $last_connection;
+    private ?\DateTime $last_connection;
 
     #[ORM\Column(name: 'username', type: 'string', length: 255, nullable: true)]
     #[Groups(groups: ['posts.show'])]
@@ -161,24 +160,24 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTime
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(DateTime $created_at): self
+    public function setCreatedAt(\DateTime $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getLastConnection(): ?DateTime
+    public function getLastConnection(): ?\DateTime
     {
         return $this->last_connection;
     }
 
-    public function setLastConnection(DateTime $last_connection): self
+    public function setLastConnection(\DateTime $last_connection): self
     {
         $this->last_connection = $last_connection;
 

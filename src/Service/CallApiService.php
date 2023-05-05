@@ -2,11 +2,6 @@
 
 namespace App\Service;
 
-use Google_Client;
-use Google_Service_YouTube;
-use Google_Service_YouTube_ChannelSnippet;
-use Google_Service_YouTube_VideoSnippet;
-
 class CallApiService
 {
     private string $key;
@@ -34,7 +29,7 @@ class CallApiService
         return $id;
     }
 
-    public function getVideoInformations($id): ?Google_Service_YouTube_VideoSnippet
+    public function getVideoInformations($id): ?\Google_Service_YouTube_VideoSnippet
     {
         $service = $this->getYoutubeApi();
 
@@ -47,7 +42,7 @@ class CallApiService
         return 0 === $response['pageInfo']['totalResults'] ? null : $response->getItems()[0]->getSnippet();
     }
 
-    public function getChannelInformations($id): ?Google_Service_YouTube_ChannelSnippet
+    public function getChannelInformations($id): ?\Google_Service_YouTube_ChannelSnippet
     {
         $service = $this->getYoutubeApi();
 
@@ -60,12 +55,12 @@ class CallApiService
         return 0 === $response['pageInfo']['totalResults'] ? null : $response->getItems()[0]->getSnippet();
     }
 
-    private function getYoutubeApi(): Google_Service_YouTube
+    private function getYoutubeApi(): \Google_Service_YouTube
     {
-        $client = new Google_Client();
+        $client = new \Google_Client();
         $client->setApplicationName($this->appName);
         $client->setDeveloperKey($this->key);
 
-        return new Google_Service_YouTube($client);
+        return new \Google_Service_YouTube($client);
     }
 }

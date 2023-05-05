@@ -45,6 +45,8 @@
             <div class="row pb-3">
                 {% for yt in youtubelinks %}
                     {{ include('home/_card_simplelinks.html.twig', { 'link': yt }) }}
+                {% else %}
+                    <p class="text-center">Aucune vidéo pour le moment</p>
                 {% endfor %}
             </div>
 
@@ -69,6 +71,8 @@
                 <div class="row pb-3">
                     {% for author in authors %}
                         {{ include('home/_creator_card.html.twig', {'author': author}) }}
+                    {% else %}
+                        <p class="text-center">Aucun créateur pour le moment</p>
                     {% endfor %}
                 </div>
 
@@ -116,6 +120,8 @@
                         <div class="row pb-3">
                             {% for ressource in ressources %}
                                 {{ include('home/_card_ressources.html.twig', {'link': ressource}) }}
+                            {% else %}
+                                <p class="text-center">Aucune ressource pour le moment</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -212,6 +218,8 @@
                         <div class="row pb-3">
                             {% for ressource in hebdoo.ressources %}
                                 {{ include('home/_card_hebdoo.html.twig', {'link': ressource}) }}
+                            {% else %}
+                                <p>Aucune ressource pour le moment</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -241,6 +249,8 @@
                     <div class="row pb-3 pe-2">
                         {% for article in articles %}
                             {{ include('home/_minimal_infos.html.twig', {'link': article}) }}
+                        {% else %}
+                            <p>Aucun article pour le moment</p>
                         {% endfor %}
                     </div>
 
@@ -273,6 +283,8 @@
                     <div class="row pb-3 pe-2">
                         {% for podcast in podcasts %}
                             {{ include('home/_minimal_infos.html.twig', {'link': podcast}) }}
+                        {% else %}
+                            <p>Aucun podcast pour le moment</p>
                         {% endfor %}
                     </div>
 
@@ -309,6 +321,8 @@
                     <div class="row pb-3 pe-3">
                         {% for formation in formations %}
                             {{ include('home/_minimal_infos.html.twig', {'link': formation}) }}
+                        {% else %}
+                            <p>Aucune formation pour le moment</p>
                         {% endfor %}
                     </div>
 

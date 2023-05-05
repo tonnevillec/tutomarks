@@ -4,7 +4,7 @@ VERT:=\033[1;32m
 NORMAL:=\033[0;39m
 
 # Version PHP
-PHP_VERSION   = /usr/bin/php8.1
+PHP_VERSION   = /usr/bin/php8.2
 
 # Executables:
 PHPUNIT       = ./vendor/bin/phpunit
@@ -42,10 +42,10 @@ composer-dump-env-dev:
 
 # DOCKER
 docker-start:
-	docker-compose up -d
+	docker compose up -d
 
 docker-stop:
-	docker-compose stop
+	docker compose stop
 
 # docker-status:
 #    sudo docker-compose ps
@@ -117,10 +117,10 @@ stan: ## Run PHPStan
 	@$(PHPSTAN) analyse -c configuration/phpstan.neon --memory-limit 1G
 
 lint-php: ## Lint files with php-cs-fixer
-	/usr/bin/php8.1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
+	PHP_CS_FIXER_IGNORE_ENV=1 /usr/bin/php8.2 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
 
 fix-php: ## Fix files with php-cs-fixer
-	/usr/bin/php8.1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes
+	PHP_CS_FIXER_IGNORE_ENV=1 /usr/bin/php8.2 ./vendor/bin/php-cs-fixer fix --allow-risky=yes
 
 lint-js: ## Lints JS coding standards
 	@$(NPX) eslint assets/js
