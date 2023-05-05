@@ -13,13 +13,13 @@ env:
   ES_HTTP_PORT: 9209
 jobs:
   symfony:
-    name: Symfony 6.1 (PHP ${{ matrix.php-versions }})
+    name: Symfony 6.2 (PHP ${{ matrix.php-versions }})
     # https://hub.docker.com/_/ubuntu/
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: true
       matrix:
-        php-versions: ['8.1']
+        php-versions: ['8.2']
         node-version: [16]
 
     steps:
@@ -104,8 +104,8 @@ jobs:
       ## —— Coding standards ✨ ————————————————————————————————————————————————
       # Can't handle PHP8 for now
       - name: Coding standards checks (php_codesniffer + php-cs-fixer)
-        run: /usr/bin/php8.1 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
+        run: /usr/bin/php8.2 ./vendor/bin/php-cs-fixer fix --allow-risky=yes --dry-run
 
       ## —— Static analysis ✨ —————————————————————————————————————————————————
       - name: Static analysis of PHP code (PHPStan)
-        run: /usr/bin/php8.1 ./vendor/bin/phpstan analyse src --memory-limit 1G
+        run: /usr/bin/php8.2 ./vendor/bin/phpstan analyse src --memory-limit 1G
