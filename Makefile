@@ -4,7 +4,7 @@ VERT:=\033[1;32m
 NORMAL:=\033[0;39m
 
 # Version PHP
-PHP_VERSION   = /usr/bin/php8.1
+PHP_VERSION   = /usr/bin/php8.2
 
 # Executables:
 PHPUNIT       = ./vendor/bin/phpunit
