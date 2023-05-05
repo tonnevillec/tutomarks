@@ -15,7 +15,7 @@ jobs:
   symfony:
     name: Symfony 6.2 (PHP ${{ matrix.php-versions }})
     # https://hub.docker.com/_/ubuntu/
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: true
       matrix:
