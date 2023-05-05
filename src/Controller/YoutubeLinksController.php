@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/links')]
@@ -28,6 +29,7 @@ class YoutubeLinksController extends AbstractController
     }
 
     #[Route('/addYtLink', name: 'ytlinks.add')]
+    #[IsGranted('ROLE_USER')]
     public function add(Request $request): Response
     {
         $ytLink = new YoutubeLinks();
@@ -122,6 +124,7 @@ class YoutubeLinksController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'ytlinks.edit')]
+    #[IsGranted('ROLE_USER')]
     public function edit(Request $request, YoutubeLinks $ytLink)
     {
         $this->denyAccessUnlessGranted('link_edit', $ytLink);

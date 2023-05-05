@@ -25,6 +25,8 @@
             <div class="list-group">
                 {% for event in events %}
                     {{ include('home/_card_events.html.twig', { 'event': event}) }}
+                {% else %}
+                    <p class="text-center">Aucun événement à venir</p>
                 {% endfor %}
             </div>
         </div>
@@ -40,6 +42,8 @@
             <div class="list-group">
                 {% for event in finished %}
                     {{ include('home/_card_events.html.twig', { 'event': event}) }}
+                {% else %}
+                    <p class="text-center">Aucun événement terminés</p>
                 {% endfor %}
             </div>
         </div>

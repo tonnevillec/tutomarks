@@ -73,10 +73,10 @@ class FunctionsExtension extends AbstractExtension
 
     public function getCategoryPath(string $code): string
     {
-        $c = $this->em->getRepository(Categories::class)->findOneBy(['code' => $code]);
+        $category = $this->em->getRepository(Categories::class)->findOneBy(['code' => $code]);
 
         return $this->router->generate('search', [
-            'categories[]' => $c->getId(),
+            'categories[]' => $category?->getId(),
         ]);
     }
 
