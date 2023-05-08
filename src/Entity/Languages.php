@@ -38,42 +38,6 @@ class Languages
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getShortname(): ?string
-    {
-        return $this->shortname;
-    }
-
-    public function setShortname(?string $shortname): self
-    {
-        $this->shortname = $shortname;
-
-        return $this;
-    }
-
-    public function getLogo(): ?string
-    {
-        return $this->logo;
-    }
-
-    public function setLogo(?string $logo): self
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
     public function getLinks(): ?ArrayCollection
     {
         return $this->links;
@@ -108,10 +72,5 @@ class Languages
     public function getImageFile(): ?File
     {
         return $this->imageFile;
-    }
-
-    public function __toString(): string
-    {
-        return (string) $this->getName();
     }
 }
