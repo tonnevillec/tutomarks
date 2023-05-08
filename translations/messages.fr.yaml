@@ -40,7 +40,6 @@ home:
   channels: 'listes des créateurs'
   top-channels: 'top créateurs'
   top-tags: 'tags'
-  hebdoo: 'Hebdoo de la semaine'
   formations: 'formations'
   events: 'évenements'
 
@@ -489,23 +488,6 @@ mlt:
   link: "voir plus sur MyLittleTeam.com"
   navlink: "MyLittleTeam"
   joblink: "Retrouvez le job sur My Little Team"
-
-hebdoo:
-  title:
-    label: "titre"
-    placeholder: "titre de la ressource"
-  url:
-    label: "URL"
-    placeholder: "URL de la ressource"
-  pseudo:
-    label: "pseudo"
-    placeholder: "votre pseudo"
-  tags:
-    label: "tags"
-    placeholder: "tags"
-  language:
-    label: "langue"
-    placeholder: "langue"
 
 posts:
   slug_unique: "Un article de blog avec le même nom a déjà été posté"

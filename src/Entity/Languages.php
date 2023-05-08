@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: LanguagesRepository::class)]
@@ -18,18 +17,6 @@ class Languages
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(groups: ['show_hebdoos'])]
-    private ?string $name = null;
-
-    #[ORM\Column(type: 'string', length: 3, nullable: true)]
-    #[Groups(groups: ['show_hebdoos'])]
-    private ?string $shortname = null;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(groups: ['show_hebdoos'])]
-    private ?string $logo = null;
 
     #[ORM\OneToMany(mappedBy: 'language', targetEntity: Links::class)]
     private ?Collection $links;
