@@ -7,8 +7,6 @@ use App\Entity\Categories;
 use App\Entity\Concours;
 use App\Entity\ConcoursParticipants;
 use App\Entity\Events;
-use App\Entity\Hebdoo;
-use App\Entity\HebdooSemaine;
 use App\Entity\Links;
 use App\Entity\Posts;
 use App\Entity\Tags;
@@ -44,7 +42,6 @@ class HomeController extends AbstractController
         $formations = $this->em->getRepository(Links::class)->findLatestSimpleLinks('formations', 6);
         $ressources = $this->em->getRepository(Links::class)->findLatestSimpleLinks('ressources', 3);
         $authors = $this->em->getRepository(Authors::class)->findTop(6);
-        $hebdoo = $this->em->getRepository(HebdooSemaine::class)->findOneBy(['is_publish' => true]);
 
         return $this->render('home/index.html.twig', [
             'youtubelinks' => $youtubelinks,
@@ -53,7 +50,6 @@ class HomeController extends AbstractController
             'formations' => $formations,
             'ressources' => $ressources,
             'authors' => $authors,
-            'hebdoo' => $hebdoo,
         ]);
     }
 
@@ -159,14 +155,6 @@ class HomeController extends AbstractController
         $events = $this->em->getRepository(Events::class)->findEventsByDate(6);
 
         return $this->json($events, 200, [], ['groups' => 'show_events']);
-    }
-
-    #[Route('/api/hebdoos', name: 'api.hebdoos', methods: ['GET'])]
-    public function apiHebdoos(): JsonResponse
-    {
-        $events = $this->em->getRepository(Hebdoo::class)->findAllOrderByDate();
-
-        return $this->json($events, 200, [], ['groups' => 'show_hebdoos']);
     }
 
     #[Route('/api/posts', name: 'api.posts', methods: ['GET'])]

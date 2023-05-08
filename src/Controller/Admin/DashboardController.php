@@ -8,8 +8,6 @@ use App\Entity\Categories;
 use App\Entity\Concours;
 use App\Entity\ConcoursParticipants;
 use App\Entity\Events;
-use App\Entity\Hebdoo;
-use App\Entity\HebdooSemaine;
 use App\Entity\Languages;
 use App\Entity\Posts;
 use App\Entity\SimpleLinks;
@@ -68,10 +66,6 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('');
         yield MenuItem::linkToCrud('Blog', 'fas fa-list', Posts::class);
-
-        yield MenuItem::section('Hebdoo');
-        yield MenuItem::linkToCrud('Ressource', 'fas fa-list', Hebdoo::class);
-        yield MenuItem::linkToCrud('Hebdoo de la semaine', 'fas fa-list', HebdooSemaine::class);
 
         yield MenuItem::section('Concours');
         yield MenuItem::linkToCrud('Concours', 'fas fa-list', Concours::class);

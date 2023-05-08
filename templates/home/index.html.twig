@@ -9,7 +9,6 @@
             <a href="#section_authors" class="nav-link" target="_self">Top créateurs</a>
             <a href="#section_tags" class="nav-link" target="_self">Tags</a>
             <a href="#section_ressources" class="nav-link" target="_self">Ressources</a>
-            <a href="#section_hebdoo" class="nav-link" target="_self">Hebdoo</a>
             <a href="#section_articles" class="nav-link" target="_self">Articles</a>
             <a href="#section_podcasts" class="nav-link" target="_self">Podcasts</a>
             <a href="#section_formations" class="nav-link" target="_self">Formations</a>
@@ -175,53 +174,6 @@
                             <span class="counter">{{ countForCategory('formations') }}</span>
                             <span>Formations</span>
                         </a>
-                    </div>
-                </div>
-
-                <div class="row pb-3">
-                    <div class="col">
-                        <div class="section-heading style-2 my-4">
-                            <h2 class="h2" id="section_hebdoo">
-                                {% if isConcoursOpen() %}
-                                    <span class="text-primary me-2"><i class="bi bi-gift"></i></span>Concours:
-                                {% else %}
-                                    <span class="text-primary me-2"><i class="bi bi-h-square"></i></span>{{ 'home.hebdoo'|trans|capitalize }}
-                                {% endif %}
-                            </h2>
-                            <div class="line"></div>
-                        </div>
-
-                        <div class="row pb-1">
-                            <h3 class="h3">
-                                {% if isConcoursOpen() %}
-                                    <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
-                                       class="text-decoration-none"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="Accèder à la vidéo de présentation des lots sur Youtube"
-                                       target="_blank">
-                                        {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
-                                    </a>
-                                {% else %}
-                                    <a href="https://www.youtube.fr/watch?v={{ hebdoo.youtube }}"
-                                       class="text-decoration-none"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="Accèder à la vidéo Hebdoo.fr sur Youtube"
-                                       target="_blank">
-                                        Semaine du {{ hebdoo.title }} <i class="ms-1 bi bi-box-arrow-up-right"></i>
-                                    </a>
-                                {% endif %}
-                            </h3>
-                        </div>
-
-                        <div class="row pb-3">
-                            {% for ressource in hebdoo.ressources %}
-                                {{ include('home/_card_hebdoo.html.twig', {'link': ressource}) }}
-                            {% else %}
-                                <p>Aucune ressource pour le moment</p>
-                            {% endfor %}
-                        </div>
                     </div>
                 </div>
             </div>
